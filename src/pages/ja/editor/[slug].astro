@@ -1,0 +1,291 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EditorApp from '../../../components/EditorApp';
+
+export async function getStaticPaths() {
+  const engines = [
+    {
+      slug: 'rpg-maker-mv',
+      name: 'RPG Maker MV',
+      fileType: '.rpgsave',
+      title: 'RPGツクールMV セーブエディタ | オンライン & 無料',
+      description:
+        'RPGツクールMV (.rpgsave) のセーブデータをオンラインで編集。所持金、ステータス、アイテム、変数を変更可能。ダウンロード不要。',
+      keywords: 'RPGツクールMV セーブ改造, rpgsave エディタ, ツクールMV セーブデータ 編集',
+      features: [
+        '所持金 / お金の編集',
+        'キャラクターステータスの変更 (レベル, EXP, HP, MP)',
+        'アイテムと武器のアンロック',
+        'ゲーム変数とスイッチの編集',
+      ],
+      instructions: [
+        'セーブファイルを探します (通常はゲームフォルダ内の `www/save/` にあります)',
+        '上のエリアに `file1.rpgsave` ファイルをアップロードします',
+        '所持金、ステータス、変数を編集します',
+        '編集したファイルをダウンロードし、元のファイルと置き換えます',
+      ],
+    },
+    {
+      slug: 'unity',
+      name: 'Unity',
+      fileType: '.xml, .plist, .prefs',
+      title: 'Unity セーブエディタ | PlayerPrefs 編集',
+      description:
+        '無料のオンラインUnityセーブエディタ。Android、iOS、PCゲームのUnity PlayerPrefs (.xml, .plist) を変更。ダウンロード不要。',
+      keywords: 'Unity セーブエディタ, Unity PlayerPrefs 改造, Unity xml 編集, Unity plist 編集',
+      features: [
+        'PlayerPrefs データの編集',
+        'ゲーム設定の変更',
+        'レベルと実績のアンロック',
+        'クロスプラットフォーム対応 (Android XML, iOS Plist)',
+      ],
+      instructions: [
+        'Unityのセーブファイルを探します (多くの場合 `AppData` やゲームフォルダ内)',
+        '`.xml` または `.plist` ファイルをアップロードします',
+        'エディタで値を変更します',
+        'ダウンロードして元のファイルを置き換えます',
+      ],
+    },
+    {
+      slug: 'renpy',
+      name: "Ren'Py",
+      fileType: '.save',
+      title: "Ren'Py セーブエディタ | セーブファイルをオンラインで編集",
+      description:
+        "オンライン Ren'Py セーブファイルエディタ。.save ファイルを解析・編集し、ゲームの状態、変数、フラグを変更。Protocol 0 Pickle形式で実験的保存対応。",
+      keywords:
+        "Ren'Py セーブエディタ, Ren'Py セーブ改造, Ren'Py セーブデータ 編集, .save ファイル 編集",
+      features: [
+        "Ren'Py セーブデータの閲覧・編集",
+        'ゲーム変数とフラグの変更',
+        '履歴とプレイ時間の確認',
+        '実験的保存サポート (Protocol 0 Pickle)',
+      ],
+      instructions: [
+        "Ren'Pyのセーブファイルを探します (通常は `game/saves/` にあります)",
+        '`.save` ファイルをアップロードします',
+        'ゲームの状態と変数を編集します',
+        "⚠️ 注意: 保存は実験的機能です。Ren'Py 8.0+ はセキュリティチェックにより変更されたセーブを拒否する場合があります。",
+      ],
+    },
+    {
+      slug: 'unreal',
+      name: 'Unreal Engine',
+      fileType: '.sav',
+      title: 'Unreal Engine セーブエディタ | .sav ファイル編集',
+      description:
+        'Unreal Engine 4 & 5 のセーブファイル (.sav) をオンラインで編集。GVAS形式を解析し、プロパティとインベントリを変更。Palworldなどに対応。',
+      keywords: 'Unreal Engine セーブエディタ, uesave エディタ, .sav ファイル 編集, GVAS エディタ',
+      features: [
+        'GVAS (.sav) フォーマットの解析',
+        'ゲームプロパティの編集',
+        'インベントリとステータスの変更',
+        'UE4 および UE5 ゲームのサポート',
+      ],
+      instructions: [
+        'ゲームのセーブディレクトリにある `.sav` ファイルを探します',
+        'ファイルをエディタにアップロードします',
+        'セーブデータのJSON構造を変更します',
+        '変更された `.sav` ファイルをダウンロードします',
+      ],
+    },
+    {
+      slug: 'gamemaker',
+      name: 'GameMaker',
+      fileType: '.ini, .json',
+      title: 'GameMaker セーブエディタ | INI & JSON 編集',
+      description:
+        '万能 GameMaker セーブエディタ。GameMaker Studio ゲームで使用される .ini および .json セーブファイルを変更。シンプルで高速。',
+      keywords:
+        'GameMaker セーブエディタ, GameMaker セーブ 改造, Undertale セーブエディタ, GameMaker ini 編集',
+      features: [
+        'INI 設定ファイルの編集',
+        'JSON セーブデータの変更',
+        'カスタムフォーマット用のテキスト編集フォールバック',
+        'GameMaker Studio 1 & 2 と互換性あり',
+      ],
+      instructions: [
+        'セーブファイルを探します (多くの場合 `save.ini` または `save.json`)',
+        'エディタにアップロードします',
+        '所持金、体力、アンロックアイテムなどの値を変更します',
+        '保存して元のファイルを置き換えます',
+      ],
+    },
+    {
+      slug: 'naninovel',
+      name: 'NaniNovel',
+      fileType: '.nson',
+      title: 'NaniNovel セーブエディタ | .nson ファイル編集',
+      description:
+        'NaniNovel ビジュアルノベルのセーブファイル (.nson) をオンラインで編集。ゲームの状態、フラグ、変数を簡単に変更。',
+      keywords: 'NaniNovel セーブエディタ, .nson ファイル 編集, ビジュアルノベル セーブ改造',
+      features: [
+        '.nson ファイルの解析',
+        'ゲーム状態 JSON の編集',
+        'グローバル変数の変更',
+        '圧縮されたセーブデータのサポート',
+      ],
+      instructions: [
+        '`.nson` セーブファイルを探します',
+        'エディタにアップロードします',
+        'JSON データを変更します',
+        '更新されたファイルをダウンロードします',
+      ],
+    },
+  ];
+
+  return engines.map((engine) => ({
+    params: { slug: engine.slug },
+    props: { engine },
+  }));
+}
+
+const { engine } = Astro.props;
+---
+
+<BaseLayout title={engine.title} description={engine.description} keywords={engine.keywords}>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+      <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/ja" class="hover:text-gray-900">ホーム</a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg
+                class="w-3 h-3 text-gray-400 mx-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"></path>
+              </svg>
+              <span class="ml-1 text-gray-700 font-medium">{engine.name}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+          {engine.name} セーブエディタ
+        </h1>
+        <p class="text-lg text-gray-600">
+          <code class="bg-gray-100 px-2 py-1 rounded text-sm">{engine.fileType}</code> をアップロードして編集を開始。
+        </p>
+      </div>
+
+      <!-- Interactive Editor App -->
+      <div class="min-h-[400px]">
+        <EditorApp client:only="react" />
+      </div>
+
+      <div class="mt-16 prose prose-blue max-w-none">
+        <h2>使い方</h2>
+        <ol>
+          {
+            engine.instructions.map((step) => (
+              <li>
+                <Fragment set:html={step.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+              </li>
+            ))
+          }
+        </ol>
+
+        <h2>機能</h2>
+        <ul>
+          {engine.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-12 not-prose">
+          <h3 class="text-lg font-bold text-blue-900 mb-2">ヘルプが必要ですか？</h3>
+          <p class="text-blue-700 mb-4">
+            {engine.name}の詳細ガイドをご覧ください。
+          </p>
+          {
+            (() => {
+              const tutorialMap = {
+                'rpg-maker-mv': '/blog/ja/how-to-edit-rpg-maker-save',
+                unity: '/blog/ja/how-to-edit-unity-saves',
+                unreal: '/blog/ja/how-to-edit-unreal-engine-saves',
+                renpy: '/blog/ja/renpy-save-editing-guide',
+                naninovel: '/blog/ja/naninovel-save-editing-guide',
+                gamemaker: '/blog/ja/gamemaker-save-editing-guide',
+              } as const;
+              const tutorialLink =
+                tutorialMap[engine.slug as keyof typeof tutorialMap] ||
+                '/blog/ja/common-save-file-extensions-explained';
+
+              return (
+                <a
+                  href={tutorialLink}
+                  class="text-blue-600 font-medium hover:underline flex items-center gap-1"
+                >
+                  完全なチュートリアルを読む
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </a>
+              );
+            })()
+          }
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Schema.org Structured Data -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: `${engine.name} セーブエディタ`,
+      description: engine.description,
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Web Browser',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' },
+      featureList: engine.features,
+      inLanguage: 'ja',
+      author: {
+        '@type': 'Organization',
+        name: 'Save Editor Online',
+        url: 'https://saveeditor.top',
+      },
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'ホーム',
+          item: 'https://saveeditor.top/ja/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: `${engine.name} エディタ`,
+          item: `https://saveeditor.top/ja/editor/${engine.slug}`,
+        },
+      ],
+    })}
+  />
+</BaseLayout>

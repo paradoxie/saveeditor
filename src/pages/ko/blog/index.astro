@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Only show Korean posts (posts with 'ko/' prefix in slug)
+const posts = (await getCollection('blog'))
+  .filter((post) => post.slug.startsWith('ko/'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="세이브 에디터 가이드 & 튜토리얼"
+  description="게임 세이브 편집, 스탯 수정, 기능 해제 방법에 대한 종합 가이드."
+>
+  <main class="container mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">가이드 & 튜토리얼</h1>
+      <p class="text-xl text-gray-600">세이브 편집 기술을 마스터하세요</p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((post) => (
+          <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-4">
+                {post.data.tags.map((tag) => (
+                  <span class="bg-primary-50 text-primary-700 text-xs px-2 py-1 rounded-full font-medium uppercase tracking-wide">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
+                <a href={`/blog/${post.slug}`} class="hover:text-primary-600 transition-colors">
+                  {post.data.title}
+                </a>
+              </h2>
+              <p class="text-gray-600 mb-4 line-clamp-3 text-sm">{post.data.description}</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mt-auto">
+                <span>{post.data.pubDate.toLocaleDateString('ko-KR')}</span>
+                <span>{post.data.author}</span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {
+      posts.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-gray-500">게시물이 없습니다.</p>
+        </div>
+      )
+    }
+  </main>
+</BaseLayout>

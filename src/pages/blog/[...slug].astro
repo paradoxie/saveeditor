@@ -1,0 +1,197 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  keywords={post.data.tags.join(', ')}
+>
+  <main class="container mx-auto px-4 py-12">
+    <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+          <a
+            href={`/${lang === 'en' ? '' : lang}`}
+            class="inline-flex items-center hover:text-primary-600"
+          >
+            <svg
+              class="w-4 h-4 mr-2"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              ><path
+                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+              ></path></svg
+            >
+            {t('nav.home')}
+          </a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg
+              class="w-6 h-6 text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              ><path
+                fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"></path></svg
+            >
+            <a href={`/${lang === 'en' ? '' : lang + '/'}blog`} class="ml-1 hover:text-primary-600"
+              >{t('nav.blog')}</a
+            >
+          </div>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg
+              class="w-6 h-6 text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              ><path
+                fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"></path></svg
+            >
+            <span class="ml-1 text-gray-400 truncate max-w-[200px]">{post.data.title}</span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+
+    <article class="max-w-6xl mx-auto">
+      <header class="mb-10 text-center">
+        <div class="flex justify-center gap-2 mb-6">
+          {
+            post.data.tags.map((tag) => (
+              <span class="bg-primary-50 text-primary-700 text-sm px-3 py-1 rounded-full font-medium uppercase tracking-wide">
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-4 leading-tight">
+          {post.data.title}
+        </h1>
+        <div class="text-gray-500 flex items-center justify-center gap-4">
+          <span>{post.data.pubDate.toLocaleDateString()}</span>
+          <span>•</span>
+          <span>By {post.data.author}</span>
+        </div>
+      </header>
+
+      <div
+        class="prose prose-lg prose-blue max-w-none bg-white p-8 md:p-12 rounded-xl shadow-sm border border-gray-100"
+      >
+        <Content />
+
+        <div class="my-12 p-8 bg-gray-50 rounded-xl border border-gray-200 text-center not-prose">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('blog.readyToEditTitle')}</h3>
+          <p class="text-gray-600 mb-6">
+            {t('blog.readyToEditDesc')}
+          </p>
+          <a
+            href={`/${lang === 'en' ? '' : lang}`}
+            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+          >
+            {t('blog.launchEditor')}
+          </a>
+        </div>
+      </div>
+
+      <!-- Related Articles -->
+      <div class="mt-16 border-t border-gray-200 pt-12">
+        <h3 class="text-2xl font-bold text-gray-900 mb-8">{t('blog.relatedArticles')}</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+          {
+            (await getCollection('blog'))
+              .filter((p) => {
+                // Filter out current post
+                if (p.slug === post.slug) return false;
+
+                // Filter by language
+                const isEnglishPost = !p.slug.includes('/');
+                if (lang === 'en') {
+                  if (!isEnglishPost) return false;
+                } else {
+                  if (!p.slug.startsWith(`${lang}/`)) return false;
+                }
+
+                // Filter by tags
+                return p.data.tags.some((t) => post.data.tags.includes(t));
+              })
+              .slice(0, 2)
+              .map((relatedPost) => (
+                <a
+                  href={`/blog/${relatedPost.slug}`}
+                  class="group block bg-white rounded-xl p-6 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all"
+                >
+                  <h4 class="font-bold text-lg text-gray-900 group-hover:text-primary-600 mb-2 line-clamp-2">
+                    {relatedPost.data.title}
+                  </h4>
+                  <p class="text-gray-600 text-sm line-clamp-2">{relatedPost.data.description}</p>
+                </a>
+              ))
+          }
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+          class="text-primary-600 hover:text-primary-700 font-medium"
+        >
+          {t('blog.backToTutorials')}
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <!-- BreadcrumbList Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://saveeditor.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog',
+          item: 'https://saveeditor.com/blog',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: post.data.title,
+          item: `https://saveeditor.com/blog/${post.slug}`,
+        },
+      ],
+    })}
+  />
+</BaseLayout>

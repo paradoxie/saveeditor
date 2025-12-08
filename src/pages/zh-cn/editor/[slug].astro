@@ -1,0 +1,274 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EditorApp from '../../../components/EditorApp';
+
+export async function getStaticPaths() {
+  const engines = [
+    {
+      slug: 'rpg-maker-mv',
+      name: 'RPG Maker MV',
+      fileType: '.rpgsave',
+      title: 'RPG Maker MV 存档编辑器 | 在线免费',
+      description:
+        '在线编辑 RPG Maker MV (.rpgsave) 存档文件。修改金币、属性、物品和变量。无需下载。',
+      keywords: 'RPG Maker MV 存档编辑器, rpgsave 编辑器, 存档修改',
+      features: [
+        '编辑金币 / 金钱',
+        '修改角色属性 (等级, 经验值, HP, MP)',
+        '解锁物品和武器',
+        '编辑游戏变量和开关',
+      ],
+      instructions: [
+        '找到您的存档文件 (通常在游戏文件夹的 `www/save/` 目录下)',
+        '上传 `file1.rpgsave` 文件',
+        '编辑金币、属性和变量',
+        '下载修改后的文件并替换原文件',
+      ],
+    },
+    {
+      slug: 'unity',
+      name: 'Unity',
+      fileType: '.xml, .plist, .prefs',
+      title: 'Unity 存档编辑器 | 在线编辑 PlayerPrefs',
+      description:
+        '免费在线 Unity 存档编辑器。修改 Android、iOS 和 PC 游戏的 Unity PlayerPrefs (.xml, .plist)。无需下载。',
+      keywords: 'Unity 存档编辑器, Unity PlayerPrefs 编辑, Unity xml 存档编辑',
+      features: [
+        '编辑 PlayerPrefs 数据',
+        '修改游戏设置',
+        '解锁关卡和成就',
+        '跨平台支持 (Android XML, iOS Plist)',
+      ],
+      instructions: [
+        '找到您的 Unity 存档文件 (通常在 `AppData` 或游戏文件夹)',
+        '上传 `.xml` 或 `.plist` 文件',
+        '在编辑器中修改数值',
+        '下载并替换原文件',
+      ],
+    },
+    {
+      slug: 'renpy',
+      name: "Ren'Py",
+      fileType: '.save',
+      title: "Ren'Py 存档编辑器 | 在线编辑存档文件",
+      description:
+        "在线 Ren'Py 存档文件编辑器。解析和编辑 .save 文件，修改游戏状态、变量和标记。支持 Protocol 0 Pickle 格式的实验性保存功能。",
+      keywords: "Ren'Py 存档编辑器, Ren'Py 存档修改, .save 文件编辑",
+      features: [
+        "查看和编辑 Ren'Py 存档数据",
+        '修改游戏变量和标记',
+        '检查历史记录和游戏时间',
+        '实验性保存支持 (Protocol 0 Pickle)',
+      ],
+      instructions: [
+        "找到您的 Ren'Py 存档文件 (通常在 `game/saves/`)",
+        '上传 `.save` 文件',
+        '编辑游戏状态和变量',
+        "⚠️ 注意：保存功能为实验性。Ren'Py 8.0+ 可能因安全检查拒绝修改后的存档。",
+      ],
+    },
+    {
+      slug: 'unreal',
+      name: 'Unreal Engine',
+      fileType: '.sav',
+      title: 'Unreal Engine 存档编辑器 | 编辑 .sav 文件',
+      description:
+        '在线编辑 Unreal Engine 4 & 5 存档文件 (.sav)。解析 GVAS 格式，修改属性和物品栏。支持幻兽帕鲁等游戏。',
+      keywords: 'Unreal Engine 存档编辑器, uesave 编辑器, .sav 文件编辑, GVAS 编辑器',
+      features: [
+        '解析 GVAS (.sav) 格式',
+        '编辑游戏属性',
+        '修改物品栏和属性',
+        '支持 UE4 和 UE5 游戏',
+      ],
+      instructions: [
+        '在游戏存档目录中找到 `.sav` 文件',
+        '将文件上传到编辑器',
+        '修改存档数据的 JSON 结构',
+        '下载修改后的 `.sav` 文件',
+      ],
+    },
+    {
+      slug: 'gamemaker',
+      name: 'GameMaker',
+      fileType: '.ini, .json',
+      title: 'GameMaker 存档编辑器 | 编辑 INI 和 JSON 存档',
+      description:
+        '通用 GameMaker 存档编辑器。修改 GameMaker Studio 游戏使用的 .ini 和 .json 存档文件。简单快速。',
+      keywords: 'GameMaker 存档编辑器, GameMaker 存档修改, Undertale 存档编辑器',
+      features: [
+        '编辑 INI 配置文件',
+        '修改 JSON 存档数据',
+        '自定义格式的纯文本编辑回退',
+        '兼容 GameMaker Studio 1 & 2',
+      ],
+      instructions: [
+        '找到您的存档文件 (通常是 `save.ini` 或 `save.json`)',
+        '上传到编辑器',
+        '修改金钱、生命值、解锁物品等数值',
+        '保存并替换原文件',
+      ],
+    },
+    {
+      slug: 'naninovel',
+      name: 'NaniNovel',
+      fileType: '.nson',
+      title: 'NaniNovel 存档编辑器 | 编辑 .nson 文件',
+      description: '在线编辑 NaniNovel 视觉小说存档文件 (.nson)。轻松修改游戏状态、标记和变量。',
+      keywords: 'NaniNovel 存档编辑器, .nson 文件编辑, 视觉小说存档编辑器',
+      features: ['解析 .nson 文件', '编辑游戏状态 JSON', '修改全局变量', '支持压缩存档'],
+      instructions: [
+        '找到您的 `.nson` 存档文件',
+        '上传到编辑器',
+        '修改 JSON 数据',
+        '下载更新后的文件',
+      ],
+    },
+  ];
+
+  return engines.map((engine) => ({
+    params: { slug: engine.slug },
+    props: { engine },
+  }));
+}
+
+const { engine } = Astro.props;
+---
+
+<BaseLayout title={engine.title} description={engine.description} keywords={engine.keywords}>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+      <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/zh-cn" class="hover:text-gray-900">首页</a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg
+                class="w-3 h-3 text-gray-400 mx-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"></path>
+              </svg>
+              <span class="ml-1 text-gray-700 font-medium">{engine.name}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+          {engine.name} 存档编辑器
+        </h1>
+        <p class="text-lg text-gray-600">
+          上传您的 <code class="bg-gray-100 px-2 py-1 rounded text-sm">{engine.fileType}</code> 文件开始编辑。
+        </p>
+      </div>
+
+      <div class="min-h-[400px]">
+        <EditorApp client:only="react" />
+      </div>
+
+      <div class="mt-16 prose prose-blue max-w-none">
+        <h2>使用方法</h2>
+        <ol>
+          {
+            engine.instructions.map((step) => (
+              <li>
+                <Fragment set:html={step.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+              </li>
+            ))
+          }
+        </ol>
+
+        <h2>功能特点</h2>
+        <ul>
+          {engine.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-12 not-prose">
+          <h3 class="text-lg font-bold text-blue-900 mb-2">需要帮助？</h3>
+          <p class="text-blue-700 mb-4">查看我们的 {engine.name} 详细指南。</p>
+          {
+            (() => {
+              const tutorialMap = {
+                'rpg-maker-mv': '/blog/zh-cn/how-to-edit-rpg-maker-save',
+                unity: '/blog/zh-cn/how-to-edit-unity-saves',
+                unreal: '/blog/zh-cn/how-to-edit-unreal-engine-saves',
+                renpy: '/blog/zh-cn/renpy-save-editing-guide',
+                naninovel: '/blog/zh-cn/naninovel-save-editing-guide',
+                gamemaker: '/blog/zh-cn/gamemaker-save-editing-guide',
+              } as const;
+              const tutorialLink =
+                tutorialMap[engine.slug as keyof typeof tutorialMap] ||
+                '/blog/zh-cn/common-save-file-extensions-explained';
+
+              return (
+                <a
+                  href={tutorialLink}
+                  class="text-blue-600 font-medium hover:underline flex items-center gap-1"
+                >
+                  阅读完整教程
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </a>
+              );
+            })()
+          }
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: `${engine.name} 存档编辑器`,
+      description: engine.description,
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Web Browser',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'CNY' },
+      featureList: engine.features,
+      inLanguage: 'zh-CN',
+      author: {
+        '@type': 'Organization',
+        name: 'Save Editor Online',
+        url: 'https://saveeditor.top',
+      },
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '首页', item: 'https://saveeditor.top/zh-cn/' },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: `${engine.name} 编辑器`,
+          item: `https://saveeditor.top/zh-cn/editor/${engine.slug}`,
+        },
+      ],
+    })}
+  />
+</BaseLayout>

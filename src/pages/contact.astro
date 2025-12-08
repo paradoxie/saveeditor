@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact Us | Save Editor Online"
+  description="Contact the Save Editor Online team."
+>
+  <main class="container mx-auto px-4 py-12 max-w-6xl">
+    <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">Contact Us</h1>
+
+    <div class="grid md:grid-cols-2 gap-12">
+      <div>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+          Have a question, suggestion, or just want to say hello? We'd love to hear from you. Fill
+          out the form below and we'll get back to you as soon as possible.
+        </p>
+
+        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mb-8">
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Response Time</h3>
+          <p class="text-blue-800 dark:text-blue-200 text-sm mb-4">
+            We are a small team, but we try our best to respond to all inquiries within <strong
+              >24-48 hours</strong
+            >.
+          </p>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Business Inquiries</h3>
+          <p class="text-blue-800 dark:text-blue-200 text-sm">
+            For partnerships, press, or business matters, please select "Business Partnership" in
+            the form or email us directly.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
+            >
+              📧
+            </div>
+            <div>
+              <div class="font-bold text-gray-900 dark:text-white">Email</div>
+              <a href="mailto:support@saveeditor.com" class="text-primary-600 hover:underline"
+                >support@saveeditor.com</a
+              >
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
+            >
+              🐦
+            </div>
+            <div>
+              <div class="font-bold text-gray-900 dark:text-white">Twitter / X</div>
+              <a href="#" class="text-primary-600 hover:underline">@SaveEditorOnline</a>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
+            >
+              💬
+            </div>
+            <div>
+              <div class="font-bold text-gray-900 dark:text-white">Discord</div>
+              <a href="#" class="text-primary-600 hover:underline">Join Community</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700"
+      >
+        <div
+          id="success-message"
+          class="hidden mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong class="font-bold">Message Sent!</strong>
+          <span class="block sm:inline"
+            >Thank you for contacting us. We'll get back to you shortly.</span
+          >
+        </div>
+        <form class="space-y-6" id="contact-form">
+          <div>
+            <label
+              for="name"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="Your name"
+            />
+          </div>
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="your@email.com"
+            />
+          </div>
+          <div>
+            <label
+              for="subject"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subject</label
+            >
+            <select
+              id="subject"
+              name="subject"
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="general">General Inquiry</option>
+              <option value="support">Technical Support</option>
+              <option value="feature">Feature Request</option>
+              <option value="bug">Bug Report</option>
+              <option value="business">Business Partnership</option>
+            </select>
+          </div>
+          <div>
+            <label
+              for="message"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="How can we help you?"></textarea>
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+          >
+            <span>Send Message</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
+              ></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('success-message');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // In a real app, you would send data to a backend here.
+      // For now, we simulate a successful submission.
+
+      // Reset form
+      (form as HTMLFormElement).reset();
+
+      // Show success message
+      successMessage?.classList.remove('hidden');
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</BaseLayout>

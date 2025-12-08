@@ -1,0 +1,116 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import { getLangFromUrl } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  ogImage?: string;
+}
+
+const { title, description, keywords, ogImage } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveeditor.com');
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Security: Content Security Policy -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; 
+                   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; 
+                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+                   font-src 'self' https://fonts.gstatic.com; 
+                   img-src 'self' data: https:; 
+                   connect-src 'self' https://www.google-analytics.com;"
+    />
+
+    <!-- SEO Meta -->
+    <title>{title} | Save Editor Online</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Hreflang Tags -->
+    <link
+      rel="alternate"
+      hreflang="en"
+      href={`https://saveeditor.com${Astro.url.pathname.replace(/^\/(ja|pt)/, '')}`}
+    />
+    <link
+      rel="alternate"
+      hreflang="ja"
+      href={`https://saveeditor.com/ja${Astro.url.pathname.replace(/^\/(ja|pt)/, '')}`}
+    />
+    <link
+      rel="alternate"
+      hreflang="pt"
+      href={`https://saveeditor.com/pt${Astro.url.pathname.replace(/^\/(ja|pt)/, '')}`}
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={`https://saveeditor.com${Astro.url.pathname.replace(/^\/(ja|pt)/, '')}`}
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Performance: Preconnect to external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Performance: Font optimization with font-display -->
+    <style>
+      @font-face {
+        font-family: 'System';
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-200"
+  >
+    <!-- Accessibility: Skip to main content -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-4 focus:bg-primary-600 focus:text-white focus:font-bold"
+    >
+      {
+        lang === 'ja'
+          ? 'メインコンテンツへスキップ'
+          : lang === 'pt'
+            ? 'Pular para o conteúdo principal'
+            : 'Skip to main content'
+      }
+    </a>
+
+    <Header />
+    <div id="main-content">
+      <slot />
+    </div>
+    <Footer />
+    <CookieConsent />
+  </body>
+</html>

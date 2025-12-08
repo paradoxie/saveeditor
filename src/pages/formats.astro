@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const formats = [
+  {
+    extension: '.rpgsave',
+    name: 'RPG Maker Save',
+    engines: ['RPG Maker MV', 'RPG Maker MZ'],
+    description:
+      'Base64 encoded JSON files used by modern RPG Maker games. Contains all player progress including party, inventory, map position, and game variables.',
+    editor: '/editor/rpg-maker-mv',
+    games: ['Omori', 'OneShot', 'To the Moon', 'Corpse Party'],
+  },
+  {
+    extension: '.rvdata2',
+    name: 'Ruby Marshal Data',
+    engines: ['RPG Maker VX Ace'],
+    description:
+      'Binary Ruby Marshal format containing serialized game state. Used by older RPG Maker versions built on Ruby.',
+    editor: '/editor/rpg-maker-mv',
+    games: ['To the Moon', "The Witch's House", 'Mad Father'],
+  },
+  {
+    extension: '.save',
+    name: "Ren'Py Save",
+    engines: ["Ren'Py"],
+    description:
+      'Python pickle format containing visual novel state including story progress, choices made, and persistent data.',
+    editor: '/editor/renpy',
+    games: ['Doki Doki Literature Club', 'Katawa Shoujo', 'VA-11 HALL-A'],
+  },
+  {
+    extension: 'PlayerPrefs',
+    name: 'Unity PlayerPrefs',
+    engines: ['Unity'],
+    description:
+      'Platform-specific storage for Unity games. XML on Windows, plist on macOS, binary on mobile. Stores game settings and simple progress data.',
+    editor: '/editor/unity',
+    games: ['Hollow Knight', 'Cuphead', 'Subnautica'],
+  },
+  {
+    extension: '.sav (GVAS)',
+    name: 'Unreal Engine Save',
+    engines: ['Unreal Engine 4', 'Unreal Engine 5'],
+    description:
+      'Binary GVAS format used by Unreal Engine. Contains serialized UObject data with property system preservation.',
+    editor: '/editor/unreal',
+    games: ['Palworld', 'Satisfactory', 'Deep Rock Galactic'],
+  },
+  {
+    extension: '.ini',
+    name: 'INI Configuration',
+    engines: ['GameMaker Studio', 'Custom'],
+    description:
+      'Simple key-value text format commonly used for game settings. Human-readable and easy to modify.',
+    editor: '/editor/gamemaker',
+    games: ['Undertale', 'Deltarune'],
+  },
+  {
+    extension: '.json',
+    name: 'JSON Data',
+    engines: ['Unity', 'GameMaker', 'Custom'],
+    description:
+      'Universal JavaScript Object Notation format. Human-readable structured data used by many modern games.',
+    editor: '/editor/unity',
+    games: ['Among Us', 'Various indie games'],
+  },
+  {
+    extension: '.nson',
+    name: 'NaniNovel Save',
+    engines: ['NaniNovel (Unity)'],
+    description:
+      'Custom JSON-like format for NaniNovel visual novel engine. Stores script state, variables, and player choices.',
+    editor: '/editor/naninovel',
+    games: ['NaniNovel-based visual novels'],
+  },
+  {
+    extension: '.xml',
+    name: 'XML Data',
+    engines: ['Unity', 'Custom'],
+    description:
+      'Extensible Markup Language format. Structured hierarchical data often used for complex save systems.',
+    editor: '/editor/unity',
+    games: ['Cities: Skylines', 'Various strategy games'],
+  },
+  {
+    extension: '.plist',
+    name: 'Property List',
+    engines: ['Unity (macOS/iOS)', 'Native macOS'],
+    description:
+      'Apple property list format. Binary or XML structure used for macOS and iOS game saves.',
+    editor: '/editor/unity',
+    games: ['iOS/macOS Unity games'],
+  },
+];
+---
+
+<BaseLayout
+  title="Game Save File Formats Explained | Save Editor Online"
+  description="Comprehensive guide to game save file formats including .rpgsave, .sav, PlayerPrefs, and more. Learn which format your game uses and how to edit it."
+  keywords="game save format, rpgsave, playerprefs, gvas, save file extension, game data format"
+>
+  <main class="flex-grow container mx-auto px-4 py-12">
+    <div class="max-w-6xl mx-auto">
+      <!-- Hero Section -->
+      <div class="text-center mb-16">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-6">
+          Save File <span class="text-primary-600">Formats</span>
+        </h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Games use different file formats to store your progress. Understanding these formats helps
+          you choose the right editor and successfully modify your saves.
+        </p>
+      </div>
+
+      <!-- Format Cards -->
+      <div class="grid gap-6">
+        {
+          formats.map((format) => (
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
+              <div class="p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                  <div class="flex-shrink-0">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center">
+                      <span class="text-white font-mono text-xs font-bold text-center px-1">
+                        {format.extension}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex-grow">
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                      <h2 class="text-xl font-bold text-gray-900">{format.name}</h2>
+                      {format.engines.map((engine) => (
+                        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full">
+                          {engine}
+                        </span>
+                      ))}
+                    </div>
+                    <p class="text-gray-600 mb-4">{format.description}</p>
+                    <div class="flex flex-wrap items-center gap-4">
+                      <div class="text-sm text-gray-500">
+                        <span class="font-medium">Example games:</span> {format.games.join(', ')}
+                      </div>
+                      <a
+                        href={format.editor}
+                        class="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700"
+                      >
+                        Open Editor →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- CTA Section -->
+      <div
+        class="mt-16 text-center bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-2xl p-12"
+      >
+        <h2 class="text-3xl font-bold mb-4">Not Sure Which Format?</h2>
+        <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+          Upload your save file and our tool will automatically detect the format and choose the
+          right parser. No technical knowledge required!
+        </p>
+        <a
+          href="/"
+          class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-gray-900 bg-white hover:bg-gray-100 transition-colors"
+        >
+          Upload & Auto-Detect
+        </a>
+      </div>
+
+      <!-- SEO Content -->
+      <div class="mt-16 prose prose-gray max-w-none">
+        <h2>Understanding Game Save Formats</h2>
+        <p>
+          Game developers choose save file formats based on security needs, platform requirements,
+          and data complexity. While some formats like JSON and INI are human-readable, others like
+          GVAS and Ruby Marshal require specialized tools to decode.
+        </p>
+        <p>
+          Our <a href="/">Save Editor Online</a> supports all major formats and can automatically detect
+          which parser to use based on file content. Whether you're modifying an RPG Maker game, a Unity
+          title, or an Unreal Engine masterpiece, we have you covered.
+        </p>
+        <h3>How to Find Your Save Files</h3>
+        <ul>
+          <li>
+            <strong>Windows:</strong> Check <code>%APPDATA%</code>, <code>Documents/My Games</code>,
+            or the game's installation folder
+          </li>
+          <li>
+            <strong>macOS:</strong> Look in <code>~/Library/Application Support</code> or <code
+              >~/Library/Preferences</code>
+          </li>
+          <li>
+            <strong>Linux:</strong> Check <code>~/.local/share</code> or <code>~/.config</code>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

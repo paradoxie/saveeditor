@@ -1,0 +1,449 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+---
+
+<BaseLayout
+  title="無料オンラインセーブエディタ | RPGツクール, Ren'Py, Unity対応"
+  description="ブラウザでゲームのセーブデータを無料で編集。RPGツクール、Ren'Py、Unityなどに対応。ダウンロード不要で安全です。"
+  keywords="セーブエディタ, RPGツクール セーブ改造, Ren'Py セーブ編集, Unity セーブデータ 改造"
+>
+  <!-- Hero Section with Gradient Background -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white"
+  >
+    <!-- Decorative Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl">
+      </div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl">
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary-600/10 to-transparent rounded-full"
+      >
+      </div>
+    </div>
+
+    <div class="relative container mx-auto px-4 py-20 lg:py-28">
+      <div class="max-w-5xl mx-auto text-center">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-white/20"
+        >
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          100% クライアント処理 · ファイルはデバイスから離れません
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          セーブデータを <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+            >オンラインで編集</span
+          >
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          最も簡単なセーブデータ改造ツール。ダウンロード不要。100%無料。
+          RPGツクール、Ren'Py、Unity、Unreal Engineなどに対応。
+        </p>
+
+        <!-- Smart Upload Zone -->
+        <div class="max-w-2xl mx-auto mb-12">
+          <div
+            id="smart-upload-zone"
+            class="relative group cursor-pointer border-2 border-dashed border-white/30 hover:border-primary-400 rounded-2xl p-8 lg:p-12 transition-all duration-300 hover:bg-white/5 backdrop-blur-sm"
+          >
+            <input
+              type="file"
+              id="smart-file-input"
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              accept=".rpgsave,.rvdata2,.sav,.save,.xml,.plist,.ini,.json,.nson"
+            />
+            <div class="text-center">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-primary-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary-500/30"
+              >
+                <svg
+                  class="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-xl font-semibold mb-2">セーブファイルをここにドロップ</p>
+              <p class="text-gray-400 text-sm">
+                またはクリックして選択 · ゲームエンジンを自動検出します
+              </p>
+              <div class="flex flex-wrap justify-center gap-2 mt-4">
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.rpgsave</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.sav</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.save</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.xml</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.json</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.nson</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Or Choose Engine -->
+        <p class="text-gray-400 text-sm mb-6">または直接ゲームエンジンを選択</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-6xl mx-auto">
+          <a
+            href="/ja/editor/rpg-maker-mv"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              RPGツクール
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.rpgsave</div>
+          </a>
+          <a
+            href="/ja/editor/unity"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Unity
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.xml, .plist</div>
+          </a>
+          <a
+            href="/ja/editor/renpy"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Ren'Py
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.save</div>
+          </a>
+          <a
+            href="/ja/editor/unreal"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Unreal
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.sav</div>
+          </a>
+          <a
+            href="/ja/editor/gamemaker"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              GameMaker
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.ini, .json</div>
+          </a>
+          <a
+            href="/ja/editor/naninovel"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              NaniNovel
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.nson</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="flex-grow container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- Social Proof Stats -->
+      <div class="mb-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-primary-600 counter" data-target="80">
+            0
+          </div>
+          <div class="text-xs sm:text-sm text-primary-700 font-medium mt-1">対応ゲーム数</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-green-600 counter" data-target="6">0</div>
+          <div class="text-xs sm:text-sm text-green-700 font-medium mt-1">エンジン対応</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-purple-600 counter" data-target="100">
+            0
+          </div>
+          <div class="text-xs sm:text-sm text-purple-700 font-medium mt-1">% クライアント処理</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-amber-600">∞</div>
+          <div class="text-xs sm:text-sm text-amber-700 font-medium mt-1">ファイルサイズ無制限</div>
+        </div>
+      </div>
+
+      <!-- How it Works -->
+      <div class="mb-20">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">使い方</h2>
+        <p class="text-center text-gray-600 mb-12 max-w-xl mx-auto">
+          3つの簡単なステップでセーブデータを編集。インストール不要、登録不要。
+        </p>
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div
+            class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200"
+          >
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              1
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">ファイルをアップロード</h3>
+            <p class="text-gray-600">
+              ドラッグ＆ドロップまたは選択。すべての処理はブラウザ内で行われます。
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">🔒 100% プライベート</div>
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              2
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">値を編集</h3>
+            <p class="text-gray-600">
+              ゴールド、ステータス、アイテム、変数をビジュアルエディタで変更。
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">✏️ コーディング不要</div>
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              3
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">ダウンロード＆プレイ</h3>
+            <p class="text-gray-600">
+              編集したセーブファイルをダウンロードして元のファイルと置き換え。完了！
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">⚡ 即座に反映</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="mb-20 bg-gray-900 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-12">SaveEditor.Onlineを選ぶ理由</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div class="text-4xl mb-4">🔒</div>
+            <h3 class="text-xl font-bold mb-2">100% 安全</h3>
+            <p class="text-gray-400">
+              ファイルはデバイスを離れません。すべての処理はクライアント側で行われます。
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold mb-2">幅広い対応</h3>
+            <p class="text-gray-400">
+              RPGツクール、Unity、Ren'Py、Unreal、その他多くのエンジンに対応。
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl mb-4">💸</div>
+            <h3 class="text-xl font-bold mb-2">完全無料</h3>
+            <p class="text-gray-400">
+              ファイルサイズ制限なし、ストレージ制限なし、隠れた料金なし。有料ツールより優れています。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">対応ゲーム＆フォーマット</h2>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Stardew Valley</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Palworld</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Vampire Survivors</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Undertale</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >DDLC</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Deep Rock Galactic</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >.rpgsave</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >.sav (GVAS)</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >.save</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >PlayerPrefs</span
+          >
+        </div>
+        <p class="text-center text-gray-500 mt-6 text-sm">
+          その他、対応エンジンで作られた数千のゲーム。
+        </p>
+      </div>
+
+      <!-- Blog Section -->
+      <div class="mt-20 bg-primary-50 rounded-2xl p-12">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">セーブ編集ガイド</h2>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+          詳しいガイドとチュートリアルでセーブ編集をマスター。
+        </p>
+        <div class="grid md:grid-cols-3 gap-6">
+          {
+            (await getCollection('blog'))
+              .filter((post) => post.slug.startsWith('ja/'))
+              .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+              .slice(0, 3)
+              .map((post) => (
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow block"
+                >
+                  <h3 class="font-bold text-lg mb-2 text-gray-900 line-clamp-2">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm line-clamp-3">{post.data.description}</p>
+                  <div class="mt-4 text-primary-600 text-sm font-medium">ガイドを読む →</div>
+                </a>
+              ))
+          }
+        </div>
+        <div class="text-center mt-8">
+          <a
+            href="/blog"
+            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+          >
+            すべてのガイドを見る
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Animated counter for stats
+    const counters = document.querySelectorAll('.counter');
+    const animationDuration = 1500;
+
+    const animateCounter = (counter: Element) => {
+      const target = parseInt(counter.getAttribute('data-target') || '0');
+      const startTime = performance.now();
+
+      const updateCounter = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / animationDuration, 1);
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.round(target * easeOutQuart);
+        counter.textContent = current.toString() + (target === 100 ? '%' : '+');
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        }
+      };
+      requestAnimationFrame(updateCounter);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counters.forEach((counter) => observer.observe(counter));
+  </script>
+
+  <!-- Smart File Upload Detection -->
+  <script>
+    const fileInput = document.getElementById('smart-file-input');
+    const uploadZone = document.getElementById('smart-upload-zone');
+
+    const extensionMap: Record<string, string> = {
+      '.rpgsave': '/ja/editor/rpg-maker-mv',
+      '.rvdata2': '/ja/editor/rpg-maker-mv',
+      '.rvdata': '/ja/editor/rpg-maker-mv',
+      '.sav': '/ja/editor/unreal',
+      '.save': '/ja/editor/renpy',
+      '.xml': '/ja/editor/unity',
+      '.plist': '/ja/editor/unity',
+      '.ini': '/ja/editor/gamemaker',
+      '.json': '/ja/editor/gamemaker',
+      '.nson': '/ja/editor/naninovel',
+    };
+
+    const getExtension = (filename: string): string => {
+      const lastDot = filename.lastIndexOf('.');
+      return lastDot !== -1 ? filename.slice(lastDot).toLowerCase() : '';
+    };
+
+    const handleFile = (file: File) => {
+      const ext = getExtension(file.name);
+      const editorPath = extensionMap[ext];
+
+      if (editorPath) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const fileData = {
+            name: file.name,
+            content: e.target?.result,
+            type: file.type,
+          };
+          sessionStorage.setItem('pendingFile', JSON.stringify(fileData));
+          window.location.href = editorPath;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert(`ファイル形式「${ext}」は認識されません。エディタを手動で選択してください。`);
+      }
+    };
+
+    fileInput?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        handleFile(target.files[0]);
+      }
+    });
+
+    uploadZone?.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('border-primary-400', 'bg-white/10');
+    });
+
+    uploadZone?.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('border-primary-400', 'bg-white/10');
+    });
+
+    uploadZone?.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('border-primary-400', 'bg-white/10');
+      const files = (e as DragEvent).dataTransfer?.files;
+      if (files && files[0]) {
+        handleFile(files[0]);
+      }
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="문의하기 | Save Editor Online"
+  description="Save Editor Online에 문의하세요. 질문, 지원 및 피드백."
+>
+  <main class="container mx-auto px-4 py-12 max-w-6xl">
+    <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">문의하기</h1>
+
+    <div class="grid md:grid-cols-2 gap-12">
+      <div>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+          질문이나 제안이 있거나 인사를 전하고 싶으신가요? 여러분의 의견을 듣고 싶습니다. 아래
+          양식을 작성해 주시면 최대한 빨리 답변해 드리겠습니다.
+        </p>
+
+        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mb-8">
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">응답 시간</h3>
+          <p class="text-blue-800 dark:text-blue-200 text-sm mb-4">
+            우리는 소규모 팀이지만 모든 문의에 대해 **24~48시간 이내**에 응답하기 위해 최선을 다하고
+            있습니다.
+          </p>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">비즈니스 문의</h3>
+          <p class="text-blue-800 dark:text-blue-200 text-sm">
+            파트너십, 언론 또는 비즈니스 문제의 경우 양식에서 "비즈니스 제휴"를 선택하거나 직접
+            이메일을 보내주십시오.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
+            >
+              📧
+            </div>
+            <div>
+              <div class="font-bold text-gray-900 dark:text-white">이메일</div>
+              <a href="mailto:support@saveeditor.com" class="text-primary-600 hover:underline"
+                >support@saveeditor.com</a
+              >
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
+            >
+              🐦
+            </div>
+            <div>
+              <div class="font-bold text-gray-900 dark:text-white">Twitter / X</div>
+              <a href="#" class="text-primary-600 hover:underline">@SaveEditorOnline</a>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
+            >
+              💬
+            </div>
+            <div>
+              <div class="font-bold text-gray-900 dark:text-white">Discord</div>
+              <a href="#" class="text-primary-600 hover:underline">커뮤니티 가입</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700"
+      >
+        <div
+          id="success-message"
+          class="hidden mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong class="font-bold">메시지 전송됨!</strong>
+          <span class="block sm:inline">문의해 주셔서 감사합니다. 곧 연락드리겠습니다.</span>
+        </div>
+        <form class="space-y-6" id="contact-form">
+          <div>
+            <label
+              for="name"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">이름</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="이름"
+            />
+          </div>
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">이메일</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="your@email.com"
+            />
+          </div>
+          <div>
+            <label
+              for="subject"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">제목</label
+            >
+            <select
+              id="subject"
+              name="subject"
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="general">일반 문의</option>
+              <option value="support">기술 지원</option>
+              <option value="feature">기능 요청</option>
+              <option value="bug">버그 신고</option>
+              <option value="business">비즈니스 제휴</option>
+            </select>
+          </div>
+          <div>
+            <label
+              for="message"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">메시지</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="어떻게 도와드릴까요?"></textarea>
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+          >
+            <span>메시지 보내기</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
+              ></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const successMessage = document.getElementById('success-message');
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Simulate form submission
+        setTimeout(() => {
+          form.reset();
+          successMessage?.classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1000);
+      });
+    }
+  </script>
+</BaseLayout>

@@ -1,0 +1,381 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Remove language prefix from current path (supports all languages including those with hyphens)
+let currentPath =
+  Astro.url.pathname.replace(new RegExp(`^/(${Object.keys(languages).join('|')})`), '') || '/';
+
+// Detect blog article pages and extract article slug for smart language switching
+// Blog URL patterns:
+// - English: /blog/article-slug
+// - Other languages: /blog/lang/article-slug
+const blogArticleMatch = currentPath.match(/^\/blog\/(?:(ja|pt|ko|zh-cn)\/)?(.+)$/);
+const isBlogArticle = blogArticleMatch && blogArticleMatch[2];
+const blogArticleSlug = isBlogArticle ? blogArticleMatch[2] : null;
+
+// Function to generate correct blog URL for target language
+const getBlogUrl = (targetLang: string): string => {
+  if (isBlogArticle && blogArticleSlug) {
+    // For blog articles, construct the correct path based on target language
+    if (targetLang === 'en') {
+      return `/blog/${blogArticleSlug}`;
+    } else {
+      return `/blog/${targetLang}/${blogArticleSlug}`;
+    }
+  }
+  // For non-blog pages, use normal path construction
+  return targetLang === 'en'
+    ? currentPath === '/'
+      ? '/'
+      : currentPath
+    : currentPath === '/'
+      ? `/${targetLang}`
+      : `/${targetLang}${currentPath}`;
+};
+---
+
+<header
+  class="bg-white border-b border-gray-100 sticky top-0 z-50 dark:bg-gray-900 dark:border-gray-800"
+>
+  <div class="container mx-auto px-4 h-16 flex items-center">
+    <a href={`/${lang === 'en' ? '' : lang}`} class="flex items-center gap-2 group">
+      <div
+        class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white font-bold text-xl group-hover:bg-primary-700 transition-colors"
+      >
+        S
+      </div>
+      <span class="font-bold text-xl text-gray-900 dark:text-white"
+        >SaveEditor<span class="text-primary-600">.Online</span></span
+      >
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8 ml-auto">
+      <a
+        href={`/${lang === 'en' ? '' : lang}`}
+        class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
+        >{t('nav.home')}</a
+      >
+      <div class="relative group">
+        <button
+          class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors flex items-center gap-1 dark:text-gray-300"
+        >
+          {t('nav.editors')}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"></path></svg
+          >
+        </button>
+        <div
+          class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-lg border border-gray-100 py-2 hidden group-hover:block dark:bg-gray-800 dark:border-gray-700"
+        >
+          <a
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv`}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >RPG Maker</a
+          >
+          <a
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/unity`}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >Unity</a
+          >
+          <a
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy`}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >Ren'Py</a
+          >
+          <a
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal`}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >Unreal Engine</a
+          >
+          <a
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker`}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >GameMaker</a
+          >
+          <a
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel`}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >NaniNovel</a
+          >
+        </div>
+      </div>
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+        class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
+        >{t('nav.blog')}</a
+      >
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}about`}
+        class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
+        >{t('nav.about')}</a
+      >
+    </nav>
+
+    <div class="flex items-center gap-4 ml-auto md:ml-8">
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}contact`}
+        class="hidden md:block text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
+        >{t('nav.contact')}</a
+      >
+
+      <!-- Dark Mode Toggle -->
+      <button
+        id="theme-toggle"
+        type="button"
+        class="p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors"
+        aria-label="Toggle dark mode"
+        title="Toggle dark mode"
+      >
+        <svg
+          id="theme-toggle-dark-icon"
+          class="w-5 h-5 hidden"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg
+          id="theme-toggle-light-icon"
+          class="w-5 h-5 hidden"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+            fill-rule="evenodd"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+
+      <a
+        href={`/${lang === 'en' ? '' : lang}`}
+        class="hidden sm:block bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
+      >
+        {t('nav.start')}
+      </a>
+
+      <!-- Language Picker (Desktop) -->
+      <div class="hidden md:block relative group ml-2">
+        <button
+          class="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-primary-600 dark:text-gray-300"
+        >
+          <span class="uppercase">{lang}</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </button>
+        <div
+          class="absolute right-0 top-full w-32 bg-white shadow-lg rounded-lg border border-gray-100 py-2 hidden group-hover:block dark:bg-gray-800 dark:border-gray-700"
+        >
+          {
+            Object.entries(languages).map(([l, label]) => {
+              const href = getBlogUrl(l);
+              return (
+                <a
+                  href={href}
+                  class={`block px-4 py-2 text-sm hover:bg-gray-50 hover:text-primary-600 dark:hover:bg-gray-700 ${lang === l ? 'text-primary-600 font-bold' : 'text-gray-700 dark:text-gray-300'}`}
+                >
+                  {label}
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button
+        id="mobile-menu-button"
+        type="button"
+        class="md:hidden p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors"
+        aria-label="Toggle mobile menu"
+      >
+        <svg
+          id="hamburger-icon"
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg
+          id="close-icon"
+          class="w-6 h-6 hidden"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-white border-t border-gray-100 dark:bg-gray-900 dark:border-gray-800"
+  >
+    <nav class="container mx-auto px-4 py-4 space-y-2">
+      <a
+        href={`/${lang === 'en' ? '' : lang}`}
+        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+        >{t('nav.home')}</a
+      >
+
+      <!-- Editors Submenu -->
+      <div class="border-t border-b border-gray-100 py-2 my-2 dark:border-gray-800">
+        <p class="px-4 py-2 text-xs uppercase text-gray-500 font-semibold">{t('nav.editors')}</p>
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv`}
+          class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
+          >RPG Maker</a
+        >
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/unity`}
+          class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
+          >Unity</a
+        >
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy`}
+          class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
+          >Ren'Py</a
+        >
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal`}
+          class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
+          >Unreal Engine</a
+        >
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker`}
+          class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
+          >GameMaker</a
+        >
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel`}
+          class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
+          >NaniNovel</a
+        >
+      </div>
+
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+        >{t('nav.blog')}</a
+      >
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}about`}
+        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+        >{t('nav.about')}</a
+      >
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}contact`}
+        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+        >{t('nav.contact')}</a
+      >
+
+      <!-- Language Picker (Mobile) -->
+      <div class="border-t border-gray-100 pt-4 mt-4 dark:border-gray-800">
+        <p class="px-4 py-2 text-xs uppercase text-gray-500 font-semibold">Language</p>
+        <div class="flex gap-2 px-4">
+          {
+            Object.entries(languages).map(([l, label]) => {
+              const href = getBlogUrl(l);
+              return (
+                <a
+                  href={href}
+                  class={`px-3 py-2 text-sm rounded-lg ${lang === l ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300'}`}
+                >
+                  {label}
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- Mobile CTA -->
+      <div class="pt-4">
+        <a
+          href={`/${lang === 'en' ? '' : lang}`}
+          class="block w-full text-center bg-primary-600 text-white px-4 py-3 rounded-lg text-base font-medium hover:bg-primary-700 transition-colors"
+        >
+          {t('nav.start')}
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Dark mode toggle logic
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+  const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+  // Check for saved theme preference or default to light mode
+  const theme = localStorage.getItem('theme') || 'light';
+
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+    themeToggleLightIcon?.classList.remove('hidden');
+  } else {
+    document.documentElement.classList.remove('dark');
+    themeToggleDarkIcon?.classList.remove('hidden');
+  }
+
+  themeToggleBtn?.addEventListener('click', function () {
+    // Toggle icons
+    themeToggleDarkIcon?.classList.toggle('hidden');
+    themeToggleLightIcon?.classList.toggle('hidden');
+
+    // Toggle dark mode
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+
+  // Mobile menu toggle logic
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  mobileMenuButton?.addEventListener('click', function () {
+    mobileMenu?.classList.toggle('hidden');
+    hamburgerIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking on a link
+  const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+  mobileMenuLinks?.forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      hamburgerIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+    });
+  });
+</script>

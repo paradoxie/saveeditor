@@ -1,0 +1,301 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Sobre Nós | Save Editor Online"
+  description="Saiba mais sobre a equipe por trás do Save Editor Online - a ferramenta de edição de saves gratuita, segura e baseada em navegador, confiada por jogadores em todo o mundo."
+>
+  <main class="container mx-auto px-4 py-12 max-w-6xl">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+        Sobre o Save Editor Online
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Empoderando jogadores com a liberdade de jogar do seu jeito. O editor de saves baseado em
+        navegador mais confiável, seguro e universal do mundo.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
+      >
+        <div class="text-4xl font-bold text-primary-600 mb-2">100%</div>
+        <div class="text-gray-600 dark:text-gray-400 font-medium">Privacidade no Cliente</div>
+      </div>
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
+      >
+        <div class="text-4xl font-bold text-primary-600 mb-2">50+</div>
+        <div class="text-gray-600 dark:text-gray-400 font-medium">Formatos Suportados</div>
+      </div>
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
+      >
+        <div class="text-4xl font-bold text-primary-600 mb-2">Grátis</div>
+        <div class="text-gray-600 dark:text-gray-400 font-medium">Para Sempre Aberto</div>
+      </div>
+    </div>
+
+    <div class="prose prose-lg prose-blue max-w-none dark:prose-invert">
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6">Nossa Missão</h2>
+        <p class="text-lg leading-relaxed">
+          O Save Editor Online foi criado com um objetivo simples, mas poderoso: <strong
+            >democratizar a modificação de jogos</strong
+          >. Acreditamos que jogos single-player são uma experiência pessoal. Se você quer pular uma
+          parte tediosa, recuperar um save corrompido ou experimentar diferentes caminhos na
+          história, você deve ter as ferramentas para fazer isso de forma fácil e segura.
+        </p>
+        <p class="leading-relaxed mt-4">
+          No passado, editar arquivos de save exigia baixar softwares duvidosos, edição hexadecimal
+          ou conhecimento técnico complexo. Mudamos isso construindo um editor poderoso e universal
+          que roda diretamente no seu navegador. Sem downloads, sem instalações, sem riscos.
+        </p>
+      </section>
+
+      <section class="mb-16 bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-6">Por que confiar em nós?</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-bold mb-3">🔒 Tecnologia Client-Side</h3>
+            <p class="text-gray-700 dark:text-gray-300">
+              Segurança é nossa prioridade máxima. Ao contrário de outras ferramentas, <strong
+                >o Save Editor Online processa tudo localmente no seu dispositivo</strong
+              >. Quando você "envia" um arquivo, ele nunca sai do seu computador. Ele é carregado na
+              memória do navegador, editado e salvo de volta no seu disco. Nós nunca vemos,
+              armazenamos ou transmitimos seus dados de jogo.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-3">🛡️ Transparente e Seguro</h3>
+            <p class="text-gray-700 dark:text-gray-300">
+              Estamos comprometidos com a transparência. Nossa ferramenta é construída com padrões
+              web modernos (HTML5, WebAssembly) e é atualizada regularmente para garantir
+              compatibilidade e segurança. Somos estritamente contra trapaças em jogos multiplayer e
+              projetamos nossas ferramentas apenas para experiências single-player.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6">Tecnologias Suportadas</h2>
+        <p class="mb-6">
+          Estamos constantemente expandindo nosso suporte para engines de jogos e formatos de
+          arquivo. Nossas capacidades atuais incluem:
+        </p>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">🎮</span>
+            <div>
+              <div class="font-bold">RPG Maker</div>
+              <div class="text-sm text-gray-500">.rpgsave (MV/MZ)</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">🎲</span>
+            <div>
+              <div class="font-bold">Unity</div>
+              <div class="text-sm text-gray-500">PlayerPrefs, JSON</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">⚡</span>
+            <div>
+              <div class="font-bold">Unreal Engine</div>
+              <div class="text-sm text-gray-500">.sav (GVAS)</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">🎭</span>
+            <div>
+              <div class="font-bold">Ren'Py</div>
+              <div class="text-sm text-gray-500">.save (Visualizador)</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">👾</span>
+            <div>
+              <div class="font-bold">GameMaker</div>
+              <div class="text-sm text-gray-500">.ini, .json</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">📝</span>
+            <div>
+              <div class="font-bold">NaniNovel</div>
+              <div class="text-sm text-gray-500">.nson</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6">Perguntas Frequentes</h2>
+        <div class="space-y-4">
+          <details
+            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
+          >
+            <summary class="font-bold text-lg flex justify-between items-center list-none">
+              <span>O Save Editor Online é realmente gratuito?</span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"><path d="M6 9l6 6 6-6"></path></svg
+                >
+              </span>
+            </summary>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+              Sim, é 100% gratuito. Acreditamos no acesso aberto a ferramentas. O site é mantido por
+              anúncios não intrusivos para cobrir custos de hospedagem e desenvolvimento, garantindo
+              que nunca tenhamos que cobrar dos usuários ou esconder recursos.
+            </p>
+          </details>
+          <details
+            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
+          >
+            <summary class="font-bold text-lg flex justify-between items-center list-none">
+              <span>Meus dados estão seguros?</span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"><path d="M6 9l6 6 6-6"></path></svg
+                >
+              </span>
+            </summary>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+              Absolutamente. Como mencionado em nossa seção "Por que confiar em nós", todo o
+              processamento acontece localmente no seu navegador. Seus arquivos de save nunca são
+              enviados para nenhum servidor. Você pode até desconectar a internet após carregar a
+              página, e a ferramenta continuará funcionando!
+            </p>
+          </details>
+          <details
+            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
+          >
+            <summary class="font-bold text-lg flex justify-between items-center list-none">
+              <span>Vou ser banido por usar isso?</span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"><path d="M6 9l6 6 6-6"></path></svg
+                >
+              </span>
+            </summary>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+              Para jogos single-player, o risco é zero. Você está modificando dados no seu próprio
+              computador para sua própria diversão. No entanto, aconselhamos estritamente contra o
+              uso de ferramentas de edição em jogos multiplayer online, pois isso viola os termos de
+              serviço e arruína a experiência para outros.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="bg-primary-50 dark:bg-primary-900/20 rounded-2xl p-8 md:p-12 text-center">
+        <h2 class="text-3xl font-bold mb-4">Entre em Contato</h2>
+        <p class="text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          Adoramos ouvir nossa comunidade. Se você tem um pedido de recurso, encontrou um bug ou
+          apenas quer agradecer, estamos aqui para ouvir.
+        </p>
+        <div class="flex justify-center gap-4">
+          <a
+            href="/pt/contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+          >
+            Contatar Suporte
+          </a>
+          <a
+            href="mailto:support@saveeditor.com"
+            class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          >
+            Envie um Email
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Save Editor Online",
+        "url": "https://saveeditor.online",
+        "logo": "https://saveeditor.online/favicon.svg",
+        "sameAs": ["https://twitter.com/SaveEditorOnline"],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "support@saveeditor.com",
+          "contactType": "customer support"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "O Save Editor Online é realmente gratuito?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim, é 100% gratuito. Acreditamos no acesso aberto a ferramentas. O site é mantido por anúncios não intrusivos para cobrir custos de hospedagem e desenvolvimento, garantindo que nunca tenhamos que cobrar dos usuários ou esconder recursos."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Meus dados estão seguros?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutamente. Como mencionado em nossa seção \"Por que confiar em nós\", todo o processamento acontece localmente no seu navegador. Seus arquivos de save nunca são enviados para nenhum servidor. Você pode até desconectar a internet após carregar a página, e a ferramenta continuará funcionando!"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Vou ser banido por usar isso?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Para jogos single-player, o risco é zero. Você está modificando dados no seu próprio computador para sua própria diversão. No entanto, aconselhamos estritamente contra o uso de ferramentas de edição em jogos multiplayer online, pois isso viola os termos de serviço e arruína a experiência para outros."
+            }
+          }
+        ]
+      }
+    ]
+  </script>
+</BaseLayout>

@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://saveeditor.com/sitemap-index.xml
+
+# Disallow admin/API routes if any
+Disallow: /api/
+
+# Allow all supported languages
+Allow: /en/
+Allow: /ja/
+Allow: /pt/

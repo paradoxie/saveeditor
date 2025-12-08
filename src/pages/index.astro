@@ -1,0 +1,651 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+---
+
+<BaseLayout
+  title="Free Online Save Editor for RPG Maker, Ren'Py, Unity Games"
+  description="Edit game saves online for free. Supports RPG Maker, Ren'Py, Unity and more. No download required."
+  keywords="save editor, rpg maker save editor, renpy save editor, unity save file"
+>
+  <!-- Hero Section with Gradient Background -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white"
+  >
+    <!-- Decorative Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl">
+      </div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl">
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary-600/10 to-transparent rounded-full"
+      >
+      </div>
+    </div>
+
+    <div class="relative container mx-auto px-4 py-20 lg:py-28">
+      <div class="max-w-5xl mx-auto text-center">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-white/20"
+        >
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          100% Client-Side · Your files never leave your device
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          Edit Game Saves <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+            >Online</span
+          >
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          The easiest way to modify your save files. No download required. 100% Free. Supports RPG
+          Maker, Ren'Py, Unity, Unreal Engine and more.
+        </p>
+
+        <!-- Smart Upload Zone -->
+        <div class="max-w-2xl mx-auto mb-12">
+          <div
+            id="smart-upload-zone"
+            class="relative group cursor-pointer border-2 border-dashed border-white/30 hover:border-primary-400 rounded-2xl p-8 lg:p-12 transition-all duration-300 hover:bg-white/5 backdrop-blur-sm"
+          >
+            <input
+              type="file"
+              id="smart-file-input"
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              accept=".rpgsave,.rmmzsave,.rvdata2,.sav,.save,.xml,.plist,.ini,.json,.nson"
+            />
+            <div class="text-center">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-primary-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary-500/30"
+              >
+                <svg
+                  class="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-xl font-semibold mb-2">Drop your save file here</p>
+              <p class="text-gray-400 text-sm">
+                or click to browse · We'll auto-detect the game engine
+              </p>
+              <div class="flex flex-wrap justify-center gap-2 mt-4">
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.rpgsave</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.rmmzsave</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.sav</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.save</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.xml</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.json</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.nson</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Or Choose Engine -->
+        <p class="text-gray-400 text-sm mb-6">Or choose your game engine directly</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-6xl mx-auto">
+          <a
+            href="/editor/rpg-maker-mv"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              RPG Maker
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.rpgsave</div>
+          </a>
+          <a
+            href="/editor/unity"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Unity
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.xml, .plist</div>
+          </a>
+          <a
+            href="/editor/renpy"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Ren'Py
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.save</div>
+          </a>
+          <a
+            href="/editor/unreal"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Unreal
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.sav</div>
+          </a>
+          <a
+            href="/editor/gamemaker"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              GameMaker
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.ini, .json</div>
+          </a>
+          <a
+            href="/editor/naninovel"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              NaniNovel
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.nson</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="flex-grow container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- Social Proof Stats -->
+      <div class="mb-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-primary-600 counter" data-target="80">
+            0
+          </div>
+          <div class="text-xs sm:text-sm text-primary-700 font-medium mt-1">Games Supported</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-green-600 counter" data-target="6">0</div>
+          <div class="text-xs sm:text-sm text-green-700 font-medium mt-1">Game Engines</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-purple-600 counter" data-target="100">
+            0
+          </div>
+          <div class="text-xs sm:text-sm text-purple-700 font-medium mt-1">% Client-Side</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-amber-600">∞</div>
+          <div class="text-xs sm:text-sm text-amber-700 font-medium mt-1">File Size Limit</div>
+        </div>
+      </div>
+
+      <!-- How it Works -->
+      <div class="mb-20">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">How It Works</h2>
+        <p class="text-center text-gray-600 mb-12 max-w-xl mx-auto">
+          Edit your game saves in three simple steps. No installation, no registration - just
+          results.
+        </p>
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <!-- Connecting Lines (Desktop only) -->
+          <div
+            class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200"
+          >
+          </div>
+
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              1
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Upload Save File</h3>
+            <p class="text-gray-600">
+              Drag & drop or select your game save file. Everything processes locally in your
+              browser.
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">🔒 100% Private</div>
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              2
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Edit Values</h3>
+            <p class="text-gray-600">
+              Modify gold, stats, items, and variables with our visual tree editor.
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">✏️ No Coding Required</div>
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              3
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Download & Play</h3>
+            <p class="text-gray-600">
+              Download your modified save file and replace the original. Done!
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">⚡ Instant Results</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="mb-20 bg-gray-900 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-12">Why Choose SaveEditor.Online?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div class="text-4xl mb-4">🔒</div>
+            <h3 class="text-xl font-bold mb-2">100% Secure</h3>
+            <p class="text-gray-400">
+              Your files never leave your device. All processing happens client-side.
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold mb-2">Universal Support</h3>
+            <p class="text-gray-400">
+              Support for RPG Maker, Unity, Ren'Py, Unreal, and many more engines.
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl mb-4">💸</div>
+            <h3 class="text-xl font-bold mb-2">Free & Unlimited</h3>
+            <p class="text-gray-400">
+              No file size limits, no storage quotas, no hidden fees. Better than paid competitors.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-24">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Universal Compatibility</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Our intelligent parser automatically detects and edits saves from thousands of games
+            built on these popular engines.
+          </p>
+        </div>
+
+        {/* Engine Cards */}
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
+          <a
+            href="/editor/rpg-maker-mv"
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-blue-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              ⚔️
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">RPG Maker</h3>
+            <p class="text-xs text-gray-400 mt-1">.rpgsave</p>
+          </a>
+
+          <a
+            href="/editor/unity"
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-gray-400 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-gray-100 text-gray-700 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              🧊
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">Unity</h3>
+            <p class="text-xs text-gray-400 mt-1">PlayerPrefs</p>
+          </a>
+
+          <a
+            href="/editor/renpy"
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-pink-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              🌸
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">Ren'Py</h3>
+            <p class="text-xs text-gray-400 mt-1">.save</p>
+          </a>
+
+          <a
+            href="/editor/unreal"
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-slate-400 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-slate-100 text-slate-700 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              ⚫
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">Unreal</h3>
+            <p class="text-xs text-gray-400 mt-1">.sav</p>
+          </a>
+
+          <div
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-green-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              👾
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">GameMaker</h3>
+            <p class="text-xs text-gray-400 mt-1">ini / json</p>
+          </div>
+
+          <div
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-purple-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              📝
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">NaniNovel</h3>
+            <p class="text-xs text-gray-400 mt-1">.nson</p>
+          </div>
+        </div>
+
+        {/* Game Chips */}
+        <div class="relative mb-8">
+          <div class="absolute inset-0 flex items-center" aria-hidden="true">
+            <div class="w-full border-t border-gray-100"></div>
+          </div>
+          <div class="relative flex justify-center">
+            <span class="bg-white px-4 text-sm text-gray-400 uppercase tracking-wider font-medium"
+              >Works with popular titles like</span
+            >
+          </div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-4">
+          <div
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700 transition-all cursor-default select-none"
+          >
+            <span class="text-lg">🌾</span>
+            <span class="font-medium">Stardew Valley</span>
+          </div>
+          <div
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all cursor-default select-none"
+          >
+            <span class="text-lg">🐾</span>
+            <span class="font-medium">Palworld</span>
+          </div>
+          <div
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-red-300 hover:bg-red-50 hover:text-red-700 transition-all cursor-default select-none"
+          >
+            <span class="text-lg">🧛</span>
+            <span class="font-medium">Vampire Survivors</span>
+          </div>
+          <div
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-yellow-300 hover:bg-yellow-50 hover:text-yellow-700 transition-all cursor-default select-none"
+          >
+            <span class="text-lg">❤️</span>
+            <span class="font-medium">Undertale</span>
+          </div>
+          <div
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 transition-all cursor-default select-none"
+          >
+            <span class="text-lg">✨</span>
+            <span class="font-medium">HoloCure</span>
+          </div>
+          <div
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-pink-300 hover:bg-pink-50 hover:text-pink-700 transition-all cursor-default select-none"
+          >
+            <span class="text-lg">📚</span>
+            <span class="font-medium">Doki Doki Literature Club</span>
+          </div>
+          <div
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700 transition-all cursor-default select-none"
+          >
+            <span class="text-lg">⛏️</span>
+            <span class="font-medium">Deep Rock Galactic</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Section -->
+      <div class="mt-20 bg-primary-50 rounded-2xl p-12">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">Learn Save Editing</h2>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+          Master save editing with our comprehensive guides and tutorials.
+        </p>
+        <div class="grid md:grid-cols-2 gap-8">
+          {
+            (await getCollection('blog'))
+              .filter((post) => !post.slug.includes('/'))
+              .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+              .slice(0, 4)
+              .map((post) => (
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 block overflow-hidden group border border-gray-100"
+                >
+                  <div class="aspect-video w-full overflow-hidden bg-gray-100 relative">
+                    <img
+                      src={post.data.image}
+                      alt={post.data.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div class="p-6">
+                    <div class="flex items-center gap-2 text-xs text-primary-600 font-medium mb-3">
+                      <span class="bg-primary-50 px-2.5 py-1 rounded-md uppercase tracking-wider">
+                        {post.data.tags[0]}
+                      </span>
+                      <span class="text-gray-300">•</span>
+                      <span class="text-gray-500">
+                        {post.data.pubDate.toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })}
+                      </span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900 group-hover:text-primary-600 transition-colors line-clamp-2">
+                      {post.data.title}
+                    </h3>
+                    <p class="text-gray-600 text-sm line-clamp-2 mb-4 leading-relaxed">
+                      {post.data.description}
+                    </p>
+                    <div class="flex items-center text-primary-600 text-sm font-bold group-hover:translate-x-1 transition-transform">
+                      Read Guide
+                      <svg
+                        class="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              ))
+          }
+        </div>
+        <div class="text-center mt-8">
+          <a
+            href="/blog"
+            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+          >
+            View All Tutorials
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Save Editor Online",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free online game save editor. Edit RPG Maker, Unity, Unreal Engine, Ren'Py, and GameMaker save files directly in your browser. No download required.",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      },
+      "featureList": [
+        "RPG Maker MV/MZ Save Editing",
+        "Unity PlayerPrefs Editing",
+        "Unreal Engine GVAS Parsing",
+        "Ren'Py Save Viewing",
+        "GameMaker INI/JSON Editing",
+        "NaniNovel NSON Editing"
+      ],
+      "screenshot": "https://saveeditor.com/og-image.png",
+      "softwareVersion": "1.0.0",
+      "author": {
+        "@type": "Organization",
+        "name": "SaveEditor.com"
+      }
+    }
+  </script>
+
+  <script>
+    // Animated counter for stats
+    const counters = document.querySelectorAll('.counter');
+    const animationDuration = 1500; // ms
+
+    const animateCounter = (counter: Element) => {
+      const target = parseInt(counter.getAttribute('data-target') || '0');
+      const startTime = performance.now();
+
+      const updateCounter = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / animationDuration, 1);
+
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.round(target * easeOutQuart);
+
+        counter.textContent = current.toString() + (target === 100 ? '%' : '+');
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        }
+      };
+
+      requestAnimationFrame(updateCounter);
+    };
+
+    // Intersection Observer for triggering animation when in view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counters.forEach((counter) => observer.observe(counter));
+  </script>
+
+  <!-- Smart File Upload Detection -->
+  <script>
+    const fileInput = document.getElementById('smart-file-input');
+    const uploadZone = document.getElementById('smart-upload-zone');
+
+    // File extension to editor mapping
+    const extensionMap: Record<string, string> = {
+      '.rpgsave': '/editor/rpg-maker-mv',
+      '.rmmzsave': '/editor/rpg-maker-mv',
+      '.rvdata2': '/editor/rpg-maker-mv',
+      '.rvdata': '/editor/rpg-maker-mv',
+      '.sav': '/editor/unreal',
+      '.save': '/editor/renpy',
+      '.xml': '/editor/unity',
+      '.plist': '/editor/unity',
+      '.ini': '/editor/gamemaker',
+      '.json': '/editor/gamemaker',
+      '.nson': '/editor/naninovel',
+    };
+
+    // Get file extension
+    const getExtension = (filename: string): string => {
+      const lastDot = filename.lastIndexOf('.');
+      return lastDot !== -1 ? filename.slice(lastDot).toLowerCase() : '';
+    };
+
+    // Handle file selection
+    const handleFile = (file: File) => {
+      const ext = getExtension(file.name);
+      const editorPath = extensionMap[ext];
+
+      if (editorPath) {
+        // Store file in sessionStorage for the editor to pick up
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const fileData = {
+            name: file.name,
+            content: e.target?.result,
+            type: file.type,
+          };
+          sessionStorage.setItem('pendingFile', JSON.stringify(fileData));
+          window.location.href = editorPath;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // Unknown extension - go to generic editor or show message
+        alert(`File type "${ext}" is not recognized. Please choose an editor manually.`);
+      }
+    };
+
+    // File input change handler
+    fileInput?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        handleFile(target.files[0]);
+      }
+    });
+
+    // Drag and drop handlers
+    uploadZone?.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('border-primary-400', 'bg-white/10');
+    });
+
+    uploadZone?.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('border-primary-400', 'bg-white/10');
+    });
+
+    uploadZone?.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('border-primary-400', 'bg-white/10');
+      const files = (e as DragEvent).dataTransfer?.files;
+      if (files && files[0]) {
+        handleFile(files[0]);
+      }
+    });
+  </script>
+</BaseLayout>

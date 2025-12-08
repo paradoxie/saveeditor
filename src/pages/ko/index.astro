@@ -1,0 +1,443 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+---
+
+<BaseLayout
+  title="무료 온라인 세이브 에디터 | RPG 만들기, Ren'Py, Unity 지원"
+  description="브라우저에서 무료로 게임 세이브를 편집하세요. RPG 만들기, Ren'Py, Unity 등을 지원합니다. 다운로드가 필요 없습니다."
+  keywords="세이브 에디터, RPG 만들기 세이브 편집, Ren'Py 세이브 에디터, Unity 세이브 파일"
+>
+  <!-- Hero Section with Gradient Background -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white"
+  >
+    <!-- Decorative Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl">
+      </div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl">
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary-600/10 to-transparent rounded-full"
+      >
+      </div>
+    </div>
+
+    <div class="relative container mx-auto px-4 py-20 lg:py-28">
+      <div class="max-w-5xl mx-auto text-center">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-white/20"
+        >
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          100% 클라이언트 처리 · 파일이 기기를 떠나지 않습니다
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          게임 세이브를 <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+            >온라인으로 편집</span
+          >
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          세이브 파일을 수정하는 가장 쉬운 방법. 다운로드 불필요. 100% 무료. RPG 만들기, Ren'Py,
+          Unity, Unreal Engine 등을 지원합니다.
+        </p>
+
+        <!-- Smart Upload Zone -->
+        <div class="max-w-2xl mx-auto mb-12">
+          <div
+            id="smart-upload-zone"
+            class="relative group cursor-pointer border-2 border-dashed border-white/30 hover:border-primary-400 rounded-2xl p-8 lg:p-12 transition-all duration-300 hover:bg-white/5 backdrop-blur-sm"
+          >
+            <input
+              type="file"
+              id="smart-file-input"
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              accept=".rpgsave,.rvdata2,.sav,.save,.xml,.plist,.ini,.json,.nson"
+            />
+            <div class="text-center">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-primary-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary-500/30"
+              >
+                <svg
+                  class="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-xl font-semibold mb-2">세이브 파일을 여기에 드롭하세요</p>
+              <p class="text-gray-400 text-sm">
+                또는 클릭하여 선택 · 게임 엔진을 자동으로 감지합니다
+              </p>
+              <div class="flex flex-wrap justify-center gap-2 mt-4">
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.rpgsave</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.sav</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.save</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.xml</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.json</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.nson</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Or Choose Engine -->
+        <p class="text-gray-400 text-sm mb-6">또는 게임 엔진을 직접 선택하세요</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-6xl mx-auto">
+          <a
+            href="/ko/editor/rpg-maker-mv"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              RPG 만들기
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.rpgsave</div>
+          </a>
+          <a
+            href="/ko/editor/unity"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Unity
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.xml, .plist</div>
+          </a>
+          <a
+            href="/ko/editor/renpy"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Ren'Py
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.save</div>
+          </a>
+          <a
+            href="/ko/editor/unreal"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Unreal
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.sav</div>
+          </a>
+          <a
+            href="/ko/editor/gamemaker"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              GameMaker
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.ini, .json</div>
+          </a>
+          <a
+            href="/ko/editor/naninovel"
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              NaniNovel
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.nson</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="flex-grow container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- Social Proof Stats -->
+      <div class="mb-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-primary-600 counter" data-target="80">
+            0
+          </div>
+          <div class="text-xs sm:text-sm text-primary-700 font-medium mt-1">지원 게임</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-green-600 counter" data-target="6">0</div>
+          <div class="text-xs sm:text-sm text-green-700 font-medium mt-1">게임 엔진</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-purple-600 counter" data-target="100">
+            0
+          </div>
+          <div class="text-xs sm:text-sm text-purple-700 font-medium mt-1">% 클라이언트 처리</div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-amber-600">∞</div>
+          <div class="text-xs sm:text-sm text-amber-700 font-medium mt-1">파일 크기 무제한</div>
+        </div>
+      </div>
+
+      <!-- How it Works -->
+      <div class="mb-20">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">사용 방법</h2>
+        <p class="text-center text-gray-600 mb-12 max-w-xl mx-auto">
+          3단계로 간단하게 세이브 편집. 설치 불필요, 가입 불필요.
+        </p>
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div
+            class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200"
+          >
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              1
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">파일 업로드</h3>
+            <p class="text-gray-600">
+              드래그 앤 드롭 또는 선택. 모든 처리는 브라우저에서 이루어집니다.
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">🔒 100% 비공개</div>
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              2
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">값 편집</h3>
+            <p class="text-gray-600">골드, 스탯, 아이템, 변수를 비주얼 에디터로 수정합니다.</p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">✏️ 코딩 불필요</div>
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              3
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">다운로드 & 플레이</h3>
+            <p class="text-gray-600">수정된 세이브 파일을 다운로드하고 원본을 교체하세요. 완료!</p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">⚡ 즉시 반영</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="mb-20 bg-gray-900 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-12">SaveEditor.Online을 선택하는 이유</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div class="text-4xl mb-4">🔒</div>
+            <h3 class="text-xl font-bold mb-2">100% 안전</h3>
+            <p class="text-gray-400">
+              파일이 기기를 떠나지 않습니다. 모든 처리는 클라이언트 측에서 이루어집니다.
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold mb-2">범용 지원</h3>
+            <p class="text-gray-400">
+              RPG 만들기, Unity, Ren'Py, Unreal 등 다양한 엔진을 지원합니다.
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl mb-4">💸</div>
+            <h3 class="text-xl font-bold mb-2">무료 & 무제한</h3>
+            <p class="text-gray-400">
+              파일 크기 제한 없음, 저장 공간 제한 없음, 숨겨진 비용 없음. 유료 경쟁사보다 낫습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">지원 게임 & 형식</h2>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Stardew Valley</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Palworld</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Vampire Survivors</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Undertale</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >DDLC</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >Deep Rock Galactic</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >.rpgsave</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >.sav (GVAS)</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >.save</span
+          >
+          <span class="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 font-medium"
+            >PlayerPrefs</span
+          >
+        </div>
+        <p class="text-center text-gray-500 mt-6 text-sm">
+          그 외 지원 엔진으로 만든 수천 개의 게임.
+        </p>
+      </div>
+
+      <!-- Blog Section -->
+      <div class="mt-20 bg-primary-50 rounded-2xl p-12">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">세이브 편집 배우기</h2>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+          상세한 가이드와 튜토리얼로 세이브 편집을 마스터하세요.
+        </p>
+        <div class="grid md:grid-cols-3 gap-6">
+          {
+            (await getCollection('blog'))
+              .filter((post) => post.slug.startsWith('ko/'))
+              .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+              .slice(0, 3)
+              .map((post) => (
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow block"
+                >
+                  <h3 class="font-bold text-lg mb-2 text-gray-900 line-clamp-2">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm line-clamp-3">{post.data.description}</p>
+                  <div class="mt-4 text-primary-600 text-sm font-medium">가이드 읽기 →</div>
+                </a>
+              ))
+          }
+        </div>
+        <div class="text-center mt-8">
+          <a
+            href="/blog"
+            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+          >
+            모든 튜토리얼 보기
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const counters = document.querySelectorAll('.counter');
+    const animationDuration = 1500;
+
+    const animateCounter = (counter: Element) => {
+      const target = parseInt(counter.getAttribute('data-target') || '0');
+      const startTime = performance.now();
+
+      const updateCounter = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / animationDuration, 1);
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.round(target * easeOutQuart);
+        counter.textContent = current.toString() + (target === 100 ? '%' : '+');
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        }
+      };
+      requestAnimationFrame(updateCounter);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counters.forEach((counter) => observer.observe(counter));
+  </script>
+
+  <script>
+    const fileInput = document.getElementById('smart-file-input');
+    const uploadZone = document.getElementById('smart-upload-zone');
+
+    const extensionMap: Record<string, string> = {
+      '.rpgsave': '/ko/editor/rpg-maker-mv',
+      '.rvdata2': '/ko/editor/rpg-maker-mv',
+      '.rvdata': '/ko/editor/rpg-maker-mv',
+      '.sav': '/ko/editor/unreal',
+      '.save': '/ko/editor/renpy',
+      '.xml': '/ko/editor/unity',
+      '.plist': '/ko/editor/unity',
+      '.ini': '/ko/editor/gamemaker',
+      '.json': '/ko/editor/gamemaker',
+      '.nson': '/ko/editor/naninovel',
+    };
+
+    const getExtension = (filename: string): string => {
+      const lastDot = filename.lastIndexOf('.');
+      return lastDot !== -1 ? filename.slice(lastDot).toLowerCase() : '';
+    };
+
+    const handleFile = (file: File) => {
+      const ext = getExtension(file.name);
+      const editorPath = extensionMap[ext];
+
+      if (editorPath) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const fileData = {
+            name: file.name,
+            content: e.target?.result,
+            type: file.type,
+          };
+          sessionStorage.setItem('pendingFile', JSON.stringify(fileData));
+          window.location.href = editorPath;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert(`파일 형식 "${ext}"을(를) 인식할 수 없습니다. 에디터를 수동으로 선택해 주세요.`);
+      }
+    };
+
+    fileInput?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        handleFile(target.files[0]);
+      }
+    });
+
+    uploadZone?.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('border-primary-400', 'bg-white/10');
+    });
+
+    uploadZone?.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('border-primary-400', 'bg-white/10');
+    });
+
+    uploadZone?.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('border-primary-400', 'bg-white/10');
+      const files = (e as DragEvent).dataTransfer?.files;
+      if (files && files[0]) {
+        handleFile(files[0]);
+      }
+    });
+  </script>
+</BaseLayout>

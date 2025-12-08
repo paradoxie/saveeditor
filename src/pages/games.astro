@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const games = {
+  rpgMaker: {
+    name: 'RPG Maker',
+    editor: '/editor/rpg-maker-mv',
+    formats: ['.rpgsave', '.rvdata2'],
+    games: [
+      'Omori',
+      'To the Moon',
+      'OneShot',
+      'Corpse Party',
+      'Yume Nikki',
+      'Lisa: The Painful',
+      'Mad Father',
+      'Ib',
+      "The Witch's House",
+      'Wadanohara',
+      'Hello Charlotte',
+      'OFF',
+      'Space Funeral',
+      'The Crooked Man',
+      'Angels of Death',
+      'Pocket Mirror',
+      'Mogeko Castle',
+    ],
+  },
+  unity: {
+    name: 'Unity',
+    editor: '/editor/unity',
+    formats: ['PlayerPrefs', '.xml', '.plist', '.json'],
+    games: [
+      'Stardew Valley',
+      'Hollow Knight',
+      'Cuphead',
+      'Subnautica',
+      'Escape from Tarkov',
+      'Fall Guys',
+      'Rust',
+      'Cities: Skylines',
+      'Valheim',
+      'Risk of Rain 2',
+      'Kerbal Space Program',
+      'Phasmophobia',
+      'Among Us',
+      'GTFO',
+      'Outer Wilds',
+    ],
+  },
+  renpy: {
+    name: "Ren'Py",
+    editor: '/editor/renpy',
+    formats: ['.save'],
+    games: [
+      'Doki Doki Literature Club',
+      'Katawa Shoujo',
+      'Butterfly Soup',
+      'Long Live the Queen',
+      'Hatoful Boyfriend',
+      'VA-11 HALL-A',
+      'Dream Daddy',
+      'Coffee Talk',
+      'Ladykiller in a Bind',
+      'The Arcana',
+    ],
+  },
+  unreal: {
+    name: 'Unreal Engine',
+    editor: '/editor/unreal',
+    formats: ['.sav (GVAS)'],
+    games: [
+      'Palworld',
+      'Satisfactory',
+      'Deep Rock Galactic',
+      'Grounded',
+      'HELLDIVERS 2',
+      'The Finals',
+      'Hogwarts Legacy',
+      'Remnant 2',
+      'Ark: Survival Evolved',
+      'PUBG',
+      'Fortnite',
+      'Borderlands 3',
+      'Gears 5',
+      'Days Gone',
+    ],
+  },
+  gamemaker: {
+    name: 'GameMaker',
+    editor: '/editor/gamemaker',
+    formats: ['.ini', '.json', '.sav'],
+    games: [
+      'Undertale',
+      'Deltarune',
+      'HoloCure',
+      'Vampire Survivors',
+      'Rivals of Aether',
+      'Hyper Light Drifter',
+      'Nuclear Throne',
+      'Hotline Miami',
+      'Shovel Knight',
+      'Spelunky',
+      'Risk of Rain',
+      'Gunpoint',
+      'Nidhogg',
+      'Forager',
+    ],
+  },
+  naninovel: {
+    name: 'NaniNovel',
+    editor: '/editor/naninovel',
+    formats: ['.nson'],
+    games: ['NaniNovel Visual Novels', 'Unity-based VN Projects'],
+  },
+};
+
+const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.games.length, 0);
+---
+
+<BaseLayout
+  title="Supported Games List - 80+ Games | Save Editor Online"
+  description="Browse all games supported by our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more. Find your game and start editing!"
+  keywords="save editor games, rpg maker games, unity games, unreal engine games, supported games list"
+>
+  <main class="flex-grow container mx-auto px-4 py-12">
+    <div class="max-w-6xl mx-auto">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-6">
+          Supported <span class="text-primary-600">Games</span>
+        </h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+          Our save editor supports <span class="font-bold text-primary-600">{totalGames}+</span> games
+          across 6 major game engines. Find your game below and start editing!
+        </p>
+
+        <!-- Search Box -->
+        <div class="max-w-md mx-auto">
+          <div class="relative">
+            <input
+              type="text"
+              id="game-search"
+              placeholder="Search for your game..."
+              class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+            />
+            <svg
+              class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <p id="search-results-count" class="text-sm text-gray-500 mt-2 hidden"></p>
+        </div>
+      </div>
+
+      <!-- Engine Sections -->
+      <div class="space-y-12">
+        {
+          Object.entries(games).map(([key, engine]) => (
+            <section
+              class="engine-section bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              data-engine={key}
+            >
+              <div class="bg-gradient-to-r from-primary-600 to-primary-700 p-6 text-white">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                  <div>
+                    <h2 class="text-2xl font-bold">{engine.name}</h2>
+                    <p class="text-primary-100 text-sm mt-1">
+                      Formats: {engine.formats.join(', ')}
+                    </p>
+                  </div>
+                  <a
+                    href={engine.editor}
+                    class="bg-white text-primary-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-50 transition-colors"
+                  >
+                    Open Editor →
+                  </a>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex flex-wrap gap-2">
+                  {engine.games.map((game) => (
+                    <span
+                      class="game-tag px-3 py-1.5 bg-gray-100 hover:bg-primary-100 hover:text-primary-700 rounded-full text-sm text-gray-700 transition-colors cursor-default"
+                      data-game={game.toLowerCase()}
+                    >
+                      {game}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </section>
+          ))
+        }
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-16 text-center bg-gray-900 text-white rounded-2xl p-12">
+        <h2 class="text-3xl font-bold mb-4">Don't See Your Game?</h2>
+        <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+          Our generic JSON editor works with most save file formats. Try uploading your save file
+          and we'll do our best to parse it!
+        </p>
+        <a
+          href="/"
+          class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-gray-900 bg-white hover:bg-gray-100 transition-colors"
+        >
+          Try Universal Editor
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById('game-search') as HTMLInputElement;
+    const resultsCount = document.getElementById('search-results-count');
+    const gameTags = document.querySelectorAll('.game-tag');
+    const engineSections = document.querySelectorAll('.engine-section');
+
+    searchInput?.addEventListener('input', (e) => {
+      const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+
+      if (!query) {
+        // Show all
+        gameTags.forEach((tag) =>
+          tag.classList.remove('hidden', 'bg-primary-200', 'text-primary-800')
+        );
+        engineSections.forEach((section) => section.classList.remove('hidden'));
+        if (resultsCount) resultsCount.classList.add('hidden');
+        return;
+      }
+
+      let matchCount = 0;
+
+      engineSections.forEach((section) => {
+        let sectionHasMatch = false;
+        const tags = section.querySelectorAll('.game-tag');
+
+        tags.forEach((tag) => {
+          const gameName = tag.getAttribute('data-game') || '';
+          if (gameName.includes(query)) {
+            tag.classList.remove('hidden');
+            tag.classList.add('bg-primary-200', 'text-primary-800');
+            sectionHasMatch = true;
+            matchCount++;
+          } else {
+            tag.classList.add('hidden');
+            tag.classList.remove('bg-primary-200', 'text-primary-800');
+          }
+        });
+
+        if (sectionHasMatch) {
+          section.classList.remove('hidden');
+        } else {
+          section.classList.add('hidden');
+        }
+      });
+
+      if (resultsCount) {
+        resultsCount.textContent = `Found ${matchCount} game${matchCount !== 1 ? 's' : ''}`;
+        resultsCount.classList.remove('hidden');
+      }
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,58 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div
+  id="cookie-consent"
+  class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg p-4 transform translate-y-full transition-transform duration-300 z-50 hidden"
+>
+  <div
+    class="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4"
+  >
+    <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base text-center md:text-left">
+      {t('cookie.consent')}
+    </p>
+    <div class="flex gap-4">
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}cookie-policy`}
+        class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium text-sm whitespace-nowrap"
+      >
+        {t('cookie.learnMore')}
+      </a>
+      <button
+        id="cookie-accept"
+        class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg text-sm font-bold transition-colors whitespace-nowrap"
+      >
+        {t('cookie.accept')}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const cookieConsent = document.getElementById('cookie-consent');
+  const acceptButton = document.getElementById('cookie-accept');
+  const storageKey = 'cookie-consent-accepted';
+
+  if (!localStorage.getItem(storageKey)) {
+    // Show banner after a small delay
+    setTimeout(() => {
+      cookieConsent?.classList.remove('hidden');
+      // Use requestAnimationFrame to ensure the class removal is processed before adding translate-y-0
+      requestAnimationFrame(() => {
+        cookieConsent?.classList.remove('translate-y-full');
+      });
+    }, 1000);
+  }
+
+  acceptButton?.addEventListener('click', () => {
+    localStorage.setItem(storageKey, 'true');
+    cookieConsent?.classList.add('translate-y-full');
+    setTimeout(() => {
+      cookieConsent?.classList.add('hidden');
+    }, 300);
+  });
+</script>

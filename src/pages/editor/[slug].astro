@@ -1,0 +1,296 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EditorApp from '../../components/EditorApp';
+
+export async function getStaticPaths() {
+  const engines = [
+    {
+      slug: 'rpg-maker-mv',
+      name: 'RPG Maker MV/MZ',
+      fileType: '.rpgsave, .rmmzsave',
+      title: 'RPG Maker MV/MZ Save Editor | Online & Free',
+      description:
+        'Edit RPG Maker MV (.rpgsave) and MZ (.rmmzsave) save files online. Modify gold, stats, items and variables. No download required.',
+      keywords:
+        'rpg maker mv save editor, rpg maker mz save editor, rpgsave editor, rmmzsave editor, edit rpgsave online',
+      features: [
+        'Edit Gold / Money',
+        'Modify Character Stats (Level, EXP, HP, MP)',
+        'Unlock Items and Weapons',
+        'Edit Game Variables and Switches',
+      ],
+      instructions: [
+        'Locate your save file (usually in the game folder under `www/save/`)',
+        'Upload the `file1.rpgsave` file above',
+        'Edit your gold, stats, and variables',
+        'Download the modified file and replace the original',
+      ],
+    },
+    {
+      slug: 'unity',
+      name: 'Unity',
+      fileType: '.xml, .plist, .prefs',
+      title: 'Unity Save Editor | Edit PlayerPrefs Online',
+      description:
+        'Free online Unity save editor. Modify Unity PlayerPrefs (.xml, .plist) for Android, iOS and PC games. No download needed.',
+      keywords:
+        'unity save editor, unity playerprefs editor, edit unity xml save, unity plist editor',
+      features: [
+        'Edit PlayerPrefs Data',
+        'Modify Game Settings',
+        'Unlock Levels and Achievements',
+        'Cross-platform Support (Android XML, iOS Plist)',
+      ],
+      instructions: [
+        'Locate your Unity save file (often in `AppData` or game folder)',
+        'Upload the `.xml` or `.plist` file',
+        'Modify the values in the editor',
+        'Download and replace the original file',
+      ],
+    },
+    {
+      slug: 'renpy',
+      name: "Ren'Py",
+      fileType: '.save',
+      title: "Ren'Py Save Editor | Edit Save Files Online",
+      description:
+        "Online Ren'Py save file editor. Parse and edit .save files, modify game state, variables and flags. Experimental saving with Protocol 0 Pickle format.",
+      keywords: 'renpy save editor, renpy save modifier, edit renpy save file, .save file editor',
+      features: [
+        "View & Edit Ren'Py Save Data",
+        'Modify Game Variables and Flags',
+        'Inspect History and Playtime',
+        'Experimental Save Support (Protocol 0 Pickle)',
+      ],
+      instructions: [
+        "Find your Ren'Py save files (usually in `game/saves/`)",
+        'Upload the `.save` file',
+        'Edit the game state and variables',
+        "⚠️ Note: Saving is experimental. Ren'Py 8.0+ may reject modified saves due to security checks.",
+      ],
+    },
+    {
+      slug: 'unreal',
+      name: 'Unreal Engine',
+      fileType: '.sav',
+      title: 'Unreal Engine Save Editor | Edit .sav Files',
+      description:
+        'Edit Unreal Engine 4 & 5 save files (.sav) online. Parse GVAS format, modify properties and inventory. Works for Palworld and more.',
+      keywords: 'unreal engine save editor, uesave editor, edit .sav file, gvas editor online',
+      features: [
+        'Parse GVAS (.sav) Format',
+        'Edit Game Properties',
+        'Modify Inventory and Stats',
+        'Support for UE4 and UE5 Games',
+      ],
+      instructions: [
+        "Locate your `.sav` file in the game's save directory",
+        'Upload the file to the editor',
+        'Modify the JSON structure of the save data',
+        'Download the modified `.sav` file',
+      ],
+    },
+    {
+      slug: 'gamemaker',
+      name: 'GameMaker',
+      fileType: '.ini, .json',
+      title: 'GameMaker Save Editor | Edit INI & JSON Saves',
+      description:
+        'Universal GameMaker save editor. Modify .ini and .json save files used by GameMaker Studio games. Simple and fast.',
+      keywords:
+        'gamemaker save editor, edit gamemaker save, undertale save editor, gamemaker ini editor',
+      features: [
+        'Edit INI Configuration Files',
+        'Modify JSON Save Data',
+        'Raw Text Fallback for Custom Formats',
+        'Compatible with GameMaker Studio 1 & 2',
+      ],
+      instructions: [
+        'Find your save file (often `save.ini` or `save.json`)',
+        'Upload it to the editor',
+        'Change values like money, health, or unlocked items',
+        'Save and replace the original file',
+      ],
+    },
+    {
+      slug: 'naninovel',
+      name: 'NaniNovel',
+      fileType: '.nson',
+      title: 'NaniNovel Save Editor | Edit .nson Files',
+      description:
+        'Edit NaniNovel visual novel save files (.nson) online. Modify game state, flags, and variables easily.',
+      keywords: 'naninovel save editor, edit .nson file, visual novel save editor',
+      features: [
+        'Parse .nson Files',
+        'Edit Game State JSON',
+        'Modify Global Variables',
+        'Support for Compressed Saves',
+      ],
+      instructions: [
+        'Locate your `.nson` save file',
+        'Upload it to the editor',
+        'Modify the JSON data',
+        'Download the updated file',
+      ],
+    },
+  ];
+
+  return engines.map((engine) => ({
+    params: { slug: engine.slug },
+    props: { engine },
+  }));
+}
+
+const { engine } = Astro.props;
+---
+
+<BaseLayout title={engine.title} description={engine.description} keywords={engine.keywords}>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+      <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/" class="hover:text-gray-900">Home</a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg
+                class="w-3 h-3 text-gray-400 mx-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"></path>
+              </svg>
+              <span class="ml-1 text-gray-700 font-medium">{engine.name}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+          {engine.name} Save Editor
+        </h1>
+        <p class="text-lg text-gray-600">
+          Upload your <code class="bg-gray-100 px-2 py-1 rounded text-sm">{engine.fileType}</code> to
+          start editing.
+        </p>
+      </div>
+
+      <!-- Interactive Editor App -->
+      <div class="min-h-[400px]">
+        <EditorApp client:only="react" acceptedFileTypes={engine.fileType} />
+      </div>
+
+      <div class="mt-16 prose prose-blue max-w-none">
+        <h2>How to use</h2>
+        <ol>
+          {
+            engine.instructions.map((step) => (
+              <li>
+                <Fragment set:html={step.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+              </li>
+            ))
+          }
+        </ol>
+
+        <h2>Features</h2>
+        <ul>
+          {engine.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-12 not-prose">
+        <h3 class="text-lg font-bold text-blue-900 mb-2">Need Help?</h3>
+        <p class="text-blue-700 mb-4">
+          Check out our detailed guide for {engine.name}.
+        </p>
+        {
+          (() => {
+            const tutorialMap = {
+              'rpg-maker-mv': '/blog/how-to-edit-rpg-maker-save',
+              unity: '/blog/how-to-edit-unity-saves',
+              unreal: '/blog/how-to-edit-unreal-engine-saves',
+              renpy: '/blog/renpy-save-editing-guide',
+              naninovel: '/blog/naninovel-save-editing-guide',
+              gamemaker: '/blog/gamemaker-save-editing-guide',
+            } as const;
+            const tutorialLink =
+              tutorialMap[engine.slug as keyof typeof tutorialMap] ||
+              '/blog/common-save-file-extensions-explained';
+
+            return (
+              <a
+                href={tutorialLink}
+                class="text-blue-600 font-medium hover:underline flex items-center gap-1"
+              >
+                Read Complete Tutorial
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </a>
+            );
+          })()
+        }
+      </div>
+    </div>
+  </main>
+
+  <!-- Schema.org Structured Data -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: `${engine.name} Save Editor`,
+      description: engine.description,
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Web Browser',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      featureList: engine.features,
+      author: {
+        '@type': 'Organization',
+        name: 'Save Editor Online',
+        url: 'https://saveeditor.top',
+      },
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://saveeditor.top/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: `${engine.name} Editor`,
+          item: `https://saveeditor.top/editor/${engine.slug}`,
+        },
+      ],
+    })}
+  />
+</BaseLayout>

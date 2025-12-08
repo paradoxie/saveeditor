@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Only show English posts (posts without language prefix in slug)
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.slug.includes('/'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Save Editor Tutorials & Guides"
+  description="Learn how to edit game saves, modify stats, and unlock features with our comprehensive guides."
+>
+  <main class="container mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Tutorials & Guides</h1>
+      <p class="text-xl text-gray-600">Master the art of save editing</p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((post) => (
+          <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-4">
+                {post.data.tags.map((tag) => (
+                  <span class="bg-primary-50 text-primary-700 text-xs px-2 py-1 rounded-full font-medium uppercase tracking-wide">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
+                <a href={`/blog/${post.slug}`} class="hover:text-primary-600 transition-colors">
+                  {post.data.title}
+                </a>
+              </h2>
+              <p class="text-gray-600 mb-4 line-clamp-3 text-sm">{post.data.description}</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mt-auto">
+                <span>{post.data.pubDate.toLocaleDateString()}</span>
+                <span>{post.data.author}</span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

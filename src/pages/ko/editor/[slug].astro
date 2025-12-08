@@ -1,0 +1,281 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EditorApp from '../../../components/EditorApp';
+
+export async function getStaticPaths() {
+  const engines = [
+    {
+      slug: 'rpg-maker-mv',
+      name: 'RPG Maker MV',
+      fileType: '.rpgsave',
+      title: 'RPG 만들기 MV 세이브 에디터 | 무료 온라인',
+      description:
+        'RPG 만들기 MV (.rpgsave) 세이브 파일을 온라인에서 편집하세요. 골드, 스탯, 아이템, 변수를 수정할 수 있습니다. 다운로드 불필요.',
+      keywords: 'RPG 만들기 MV 세이브 에디터, rpgsave 에디터, 세이브 편집',
+      features: [
+        '골드 / 돈 편집',
+        '캐릭터 스탯 수정 (레벨, 경험치, HP, MP)',
+        '아이템 및 무기 해금',
+        '게임 변수 및 스위치 편집',
+      ],
+      instructions: [
+        '세이브 파일을 찾으세요 (보통 게임 폴더 내 `www/save/`에 있습니다)',
+        '위에 `file1.rpgsave` 파일을 업로드하세요',
+        '골드, 스탯, 변수를 편집하세요',
+        '수정된 파일을 다운로드하고 원본을 교체하세요',
+      ],
+    },
+    {
+      slug: 'unity',
+      name: 'Unity',
+      fileType: '.xml, .plist, .prefs',
+      title: 'Unity 세이브 에디터 | PlayerPrefs 온라인 편집',
+      description:
+        '무료 온라인 Unity 세이브 에디터. Android, iOS, PC 게임의 Unity PlayerPrefs (.xml, .plist)를 수정하세요. 다운로드 불필요.',
+      keywords: 'Unity 세이브 에디터, Unity PlayerPrefs 편집, Unity xml 세이브 편집',
+      features: [
+        'PlayerPrefs 데이터 편집',
+        '게임 설정 수정',
+        '레벨 및 업적 해금',
+        '크로스 플랫폼 지원 (Android XML, iOS Plist)',
+      ],
+      instructions: [
+        'Unity 세이브 파일을 찾으세요 (보통 `AppData` 또는 게임 폴더)',
+        '`.xml` 또는 `.plist` 파일을 업로드하세요',
+        '에디터에서 값을 수정하세요',
+        '다운로드하고 원본 파일을 교체하세요',
+      ],
+    },
+    {
+      slug: 'renpy',
+      name: "Ren'Py",
+      fileType: '.save',
+      title: "Ren'Py 세이브 에디터 | 온라인에서 세이브 편집",
+      description:
+        "온라인 Ren'Py 세이브 파일 에디터. .save 파일을 분석하고 편집하며 게임 상태, 변수, 플래그를 수정하세요. Protocol 0 Pickle 형식으로 실험적 저장 지원.",
+      keywords: "Ren'Py 세이브 에디터, Ren'Py 세이브 수정, .save 파일 편집",
+      features: [
+        "Ren'Py 세이브 데이터 보기 및 편집",
+        '게임 변수 및 플래그 수정',
+        '히스토리 및 플레이 시간 확인',
+        '실험적 저장 지원 (Protocol 0 Pickle)',
+      ],
+      instructions: [
+        "Ren'Py 세이브 파일을 찾으세요 (보통 `game/saves/`)",
+        '`.save` 파일을 업로드하세요',
+        '게임 상태와 변수를 편집하세요',
+        "⚠️ 주의: 저장은 실험적 기능입니다. Ren'Py 8.0+는 보안 검사로 인해 수정된 세이브를 거부할 수 있습니다.",
+      ],
+    },
+    {
+      slug: 'unreal',
+      name: 'Unreal Engine',
+      fileType: '.sav',
+      title: 'Unreal Engine 세이브 에디터 | .sav 파일 편집',
+      description:
+        'Unreal Engine 4 & 5 세이브 파일 (.sav)을 온라인에서 편집하세요. GVAS 형식을 분석하고 속성과 인벤토리를 수정하세요. Palworld 등 지원.',
+      keywords: 'Unreal Engine 세이브 에디터, uesave 에디터, .sav 파일 편집, GVAS 에디터',
+      features: [
+        'GVAS (.sav) 형식 분석',
+        '게임 속성 편집',
+        '인벤토리 및 스탯 수정',
+        'UE4 및 UE5 게임 지원',
+      ],
+      instructions: [
+        '게임의 세이브 디렉토리에서 `.sav` 파일을 찾으세요',
+        '파일을 에디터에 업로드하세요',
+        '세이브 데이터의 JSON 구조를 수정하세요',
+        '수정된 `.sav` 파일을 다운로드하세요',
+      ],
+    },
+    {
+      slug: 'gamemaker',
+      name: 'GameMaker',
+      fileType: '.ini, .json',
+      title: 'GameMaker 세이브 에디터 | INI & JSON 편집',
+      description:
+        '범용 GameMaker 세이브 에디터. GameMaker Studio 게임에서 사용하는 .ini 및 .json 세이브 파일을 수정하세요. 간단하고 빠릅니다.',
+      keywords: 'GameMaker 세이브 에디터, GameMaker 세이브 편집, Undertale 세이브 에디터',
+      features: [
+        'INI 설정 파일 편집',
+        'JSON 세이브 데이터 수정',
+        '커스텀 형식용 텍스트 편집 폴백',
+        'GameMaker Studio 1 & 2 호환',
+      ],
+      instructions: [
+        '세이브 파일을 찾으세요 (보통 `save.ini` 또는 `save.json`)',
+        '에디터에 업로드하세요',
+        '돈, 체력, 해금 아이템 등의 값을 변경하세요',
+        '저장하고 원본 파일을 교체하세요',
+      ],
+    },
+    {
+      slug: 'naninovel',
+      name: 'NaniNovel',
+      fileType: '.nson',
+      title: 'NaniNovel 세이브 에디터 | .nson 파일 편집',
+      description:
+        'NaniNovel 비주얼 노벨 세이브 파일 (.nson)을 온라인에서 편집하세요. 게임 상태, 플래그, 변수를 쉽게 수정하세요.',
+      keywords: 'NaniNovel 세이브 에디터, .nson 파일 편집, 비주얼 노벨 세이브 에디터',
+      features: [
+        '.nson 파일 분석',
+        '게임 상태 JSON 편집',
+        '글로벌 변수 수정',
+        '압축된 세이브 지원',
+      ],
+      instructions: [
+        '`.nson` 세이브 파일을 찾으세요',
+        '에디터에 업로드하세요',
+        'JSON 데이터를 수정하세요',
+        '업데이트된 파일을 다운로드하세요',
+      ],
+    },
+  ];
+
+  return engines.map((engine) => ({
+    params: { slug: engine.slug },
+    props: { engine },
+  }));
+}
+
+const { engine } = Astro.props;
+---
+
+<BaseLayout title={engine.title} description={engine.description} keywords={engine.keywords}>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+      <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/ko" class="hover:text-gray-900">홈</a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg
+                class="w-3 h-3 text-gray-400 mx-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"></path>
+              </svg>
+              <span class="ml-1 text-gray-700 font-medium">{engine.name}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+          {engine.name} 세이브 에디터
+        </h1>
+        <p class="text-lg text-gray-600">
+          <code class="bg-gray-100 px-2 py-1 rounded text-sm">{engine.fileType}</code>을(를)
+          업로드하여 편집을 시작하세요.
+        </p>
+      </div>
+
+      <div class="min-h-[400px]">
+        <EditorApp client:only="react" />
+      </div>
+
+      <div class="mt-16 prose prose-blue max-w-none">
+        <h2>사용 방법</h2>
+        <ol>
+          {
+            engine.instructions.map((step) => (
+              <li>
+                <Fragment set:html={step.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+              </li>
+            ))
+          }
+        </ol>
+
+        <h2>기능</h2>
+        <ul>
+          {engine.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-12 not-prose">
+          <h3 class="text-lg font-bold text-blue-900 mb-2">도움이 필요하신가요?</h3>
+          <p class="text-blue-700 mb-4">{engine.name}에 대한 상세 가이드를 확인하세요.</p>
+          {
+            (() => {
+              const tutorialMap = {
+                'rpg-maker-mv': '/blog/ko/how-to-edit-rpg-maker-save',
+                unity: '/blog/ko/how-to-edit-unity-saves',
+                unreal: '/blog/ko/how-to-edit-unreal-engine-saves',
+                renpy: '/blog/ko/renpy-save-editing-guide',
+                naninovel: '/blog/ko/naninovel-save-editing-guide',
+                gamemaker: '/blog/ko/gamemaker-save-editing-guide',
+              } as const;
+              const tutorialLink =
+                tutorialMap[engine.slug as keyof typeof tutorialMap] ||
+                '/blog/ko/common-save-file-extensions-explained';
+
+              return (
+                <a
+                  href={tutorialLink}
+                  class="text-blue-600 font-medium hover:underline flex items-center gap-1"
+                >
+                  전체 튜토리얼 읽기
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </a>
+              );
+            })()
+          }
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: `${engine.name} 세이브 에디터`,
+      description: engine.description,
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Web Browser',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+      featureList: engine.features,
+      inLanguage: 'ko',
+      author: {
+        '@type': 'Organization',
+        name: 'Save Editor Online',
+        url: 'https://saveeditor.top',
+      },
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '홈', item: 'https://saveeditor.top/ko/' },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: `${engine.name} 에디터`,
+          item: `https://saveeditor.top/ko/editor/${engine.slug}`,
+        },
+      ],
+    })}
+  />
+</BaseLayout>

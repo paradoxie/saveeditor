@@ -1,0 +1,306 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About Us | Save Editor Online"
+  description="Learn about the team behind Save Editor Online - the free, secure, browser-based game save editing tool trusted by gamers worldwide."
+>
+  <main class="container mx-auto px-4 py-12 max-w-6xl">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+        About Save Editor Online
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Empowering gamers with the freedom to play their way. The world's most trusted, secure, and
+        universal browser-based save file editor.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
+      >
+        <div class="text-4xl font-bold text-primary-600 mb-2">100%</div>
+        <div class="text-gray-600 dark:text-gray-400 font-medium">Client-Side Privacy</div>
+      </div>
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
+      >
+        <div class="text-4xl font-bold text-primary-600 mb-2">50+</div>
+        <div class="text-gray-600 dark:text-gray-400 font-medium">Supported Formats</div>
+      </div>
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
+      >
+        <div class="text-4xl font-bold text-primary-600 mb-2">Free</div>
+        <div class="text-gray-600 dark:text-gray-400 font-medium">Forever Open</div>
+      </div>
+    </div>
+
+    <div class="prose prose-lg prose-blue max-w-none dark:prose-invert">
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+        <p class="text-lg leading-relaxed">
+          Save Editor Online was created with a simple but powerful goal: <strong
+            >to democratize game modification</strong
+          >. We believe that single-player gaming is a personal experience. Whether you want to skip
+          a tedious grind, recover a corrupted save file, or experiment with different story paths,
+          you should have the tools to do so easily and safely.
+        </p>
+        <p class="leading-relaxed mt-4">
+          In the past, editing save files required downloading sketchy software, hex editing, or
+          complex technical knowledge. We changed that by building a powerful, universal editor that
+          runs directly in your web browser. No downloads, no installations, no risk.
+        </p>
+      </section>
+
+      <section class="mb-16 bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-6">Why Trust Us?</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-bold mb-3">🔒 Client-Side Technology</h3>
+            <p class="text-gray-700 dark:text-gray-300">
+              Security is our top priority. Unlike other tools, <strong
+                >Save Editor Online processes everything locally on your device</strong
+              >. When you "upload" a file, it never actually leaves your computer. It is loaded into
+              your browser's memory, edited, and saved back to your disk. We never see, store, or
+              transmit your game data.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-3">🛡️ Transparent & Safe</h3>
+            <p class="text-gray-700 dark:text-gray-300">
+              We are committed to transparency. Our tool is built on modern web standards (HTML5,
+              WebAssembly) and is regularly updated to ensure compatibility and safety. We strictly
+              oppose cheating in multiplayer games and design our tools solely for single-player
+              experiences.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6">Supported Technologies</h2>
+        <p class="mb-6">
+          We are constantly expanding our support for game engines and file formats. Our current
+          capabilities include:
+        </p>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">🎮</span>
+            <div>
+              <div class="font-bold">RPG Maker</div>
+              <div class="text-sm text-gray-500">.rpgsave (MV/MZ)</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">🎲</span>
+            <div>
+              <div class="font-bold">Unity</div>
+              <div class="text-sm text-gray-500">PlayerPrefs, JSON</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">⚡</span>
+            <div>
+              <div class="font-bold">Unreal Engine</div>
+              <div class="text-sm text-gray-500">.sav (GVAS)</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">🎭</span>
+            <div>
+              <div class="font-bold">Ren'Py</div>
+              <div class="text-sm text-gray-500">.save (Viewer)</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">👾</span>
+            <div>
+              <div class="font-bold">GameMaker</div>
+              <div class="text-sm text-gray-500">.ini, .json</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <span class="text-2xl">📝</span>
+            <div>
+              <div class="font-bold">NaniNovel</div>
+              <div class="text-sm text-gray-500">.nson</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details
+            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
+          >
+            <summary class="font-bold text-lg flex justify-between items-center list-none">
+              <span>Is Save Editor Online really free?</span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"><path d="M6 9l6 6 6-6"></path></svg
+                >
+              </span>
+            </summary>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+              Yes, 100% free with no hidden costs. We are ad-supported which allows us to keep the
+              service free for everyone.
+            </p>
+          </details>
+          <details
+            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
+          >
+            <summary class="font-bold text-lg flex justify-between items-center list-none">
+              <span>Is my data safe?</span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"><path d="M6 9l6 6 6-6"></path></svg
+                >
+              </span>
+            </summary>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+              Absolutely. All file processing happens in your browser. Your save files are never
+              uploaded to our servers.
+            </p>
+          </details>
+          <details
+            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
+          >
+            <summary class="font-bold text-lg flex justify-between items-center list-none">
+              <span>Will using this tool get me banned?</span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"><path d="M6 9l6 6 6-6"></path></svg
+                >
+              </span>
+            </summary>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+              For single-player games, no. We do not support or encourage cheating in online or
+              multiplayer games.
+            </p>
+          </details>
+          <details
+            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
+          >
+            <summary class="font-bold text-lg flex justify-between items-center list-none">
+              <span>Can you add support for a specific game?</span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"><path d="M6 9l6 6 6-6"></path></svg
+                >
+              </span>
+            </summary>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+              Let us know via our contact form! We prioritize based on user demand and technical
+              feasibility.
+            </p>
+          </details>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Save Editor Online",
+      "url": "https://saveeditor.online",
+      "logo": "https://saveeditor.online/favicon.svg",
+      "sameAs": ["https://twitter.com/SaveEditorOnline"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "support@saveeditor.com",
+        "contactType": "customer support"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Save Editor Online really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, 100% free with no hidden costs. We are ad-supported which allows us to keep the service free for everyone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. All file processing happens in your browser. Your save files are never uploaded to our servers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will using this tool get me banned?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For single-player games, no. We do not support or encourage cheating in online or multiplayer games."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you add support for a specific game?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Let us know via our contact form! We prioritize based on user demand and technical feasibility."
+          }
+        }
+      ]
+    }
+  ]
+</script>
