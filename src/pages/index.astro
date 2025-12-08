@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import FAQ from '../components/FAQ.astro';
 ---
 
 <BaseLayout
@@ -489,163 +490,209 @@ import { getCollection } from 'astro:content';
           </a>
         </div>
       </div>
-    </div>
-  </main>
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Save Editor Online",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": "Free online game save editor. Edit RPG Maker, Unity, Unreal Engine, Ren'Py, and GameMaker save files directly in your browser. No download required.",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "1250"
-      },
-      "featureList": [
-        "RPG Maker MV/MZ Save Editing",
-        "Unity PlayerPrefs Editing",
-        "Unreal Engine GVAS Parsing",
-        "Ren'Py Save Viewing",
-        "GameMaker INI/JSON Editing",
-        "NaniNovel NSON Editing"
-      ],
-      "screenshot": "https://saveeditor.com/og-image.png",
-      "softwareVersion": "1.0.0",
-      "author": {
-        "@type": "Organization",
-        "name": "SaveEditor.com"
-      }
-    }
-  </script>
+      <!-- SEO Content Section -->
+      <div class="mt-24 mb-16">
+        <div class="max-w-4xl mx-auto prose prose-blue prose-lg text-gray-600">
+          <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">
+            The Ultimate Online Save File Editor
+          </h2>
+          <p>
+            Welcome to <strong>SaveEditor.top</strong>, the most advanced free online tool for
+            editing game save files. Whether you want to add unlimited gold in an RPG Maker game,
+            unlock all gallery images in a Ren'Py visual novel, or modify stats in a Unity game, our
+            tool makes it safe, fast, and easy.
+          </p>
+          <div class="grid md:grid-cols-2 gap-8 my-8 not-prose">
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+              <h3 class="text-lg font-bold text-gray-900 mb-2">Why Use a Web-Based Editor?</h3>
+              <ul class="text-sm space-y-2 list-disc list-inside">
+                <li>No suspicious .exe downloads</li>
+                <li>Works on Mac, Windows, Linux, Android</li>
+                <li>Always up-to-date instantly</li>
+                <li>Process files locally for privacy</li>
+              </ul>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+              <h3 class="text-lg font-bold text-gray-900 mb-2">Supported Formats</h3>
+              <ul class="text-sm space-y-2 list-disc list-inside">
+                <li><strong>RPG Maker</strong>: .rpgsave, .rmmzsave</li>
+                <li><strong>Ren'Py</strong>: .save (Python pickle)</li>
+                <li><strong>Unity</strong>: PlayerPrefs, .xml, .plist</li>
+                <li><strong>Generic</strong>: .json, .ini, .txt</li>
+              </ul>
+            </div>
+          </div>
+          <p>
+            Unlike other editors that require you to download potentially harmful software or upload
+            your private data to unknown servers, <strong>SaveEditor.top</strong> runs entirely in your
+            web browser. We use advanced WebAssembly technology to parse and edit your files right on
+            your device. This means your save files never leave your computer or phone.
+          </p>
+        </div>
+      </div>
 
-  <script>
-    // Animated counter for stats
-    const counters = document.querySelectorAll('.counter');
-    const animationDuration = 1500; // ms
+      <!-- FAQ Section -->
+      <section class="mt-20 border-t border-gray-100 pt-16">
+        <FAQ />
+      </section>
 
-    const animateCounter = (counter: Element) => {
-      const target = parseInt(counter.getAttribute('data-target') || '0');
-      const startTime = performance.now();
-
-      const updateCounter = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / animationDuration, 1);
-
-        // Easing function for smooth animation
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const current = Math.round(target * easeOutQuart);
-
-        counter.textContent = current.toString() + (target === 100 ? '%' : '+');
-
-        if (progress < 1) {
-          requestAnimationFrame(updateCounter);
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "Save Editor Online",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Web Browser",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Free online game save editor. Edit RPG Maker, Unity, Unreal Engine, Ren'Py, and GameMaker save files directly in your browser. No download required.",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1250"
+          },
+          "featureList": [
+            "RPG Maker MV/MZ Save Editing",
+            "Unity PlayerPrefs Editing",
+            "Unreal Engine GVAS Parsing",
+            "Ren'Py Save Viewing",
+            "GameMaker INI/JSON Editing",
+            "NaniNovel NSON Editing"
+          ],
+          "screenshot": "https://saveeditor.top/og-image.png",
+          "softwareVersion": "1.0.0",
+          "author": {
+            "@type": "Organization",
+            "name": "SaveEditor.top"
+          }
         }
-      };
+      </script>
 
-      requestAnimationFrame(updateCounter);
-    };
+      <script>
+        // Animated counter for stats
+        const counters = document.querySelectorAll('.counter');
+        const animationDuration = 1500; // ms
 
-    // Intersection Observer for triggering animation when in view
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            observer.unobserve(entry.target);
+        const animateCounter = (counter: Element) => {
+          const target = parseInt(counter.getAttribute('data-target') || '0');
+          const startTime = performance.now();
+
+          const updateCounter = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / animationDuration, 1);
+
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const current = Math.round(target * easeOutQuart);
+
+            counter.textContent = current.toString() + (target === 100 ? '%' : '+');
+
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            }
+          };
+
+          requestAnimationFrame(updateCounter);
+        };
+
+        // Intersection Observer for triggering animation when in view
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        counters.forEach((counter) => observer.observe(counter));
+      </script>
+
+      <!-- Smart File Upload Detection -->
+      <script>
+        const fileInput = document.getElementById('smart-file-input');
+        const uploadZone = document.getElementById('smart-upload-zone');
+
+        // File extension to editor mapping
+        const extensionMap: Record<string, string> = {
+          '.rpgsave': '/editor/rpg-maker-mv',
+          '.rmmzsave': '/editor/rpg-maker-mv',
+          '.rvdata2': '/editor/rpg-maker-mv',
+          '.rvdata': '/editor/rpg-maker-mv',
+          '.sav': '/editor/unreal',
+          '.save': '/editor/renpy',
+          '.xml': '/editor/unity',
+          '.plist': '/editor/unity',
+          '.ini': '/editor/gamemaker',
+          '.json': '/editor/gamemaker',
+          '.nson': '/editor/naninovel',
+        };
+
+        // Get file extension
+        const getExtension = (filename: string): string => {
+          const lastDot = filename.lastIndexOf('.');
+          return lastDot !== -1 ? filename.slice(lastDot).toLowerCase() : '';
+        };
+
+        // Handle file selection
+        const handleFile = (file: File) => {
+          const ext = getExtension(file.name);
+          const editorPath = extensionMap[ext];
+
+          if (editorPath) {
+            // Store file in sessionStorage for the editor to pick up
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const fileData = {
+                name: file.name,
+                content: e.target?.result,
+                type: file.type,
+              };
+              sessionStorage.setItem('pendingFile', JSON.stringify(fileData));
+              window.location.href = editorPath;
+            };
+            reader.readAsDataURL(file);
+          } else {
+            // Unknown extension - go to generic editor or show message
+            alert(`File type "${ext}" is not recognized. Please choose an editor manually.`);
+          }
+        };
+
+        // File input change handler
+        fileInput?.addEventListener('change', (e) => {
+          const target = e.target as HTMLInputElement;
+          if (target.files && target.files[0]) {
+            handleFile(target.files[0]);
           }
         });
-      },
-      { threshold: 0.5 }
-    );
 
-    counters.forEach((counter) => observer.observe(counter));
-  </script>
+        // Drag and drop handlers
+        uploadZone?.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          uploadZone.classList.add('border-primary-400', 'bg-white/10');
+        });
 
-  <!-- Smart File Upload Detection -->
-  <script>
-    const fileInput = document.getElementById('smart-file-input');
-    const uploadZone = document.getElementById('smart-upload-zone');
+        uploadZone?.addEventListener('dragleave', (e) => {
+          e.preventDefault();
+          uploadZone.classList.remove('border-primary-400', 'bg-white/10');
+        });
 
-    // File extension to editor mapping
-    const extensionMap: Record<string, string> = {
-      '.rpgsave': '/editor/rpg-maker-mv',
-      '.rmmzsave': '/editor/rpg-maker-mv',
-      '.rvdata2': '/editor/rpg-maker-mv',
-      '.rvdata': '/editor/rpg-maker-mv',
-      '.sav': '/editor/unreal',
-      '.save': '/editor/renpy',
-      '.xml': '/editor/unity',
-      '.plist': '/editor/unity',
-      '.ini': '/editor/gamemaker',
-      '.json': '/editor/gamemaker',
-      '.nson': '/editor/naninovel',
-    };
-
-    // Get file extension
-    const getExtension = (filename: string): string => {
-      const lastDot = filename.lastIndexOf('.');
-      return lastDot !== -1 ? filename.slice(lastDot).toLowerCase() : '';
-    };
-
-    // Handle file selection
-    const handleFile = (file: File) => {
-      const ext = getExtension(file.name);
-      const editorPath = extensionMap[ext];
-
-      if (editorPath) {
-        // Store file in sessionStorage for the editor to pick up
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const fileData = {
-            name: file.name,
-            content: e.target?.result,
-            type: file.type,
-          };
-          sessionStorage.setItem('pendingFile', JSON.stringify(fileData));
-          window.location.href = editorPath;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        // Unknown extension - go to generic editor or show message
-        alert(`File type "${ext}" is not recognized. Please choose an editor manually.`);
-      }
-    };
-
-    // File input change handler
-    fileInput?.addEventListener('change', (e) => {
-      const target = e.target as HTMLInputElement;
-      if (target.files && target.files[0]) {
-        handleFile(target.files[0]);
-      }
-    });
-
-    // Drag and drop handlers
-    uploadZone?.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      uploadZone.classList.add('border-primary-400', 'bg-white/10');
-    });
-
-    uploadZone?.addEventListener('dragleave', (e) => {
-      e.preventDefault();
-      uploadZone.classList.remove('border-primary-400', 'bg-white/10');
-    });
-
-    uploadZone?.addEventListener('drop', (e) => {
-      e.preventDefault();
-      uploadZone.classList.remove('border-primary-400', 'bg-white/10');
-      const files = (e as DragEvent).dataTransfer?.files;
-      if (files && files[0]) {
-        handleFile(files[0]);
-      }
-    });
-  </script>
-</BaseLayout>
+        uploadZone?.addEventListener('drop', (e) => {
+          e.preventDefault();
+          uploadZone.classList.remove('border-primary-400', 'bg-white/10');
+          const files = (e as DragEvent).dataTransfer?.files;
+          if (files && files[0]) {
+            handleFile(files[0]);
+          }
+        });
+      </script>
+    </div>
+  </main></BaseLayout
+>

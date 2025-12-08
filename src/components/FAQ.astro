@@ -1,0 +1,70 @@
+---
+const faqs = [
+  {
+    question: "Is this online save editor safe to use?",
+    answer:
+      "Yes, it is 100% safe. SaveEditor.top runs entirely in your web browser (client-side). Your save files are never uploaded to any server, ensuring complete privacy and data security.",
+  },
+  {
+    question: "What games are supported?",
+    answer:
+      "We support thousands of games built on popular engines like RPG Maker (MV/MZ), Unity, Ren'Py, Unreal Engine, GameMaker, and NaniNovel. The tool automatically detects the engine based on your file type.",
+  },
+  {
+    question: "Do I need to install any software?",
+    answer:
+      "No. This is a fully web-based tool. You can edit your save files directly from Chrome, Firefox, Edge, or Safari on any device, including Windows, Mac, Linux, and Android.",
+  },
+  {
+    question: "Where are my save files located?",
+    answer:
+      "Save file locations vary by game and OS. Common locations on Windows include %AppData%, My Documents/My Games, or the game's installation folder. On Mac, check ~/Library/Application Support.",
+  },
+];
+---
+
+<div class="max-w-3xl mx-auto px-4">
+  <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Frequently Asked Questions</h2>
+  <div class="space-y-4">
+    {
+      faqs.map((faq, index) => (
+        <details class="group bg-white rounded-xl shadow-sm border border-gray-100 open:border-primary-200 transition-colors">
+          <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+            <h3 class="font-bold text-gray-800 pr-4">{faq.question}</h3>
+            <span class="text-primary-600 transition-transform group-open:rotate-180">
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </span>
+          </summary>
+          <div class="px-6 pb-6 text-gray-600 leading-relaxed text-sm">
+            {faq.answer}
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</div>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+})} />
