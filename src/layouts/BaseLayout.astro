@@ -27,11 +27,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveedit
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; 
-                   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; 
+                   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; 
+                   frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
                    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
                    font-src 'self' https://fonts.gstatic.com; 
                    img-src 'self' data: https:; 
-                   connect-src 'self' https://www.google-analytics.com;"
+                   connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com;"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -44,6 +45,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveedit
       gtag('js', new Date());
       gtag('config', 'G-K67NRPJ1VR');
     </script>
+
+    <!-- Google AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1703945044985159"
+      crossorigin="anonymous"
+      is:inline></script>
 
     <!-- SEO Meta -->
     <title>{title} | Save Editor Online</title>
