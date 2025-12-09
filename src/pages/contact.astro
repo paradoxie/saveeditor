@@ -38,32 +38,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               📧
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">Email</div>
-              <a href="mailto:support@saveeditor.com" class="text-primary-600 hover:underline"
-                >support@saveeditor.com</a
+              <div class="font-bold text-gray-900 dark:text-white">Email Support</div>
+              <a href="mailto:support@saveeditor.top" class="text-primary-600 hover:underline"
+                >support@saveeditor.top</a
               >
             </div>
           </div>
+
           <div class="flex items-center gap-4">
             <div
               class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
             >
-              🐦
+              🐛
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">Twitter / X</div>
-              <a href="#" class="text-primary-600 hover:underline">@SaveEditorOnline</a>
-            </div>
-          </div>
-          <div class="flex items-center gap-4">
-            <div
-              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
-            >
-              💬
-            </div>
-            <div>
-              <div class="font-bold text-gray-900 dark:text-white">Discord</div>
-              <a href="#" class="text-primary-600 hover:underline">Join Community</a>
+              <div class="font-bold text-gray-900 dark:text-white">Report a Bug</div>
+              <a
+                href="https://github.com/paradoxie/saveeditor/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary-600 hover:underline">Open GitHub Issue</a
+              >
             </div>
           </div>
         </div>
@@ -180,5 +175,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact Save Editor Online",
+      "url": "https://saveeditor.top/contact",
+      "description": "Contact page for Save Editor Online customer support."
+    }
   </script>
 </BaseLayout>

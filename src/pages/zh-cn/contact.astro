@@ -35,8 +35,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             </div>
             <div>
               <div class="font-bold text-gray-900 dark:text-white">电子邮件</div>
-              <a href="mailto:support@saveeditor.com" class="text-primary-600 hover:underline"
-                >support@saveeditor.com</a
+              <a href="mailto:support@saveeditor.top" class="text-primary-600 hover:underline"
+                >support@saveeditor.top</a
               >
             </div>
           </div>
@@ -44,22 +44,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             <div
               class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
             >
-              🐦
+              🐛
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">Twitter / X</div>
-              <a href="#" class="text-primary-600 hover:underline">@SaveEditorOnline</a>
-            </div>
-          </div>
-          <div class="flex items-center gap-4">
-            <div
-              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
-            >
-              💬
-            </div>
-            <div>
-              <div class="font-bold text-gray-900 dark:text-white">Discord</div>
-              <a href="#" class="text-primary-600 hover:underline">加入社区</a>
+              <div class="font-bold text-gray-900 dark:text-white">报告 Bug</div>
+              <a
+                href="https://github.com/paradoxie/saveeditor/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary-600 hover:underline">在 GitHub 提交 Issue</a
+              >
             </div>
           </div>
         </div>
@@ -171,6 +165,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 1000);
       });
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "联系 Save Editor Online",
+      "url": "https://saveeditor.top/zh-cn/contact",
+      "description": "Save Editor Online 联系页面。"
     }
   </script>
 </BaseLayout>
