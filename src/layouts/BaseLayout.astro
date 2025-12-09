@@ -34,6 +34,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveedit
                    connect-src 'self' https://www.google-analytics.com;"
     />
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K67NRPJ1VR" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-K67NRPJ1VR');
+    </script>
+
     <!-- SEO Meta -->
     <title>{title} | Save Editor Online</title>
     <meta name="description" content={description} />

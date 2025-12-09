@@ -17,7 +17,7 @@ export default defineConfig({
   adapter: cloudflare(),
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "ja", "pt"],
+    locales: ["en", "ja", "pt", "ko", "zh-cn"],
     routing: {
       prefixDefaultLocale: false
     }
