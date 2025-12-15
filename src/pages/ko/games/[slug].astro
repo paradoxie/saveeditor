@@ -1,0 +1,429 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const games = [
+    {
+      slug: 'stardew-valley',
+      name: 'Stardew Valley',
+      nameLocal: '스타듀 밸리',
+      engine: 'Unity (XML)',
+      format: '.xml',
+      editorPath: '/ko/editor/unity',
+      emoji: '🌾',
+      description: 'ConcernedApe의 인기 농장 시뮬레이션 RPG.',
+      saveLocations: {
+        windows: '%appdata%\\StardewValley\\Saves',
+        mac: '~/Library/Application Support/StardewValley/Saves',
+        linux: '~/.config/StardewValley/Saves',
+      },
+      editableItems: [
+        { icon: '💰', name: '골드', desc: '농장 수입 편집' },
+        { icon: '🎒', name: '아이템', desc: '모든 아이템 추가' },
+        { icon: '❤️', name: '호감도', desc: '주민과의 우정 변경' },
+        { icon: '📈', name: '스킬', desc: '농업, 채광 등 레벨업' },
+        { icon: '🏆', name: '업적', desc: '커뮤니티 센터 해제' },
+        { icon: '🗓️', name: '날짜', desc: '현재 계절과 날짜 변경' },
+      ],
+      faq: [
+        {
+          question: '스타듀 밸리 세이브 파일은 어디에 있나요?',
+          answer:
+            'Windows에서는 %appdata%\\StardewValley\\Saves에 있습니다. 각 세이브 폴더는 농부 이름(예: FarmerName_123456789)으로 지정됩니다.',
+        },
+        {
+          question: '멀티플레이어 세이브도 편집할 수 있나요?',
+          answer:
+            '네, 호스트로서 자신의 세이브만 편집할 수 있습니다. 공유 농장 데이터를 손상시키지 않도록 주의하세요.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Unity 세이브 편집 가이드', url: '/blog/ko/how-to-edit-unity-saves' },
+      ],
+    },
+    {
+      slug: 'undertale',
+      name: 'Undertale',
+      nameLocal: '언더테일',
+      engine: 'GameMaker',
+      format: 'file0, undertale.ini',
+      editorPath: '/ko/editor/gamemaker',
+      emoji: '❤️',
+      description: 'Toby Fox의 명작 인디 RPG. 아무도 죽지 않아도 되는 세계.',
+      saveLocations: {
+        windows: '%localappdata%\\UNDERTALE',
+        mac: '~/Library/Application Support/com.tobyfox.undertale/',
+        linux: '~/.config/UNDERTALE',
+      },
+      editableItems: [
+        { icon: '❤️', name: 'HP·LV', desc: '체력과 LOVE 레벨 변경' },
+        { icon: '🎒', name: '인벤토리', desc: '아이템 편집' },
+        { icon: '💰', name: '골드 (G)', desc: '돈 변경' },
+        { icon: '📍', name: '세이브 위치', desc: '세이브 포인트 변경' },
+        { icon: '🎮', name: '게임 플래그', desc: '스토리 진행 변경' },
+      ],
+      faq: [
+        {
+          question: 'Undertale 세이브는 어디에 있나요?',
+          answer:
+            'Windows: %localappdata%\\UNDERTALE. Mac: ~/Library/Application Support/com.tobyfox.undertale/. 메인 파일은 file0(세이브 데이터)과 undertale.ini(설정)입니다.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'GameMaker 세이브 편집 가이드', url: '/blog/ko/gamemaker-save-editing-guide' },
+      ],
+    },
+    {
+      slug: 'ddlc',
+      name: 'Doki Doki Literature Club',
+      nameLocal: '도키도키 문예부',
+      engine: "Ren'Py",
+      format: '.save, persistent',
+      editorPath: '/ko/editor/renpy',
+      emoji: '📚',
+      description: 'Team Salvato의 심리 호러 비주얼 노벨.',
+      saveLocations: {
+        windows: '%appdata%\\RenPy\\DDLC-1454445547',
+        mac: '~/Library/RenPy/DDLC-1454445547',
+        linux: '~/.renpy/DDLC-1454445547',
+      },
+      editableItems: [
+        { icon: '📖', name: '스토리 진행', desc: '원하는 챕터로 이동' },
+        { icon: '❤️', name: '캐릭터 호감도', desc: '캐릭터와의 관계 변경' },
+        { icon: '🖼️', name: 'CG 갤러리', desc: '모든 이미지 해제' },
+      ],
+      faq: [
+        {
+          question: 'DDLC 세이브는 어디에 있나요?',
+          answer:
+            'Windows: %appdata%\\RenPy\\DDLC-1454445547. DDLC Plus는 %appdata%\\..\\LocalLow\\Team Salvato\\Doki Doki Literature Club Plus에 있습니다.',
+        },
+      ],
+      relatedGuides: [
+        { title: "Ren'Py 세이브 편집 가이드", url: '/blog/ko/renpy-save-editing-guide' },
+      ],
+    },
+    {
+      slug: 'hollow-knight',
+      name: 'Hollow Knight',
+      nameLocal: '할로우 나이트',
+      engine: 'Unity',
+      format: 'user#.dat',
+      editorPath: '/ko/editor/unity',
+      emoji: '🪲',
+      description: 'Team Cherry의 호평받는 메트로이드바니아.',
+      saveLocations: {
+        windows: '%appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight',
+        mac: '~/Library/Application Support/unity.Team Cherry.Hollow Knight',
+        linux: '~/.config/unity3d/Team Cherry/Hollow Knight',
+      },
+      editableItems: [
+        { icon: '💰', name: '지오', desc: '화폐 편집' },
+        { icon: '❤️', name: '마스크', desc: '최대 HP 변경' },
+        { icon: '💎', name: '소울', desc: '소울 미터 변경' },
+        { icon: '✨', name: '부적', desc: '부적 노치와 해제 편집' },
+      ],
+      faq: [
+        {
+          question: 'Hollow Knight 세이브는 어디에 있나요?',
+          answer:
+            'Windows: %appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight. 파일은 각 세이브 슬롯에 user1.dat, user2.dat 등으로 명명됩니다.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Unity 세이브 편집 가이드', url: '/blog/ko/how-to-edit-unity-saves' },
+      ],
+    },
+    {
+      slug: 'rpg-maker',
+      name: 'RPG 만들기 게임',
+      nameLocal: 'RPG 만들기',
+      engine: 'RPG Maker (MV/MZ/VX Ace/XP)',
+      format: '.rpgsave, .rvdata2',
+      editorPath: '/ko/editor/rpg-maker-mv',
+      emoji: '⚔️',
+      description: 'RPG 만들기 시리즈로 만든 수천 개의 게임.',
+      saveLocations: {
+        windows: '게임 폴더/www/save 또는 게임 폴더/save',
+        mac: 'Game.app/Contents/Resources/app.nw/save',
+        linux: '게임 폴더/save',
+      },
+      editableItems: [
+        { icon: '💰', name: '골드', desc: '파티의 돈 편집' },
+        { icon: '👥', name: '스탯', desc: 'HP, MP, 레벨, 경험치 변경' },
+        { icon: '🎒', name: '인벤토리', desc: '아이템 추가/삭제' },
+        { icon: '⚔️', name: '장비', desc: '무기와 방어구 변경' },
+        { icon: '✨', name: '스킬', desc: '모든 스킬 습득' },
+      ],
+      faq: [
+        {
+          question: 'RPG 만들기 세이브는 어디에 있나요?',
+          answer:
+            '대부분의 RPG 만들기 MV/MZ 게임은 게임 디렉토리 내 www/save 또는 save 폴더에 세이브를 저장합니다.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'RPG 만들기 세이브 편집 가이드', url: '/blog/ko/how-to-edit-rpg-maker-save' },
+      ],
+    },
+  ];
+
+  return games.map((game) => ({
+    params: { slug: game.slug },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+---
+
+<BaseLayout
+  title={`${game.nameLocal} 세이브 에디터 - ${game.format} 파일 무료 편집`}
+  description={`${game.nameLocal}용 무료 온라인 세이브 에디터. 골드, 아이템, 스탯 편집. 세이브 파일 위치를 확인하고 브라우저에서 편집 시작.`}
+  keywords={`${game.name.toLowerCase()} 세이브 에디터, ${game.name.toLowerCase()} 세이브 위치, ${game.name.toLowerCase()} 세이브 편집`}
+>
+  <!-- Hero Section -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16"
+  >
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl">
+      </div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl">
+      </div>
+    </div>
+
+    <div class="relative container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="text-6xl mb-6">{game.emoji}</div>
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+          {game.nameLocal}
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+            >세이브 에디터</span
+          >
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          {game.description} 세이브 파일을 무료로 온라인 편집.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">엔진: {game.engine}</span>
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">형식: {game.format}</span>
+          <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm"
+            >✓ 100% 무료</span
+          >
+        </div>
+
+        <a
+          href={game.editorPath}
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg"
+        >
+          {game.nameLocal} 세이브 편집하기 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          {game.nameLocal}에서 편집할 수 있는 것
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            game.editableItems.map((item: { icon: string; name: string; desc: string }) => (
+              <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="text-3xl mb-3">{item.icon}</div>
+                <h3 class="font-bold text-gray-900 mb-2">{item.name}</h3>
+                <p class="text-gray-600 text-sm">{item.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="mb-16 bg-gray-50 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">📂 {game.nameLocal} 세이브 파일 위치</h2>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded"
+              >Windows</span
+            >
+            <code class="text-sm text-gray-600 break-all block mt-2"
+              >{game.saveLocations.windows}</code
+            >
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded"
+              >macOS</span
+            >
+            <code class="text-sm text-gray-600 break-all block mt-2">{game.saveLocations.mac}</code>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <span class="px-3 py-1 bg-orange-100 text-orange-700 text-sm font-medium rounded"
+              >Linux</span
+            >
+            <code class="text-sm text-gray-600 break-all block mt-2"
+              >{game.saveLocations.linux}</code
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">자주 묻는 질문</h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {
+            game.faq.map((item: { question: string; answer: string }) => (
+              <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                  {item.question}
+                  <svg
+                    class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">{item.answer}</div>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Related Games -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">다른 인기 게임</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {
+            game.slug !== 'stardew-valley' && (
+              <a
+                href="/ko/games/stardew-valley"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🌾</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  스타듀 밸리
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'undertale' && (
+              <a
+                href="/ko/games/undertale"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">❤️</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  언더테일
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'ddlc' && (
+              <a
+                href="/ko/games/ddlc"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">📚</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  도키도키 문예부
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'hollow-knight' && (
+              <a
+                href="/ko/games/hollow-knight"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🪲</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  할로우 나이트
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'rpg-maker' && (
+              <a
+                href="/ko/games/rpg-maker"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">⚔️</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  RPG 만들기
+                </span>
+              </a>
+            )
+          }
+        </div>
+        <div class="text-center mt-6">
+          <a href="/ko/games" class="text-primary-600 hover:text-primary-700 font-medium">
+            80개 이상의 게임 보기 →
+          </a>
+        </div>
+      </section>
+
+      <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-4">{game.nameLocal} 세이브를 편집할 준비가 되셨나요?</h2>
+        <p class="text-gray-300 mb-8">100% 무료, 다운로드 불필요. 파일이 기기를 떠나지 않습니다.</p>
+        <a
+          href={game.editorPath}
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100 transition-colors"
+        >
+          지금 편집 시작 →
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <!-- BreadcrumbList Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '홈', item: 'https://saveeditor.top/ko/' },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: '게임',
+          item: 'https://saveeditor.top/ko/games/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: game.nameLocal,
+          item: `https://saveeditor.top/ko/games/${game.slug}/`,
+        },
+      ],
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    })}
+  />
+</BaseLayout>

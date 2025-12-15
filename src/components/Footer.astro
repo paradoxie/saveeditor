@@ -8,7 +8,7 @@ const currentYear = new Date().getFullYear();
 <footer class="bg-white border-t border-gray-100 pt-16 pb-8 mt-auto">
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-      <div class="col-span-1 md:col-span-2">
+      <div class="col-span-1 md:col-span-1">
         <div class="flex items-center gap-2 mb-4">
           <div
             class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white font-bold text-xl"
@@ -67,6 +67,41 @@ const currentYear = new Date().getFullYear();
         </ul>
       </div>
       <div>
+        <h4 class="font-bold text-gray-900 mb-4">{t('footer.resources')}</h4>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>
+            <a
+              href={`/${lang === 'en' ? '' : lang + '/'}games`}
+              class="hover:text-primary-600 transition-colors">{t('footer.allGames')}</a
+            >
+          </li>
+          <li>
+            <a
+              href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+              class="hover:text-primary-600 transition-colors">{t('footer.faq')}</a
+            >
+          </li>
+          <li>
+            <a
+              href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+              class="hover:text-primary-600 transition-colors">{t('nav.blog')}</a
+            >
+          </li>
+          <li>
+            <a
+              href={`/${lang === 'en' ? '' : lang + '/'}about`}
+              class="hover:text-primary-600 transition-colors">{t('nav.about')}</a
+            >
+          </li>
+          <li>
+            <a
+              href={`/${lang === 'en' ? '' : lang + '/'}contact`}
+              class="hover:text-primary-600 transition-colors">{t('nav.contact')}</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div>
         <h4 class="font-bold text-gray-900 mb-4">
           {t('footer.legal')}
         </h4>
@@ -87,18 +122,6 @@ const currentYear = new Date().getFullYear();
             <a
               href={`/${lang === 'en' ? '' : lang + '/'}cookie-policy`}
               class="hover:text-primary-600 transition-colors">{t('footer.cookie')}</a
-            >
-          </li>
-          <li>
-            <a
-              href={`/${lang === 'en' ? '' : lang + '/'}about`}
-              class="hover:text-primary-600 transition-colors">{t('nav.about')}</a
-            >
-          </li>
-          <li>
-            <a
-              href={`/${lang === 'en' ? '' : lang + '/'}contact`}
-              class="hover:text-primary-600 transition-colors">{t('nav.contact')}</a
             >
           </li>
         </ul>

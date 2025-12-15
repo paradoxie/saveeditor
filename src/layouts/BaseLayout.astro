@@ -14,7 +14,7 @@ interface Props {
 
 const { title, description, keywords, ogImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveeditor.com');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveeditor.top');
 ---
 
 <!doctype html>
@@ -55,31 +55,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveedit
       is:inline></script>
 
     <!-- SEO Meta -->
-    <title>{title} | Save Editor Online</title>
+    <title>{title}</title>
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Hreflang Tags -->
-    <link
-      rel="alternate"
-      hreflang="en"
-      href={`https://saveeditor.com${Astro.url.pathname.replace(/^\/(ja|pt)/, '')}`}
-    />
-    <link
-      rel="alternate"
-      hreflang="ja"
-      href={`https://saveeditor.com/ja${Astro.url.pathname.replace(/^\/(ja|pt)/, '')}`}
-    />
-    <link
-      rel="alternate"
-      hreflang="pt"
-      href={`https://saveeditor.com/pt${Astro.url.pathname.replace(/^\/(ja|pt)/, '')}`}
-    />
+    <!-- Hreflang Tags for all 5 languages -->
+    {
+      (() => {
+        const locales = ['en', 'ja', 'ko', 'pt', 'zh-cn'];
+        const basePath = Astro.url.pathname.replace(/^\/(ja|ko|pt|zh-cn)/, '');
+        return locales.map((locale) => {
+          const href =
+            locale === 'en'
+              ? `https://saveeditor.top${basePath}`
+              : `https://saveeditor.top/${locale}${basePath}`;
+          return <link rel="alternate" hreflang={locale} href={href} />;
+        });
+      })()
+    }
     <link
       rel="alternate"
       hreflang="x-default"
-      href={`https://saveeditor.com${Astro.url.pathname.replace(/^\/(ja|pt)/, '')}`}
+      href={`https://saveeditor.top${Astro.url.pathname.replace(/^\/(ja|ko|pt|zh-cn)/, '')}`}
     />
 
     <!-- Open Graph -->

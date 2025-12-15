@@ -40,6 +40,8 @@ export const ui = {
         'editor.contactUs': 'Contact Us',
         'editor.successParsed': 'Successfully parsed!',
         'editor.experimentalWarning': 'This format has experimental support. Some features may not work as expected.',
+        'footer.allGames': 'All Games',
+        'footer.faq': 'FAQ',
     },
     ja: {
         'nav.home': 'ホーム',
@@ -72,6 +74,8 @@ export const ui = {
         'editor.contactUs': 'お問い合わせ',
         'editor.successParsed': '解析成功！',
         'editor.experimentalWarning': 'この形式は実験的サポートです。一部の機能が期待通りに動作しない場合があります。',
+        'footer.allGames': 'すべてのゲーム',
+        'footer.faq': 'よくある質問',
     },
     pt: {
         'nav.home': 'Início',
@@ -104,6 +108,8 @@ export const ui = {
         'editor.contactUs': 'Contate-nos',
         'editor.successParsed': 'Analisado com sucesso!',
         'editor.experimentalWarning': 'Este formato tem suporte experimental. Algumas funcionalidades podem não funcionar como esperado.',
+        'footer.allGames': 'Todos os Jogos',
+        'footer.faq': 'FAQ',
     },
     ko: {
         'nav.home': '홈',
@@ -136,6 +142,8 @@ export const ui = {
         'editor.contactUs': '문의하기',
         'editor.successParsed': '분석 성공!',
         'editor.experimentalWarning': '이 형식은 실험적 지원입니다. 일부 기능이 예상대로 작동하지 않을 수 있습니다.',
+        'footer.allGames': '모든 게임',
+        'footer.faq': '자주 묻는 질문',
     },
     'zh-cn': {
         'nav.home': '首页',
@@ -168,6 +176,8 @@ export const ui = {
         'editor.contactUs': '联系我们',
         'editor.successParsed': '解析成功！',
         'editor.experimentalWarning': '此格式为实验性支持。部分功能可能无法正常工作。',
+        'footer.allGames': '所有游戏',
+        'footer.faq': '常见问题',
     },
 } as const;
 

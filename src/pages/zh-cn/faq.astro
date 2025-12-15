@@ -1,0 +1,285 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqCategories = [
+  {
+    title: '入门指南',
+    icon: '🚀',
+    questions: [
+      {
+        question: 'SaveEditor.top 是什么？',
+        answer:
+          "SaveEditor.top 是一个免费的浏览器端游戏存档编辑工具。它完全在您的浏览器中运行，意味着您的文件永远不会离开您的设备。我们支持 RPG Maker、Unity、Ren'Py、Unreal Engine 等流行引擎。",
+      },
+      {
+        question: '这个工具安全吗？',
+        answer:
+          '是的，100% 安全。与可能包含恶意软件的可下载编辑器不同，SaveEditor.top 完全在您的网络浏览器中运行（客户端 JavaScript）。您的存档文件永远不会上传到任何服务器。',
+      },
+      {
+        question: '需要创建账户吗？',
+        answer:
+          '不需要。SaveEditor.top 无需注册、登录或个人信息。只需上传您的存档文件即可立即开始编辑。',
+      },
+      {
+        question: '这真的免费吗？',
+        answer:
+          '是的，完全免费，没有隐藏费用、高级版本或功能限制。我们通过可选捐赠和非侵入性广告来支持运营。',
+      },
+    ],
+  },
+  {
+    title: '支持的游戏和格式',
+    icon: '🎮',
+    questions: [
+      {
+        question: '可以编辑哪些游戏？',
+        answer:
+          "我们支持多个引擎的数千款游戏。热门支持的游戏包括星露谷物语、传说之下、空洞骑士、心跳文学部、Celeste、Omori，以及几乎所有用 RPG Maker、Ren'Py、Unity 或 GameMaker 制作的游戏。",
+      },
+      {
+        question: '支持哪些文件格式？',
+        answer:
+          "我们支持：RPG Maker MV/MZ (.rpgsave, .rmmzsave)、RPG Maker VX/VX Ace (.rvdata2, .rvdata)、RPG Maker XP (.rxdata)、Ren'Py (.save, persistent)、Unity (PlayerPrefs .xml/.plist, JSON)、Unreal Engine (.sav)、GameMaker (.ini, .json)、NaniNovel (.nson)，以及通用 JSON/XML 格式。",
+      },
+      {
+        question: '可以编辑主机游戏（PlayStation、Xbox、Switch）的存档吗？',
+        answer:
+          '很遗憾，主机存档使用平台特定的 DRM 加密，无法编辑。我们的编辑器只支持 PC/Mac/Linux 存档文件。',
+      },
+      {
+        question: '我的游戏没有列出，还能使用编辑器吗？',
+        answer:
+          '也许可以！如果您的游戏使用标准 JSON、XML 或 INI 格式，我们的通用编辑器可以工作。尝试上传您的存档文件看看是否可以解析。',
+      },
+    ],
+  },
+  {
+    title: '查找存档文件',
+    icon: '📂',
+    questions: [
+      {
+        question: 'Windows 上存档文件在哪里？',
+        answer:
+          '常见位置：%AppData%（按 Win+R，输入 %appdata%）、%LocalAppData%、Documents/My Games，或游戏安装文件夹。Steam 游戏还可以检查 Steam/userdata/[ID]/[GameID]/。',
+      },
+      {
+        question: 'Mac 上存档文件在哪里？',
+        answer:
+          "大多数游戏请检查 ~/Library/Application Support/。Unity 游戏查看 ~/Library/Application Support/unity.[公司名].[游戏名]。Ren'Py 请检查 ~/Library/RenPy/[游戏名]。",
+      },
+      {
+        question: 'Linux 上存档文件在哪里？',
+        answer:
+          '大多数游戏将存档保存在 ~/.config/[游戏名] 或 ~/.local/share/[游戏名]。通过 Proton 运行的 Steam 游戏，请检查 ~/.steam/steam/steamapps/compatdata/[GameID]/pfx/。',
+      },
+      {
+        question: '如何找到特定游戏的存档位置？',
+        answer:
+          "访问我们的游戏专题页面（如 /games/stardew-valley）获取确切路径。或者在线搜索'[游戏名] 存档位置'或查看游戏的设置/选项菜单。",
+      },
+    ],
+  },
+  {
+    title: '编辑存档',
+    icon: '✏️',
+    questions: [
+      {
+        question: '如何编辑金币/货币？',
+        answer:
+          "上传您的存档，然后搜索 'gold'、'money'、'currency'、'coins' 或 'funds' 等字段。将值更改为您想要的金额。对于 RPG Maker 游戏，在队伍数据中查找 '_gold'。记得保持合理的值以避免 bug。",
+      },
+      {
+        question: '如何向物品栏添加物品？',
+        answer:
+          "在存档中找到物品栏/物品数组。对于 RPG Maker，物品存储为 [物品ID, 数量] 对。对于 Unity 游戏，查找 'inventory' 或 'items' 对象。按照现有格式添加新条目。",
+      },
+      {
+        question: '可以修改角色属性（HP、等级等）吗？',
+        answer:
+          "可以！查找 'hp'、'maxHp'、'level'、'exp'、'str'、'def' 等字段。对于 RPG Maker 游戏，这些在 actors 数组中。对于 Unity 游戏，检查 player data 对象。",
+      },
+      {
+        question: '如何解锁成就或剧情进度？',
+        answer:
+          "成就通常存储为布尔标志或时间戳对象。搜索 'achievement'、'unlock'、'flag' 或 'completed'。剧情进度通常使用开关数组（RPG Maker）或进度对象。",
+      },
+      {
+        question: '编辑会损坏游戏或存档文件吗？',
+        answer:
+          '我们的编辑器会验证更改以防止明显错误，但极端修改可能会导致问题。请务必先备份！常见问题：值过大导致溢出、无效的物品 ID 或缺少必需字段。',
+      },
+    ],
+  },
+  {
+    title: 'Steam 和云存档',
+    icon: '☁️',
+    questions: [
+      {
+        question: 'Steam 云一直恢复我的原始存档！',
+        answer:
+          "为该游戏禁用 Steam 云同步：右键点击游戏 → 属性 → 常规 → 取消勾选'Steam 云'。进行编辑，验证它们有效，然后根据需要重新启用云同步。",
+      },
+      {
+        question: '编辑存档会被 VAC 封禁吗？',
+        answer:
+          '不会。VAC（Valve 反作弊）只监控多人/在线游戏。单人游戏存档编辑是完全安全的，不会导致任何 Steam 封禁或限制。',
+      },
+      {
+        question: '编辑后 Steam 成就还能正常解锁吗？',
+        answer:
+          '是的，对于单人游戏。Steam 无法检测存档文件修改。您的成就将根据游戏的内部检查正常解锁。',
+      },
+    ],
+  },
+  {
+    title: '故障排除',
+    icon: '🔧',
+    questions: [
+      {
+        question: "为什么编辑器显示'无效文件'或'解析错误'？",
+        answer:
+          '游戏可能使用不支持的格式、加密或压缩。尝试：1）选择不同的编辑器类型，2）检查文件是否是实际存档（不是备份或临时文件），3）游戏可能使用专有编码。',
+      },
+      {
+        question: '游戏无法加载编辑后的存档！',
+        answer:
+          '常见修复方法：1）确保您替换了正确的文件，2）检查 Steam 云是否恢复了原始文件，3）某些游戏有校验和验证 - 尝试较小的编辑，4）恢复备份并重试。',
+      },
+      {
+        question: '我编辑的值在加载游戏时重置了！',
+        answer:
+          '某些游戏在加载时重新计算值。例如，派生属性（如基于等级的最大 HP）会被重新计算。尝试编辑输入计算的基础值。',
+      },
+      {
+        question: '可以撤销编辑吗？',
+        answer:
+          '一旦下载，编辑就是永久的。请始终保留备份！如果您没有备份，请检查：1）Steam 云是否有原始文件，2）游戏是否创建 .bak 文件，3）您是否有系统还原点。',
+      },
+    ],
+  },
+];
+
+const allQuestions = faqCategories.flatMap((cat) => cat.questions);
+---
+
+<BaseLayout
+  title="常见问题 - 存档编辑 FAQ"
+  description="获取有关使用 SaveEditor.top 的常见问题解答。了解如何查找存档文件、编辑游戏数据、解决问题等。"
+  keywords="存档编辑器 FAQ, 如何编辑存档文件, 游戏存档位置, 存档文件帮助, rpg maker 存档编辑器帮助"
+>
+  <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >常见问题</span
+        >
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        关于使用 SaveEditor.top 编辑游戏存档您需要了解的一切
+      </p>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+      <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">跳转到章节</h2>
+        <div class="flex flex-wrap gap-3">
+          {
+            faqCategories.map((category, index) => (
+              <a
+                href={`#section-${index}`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
+              >
+                <span>{category.icon}</span>
+                <span>{category.title}</span>
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+
+      {
+        faqCategories.map((category, catIndex) => (
+          <section id={`section-${catIndex}`} class="mb-12">
+            <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
+              <span class="text-3xl">{category.icon}</span>
+              {category.title}
+            </h2>
+            <div class="space-y-4">
+              {category.questions.map((faq) => (
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                  <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                    {faq.question}
+                    <svg
+                      class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </summary>
+                  <div class="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
+        <h2 class="text-2xl font-bold mb-4">还有其他问题？</h2>
+        <p class="text-gray-300 mb-6">找不到您需要的内容？查看我们的游戏专题指南或联系我们。</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/zh-cn/games"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+            >浏览游戏</a
+          >
+          <a
+            href="/zh-cn/contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
+            >联系我们</a
+          >
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQuestions.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '首页', item: 'https://saveeditor.top/zh-cn/' },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: '常见问题',
+          item: 'https://saveeditor.top/zh-cn/faq/',
+        },
+      ],
+    })}
+  />
+</BaseLayout>

@@ -1,0 +1,238 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqCategories = [
+  {
+    title: 'Primeiros Passos',
+    icon: '🚀',
+    questions: [
+      {
+        question: 'O que é o SaveEditor.top?',
+        answer:
+          "SaveEditor.top é uma ferramenta gratuita baseada em navegador para editar arquivos de save de jogos. Funciona inteiramente no seu navegador, o que significa que seus arquivos nunca saem do seu dispositivo. Suportamos engines populares como RPG Maker, Unity, Ren'Py, Unreal Engine e mais.",
+      },
+      {
+        question: 'Isso é seguro de usar?',
+        answer:
+          'Sim, 100% seguro. Ao contrário de editores para download que podem conter malware, o SaveEditor.top roda inteiramente no seu navegador web (JavaScript do lado do cliente). Seus arquivos de save nunca são enviados para nenhum servidor.',
+      },
+      {
+        question: 'Preciso criar uma conta?',
+        answer:
+          'Não. O SaveEditor.top não requer registro, login ou informações pessoais. Basta enviar seu arquivo de save e começar a editar imediatamente.',
+      },
+      {
+        question: 'Isso é realmente gratuito?',
+        answer:
+          'Sim, completamente gratuito sem custos ocultos, níveis premium ou limites de recursos. Nos sustentamos através de doações opcionais e publicidade não intrusiva.',
+      },
+    ],
+  },
+  {
+    title: 'Jogos e Formatos Suportados',
+    icon: '🎮',
+    questions: [
+      {
+        question: 'Quais jogos posso editar?',
+        answer:
+          "Suportamos milhares de jogos em várias engines. Jogos populares incluem Stardew Valley, Undertale, Hollow Knight, Doki Doki Literature Club, Celeste, Omori e praticamente qualquer jogo feito com RPG Maker, Ren'Py, Unity ou GameMaker.",
+      },
+      {
+        question: 'Quais formatos de arquivo são suportados?',
+        answer:
+          "Suportamos: RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav), GameMaker (.ini, .json), NaniNovel (.nson) e formatos JSON/XML genéricos.",
+      },
+      {
+        question: 'Posso editar saves de console (PlayStation, Xbox, Switch)?',
+        answer:
+          'Infelizmente, saves de console são criptografados com DRM específico da plataforma e não podem ser editados. Nosso editor só funciona com arquivos de save de PC/Mac/Linux.',
+      },
+    ],
+  },
+  {
+    title: 'Encontrando Arquivos de Save',
+    icon: '📂',
+    questions: [
+      {
+        question: 'Onde estão os arquivos de save no Windows?',
+        answer:
+          'Locais comuns: %AppData% (pressione Win+R, digite %appdata%), %LocalAppData%, Documents/My Games, ou a pasta de instalação do jogo. Para jogos Steam, também verifique Steam/userdata/[ID]/[GameID]/.',
+      },
+      {
+        question: 'Onde estão os arquivos de save no Mac?',
+        answer:
+          "Para a maioria dos jogos, verifique ~/Library/Application Support/. Para jogos Unity, veja ~/Library/Application Support/unity.[Empresa].[Jogo]. Para Ren'Py, verifique ~/Library/RenPy/[NomeDoJogo].",
+      },
+      {
+        question: 'Onde estão os arquivos de save no Linux?',
+        answer:
+          'A maioria dos jogos armazena saves em ~/.config/[NomeDoJogo] ou ~/.local/share/[NomeDoJogo]. Para jogos Steam via Proton, verifique ~/.steam/steam/steamapps/compatdata/[GameID]/pfx/.',
+      },
+    ],
+  },
+  {
+    title: 'Editando Saves',
+    icon: '✏️',
+    questions: [
+      {
+        question: 'Como editar ouro/dinheiro?',
+        answer:
+          "Envie seu save, depois procure campos como 'gold', 'money', 'currency', 'coins' ou 'funds'. Altere o valor para a quantia desejada. Para jogos RPG Maker, procure '_gold' nos dados do grupo.",
+      },
+      {
+        question: 'Como adicionar itens ao inventário?',
+        answer:
+          "Encontre o array de inventário/itens no seu save. Para RPG Maker, itens são armazenados como pares [itemId, quantidade]. Para jogos Unity, procure objetos 'inventory' ou 'items'. Adicione novas entradas seguindo o formato existente.",
+      },
+      {
+        question: 'A edição vai corromper meu jogo ou arquivo de save?',
+        answer:
+          'Nosso editor valida alterações para evitar erros óbvios, mas modificações extremas podem causar problemas. Sempre faça backup primeiro!',
+      },
+    ],
+  },
+  {
+    title: 'Solução de Problemas',
+    icon: '🔧',
+    questions: [
+      {
+        question: "Por que o editor mostra 'Arquivo inválido'?",
+        answer:
+          'O jogo pode usar um formato não suportado, criptografia ou compressão. Tente: 1) Selecionar um tipo de editor diferente, 2) Verificar se o arquivo é o save real, 3) O jogo pode usar codificação proprietária.',
+      },
+      {
+        question: 'Meu jogo não carrega o save editado!',
+        answer:
+          'Correções comuns: 1) Certifique-se de substituir o arquivo correto, 2) Verifique se o Steam Cloud restaurou o original, 3) Alguns jogos têm validação de checksum - tente edições menores, 4) Restaure o backup e tente novamente.',
+      },
+      {
+        question: 'Posso desfazer minhas edições?',
+        answer:
+          'Uma vez baixado, as edições são permanentes. Sempre mantenha um backup! Se não fez backup, verifique se: 1) Steam Cloud tem o original, 2) O jogo cria arquivos .bak.',
+      },
+    ],
+  },
+];
+
+const allQuestions = faqCategories.flatMap((cat) => cat.questions);
+---
+
+<BaseLayout
+  title="FAQ - Perguntas Frequentes Sobre Edição de Saves"
+  description="Obtenha respostas para perguntas comuns sobre usar o SaveEditor.top. Aprenda como encontrar arquivos de save, editar dados de jogos, resolver problemas e mais."
+  keywords="save editor faq, como editar arquivos de save, localização de save de jogo, ajuda com arquivos de save"
+>
+  <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+        Perguntas <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >Frequentes</span
+        >
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        Tudo que você precisa saber sobre edição de saves com SaveEditor.top
+      </p>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+      <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Ir Para Seção</h2>
+        <div class="flex flex-wrap gap-3">
+          {
+            faqCategories.map((category, index) => (
+              <a
+                href={`#section-${index}`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
+              >
+                <span>{category.icon}</span>
+                <span>{category.title}</span>
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+
+      {
+        faqCategories.map((category, catIndex) => (
+          <section id={`section-${catIndex}`} class="mb-12">
+            <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
+              <span class="text-3xl">{category.icon}</span>
+              {category.title}
+            </h2>
+            <div class="space-y-4">
+              {category.questions.map((faq) => (
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                  <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                    {faq.question}
+                    <svg
+                      class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </summary>
+                  <div class="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
+        <h2 class="text-2xl font-bold mb-4">Ainda Tem Perguntas?</h2>
+        <p class="text-gray-300 mb-6">
+          Não encontrou o que procura? Confira nossos guias específicos de jogos ou entre em
+          contato.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/pt/games"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+            >Ver Jogos</a
+          >
+          <a
+            href="/pt/contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
+            >Contato</a
+          >
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQuestions.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://saveeditor.top/pt/' },
+        { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/pt/faq/' },
+      ],
+    })}
+  />
+</BaseLayout>

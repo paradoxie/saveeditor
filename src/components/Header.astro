@@ -113,6 +113,11 @@ const getBlogUrl = (targetLang: string): string => {
         >{t('nav.blog')}</a
       >
       <a
+        href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+        class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
+        >FAQ</a
+      >
+      <a
         href={`/${lang === 'en' ? '' : lang + '/'}about`}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.about')}</a
@@ -280,6 +285,11 @@ const getBlogUrl = (targetLang: string): string => {
         href={`/${lang === 'en' ? '' : lang + '/'}blog`}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.blog')}</a
+      >
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+        >FAQ</a
       >
       <a
         href={`/${lang === 'en' ? '' : lang + '/'}about`}

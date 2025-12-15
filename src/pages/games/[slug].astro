@@ -1,0 +1,681 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+
+export async function getStaticPaths() {
+  const games = [
+    {
+      slug: 'stardew-valley',
+      name: 'Stardew Valley',
+      engine: 'Unity (XML)',
+      format: '.xml',
+      editorPath: '/editor/unity',
+      emoji: '🌾',
+      image: '/images/games/stardew-valley.webp',
+      description: 'The beloved farming simulation RPG by ConcernedApe.',
+      saveLocations: {
+        windows: '%appdata%\\StardewValley\\Saves',
+        mac: '~/Library/Application Support/StardewValley/Saves',
+        linux: '~/.config/StardewValley/Saves',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Gold & Money', desc: 'Edit your farm income' },
+        { icon: '🎒', name: 'Inventory & Items', desc: 'Add any item to your bag' },
+        { icon: '❤️', name: 'Relationships', desc: 'Modify friendship hearts' },
+        { icon: '📈', name: 'Skills & Experience', desc: 'Level up farming, mining, etc.' },
+        { icon: '🏆', name: 'Achievements', desc: 'Unlock community center bundles' },
+        { icon: '🗓️', name: 'Time & Season', desc: 'Change the current date' },
+      ],
+      faq: [
+        {
+          question: 'Where is my Stardew Valley save file?',
+          answer:
+            'On Windows, your saves are in %appdata%\\StardewValley\\Saves. Each save folder is named after your farmer (e.g., FarmerName_123456789).',
+        },
+        {
+          question: 'Can I edit multiplayer saves?',
+          answer:
+            'Yes, but you should only edit your own save as the host. Be careful not to corrupt shared farm data.',
+        },
+        {
+          question: 'Will editing break my game?',
+          answer:
+            'Always backup your save first! Our editor validates changes, but some extreme modifications might cause issues.',
+        },
+        {
+          question: 'Is this safe for Steam achievements?',
+          answer:
+            'Yes, Steam cannot detect save editing for single-player games. Your achievements will work normally.',
+        },
+        {
+          question: 'Can I edit saves on Android or iOS?',
+          answer:
+            'Yes! You can use this editor on mobile browsers. For Android, you just need to locate your save file. iOS requires file access via the Files app.',
+        },
+        {
+          question: 'How do I backup my Stardew Valley save?',
+          answer:
+            'Before editing, simply copy your entire save folder (e.g., FarmerName_123) to a safe location like your Desktop. If anything goes wrong, just paste it back.',
+        },
+        {
+          question: 'What if my file says "Invalid"?',
+          answer:
+            'Ensure you are uploading the correct file (SaveGameInfo is NOT the save file). You need the file named like "FarmerName_123456". Also check if your game version is supported.',
+        },
+      ],
+      relatedGuides: [{ title: 'How to Edit Unity Saves', url: '/blog/how-to-edit-unity-saves' }],
+    },
+    {
+      slug: 'undertale',
+      name: 'Undertale',
+      engine: 'GameMaker',
+      format: 'file0, undertale.ini',
+      editorPath: '/editor/gamemaker',
+      emoji: '❤️',
+      image: '/images/games/undertale.webp',
+      description: 'The iconic indie RPG by Toby Fox where no one has to die.',
+      saveLocations: {
+        windows: '%localappdata%\\UNDERTALE',
+        mac: '~/Library/Application Support/com.tobyfox.undertale/',
+        linux: '~/.config/UNDERTALE',
+      },
+      editableItems: [
+        { icon: '❤️', name: 'HP & LV', desc: 'Change health and LOVE level' },
+        { icon: '🎒', name: 'Inventory', desc: 'Edit items in your inventory' },
+        { icon: '💰', name: 'Gold (G)', desc: 'Modify your money' },
+        { icon: '📍', name: 'Save Location', desc: 'Change your save point' },
+        { icon: '🎮', name: 'Game Flags', desc: 'Toggle story progression' },
+        { icon: '👤', name: 'Character Name', desc: 'Change the fallen human name' },
+      ],
+      faq: [
+        {
+          question: 'Where are Undertale save files?',
+          answer:
+            'Windows: %localappdata%\\UNDERTALE. Mac: ~/Library/Application Support/com.tobyfox.undertale/. The main files are file0 (save data) and undertale.ini (config).',
+        },
+        {
+          question: 'How do I do a True Reset?',
+          answer:
+            'After a True Reset, the game treats you as a new player. You can edit your save to restore your previous state, or simply modify the "fun" value to see different events.',
+        },
+        {
+          question: 'Can I change my FUN value?',
+          answer:
+            'Yes, edit the "fun" value in the `undertale.ini` file. This controls random events like the Gaster followers or the wrong number song.',
+        },
+        {
+          question: 'Is it safe to edit the Genocide route?',
+          answer:
+            'Editing flags related to the Genocide route is possible but complex. Back up your `system_information_962` and `963` files before attempting significant changes.',
+        },
+        {
+          question: 'Does this work with the Switch/PS4 version?',
+          answer:
+            'Directly, no. Consoles encrypt save files. However, if you can export your save (using a hacked console or cross-save tool) to PC format, you can edit it here.',
+        },
+        {
+          question: 'What is file0?',
+          answer:
+            'file0 contains your actual save game data. Each line represents a game variable like HP, items, story flags, etc.',
+        },
+        {
+          question: 'Can I change my route mid-game?',
+          answer:
+            'Yes! By editing game flags you can switch between Pacifist, Neutral, and Genocide routes.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'GameMaker Save Editing Guide', url: '/blog/gamemaker-save-editing-guide' },
+      ],
+    },
+    {
+      slug: 'ddlc',
+      name: 'Doki Doki Literature Club',
+      engine: "Ren'Py",
+      format: '.save, persistent',
+      editorPath: '/editor/renpy',
+      emoji: '📚',
+      image: '/images/games/ddlc.webp',
+      description: 'A psychological horror visual novel that is not what it seems.',
+      saveLocations: {
+        windows: '%appdata%\\RenPy\\DDLC-1454445547',
+        mac: '~/Library/RenPy/DDLC-1454445547',
+        linux: '~/.renpy/DDLC-1454445547',
+      },
+      editableItems: [
+        { icon: '📖', name: 'Story Progress', desc: 'Jump to any chapter' },
+        { icon: '📝', name: 'Poem Variables', desc: 'Change poem word selections' },
+        { icon: '❤️', name: 'Character Affinity', desc: 'Modify relationship with characters' },
+        { icon: '🎮', name: 'Game Flags', desc: 'Toggle story events' },
+        { icon: '🖼️', name: 'CG Gallery', desc: 'Unlock all gallery images' },
+        { icon: '🔊', name: 'Music Room', desc: 'Unlock all music tracks' },
+      ],
+      faq: [
+        {
+          question: 'Where is my DDLC save?',
+          answer:
+            'Windows: %appdata%\\RenPy\\DDLC-1454445547. For DDLC Plus: %appdata%\\..\\LocalLow\\Team Salvato\\Doki Doki Literature Club Plus',
+        },
+        {
+          question: 'Can I skip to a specific ending?',
+          answer:
+            'Yes! By editing story flags and persistent data, you can access different endings or replay specific scenes.',
+        },
+        {
+          question: 'What is persistent data?',
+          answer:
+            'The persistent file stores data that remains across all saves, like unlocked CGs, completed playthroughs, and certain meta events.',
+        },
+        {
+          question: 'Is file manipulation part of the game?',
+          answer:
+            'Yes! DDLC actually encourages players to manipulate game files as part of its meta-narrative. Our editor makes this easier.',
+        },
+      ],
+      relatedGuides: [
+        { title: "Ren'Py Save Editing Guide", url: '/blog/renpy-save-editing-guide' },
+      ],
+    },
+    {
+      slug: 'hollow-knight',
+      name: 'Hollow Knight',
+      engine: 'Unity',
+      format: 'user#.dat',
+      editorPath: '/editor/unity',
+      emoji: '🪲',
+      image: '/images/games/hollow-knight.webp',
+      description: 'The acclaimed Metroidvania by Team Cherry.',
+      saveLocations: {
+        windows: '%appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight',
+        mac: '~/Library/Application Support/unity.Team Cherry.Hollow Knight',
+        linux: '~/.config/unity3d/Team Cherry/Hollow Knight',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Geo', desc: 'Edit your currency' },
+        { icon: '❤️', name: 'Health Masks', desc: 'Modify max HP' },
+        { icon: '💎', name: 'Soul', desc: 'Change soul meter' },
+        { icon: '🗡️', name: 'Nail Upgrades', desc: 'Unlock nail levels' },
+        { icon: '✨', name: 'Charms', desc: 'Edit charm notches and unlocks' },
+        { icon: '🗺️', name: 'Map Progress', desc: 'Reveal map areas' },
+      ],
+      faq: [
+        {
+          question: 'Where are Hollow Knight saves?',
+          answer:
+            'Windows: %appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight. Files are named user1.dat, user2.dat, etc. for each save slot.',
+        },
+        {
+          question: 'Can I backup before editing?',
+          answer:
+            'Always! Copy your user#.dat file before making changes. You can also find .bak backup files in the same folder.',
+        },
+        {
+          question: 'Will this work with mods?',
+          answer:
+            'Most mods are compatible, but some save-modifying mods might conflict. Backup first!',
+        },
+        {
+          question: 'Can I unlock all charms?',
+          answer:
+            'Yes, you can edit charm unlocks and increase your notch count through save editing.',
+        },
+      ],
+      relatedGuides: [{ title: 'How to Edit Unity Saves', url: '/blog/how-to-edit-unity-saves' }],
+    },
+    {
+      slug: 'rpg-maker',
+      name: 'RPG Maker Games',
+      engine: 'RPG Maker (MV/MZ/VX Ace/XP)',
+      format: '.rpgsave, .rvdata2',
+      editorPath: '/editor/rpg-maker-mv',
+      emoji: '🕯️',
+      image: '/images/games/hollow-knight.webp',
+      description: 'The award-winning action-adventure through a fallen bug kingdom.',
+      saveLocations: {
+        windows: 'Game folder/www/save or Game folder/save',
+        mac: 'Game.app/Contents/Resources/app.nw/save',
+        linux: 'Game folder/save',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Gold', desc: 'Edit party gold' },
+        { icon: '👥', name: 'Party Stats', desc: 'Change HP, MP, Level, EXP' },
+        { icon: '🎒', name: 'Inventory', desc: 'Add and remove items' },
+        { icon: '⚔️', name: 'Equipment', desc: 'Modify weapons and armor' },
+        { icon: '✨', name: 'Skills', desc: 'Learn any skill' },
+        { icon: '🎮', name: 'Switches & Variables', desc: 'Edit game logic' },
+      ],
+      faq: [
+        {
+          question: 'Where are RPG Maker saves?',
+          answer:
+            'Most RPG Maker MV/MZ games store saves in the www/save or save folder within the game directory. Browser games use localStorage.',
+        },
+        {
+          question: 'Why is my save showing weird numbers?',
+          answer:
+            'RPG Maker saves are encoded in JSON or Marshal format. Our editor decodes them automatically for easy editing.',
+        },
+        {
+          question: 'Can I edit all RPG Maker games?',
+          answer:
+            'We support MV (.rpgsave), MZ (.rmmzsave), VX Ace (.rvdata2), VX (.rvdata), and XP (.rxdata) formats.',
+        },
+        {
+          question: 'How do switches work?',
+          answer:
+            'Switches are on/off flags that developers use to track story progress. Editing these can unlock content or skip sections.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'How to Edit RPG Maker Saves', url: '/blog/how-to-edit-rpg-maker-save' },
+      ],
+    },
+  ];
+
+  return games.map((game) => ({
+    params: { slug: game.slug },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+---
+
+<BaseLayout
+  title={`${game.name} Save Editor - Edit ${game.format} Files Online Free`}
+  description={`Free online save editor for ${game.name}. Edit gold, items, stats and more. Find save file location and start editing in your browser.`}
+  keywords={`${game.name.toLowerCase()} save editor, ${game.name.toLowerCase()} save file location, ${game.name.toLowerCase()} edit save, ${game.format} editor`}
+>
+  <!-- Hero Section -->
+  <section class="relative bg-slate-900 text-white overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src={game.image}
+        alt={`${game.name} Background`}
+        class="w-full h-full object-cover opacity-20 blur-sm"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/80 to-slate-900"
+      >
+      </div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-4 py-20 lg:py-28">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="mb-8 relative inline-block group">
+          <div
+            class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-cyan-600 rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-200"
+          >
+          </div>
+          <img
+            src={game.image}
+            alt={game.name}
+            class="relative w-full max-w-lg h-auto rounded-xl shadow-2xl border border-white/10 mx-auto transform transition hover:scale-[1.02]"
+          />
+          <div
+            class="absolute -top-6 -right-6 w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center text-4xl shadow-lg rotate-12"
+          >
+            {game.emoji}
+          </div>
+        </div>
+
+        <h1 class="text-5xl lg:text-7xl font-bold tracking-tight mb-6 mt-8">
+          {game.name}
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+            >Save Editor</span
+          >
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          {game.description} Edit your save files online for free.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">
+            Engine: {game.engine}
+          </span>
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">
+            Format: {game.format}
+          </span>
+          <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">
+            ✓ 100% Free
+          </span>
+        </div>
+
+        <a
+          href={game.editorPath}
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg"
+        >
+          Start Editing {game.name} Saves →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- What Can You Edit Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          What Can You Edit in {game.name}?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            game.editableItems.map((item: { icon: string; name: string; desc: string }) => (
+              <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="text-3xl mb-3">{item.icon}</div>
+                <h3 class="font-bold text-gray-900 mb-2">{item.name}</h3>
+                <p class="text-gray-600 text-sm">{item.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Save File Location Section -->
+      <section class="mb-16 bg-gray-50 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">
+          📂 {game.name} Save File Location
+        </h2>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded"
+                >Windows</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.windows}</code>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded"
+                >macOS</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.mac}</code>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-orange-100 text-orange-700 text-sm font-medium rounded"
+                >Linux</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.linux}</code>
+          </div>
+        </div>
+        <p class="text-gray-500 text-sm mt-4">
+          💡 Tip: Press Win+R on Windows and paste the path to quickly access your saves.
+        </p>
+      </section>
+
+      <!-- How to Edit Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          How to Edit {game.name} Saves
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              1
+            </div>
+            <h3 class="font-bold text-lg mb-2">Locate Your Save</h3>
+            <p class="text-gray-600">
+              Find your save file using the paths above. Make a backup copy first!
+            </p>
+          </div>
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              2
+            </div>
+            <h3 class="font-bold text-lg mb-2">Upload & Edit</h3>
+            <p class="text-gray-600">
+              Drag your save file to our editor. Modify gold, items, stats and more.
+            </p>
+          </div>
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              3
+            </div>
+            <h3 class="font-bold text-lg mb-2">Download & Play</h3>
+            <p class="text-gray-600">
+              Download your edited save and replace the original. Launch the game!
+            </p>
+          </div>
+        </div>
+        <div class="text-center mt-8">
+          <a
+            href={game.editorPath}
+            class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors"
+          >
+            Open {game.name} Editor
+          </a>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          Frequently Asked Questions
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {
+            game.faq.map((item: { question: string; answer: string }) => (
+              <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                  {item.question}
+                  <svg
+                    class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">{item.answer}</div>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Related Guides -->
+      {
+        game.relatedGuides.length > 0 && (
+          <section class="mb-16 bg-primary-50 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">📖 Related Guides</h2>
+            <div class="space-y-4">
+              {game.relatedGuides.map((guide: { title: string; url: string }) => (
+                <a
+                  href={guide.url}
+                  class="flex items-center justify-between p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300 transition-colors"
+                >
+                  <span class="font-medium text-gray-900">{guide.title}</span>
+                  <svg
+                    class="w-5 h-5 text-primary-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- Related Games (Cross-linking) -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Other Popular Games</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {
+            game.slug !== 'stardew-valley' && (
+              <a
+                href="/games/stardew-valley"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🌾</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Stardew Valley
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'undertale' && (
+              <a
+                href="/games/undertale"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">❤️</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Undertale
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'ddlc' && (
+              <a
+                href="/games/ddlc"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">📚</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  DDLC
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'hollow-knight' && (
+              <a
+                href="/games/hollow-knight"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🪲</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Hollow Knight
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'rpg-maker' && (
+              <a
+                href="/games/rpg-maker"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">⚔️</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  RPG Maker
+                </span>
+              </a>
+            )
+          }
+        </div>
+        <div class="text-center mt-6">
+          <a href="/games" class="text-primary-600 hover:text-primary-700 font-medium">
+            Browse All 80+ Games →
+          </a>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Edit Your {game.name} Save?</h2>
+        <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+          100% free, no download required. Your files never leave your device.
+        </p>
+        <a
+          href={game.editorPath}
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100 transition-colors"
+        >
+          Start Editing Now →
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <!-- BreadcrumbList Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://saveeditor.top/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Games',
+          item: 'https://saveeditor.top/games/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: game.name,
+          item: `https://saveeditor.top/games/${game.slug}/`,
+        },
+      ],
+    })}
+  />
+
+  <!-- FAQ Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    })}
+  />
+
+  <!-- SoftwareApplication Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: `${game.name} Save Editor`,
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web Browser',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      description: `Free online save editor for ${game.name}. Edit ${game.format} files directly in your browser.`,
+    })}
+  />
+</BaseLayout>

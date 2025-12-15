@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqCategories = [
+  {
+    title: 'はじめに',
+    icon: '🚀',
+    questions: [
+      {
+        question: 'SaveEditor.topとは何ですか？',
+        answer:
+          "SaveEditor.topは、ゲームのセーブファイルを編集するための無料のブラウザベースツールです。完全にブラウザ内で動作するため、ファイルがデバイスから離れることはありません。RPG Maker、Unity、Ren'Py、Unreal Engineなどの人気エンジンをサポートしています。",
+      },
+      {
+        question: 'これは安全ですか？',
+        answer:
+          'はい、100%安全です。マルウェアが含まれる可能性のあるダウンロード型エディタとは異なり、SaveEditor.topはWebブラウザ内で完全に動作します（クライアントサイドJavaScript）。セーブファイルがサーバーにアップロードされることはありません。',
+      },
+      {
+        question: 'アカウント登録は必要ですか？',
+        answer:
+          'いいえ。SaveEditor.topは登録、ログイン、個人情報を必要としません。セーブファイルをアップロードするだけで、すぐに編集を開始できます。',
+      },
+      {
+        question: '本当に無料ですか？',
+        answer:
+          'はい、完全に無料で、隠れた費用やプレミアム層、機能制限はありません。任意の寄付と控えめな広告でサポートしています。',
+      },
+    ],
+  },
+  {
+    title: '対応ゲームとフォーマット',
+    icon: '🎮',
+    questions: [
+      {
+        question: 'どのゲームを編集できますか？',
+        answer:
+          "複数のエンジンにわたる何千ものゲームをサポートしています。人気のあるゲームには、スターデューバレー、アンダーテール、ホロウナイト、ドキドキ文芸部、Celeste、Omoriなど、RPG Maker、Ren'Py、Unity、GameMakerで作られたゲームが含まれます。",
+      },
+      {
+        question: 'どのファイル形式がサポートされていますか？',
+        answer:
+          "RPG Maker MV/MZ (.rpgsave, .rmmzsave)、RPG Maker VX/VX Ace (.rvdata2, .rvdata)、RPG Maker XP (.rxdata)、Ren'Py (.save, persistent)、Unity (PlayerPrefs .xml/.plist, JSON)、Unreal Engine (.sav)、GameMaker (.ini, .json)、NaniNovel (.nson)、汎用JSON/XML形式をサポートしています。",
+      },
+      {
+        question: 'コンソールゲーム（PlayStation、Xbox、Switch）のセーブは編集できますか？',
+        answer:
+          '残念ながら、コンソールセーブはプラットフォーム固有のDRMで暗号化されており、編集できません。当エディタはPC/Mac/Linuxのセーブファイルのみ対応しています。',
+      },
+    ],
+  },
+  {
+    title: 'セーブファイルの場所',
+    icon: '📂',
+    questions: [
+      {
+        question: 'Windowsでセーブファイルはどこにありますか？',
+        answer:
+          '一般的な場所：%AppData%（Win+Rを押して%appdata%と入力）、%LocalAppData%、Documents/My Games、またはゲームのインストールフォルダ。Steamゲームの場合は、Steam/userdata/[ID]/[GameID]/も確認してください。',
+      },
+      {
+        question: 'Macでセーブファイルはどこにありますか？',
+        answer:
+          "ほとんどのゲームは~/Library/Application Support/を確認してください。Unityゲームの場合は~/Library/Application Support/unity.[会社名].[ゲーム名]。Ren'Pyの場合は~/Library/RenPy/[ゲーム名]。",
+      },
+      {
+        question: 'Linuxでセーブファイルはどこにありますか？',
+        answer:
+          'ほとんどのゲームは~/.config/[ゲーム名]または~/.local/share/[ゲーム名]にセーブを保存します。Proton経由のSteamゲームの場合は~/.steam/steam/steamapps/compatdata/[GameID]/pfx/を確認。',
+      },
+    ],
+  },
+  {
+    title: 'セーブの編集',
+    icon: '✏️',
+    questions: [
+      {
+        question: 'ゴールド/お金を編集するには？',
+        answer:
+          "セーブをアップロードし、'gold'、'money'、'currency'、'coins'などのフィールドを検索します。値を希望の金額に変更します。RPG Makerゲームの場合、パーティデータの'_gold'を探してください。",
+      },
+      {
+        question: 'インベントリにアイテムを追加するには？',
+        answer:
+          'セーブ内のインベントリ/アイテム配列を見つけます。RPG Makerの場合、アイテムは[アイテムID, 数量]のペアとして保存されています。既存の形式に従って新しいエントリを追加します。',
+      },
+      {
+        question: '編集でゲームやセーブファイルが壊れますか？',
+        answer:
+          '当エディタは明らかなエラーを防ぐために変更を検証しますが、極端な変更は問題を引き起こす可能性があります。必ず最初にバックアップを取ってください！',
+      },
+    ],
+  },
+  {
+    title: 'トラブルシューティング',
+    icon: '🔧',
+    questions: [
+      {
+        question: 'エディタが「無効なファイル」と表示するのはなぜ？',
+        answer:
+          'ゲームがサポートされていない形式、暗号化、または圧縮を使用している可能性があります。試してください：1）別のエディタタイプを選択、2）ファイルが実際のセーブかどうか確認、3）ゲームが独自のエンコーディングを使用している可能性。',
+      },
+      {
+        question: 'ゲームが編集したセーブを読み込めません！',
+        answer:
+          '一般的な修正：1）正しいファイルを置き換えたか確認、2）Steamクラウドが元のファイルを復元していないか確認、3）一部のゲームにはチェックサム検証があります - より小さな編集を試す、4）バックアップを復元して再試行。',
+      },
+      {
+        question: '編集を元に戻せますか？',
+        answer:
+          'ダウンロードすると、編集は永続的になります。常にバックアップを保存してください！バックアップがない場合は、Steamクラウドに元のファイルがあるか、ゲームが.bakファイルを作成するか確認してください。',
+      },
+    ],
+  },
+];
+
+const allQuestions = faqCategories.flatMap((cat) => cat.questions);
+---
+
+<BaseLayout
+  title="よくある質問 - セーブ編集FAQ"
+  description="SaveEditor.topの使用に関するよくある質問への回答。セーブファイルの場所、ゲームデータの編集、問題のトラブルシューティングなど。"
+  keywords="セーブエディタ FAQ, セーブファイル編集方法, ゲームセーブ場所, セーブファイルヘルプ"
+>
+  <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >よくある質問</span
+        >
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        SaveEditor.topでのゲームセーブ編集について知っておくべきこと
+      </p>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+      <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">セクションへジャンプ</h2>
+        <div class="flex flex-wrap gap-3">
+          {
+            faqCategories.map((category, index) => (
+              <a
+                href={`#section-${index}`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
+              >
+                <span>{category.icon}</span>
+                <span>{category.title}</span>
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+
+      {
+        faqCategories.map((category, catIndex) => (
+          <section id={`section-${catIndex}`} class="mb-12">
+            <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
+              <span class="text-3xl">{category.icon}</span>
+              {category.title}
+            </h2>
+            <div class="space-y-4">
+              {category.questions.map((faq) => (
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                  <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                    {faq.question}
+                    <svg
+                      class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </summary>
+                  <div class="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
+        <h2 class="text-2xl font-bold mb-4">まだ質問がありますか？</h2>
+        <p class="text-gray-300 mb-6">
+          お探しのものが見つかりませんか？ゲーム別ガイドを確認するか、お問い合わせください。
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/ja/games"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+            >ゲームを見る</a
+          >
+          <a
+            href="/ja/contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
+            >お問い合わせ</a
+          >
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQuestions.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://saveeditor.top/ja/' },
+        { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/ja/faq/' },
+      ],
+    })}
+  />
+</BaseLayout>

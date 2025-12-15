@@ -161,6 +161,67 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
         </div>
       </div>
 
+      <!-- Popular Games Grid -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Popular Games</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            [
+              {
+                name: 'Stardew Valley',
+                slug: 'stardew-valley',
+                image: '/images/games/stardew-valley.webp',
+                engine: 'Unity',
+              },
+              {
+                name: 'Undertale',
+                slug: 'undertale',
+                image: '/images/games/undertale.webp',
+                engine: 'GameMaker',
+              },
+              {
+                name: 'Hollow Knight',
+                slug: 'hollow-knight',
+                image: '/images/games/hollow-knight.webp',
+                engine: 'Unity',
+              },
+              {
+                name: 'Doki Doki Literature Club',
+                slug: 'ddlc',
+                image: '/images/games/ddlc.webp',
+                engine: "Ren'Py",
+              },
+              {
+                name: 'RPG Maker Games',
+                slug: 'rpg-maker',
+                image: '/images/games/rpg-maker.webp',
+                engine: 'RPG Maker',
+              },
+            ].map((game) => (
+              <a
+                href={`/games/${game.slug}`}
+                class="group relative block overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+                <img
+                  src={game.image}
+                  alt={game.name}
+                  class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                  <span class="text-xs font-semibold bg-primary-600 px-2 py-1 rounded mb-2 inline-block">
+                    {game.engine}
+                  </span>
+                  <h3 class="text-xl font-bold group-hover:text-primary-300 transition-colors">
+                    {game.name}
+                  </h3>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
       <!-- Engine Sections -->
       <div class="space-y-12">
         {

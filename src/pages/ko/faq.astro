@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqCategories = [
+  {
+    title: '시작하기',
+    icon: '🚀',
+    questions: [
+      {
+        question: 'SaveEditor.top이 무엇인가요?',
+        answer:
+          "SaveEditor.top은 게임 세이브 파일을 편집하는 무료 브라우저 기반 도구입니다. 완전히 브라우저에서 실행되므로 파일이 기기를 떠나지 않습니다. RPG Maker, Unity, Ren'Py, Unreal Engine 등 인기 엔진을 지원합니다.",
+      },
+      {
+        question: '사용해도 안전한가요?',
+        answer:
+          '네, 100% 안전합니다. 맬웨어가 포함될 수 있는 다운로드 가능한 편집기와 달리 SaveEditor.top은 웹 브라우저에서 완전히 실행됩니다(클라이언트 측 JavaScript). 세이브 파일이 서버에 업로드되지 않습니다.',
+      },
+      {
+        question: '계정을 만들어야 하나요?',
+        answer:
+          '아니요. SaveEditor.top은 등록, 로그인 또는 개인 정보가 필요하지 않습니다. 세이브 파일을 업로드하고 바로 편집을 시작하세요.',
+      },
+      {
+        question: '정말 무료인가요?',
+        answer:
+          '네, 숨겨진 비용, 프리미엄 등급 또는 기능 제한 없이 완전히 무료입니다. 선택적 기부와 비침습적 광고로 운영됩니다.',
+      },
+    ],
+  },
+  {
+    title: '지원 게임 및 형식',
+    icon: '🎮',
+    questions: [
+      {
+        question: '어떤 게임을 편집할 수 있나요?',
+        answer:
+          "여러 엔진에서 수천 개의 게임을 지원합니다. 인기 게임으로는 스타듀 밸리, 언더테일, 할로우 나이트, 도키도키 문예부, Celeste, Omori 등 RPG Maker, Ren'Py, Unity, GameMaker로 만든 게임이 있습니다.",
+      },
+      {
+        question: '어떤 파일 형식이 지원되나요?',
+        answer:
+          "RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav), GameMaker (.ini, .json), NaniNovel (.nson) 및 일반 JSON/XML 형식을 지원합니다.",
+      },
+      {
+        question: '콘솔 게임(PlayStation, Xbox, Switch) 세이브도 편집할 수 있나요?',
+        answer:
+          '안타깝게도 콘솔 세이브는 플랫폼별 DRM으로 암호화되어 편집할 수 없습니다. 저희 편집기는 PC/Mac/Linux 세이브 파일만 지원합니다.',
+      },
+    ],
+  },
+  {
+    title: '세이브 파일 찾기',
+    icon: '📂',
+    questions: [
+      {
+        question: 'Windows에서 세이브 파일은 어디에 있나요?',
+        answer:
+          '일반적인 위치: %AppData%(Win+R을 누르고 %appdata% 입력), %LocalAppData%, Documents/My Games, 또는 게임 설치 폴더. Steam 게임의 경우 Steam/userdata/[ID]/[GameID]/도 확인하세요.',
+      },
+      {
+        question: 'Mac에서 세이브 파일은 어디에 있나요?',
+        answer:
+          "대부분의 게임은 ~/Library/Application Support/를 확인하세요. Unity 게임은 ~/Library/Application Support/unity.[회사명].[게임명]. Ren'Py는 ~/Library/RenPy/[게임명].",
+      },
+      {
+        question: 'Linux에서 세이브 파일은 어디에 있나요?',
+        answer:
+          '대부분의 게임은 ~/.config/[게임명] 또는 ~/.local/share/[게임명]에 세이브를 저장합니다. Proton을 통해 실행되는 Steam 게임은 ~/.steam/steam/steamapps/compatdata/[GameID]/pfx/ 확인.',
+      },
+    ],
+  },
+  {
+    title: '세이브 편집',
+    icon: '✏️',
+    questions: [
+      {
+        question: '골드/돈을 편집하려면 어떻게 해야 하나요?',
+        answer:
+          "세이브를 업로드한 다음 'gold', 'money', 'currency', 'coins' 같은 필드를 검색하세요. 원하는 금액으로 값을 변경합니다. RPG Maker 게임의 경우 파티 데이터에서 '_gold'를 찾으세요.",
+      },
+      {
+        question: '인벤토리에 아이템을 추가하려면 어떻게 해야 하나요?',
+        answer:
+          '세이브에서 인벤토리/아이템 배열을 찾습니다. RPG Maker의 경우 아이템은 [아이템ID, 수량] 쌍으로 저장됩니다. 기존 형식에 따라 새 항목을 추가하세요.',
+      },
+      {
+        question: '편집이 게임이나 세이브 파일을 손상시키나요?',
+        answer:
+          '저희 편집기는 명백한 오류를 방지하기 위해 변경 사항을 검증하지만, 극단적인 수정은 문제를 일으킬 수 있습니다. 항상 먼저 백업하세요!',
+      },
+    ],
+  },
+  {
+    title: '문제 해결',
+    icon: '🔧',
+    questions: [
+      {
+        question: "편집기가 '잘못된 파일'을 표시하는 이유는?",
+        answer:
+          '게임이 지원되지 않는 형식, 암호화 또는 압축을 사용할 수 있습니다. 시도해 보세요: 1) 다른 편집기 유형 선택, 2) 파일이 실제 세이브인지 확인, 3) 게임이 독점 인코딩을 사용할 수 있음.',
+      },
+      {
+        question: '게임이 편집된 세이브를 로드하지 않습니다!',
+        answer:
+          '일반적인 해결책: 1) 올바른 파일을 교체했는지 확인, 2) Steam Cloud가 원본을 복원했는지 확인, 3) 일부 게임에는 체크섬 검증이 있음 - 더 작은 편집 시도, 4) 백업 복원 후 다시 시도.',
+      },
+      {
+        question: '편집을 취소할 수 있나요?',
+        answer:
+          '다운로드하면 편집이 영구적입니다. 항상 백업을 유지하세요! 백업이 없다면: 1) Steam Cloud에 원본이 있는지, 2) 게임이 .bak 파일을 생성하는지 확인하세요.',
+      },
+    ],
+  },
+];
+
+const allQuestions = faqCategories.flatMap((cat) => cat.questions);
+---
+
+<BaseLayout
+  title="자주 묻는 질문 - 세이브 편집 FAQ"
+  description="SaveEditor.top 사용에 관한 자주 묻는 질문에 대한 답변을 얻으세요. 세이브 파일 찾기, 게임 데이터 편집, 문제 해결 방법 등을 알아보세요."
+  keywords="세이브 에디터 FAQ, 세이브 파일 편집 방법, 게임 세이브 위치, 세이브 파일 도움말"
+>
+  <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >자주 묻는 질문</span
+        >
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        SaveEditor.top으로 게임 세이브 편집에 대해 알아야 할 모든 것
+      </p>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+      <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">섹션으로 이동</h2>
+        <div class="flex flex-wrap gap-3">
+          {
+            faqCategories.map((category, index) => (
+              <a
+                href={`#section-${index}`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
+              >
+                <span>{category.icon}</span>
+                <span>{category.title}</span>
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+
+      {
+        faqCategories.map((category, catIndex) => (
+          <section id={`section-${catIndex}`} class="mb-12">
+            <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
+              <span class="text-3xl">{category.icon}</span>
+              {category.title}
+            </h2>
+            <div class="space-y-4">
+              {category.questions.map((faq) => (
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                  <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                    {faq.question}
+                    <svg
+                      class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </summary>
+                  <div class="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
+        <h2 class="text-2xl font-bold mb-4">아직 질문이 있으신가요?</h2>
+        <p class="text-gray-300 mb-6">
+          찾고 계신 내용을 찾을 수 없나요? 게임별 가이드를 확인하거나 문의해 주세요.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/ko/games"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+            >게임 보기</a
+          >
+          <a
+            href="/ko/contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
+            >문의하기</a
+          >
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQuestions.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '홈', item: 'https://saveeditor.top/ko/' },
+        { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/ko/faq/' },
+      ],
+    })}
+  />
+</BaseLayout>

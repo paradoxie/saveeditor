@@ -1,0 +1,576 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const games = [
+    {
+      slug: 'stardew-valley',
+      name: 'Stardew Valley',
+      nameLocal: '星露谷物语',
+      engine: 'Unity (XML)',
+      format: '.xml',
+      editorPath: '/zh-cn/editor/unity',
+      emoji: '🌾',
+      description: 'ConcernedApe 开发的热门农场模拟 RPG。',
+      saveLocations: {
+        windows: '%appdata%\\StardewValley\\Saves',
+        mac: '~/Library/Application Support/StardewValley/Saves',
+        linux: '~/.config/StardewValley/Saves',
+      },
+      editableItems: [
+        { icon: '💰', name: '金币', desc: '编辑农场收入' },
+        { icon: '🎒', name: '物品', desc: '添加任意物品' },
+        { icon: '❤️', name: '好感度', desc: '修改与村民的友谊' },
+        { icon: '📈', name: '技能', desc: '提升农业、采矿等级' },
+        { icon: '🏆', name: '成就', desc: '解锁社区中心包裹' },
+        { icon: '🗓️', name: '日期', desc: '更改当前季节和日期' },
+      ],
+      faq: [
+        {
+          question: '星露谷物语存档在哪里？',
+          answer:
+            'Windows 上存档位于 %appdata%\\StardewValley\\Saves。每个存档文件夹以农场主名称命名（如 FarmerName_123456789）。',
+        },
+        {
+          question: '可以编辑多人游戏存档吗？',
+          answer: '可以，但只能作为主机编辑自己的存档。请注意不要损坏共享农场数据。',
+        },
+        {
+          question: '编辑会破坏游戏吗？',
+          answer: '请务必先备份！我们的编辑器会验证更改，但极端的修改可能会导致问题。',
+        },
+      ],
+      relatedGuides: [{ title: 'Unity 存档编辑指南', url: '/blog/zh-cn/how-to-edit-unity-saves' }],
+    },
+    {
+      slug: 'undertale',
+      name: 'Undertale',
+      nameLocal: '传说之下',
+      engine: 'GameMaker',
+      format: 'file0, undertale.ini',
+      editorPath: '/zh-cn/editor/gamemaker',
+      emoji: '❤️',
+      description: 'Toby Fox 的经典独立 RPG。在这个世界里，没有人需要死亡。',
+      saveLocations: {
+        windows: '%localappdata%\\UNDERTALE',
+        mac: '~/Library/Application Support/com.tobyfox.undertale/',
+        linux: '~/.config/UNDERTALE',
+      },
+      editableItems: [
+        { icon: '❤️', name: 'HP 和 LV', desc: '更改生命值和 LOVE 等级' },
+        { icon: '🎒', name: '物品栏', desc: '编辑物品' },
+        { icon: '💰', name: '金币 (G)', desc: '修改金钱' },
+        { icon: '📍', name: '存档位置', desc: '更改存档点' },
+        { icon: '🎮', name: '游戏标志', desc: '修改剧情进度' },
+        { icon: '👤', name: '角色名', desc: '更改堕落人类的名字' },
+      ],
+      faq: [
+        {
+          question: 'Undertale 存档在哪里？',
+          answer:
+            'Windows: %localappdata%\\UNDERTALE。Mac: ~/Library/Application Support/com.tobyfox.undertale/。主要文件是 file0（存档数据）和 undertale.ini（配置）。',
+        },
+        {
+          question: '如何真正重置游戏？',
+          answer:
+            '删除存档文件夹中的所有文件，或使用编辑器重置游戏标志。注意：Steam 云可能会恢复文件。',
+        },
+        {
+          question: 'file0 是什么？',
+          answer: 'file0 包含你的实际游戏存档数据。每行代表一个游戏变量，如 HP、物品、剧情标志等。',
+        },
+      ],
+      relatedGuides: [
+        { title: 'GameMaker 存档编辑指南', url: '/blog/zh-cn/gamemaker-save-editing-guide' },
+      ],
+    },
+    {
+      slug: 'ddlc',
+      name: 'Doki Doki Literature Club',
+      nameLocal: '心跳文学部',
+      engine: "Ren'Py",
+      format: '.save, persistent',
+      editorPath: '/zh-cn/editor/renpy',
+      emoji: '📚',
+      description: 'Team Salvato 的心理恐怖视觉小说。',
+      saveLocations: {
+        windows: '%appdata%\\RenPy\\DDLC-1454445547',
+        mac: '~/Library/RenPy/DDLC-1454445547',
+        linux: '~/.renpy/DDLC-1454445547',
+      },
+      editableItems: [
+        { icon: '📖', name: '剧情进度', desc: '跳转到任意章节' },
+        { icon: '📝', name: '诗歌变量', desc: '更改诗歌选择' },
+        { icon: '❤️', name: '角色好感度', desc: '修改与角色的关系' },
+        { icon: '🖼️', name: 'CG 画廊', desc: '解锁所有图片' },
+        { icon: '🔊', name: '音乐室', desc: '解锁所有音乐' },
+      ],
+      faq: [
+        {
+          question: 'DDLC 存档在哪里？',
+          answer:
+            'Windows: %appdata%\\RenPy\\DDLC-1454445547。DDLC Plus: %appdata%\\..\\LocalLow\\Team Salvato\\Doki Doki Literature Club Plus',
+        },
+        {
+          question: '文件操作是游戏的一部分吗？',
+          answer:
+            '是的！DDLC 实际上鼓励玩家操作游戏文件，这是其元叙事的一部分。我们的编辑器让这变得更简单。',
+        },
+      ],
+      relatedGuides: [
+        { title: "Ren'Py 存档编辑指南", url: '/blog/zh-cn/renpy-save-editing-guide' },
+      ],
+    },
+    {
+      slug: 'hollow-knight',
+      name: 'Hollow Knight',
+      nameLocal: '空洞骑士',
+      engine: 'Unity',
+      format: 'user#.dat',
+      editorPath: '/zh-cn/editor/unity',
+      emoji: '🪲',
+      description: 'Team Cherry 广受好评的类银河战士恶魔城游戏。',
+      saveLocations: {
+        windows: '%appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight',
+        mac: '~/Library/Application Support/unity.Team Cherry.Hollow Knight',
+        linux: '~/.config/unity3d/Team Cherry/Hollow Knight',
+      },
+      editableItems: [
+        { icon: '💰', name: '吉欧', desc: '编辑货币' },
+        { icon: '❤️', name: '面具', desc: '修改最大生命' },
+        { icon: '💎', name: '灵魂', desc: '更改灵魂槽' },
+        { icon: '🗡️', name: '骨钉升级', desc: '解锁骨钉等级' },
+        { icon: '✨', name: '护符', desc: '编辑护符槽位和解锁' },
+        { icon: '🗺️', name: '地图进度', desc: '显示地图区域' },
+      ],
+      faq: [
+        {
+          question: '空洞骑士存档在哪里？',
+          answer:
+            'Windows: %appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight。文件按存档槽命名为 user1.dat、user2.dat 等。',
+        },
+        {
+          question: '编辑前可以备份吗？',
+          answer: '当然可以！修改前请复制 user#.dat 文件。同一文件夹中还有 .bak 备份文件。',
+        },
+      ],
+      relatedGuides: [{ title: 'Unity 存档编辑指南', url: '/blog/zh-cn/how-to-edit-unity-saves' }],
+    },
+    {
+      slug: 'rpg-maker',
+      name: 'RPG Maker 游戏',
+      nameLocal: 'RPG Maker',
+      engine: 'RPG Maker (MV/MZ/VX Ace/XP)',
+      format: '.rpgsave, .rvdata2',
+      editorPath: '/zh-cn/editor/rpg-maker-mv',
+      emoji: '⚔️',
+      description: '使用 RPG Maker 系列引擎制作的数千款游戏。',
+      saveLocations: {
+        windows: '游戏文件夹/www/save 或 游戏文件夹/save',
+        mac: 'Game.app/Contents/Resources/app.nw/save',
+        linux: '游戏文件夹/save',
+      },
+      editableItems: [
+        { icon: '💰', name: '金币', desc: '编辑队伍金钱' },
+        { icon: '👥', name: '属性', desc: '更改 HP、MP、等级、经验' },
+        { icon: '🎒', name: '物品栏', desc: '添加和删除物品' },
+        { icon: '⚔️', name: '装备', desc: '修改武器和防具' },
+        { icon: '✨', name: '技能', desc: '学习任意技能' },
+        { icon: '🎮', name: '开关和变量', desc: '编辑游戏逻辑' },
+      ],
+      faq: [
+        {
+          question: 'RPG Maker 存档在哪里？',
+          answer:
+            '大多数 RPG Maker MV/MZ 游戏将存档存储在游戏目录内的 www/save 或 save 文件夹中。浏览器游戏使用 localStorage。',
+        },
+        {
+          question: '可以编辑所有 RPG Maker 游戏吗？',
+          answer:
+            '我们支持 MV (.rpgsave)、MZ (.rmmzsave)、VX Ace (.rvdata2)、VX (.rvdata) 和 XP (.rxdata) 格式。',
+        },
+        {
+          question: '开关是什么？',
+          answer: '开关是开发者用来跟踪剧情进度的开/关标志。编辑这些可以解锁内容或跳过部分。',
+        },
+      ],
+      relatedGuides: [
+        { title: 'RPG Maker 存档编辑指南', url: '/blog/zh-cn/how-to-edit-rpg-maker-save' },
+      ],
+    },
+  ];
+
+  return games.map((game) => ({
+    params: { slug: game.slug },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+---
+
+<BaseLayout
+  title={`${game.nameLocal}存档编辑器 - 免费编辑 ${game.format} 文件`}
+  description={`${game.nameLocal}免费在线存档编辑器。编辑金币、物品、属性等。查找存档位置并在浏览器中开始编辑。`}
+  keywords={`${game.name.toLowerCase()} 存档编辑器, ${game.name.toLowerCase()} 存档位置, ${game.name.toLowerCase()} 编辑存档, ${game.format} 编辑器`}
+>
+  <!-- Hero Section -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16"
+  >
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl">
+      </div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl">
+      </div>
+    </div>
+
+    <div class="relative container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="text-6xl mb-6">{game.emoji}</div>
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+          {game.nameLocal}
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+            >存档编辑器</span
+          >
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          {game.description} 免费在线编辑存档文件。
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">
+            引擎: {game.engine}
+          </span>
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">
+            格式: {game.format}
+          </span>
+          <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">
+            ✓ 100% 免费
+          </span>
+        </div>
+
+        <a
+          href={game.editorPath}
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg"
+        >
+          开始编辑{game.nameLocal}存档 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- What Can You Edit Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          {game.nameLocal}可以编辑什么？
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            game.editableItems.map((item: { icon: string; name: string; desc: string }) => (
+              <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="text-3xl mb-3">{item.icon}</div>
+                <h3 class="font-bold text-gray-900 mb-2">{item.name}</h3>
+                <p class="text-gray-600 text-sm">{item.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Save File Location Section -->
+      <section class="mb-16 bg-gray-50 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">
+          📂 {game.nameLocal}存档文件位置
+        </h2>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded"
+                >Windows</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.windows}</code>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded"
+                >macOS</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.mac}</code>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-orange-100 text-orange-700 text-sm font-medium rounded"
+                >Linux</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.linux}</code>
+          </div>
+        </div>
+        <p class="text-gray-500 text-sm mt-4">
+          💡 提示：在 Windows 上按 Win+R 并粘贴路径可快速访问存档。
+        </p>
+      </section>
+
+      <!-- How to Edit Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          如何编辑{game.nameLocal}存档
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              1
+            </div>
+            <h3 class="font-bold text-lg mb-2">找到存档</h3>
+            <p class="text-gray-600">使用上述路径找到存档文件。先备份！</p>
+          </div>
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              2
+            </div>
+            <h3 class="font-bold text-lg mb-2">上传并编辑</h3>
+            <p class="text-gray-600">将存档文件拖到编辑器。修改金币、物品、属性等。</p>
+          </div>
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              3
+            </div>
+            <h3 class="font-bold text-lg mb-2">下载并开玩</h3>
+            <p class="text-gray-600">下载编辑后的存档并替换原文件。启动游戏！</p>
+          </div>
+        </div>
+        <div class="text-center mt-8">
+          <a
+            href={game.editorPath}
+            class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors"
+          >
+            打开{game.nameLocal}编辑器
+          </a>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">常见问题</h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {
+            game.faq.map((item: { question: string; answer: string }) => (
+              <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                  {item.question}
+                  <svg
+                    class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">{item.answer}</div>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Related Guides -->
+      {
+        game.relatedGuides.length > 0 && (
+          <section class="mb-16 bg-primary-50 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">📖 相关指南</h2>
+            <div class="space-y-4">
+              {game.relatedGuides.map((guide: { title: string; url: string }) => (
+                <a
+                  href={guide.url}
+                  class="flex items-center justify-between p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300 transition-colors"
+                >
+                  <span class="font-medium text-gray-900">{guide.title}</span>
+                  <svg
+                    class="w-5 h-5 text-primary-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- Related Games -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">其他热门游戏</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {
+            game.slug !== 'stardew-valley' && (
+              <a
+                href="/zh-cn/games/stardew-valley"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🌾</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  星露谷物语
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'undertale' && (
+              <a
+                href="/zh-cn/games/undertale"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">❤️</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  传说之下
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'ddlc' && (
+              <a
+                href="/zh-cn/games/ddlc"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">📚</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  心跳文学部
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'hollow-knight' && (
+              <a
+                href="/zh-cn/games/hollow-knight"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🪲</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  空洞骑士
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'rpg-maker' && (
+              <a
+                href="/zh-cn/games/rpg-maker"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">⚔️</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  RPG Maker
+                </span>
+              </a>
+            )
+          }
+        </div>
+        <div class="text-center mt-6">
+          <a href="/zh-cn/games" class="text-primary-600 hover:text-primary-700 font-medium">
+            查看全部 80+ 游戏 →
+          </a>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-4">准备好编辑{game.nameLocal}存档了吗？</h2>
+        <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+          100% 免费，无需下载。文件绝不离开您的设备。
+        </p>
+        <a
+          href={game.editorPath}
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100 transition-colors"
+        >
+          立即开始编辑 →
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <!-- BreadcrumbList Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '首页', item: 'https://saveeditor.top/zh-cn/' },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: '游戏',
+          item: 'https://saveeditor.top/zh-cn/games/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: game.nameLocal,
+          item: `https://saveeditor.top/zh-cn/games/${game.slug}/`,
+        },
+      ],
+    })}
+  />
+
+  <!-- FAQ Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    })}
+  />
+
+  <!-- SoftwareApplication Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: `${game.nameLocal}存档编辑器`,
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web Browser',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      description: `${game.nameLocal}免费在线存档编辑器。直接在浏览器中编辑${game.format}文件。`,
+    })}
+  />
+</BaseLayout>

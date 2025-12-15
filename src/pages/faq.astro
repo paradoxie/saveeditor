@@ -1,0 +1,295 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqCategories = [
+  {
+    title: 'Getting Started',
+    icon: '🚀',
+    questions: [
+      {
+        question: 'What is SaveEditor.top?',
+        answer:
+          "SaveEditor.top is a free, browser-based tool for editing game save files. It works entirely in your browser, meaning your files never leave your device. We support popular game engines like RPG Maker, Unity, Ren'Py, Unreal Engine, and more.",
+      },
+      {
+        question: 'Is this safe to use?',
+        answer:
+          "Yes, 100% safe. Unlike downloadable editors that might contain malware, SaveEditor.top runs entirely in your web browser (client-side JavaScript). Your save files are never uploaded to any server. We're also open about our code and have no hidden functionality.",
+      },
+      {
+        question: 'Do I need to create an account?',
+        answer:
+          'No. SaveEditor.top requires no registration, login, or personal information. Just upload your save file and start editing immediately.',
+      },
+      {
+        question: 'Is this really free?',
+        answer:
+          'Yes, completely free with no hidden costs, premium tiers, or feature limits. We support ourselves through optional donations and non-intrusive advertising.',
+      },
+    ],
+  },
+  {
+    title: 'Supported Games & Formats',
+    icon: '🎮',
+    questions: [
+      {
+        question: 'What games can I edit?',
+        answer:
+          "We support thousands of games across multiple engines. Popular supported games include Stardew Valley, Undertale, Hollow Knight, Doki Doki Literature Club, Celeste, Omori, OneShot, To The Moon, and virtually any game made with RPG Maker, Ren'Py, Unity, or GameMaker.",
+      },
+      {
+        question: 'What file formats are supported?',
+        answer:
+          "We support: RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav), GameMaker (.ini, .json), NaniNovel (.nson), and generic JSON/XML formats.",
+      },
+      {
+        question: 'Can I edit console game saves (PlayStation, Xbox, Switch)?',
+        answer:
+          'Unfortunately, console saves are encrypted with platform-specific DRM and cannot be edited. Our editor only works with PC/Mac/Linux save files. Some games like Stardew Valley have cross-save features that might help.',
+      },
+      {
+        question: "My game isn't listed. Can I still use the editor?",
+        answer:
+          "Maybe! If your game uses standard JSON, XML, or INI formats, our generic editors can work. Try uploading your save file and see if it can be parsed. If not, contact us and we may add support for your game's format.",
+      },
+    ],
+  },
+  {
+    title: 'Finding Save Files',
+    icon: '📂',
+    questions: [
+      {
+        question: 'Where are save files located on Windows?',
+        answer:
+          "Common locations: %AppData% (press Win+R, type %appdata%), %LocalAppData%, Documents/My Games, or the game's installation folder. For Steam games, also check Steam/userdata/[ID]/[GameID]/.",
+      },
+      {
+        question: 'Where are save files located on Mac?',
+        answer:
+          "Check ~/Library/Application Support/ for most games. For Unity games, look in ~/Library/Application Support/unity.[Company].[Game]. For Ren'Py, check ~/Library/RenPy/[GameName].",
+      },
+      {
+        question: 'Where are save files located on Linux?',
+        answer:
+          'Most games store saves in ~/.config/[GameName] or ~/.local/share/[GameName]. For Steam games running via Proton, check ~/.steam/steam/steamapps/compatdata/[GameID]/pfx/.',
+      },
+      {
+        question: "How do I find my specific game's save location?",
+        answer:
+          "Visit our game-specific pages (like /games/stardew-valley) for exact paths. Alternatively, search online for '[Game Name] save file location' or check the game's settings/options menu.",
+      },
+    ],
+  },
+  {
+    title: 'Editing Saves',
+    icon: '✏️',
+    questions: [
+      {
+        question: 'How do I edit gold/money/currency?',
+        answer:
+          "Upload your save, then search for fields like 'gold', 'money', 'currency', 'coins', or 'funds'. Change the value to your desired amount. For RPG Maker games, look for '_gold' in the party data. Remember to keep values realistic to avoid bugs.",
+      },
+      {
+        question: 'How do I add items to my inventory?',
+        answer:
+          "Find the inventory/items array in your save. For RPG Maker, items are stored as [itemId, quantity] pairs. For Unity games, look for 'inventory' or 'items' objects. Add new entries following the existing format.",
+      },
+      {
+        question: "Can I change my character's stats (HP, level, etc)?",
+        answer:
+          "Yes! Look for fields like 'hp', 'maxHp', 'level', 'exp', 'str', 'def', etc. For RPG Maker games, these are in the actors array. For Unity games, check the player data object.",
+      },
+      {
+        question: 'How do I unlock achievements or story progress?',
+        answer:
+          "Achievements are usually stored as boolean flags or timestamp objects. Search for 'achievement', 'unlock', 'flag', or 'completed'. Story progress often uses switch arrays (RPG Maker) or progress objects.",
+      },
+      {
+        question: 'Will editing break my game or save file?',
+        answer:
+          'Our editor validates changes to prevent obvious errors, but extreme modifications can cause issues. Always backup first! Common problems: values too large causing overflow, invalid item IDs, or missing required fields.',
+      },
+    ],
+  },
+  {
+    title: 'Steam & Cloud Saves',
+    icon: '☁️',
+    questions: [
+      {
+        question: 'Steam Cloud keeps restoring my original save!',
+        answer:
+          "Disable Steam Cloud sync for that game: Right-click game → Properties → General → Uncheck 'Steam Cloud'. Make your edits, verify they work, then re-enable Cloud if desired.",
+      },
+      {
+        question: 'Will I get VAC banned for editing saves?',
+        answer:
+          'No. VAC (Valve Anti-Cheat) only monitors multiplayer/online games. Single-player save editing is completely safe and will not result in any Steam bans or restrictions.',
+      },
+      {
+        question: 'Do Steam achievements still work after editing?',
+        answer:
+          "Yes, for single-player games. Steam cannot detect save file modifications. Your achievements will unlock normally based on the game's internal checks.",
+      },
+    ],
+  },
+  {
+    title: 'Troubleshooting',
+    icon: '🔧',
+    questions: [
+      {
+        question: "Why does the editor show 'Invalid file' or 'Parse error'?",
+        answer:
+          'The game might use an unsupported format, encryption, or compression. Try: 1) Select a different editor type, 2) Check if the file is the actual save (not a backup or temp file), 3) The game may use proprietary encoding.',
+      },
+      {
+        question: "My game won't load the edited save!",
+        answer:
+          'Common fixes: 1) Ensure you replaced the correct file, 2) Check if Steam Cloud restored the original, 3) Some games have checksum validation - try smaller edits, 4) Restore your backup and try again.',
+      },
+      {
+        question: 'The values I edited reset when I load the game!',
+        answer:
+          'Some games re-calculate values on load. For example, derived stats (like max HP based on level) will be recalculated. Try editing the base values that feed into the calculation instead.',
+      },
+      {
+        question: 'Can I undo my edits?',
+        answer:
+          "Once downloaded, edits are permanent. Always keep a backup! If you didn't backup, check if: 1) Steam Cloud has the original, 2) The game creates .bak files, 3) You have system restore points.",
+      },
+    ],
+  },
+];
+
+// Flatten all questions for schema
+const allQuestions = faqCategories.flatMap((cat) => cat.questions);
+---
+
+<BaseLayout
+  title="FAQ - Frequently Asked Questions About Save Editing"
+  description="Get answers to common questions about using SaveEditor.top. Learn how to find save files, edit game data, troubleshoot issues, and more."
+  keywords="save editor faq, how to edit save files, game save location, save file help, rpg maker save editor help"
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+        Frequently Asked <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >Questions</span
+        >
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        Everything you need to know about editing game saves with SaveEditor.top
+      </p>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+      <!-- Quick Navigation -->
+      <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Jump to Section</h2>
+        <div class="flex flex-wrap gap-3">
+          {
+            faqCategories.map((category, index) => (
+              <a
+                href={`#section-${index}`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
+              >
+                <span>{category.icon}</span>
+                <span>{category.title}</span>
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+
+      <!-- FAQ Categories -->
+      {
+        faqCategories.map((category, catIndex) => (
+          <section id={`section-${catIndex}`} class="mb-12">
+            <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
+              <span class="text-3xl">{category.icon}</span>
+              {category.title}
+            </h2>
+            <div class="space-y-4">
+              {category.questions.map((faq) => (
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                  <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                    {faq.question}
+                    <svg
+                      class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </summary>
+                  <div class="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <!-- Still Have Questions CTA -->
+      <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
+        <h2 class="text-2xl font-bold mb-4">Still Have Questions?</h2>
+        <p class="text-gray-300 mb-6">
+          Can't find what you're looking for? Check our game-specific guides or contact us.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/games"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Browse Games
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
+          >
+            Contact Us
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FAQ Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQuestions.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    })}
+  />
+
+  <!-- BreadcrumbList Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://saveeditor.top/' },
+        { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/faq/' },
+      ],
+    })}
+  />
+</BaseLayout>

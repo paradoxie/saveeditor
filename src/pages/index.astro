@@ -5,9 +5,9 @@ import FAQ from '../components/FAQ.astro';
 ---
 
 <BaseLayout
-  title="Free Online Save Editor for RPG Maker, Ren'Py, Unity Games"
-  description="Edit game saves online for free. Supports RPG Maker, Ren'Py, Unity and more. No download required."
-  keywords="save editor, rpg maker save editor, renpy save editor, unity save file"
+  title="Save Editor Online - Free Game Save File Editor [No Download]"
+  description="The ultimate free online save editor. Edit RPG Maker, Ren'Py, Unity, Unreal Engine game saves directly in your browser. 100% client-side, no upload required."
+  keywords="save editor, save editor online, free save editor, rpg maker save editor, renpy save editor, unity save file, game save modifier"
 >
   <!-- Hero Section with Gradient Background -->
   <section
@@ -35,10 +35,10 @@ import FAQ from '../components/FAQ.astro';
         </div>
 
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-          Edit Game Saves <span
+          Free Online <span
             class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
-            >Online</span
-          >
+            >Save Editor</span
+          > - Edit Any Game Save
         </h1>
         <p class="text-lg sm:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
           The easiest way to modify your save files. No download required. 100% Free. Supports RPG
@@ -369,48 +369,47 @@ import FAQ from '../components/FAQ.astro';
         </div>
 
         <div class="flex flex-wrap justify-center gap-4">
-          <div
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700 transition-all cursor-default select-none"
+          <a
+            href="/games/stardew-valley"
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700 transition-all"
           >
             <span class="text-lg">🌾</span>
             <span class="font-medium">Stardew Valley</span>
-          </div>
-          <div
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all cursor-default select-none"
+          </a>
+          <a
+            href="/games/hollow-knight"
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all"
           >
-            <span class="text-lg">🐾</span>
-            <span class="font-medium">Palworld</span>
-          </div>
-          <div
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-red-300 hover:bg-red-50 hover:text-red-700 transition-all cursor-default select-none"
+            <span class="text-lg">🪲</span>
+            <span class="font-medium">Hollow Knight</span>
+          </a>
+          <a
+            href="/games/rpg-maker"
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-red-300 hover:bg-red-50 hover:text-red-700 transition-all"
           >
-            <span class="text-lg">🧛</span>
-            <span class="font-medium">Vampire Survivors</span>
-          </div>
-          <div
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-yellow-300 hover:bg-yellow-50 hover:text-yellow-700 transition-all cursor-default select-none"
+            <span class="text-lg">⚔️</span>
+            <span class="font-medium">RPG Maker Games</span>
+          </a>
+          <a
+            href="/games/undertale"
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-yellow-300 hover:bg-yellow-50 hover:text-yellow-700 transition-all"
           >
             <span class="text-lg">❤️</span>
             <span class="font-medium">Undertale</span>
-          </div>
-          <div
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 transition-all cursor-default select-none"
-          >
-            <span class="text-lg">✨</span>
-            <span class="font-medium">HoloCure</span>
-          </div>
-          <div
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-pink-300 hover:bg-pink-50 hover:text-pink-700 transition-all cursor-default select-none"
+          </a>
+          <a
+            href="/games/ddlc"
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-pink-300 hover:bg-pink-50 hover:text-pink-700 transition-all"
           >
             <span class="text-lg">📚</span>
             <span class="font-medium">Doki Doki Literature Club</span>
-          </div>
-          <div
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700 transition-all cursor-default select-none"
+          </a>
+          <a
+            href="/games"
+            class="flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-full shadow-sm hover:bg-primary-700 transition-all"
           >
-            <span class="text-lg">⛏️</span>
-            <span class="font-medium">Deep Rock Galactic</span>
-          </div>
+            <span class="font-medium">View All 80+ Games →</span>
+          </a>
         </div>
       </div>
 
@@ -568,6 +567,43 @@ import FAQ from '../components/FAQ.astro';
           "author": {
             "@type": "Organization",
             "name": "SaveEditor.top"
+          }
+        }
+      </script>
+
+      <!-- WebSite Schema with Search Action -->
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "SaveEditor.top",
+          "alternateName": "Save Editor Online",
+          "url": "https://saveeditor.top/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://saveeditor.top/games?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        }
+      </script>
+
+      <!-- Organization Schema -->
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "SaveEditor.top",
+          "url": "https://saveeditor.top/",
+          "logo": "https://saveeditor.top/favicon.svg",
+          "description": "Free online game save editor for RPG Maker, Unity, Ren'Py, and more.",
+          "sameAs": ["https://github.com/paradoxie/saveeditor"],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "url": "https://saveeditor.top/contact"
           }
         }
       </script>
