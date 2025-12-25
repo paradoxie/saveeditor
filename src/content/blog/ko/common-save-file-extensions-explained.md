@@ -222,6 +222,25 @@ A: 본인 소유의 싱글 플레이어 게임 파일의 경우, 네. 온라인/
 
 우리의 Save Editor Online은 대부분의 일반 형식을 자동으로 지원합니다 – 파일을 업로드하기만 하면 나머지는 저희가 처리합니다!
 
+## 관련 리소스
+
+- 📖 [RPG Maker 세이브 편집 가이드](/ko/blog/how-to-edit-rpg-maker-save)
+- 📖 [Unity 세이브 편집 가이드](/ko/blog/how-to-edit-unity-saves)
+- 📖 [Unreal Engine 세이브 가이드](/ko/blog/how-to-edit-unreal-engine-saves)
+- 📖 [Ren'Py 세이브 편집 가이드](/ko/blog/renpy-save-editing-guide)
+- 📖 [GameMaker 세이브 편집 가이드](/ko/blog/gamemaker-save-editing-guide)
+- 📖 [NaniNovel 세이브 편집 가이드](/ko/blog/naninovel-save-editing-guide)
+
 ---
 
-*편집 시작: [에디터 선택하기](/ko)*
+*마지막 업데이트: 2025년 12월*
+
+### 편집 시작
+
+- [RPG Maker 에디터](/ko/editor/rpg-maker-mv)
+- [Unity 에디터](/ko/editor/unity)
+- [Unreal Engine 에디터](/ko/editor/unreal)
+- [Ren'Py 뷰어](/ko/editor/renpy)
+- [GameMaker 에디터](/ko/editor/gamemaker)
+- [NaniNovel 에디터](/ko/editor/naninovel)
+

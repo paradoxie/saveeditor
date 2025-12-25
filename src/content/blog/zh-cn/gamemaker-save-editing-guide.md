@@ -254,3 +254,22 @@ GameMaker 的灵活性意味着存档编辑没有万能方法，但最常见的�
 4. 在游戏中**测试**您的更改
 
 如果遇到任何不寻常的存档格式或有改进建议，请[联系我们](/zh-cn/contact)。编辑愉快！
+
+## 延伸阅读
+
+- 📖 [Undertale Wiki - 存档文件](https://undertale.fandom.com/wiki/SAVE) - Undertale 社区文档
+- 🎮 [Undertale 游戏页面](/zh-cn/games/undertale) - 存档位置和可编辑项
+- 📂 [常见存档扩展名详解](/zh-cn/blog/common-save-file-extensions-explained) - 了解各种格式
+- 🔧 [GameMaker 编辑器](/zh-cn/editor/gamemaker) - 本指南使用的工具
+- 🎭 [RPG Maker 存档编辑](/zh-cn/blog/how-to-edit-rpg-maker-save) - 另一款流行引擎
+
+---
+
+*最后更新：2025年12月*
+
+### 相关文章
+
+- [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
+- [RPG Maker 存档编辑](/zh-cn/blog/how-to-edit-rpg-maker-save)
+- [Undertale 存档位置](/zh-cn/games/undertale)
+

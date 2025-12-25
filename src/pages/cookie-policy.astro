@@ -10,7 +10,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-white">Cookie Policy</h1>
     <div class="prose prose-blue max-w-none dark:prose-invert">
       <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
-        <strong>Last Updated:</strong> December 6, 2025
+        <strong>Last Updated:</strong> December 25, 2025
       </p>
 
       <section class="mb-10">
@@ -68,7 +68,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   >To display personalized advertisements based on browsing habits.</td
                 >
                 <td class="py-3 px-4 text-gray-600 dark:text-gray-300"
-                  ><code>__gads</code> (Google AdSense)</td
+                  ><code>__gads</code>, <code>__gpi</code> (Google AdSense)</td
+                >
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-gray-600 dark:text-gray-300">DoubleClick (DART)</td>
+                <td class="py-3 px-4 text-gray-600 dark:text-gray-300"
+                  >Used by Google to serve ads based on your visits to this and other sites.</td
+                >
+                <td class="py-3 px-4 text-gray-600 dark:text-gray-300"
+                  ><code>IDE</code>, <code>DSID</code>, <code>test_cookie</code></td
                 >
               </tr>
             </tbody>
@@ -101,14 +110,52 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           usage statistics of the Service, deliver advertisements on and through the Service, and so
           on.
         </p>
+
+        <div class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4 my-6">
+          <p class="font-bold text-blue-800 dark:text-blue-200 mb-2">
+            Opting Out of Advertising Cookies:
+          </p>
+          <ul class="list-disc pl-6 text-blue-700 dark:text-blue-300 text-sm space-y-1">
+            <li>
+              <a
+                href="https://www.google.com/settings/ads"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline hover:no-underline"
+              >
+                Google Ads Settings
+              </a> - Opt out of Google personalized ads
+            </li>
+            <li>
+              <a
+                href="https://www.aboutads.info/choices/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline hover:no-underline"
+              >
+                Digital Advertising Alliance
+              </a> - Opt out of interest-based advertising
+            </li>
+            <li>
+              <a
+                href="https://optout.networkadvertising.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline hover:no-underline"
+              >
+                Network Advertising Initiative
+              </a> - Opt out of targeted advertising
+            </li>
+          </ul>
+        </div>
       </section>
 
       <section class="mb-10">
         <h2 class="text-2xl font-bold mb-4">5. Contact Us</h2>
         <p>
           If you have any questions about our Cookie Policy, please contact us at:
-          <a href="mailto:privacy@saveeditor.top" class="text-primary-600 hover:underline"
-            >privacy@saveeditor.top</a
+          <a href="mailto:privacy@saveeditor.online" class="text-primary-600 hover:underline"
+            >privacy@saveeditor.online</a
           >
         </p>
       </section>
@@ -119,7 +166,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Cookie Policy",
-      "url": "https://saveeditor.top/cookie-policy",
+      "url": "https://saveeditor.online/cookie-policy",
       "description": "Cookie Policy for Save Editor Online. Learn how we use cookies.",
       "lastReviewed": "2025-12-06",
       "specialty": "LegalDocument"

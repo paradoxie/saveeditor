@@ -117,20 +117,9 @@ const getBlogUrl = (targetLang: string): string => {
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >FAQ</a
       >
-      <a
-        href={`/${lang === 'en' ? '' : lang + '/'}about`}
-        class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
-        >{t('nav.about')}</a
-      >
     </nav>
 
     <div class="flex items-center gap-4 ml-auto md:ml-8">
-      <a
-        href={`/${lang === 'en' ? '' : lang + '/'}contact`}
-        class="hidden md:block text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
-        >{t('nav.contact')}</a
-      >
-
       <!-- Dark Mode Toggle -->
       <button
         id="theme-toggle"
@@ -290,16 +279,6 @@ const getBlogUrl = (targetLang: string): string => {
         href={`/${lang === 'en' ? '' : lang + '/'}faq`}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >FAQ</a
-      >
-      <a
-        href={`/${lang === 'en' ? '' : lang + '/'}about`}
-        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
-        >{t('nav.about')}</a
-      >
-      <a
-        href={`/${lang === 'en' ? '' : lang + '/'}contact`}
-        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
-        >{t('nav.contact')}</a
       >
 
       <!-- Language Picker (Mobile) -->

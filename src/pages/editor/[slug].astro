@@ -8,11 +8,11 @@ export async function getStaticPaths() {
       slug: 'rpg-maker-mv',
       name: 'RPG Maker MV/MZ',
       fileType: '.rpgsave, .rmmzsave',
-      title: 'RPG Maker MV/MZ Save Editor | Online & Free',
+      title: 'RPG Maker Save Editor Online - Free .rpgsave & .rmmzsave Editor',
       description:
-        'Edit RPG Maker MV (.rpgsave) and MZ (.rmmzsave) save files online. Modify gold, stats, items and variables. No download required.',
+        'Free RPG Maker save editor. Edit .rpgsave (MV) and .rmmzsave (MZ) files online. Modify gold, stats, items, switches & variables. No download, 100% browser-based rpg save editor.',
       keywords:
-        'rpg maker mv save editor, rpg maker mz save editor, rpgsave editor, rmmzsave editor, edit rpgsave online',
+        'rpg maker save editor, rpg save editor, rpgsave editor, .rpgsave editor online, rpg maker mv save editor, rpg maker mz save editor, rmmzsave editor, edit rpgsave file',
       features: [
         'Edit Gold / Money',
         'Modify Character Stats (Level, EXP, HP, MP)',
@@ -52,10 +52,11 @@ export async function getStaticPaths() {
       slug: 'renpy',
       name: "Ren'Py",
       fileType: '.save',
-      title: "Ren'Py Save Editor | Edit Save Files Online",
+      title: "Ren'Py Save Editor Online - Free .save File Editor & Viewer",
       description:
-        "Online Ren'Py save file editor. Parse and edit .save files, modify game state, variables and flags. Experimental saving with Protocol 0 Pickle format.",
-      keywords: 'renpy save editor, renpy save modifier, edit renpy save file, .save file editor',
+        "Free Ren'Py save editor. Edit and view .save files online. Modify game variables, flags, and story progress. Works with DDLC, visual novels & more. The #1 renpy save editor.",
+      keywords:
+        "renpy save editor, ren'py save editor, .save editor, .save file editor, renpy save modifier, edit renpy save file, ddlc save editor, visual novel save editor",
       features: [
         "View & Edit Ren'Py Save Data",
         'Modify Game Variables and Flags',
@@ -73,10 +74,11 @@ export async function getStaticPaths() {
       slug: 'unreal',
       name: 'Unreal Engine',
       fileType: '.sav',
-      title: 'Unreal Engine Save Editor | Edit .sav Files',
+      title: 'Unreal Engine Save Editor - Free .sav Editor | Palworld, GVAS',
       description:
-        'Edit Unreal Engine 4 & 5 save files (.sav) online. Parse GVAS format, modify properties and inventory. Works for Palworld and more.',
-      keywords: 'unreal engine save editor, uesave editor, edit .sav file, gvas editor online',
+        'Free Unreal Engine save editor. Edit .sav files online for Palworld, Satisfactory & more. Parse GVAS format, modify inventory, stats, and properties. Best sav file editor.',
+      keywords:
+        'unreal engine save editor, palworld save editor, .sav editor, sav file editor, gvas editor online, uesave editor, edit unreal save file',
       features: [
         'Parse GVAS (.sav) Format',
         'Edit Game Properties',
@@ -267,7 +269,7 @@ const { engine } = Astro.props;
       author: {
         '@type': 'Organization',
         name: 'Save Editor Online',
-        url: 'https://saveeditor.top',
+        url: 'https://saveeditor.online',
       },
     })}
   />
@@ -282,13 +284,13 @@ const { engine } = Astro.props;
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://saveeditor.top/',
+          item: 'https://saveeditor.online/',
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: `${engine.name} Editor`,
-          item: `https://saveeditor.top/editor/${engine.slug}`,
+          item: `https://saveeditor.online/editor/${engine.slug}`,
         },
       ],
     })}

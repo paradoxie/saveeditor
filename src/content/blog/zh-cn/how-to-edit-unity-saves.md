@@ -138,6 +138,20 @@ Unity PlayerPrefs 通常以描述性的键名存储简单值：
 
 编辑 Unity 存档的难度从非常简单（简单的 XML 文件）到相当困难（加密的二进制数据）不等。我们的免费在线编辑器自动处理常见情况，让您在几秒钟内修改游戏进度。始终备份您的存档，享受增强的游戏体验！
 
+## 延伸阅读
+
+- 📖 [Unity PlayerPrefs 官方文档](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) - Unity 官方文档
+- 🎮 [星露谷物语游戏页面](/zh-cn/games/stardew-valley) - 热门 Unity 游戏
+- 📂 [常见存档扩展名详解](/zh-cn/blog/common-save-file-extensions-explained) - 了解各种格式
+- 🔧 [Unity 编辑器](/zh-cn/editor/unity) - 本指南使用的工具
+- 🎭 [Unreal Engine 存档指南](/zh-cn/blog/how-to-edit-unreal-engine-saves) - 另一款流行引擎
+
 ---
 
-*相关文章：[常见存档文件扩展名详解](/blog/zh-cn/common-save-file-extensions-explained)*
+*最后更新：2025年12月*
+
+### 相关文章
+
+- [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
+- [Unreal Engine 存档编辑](/zh-cn/blog/how-to-edit-unreal-engine-saves)
+

@@ -1,91 +1,38 @@
 ---
+import { ui, defaultLang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang?: keyof typeof ui;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+
 const faqs = [
-  {
-    question: 'Is this online save editor safe to use?',
-    answer:
-      'Yes, it is 100% safe. SaveEditor.top runs entirely in your web browser (client-side). Your save files are never uploaded to any server, ensuring complete privacy and data security.',
-  },
-  {
-    question: 'What games are supported?',
-    answer:
-      "We support thousands of games built on popular engines like RPG Maker (MV/MZ/VX Ace/XP), Unity, Ren'Py, Unreal Engine, GameMaker, and NaniNovel. Popular games include Stardew Valley, Undertale, Hollow Knight, DDLC, and many more.",
-  },
-  {
-    question: 'Do I need to install any software?',
-    answer:
-      'No. This is a fully web-based tool. You can edit your save files directly from Chrome, Firefox, Edge, or Safari on any device, including Windows, Mac, Linux, and Android.',
-  },
-  {
-    question: 'Where are my save files located?',
-    answer:
-      "Save file locations vary by game and OS. Common locations on Windows include %AppData%, My Documents/My Games, or the game's installation folder. On Mac, check ~/Library/Application Support. Check our game-specific pages for exact locations.",
-  },
-  {
-    question: 'Will editing my save file corrupt my game?',
-    answer:
-      'Our editor validates changes to minimize corruption risk. However, we strongly recommend always backing up your save file before editing. Copy the original file to a safe location first.',
-  },
-  {
-    question: 'Can I edit Steam/console game saves?',
-    answer:
-      'Steam PC saves work great with our editor. However, console (PlayStation, Xbox, Switch) saves are encrypted and not supported. Steam Cloud may restore original saves - consider disabling it temporarily.',
-  },
-  {
-    question: 'How do I add unlimited gold/money?',
-    answer:
-      "Upload your save file, find the gold/money field in the editor (usually named 'gold', 'money', or 'currency'), change the value to your desired amount, then download and replace the original file.",
-  },
-  {
-    question: 'Can I unlock all items or achievements?',
-    answer:
-      'Yes, for most games you can edit inventory arrays to add items and modify achievement flags. The exact method varies by game engine. Check our game-specific guides for detailed instructions.',
-  },
-  {
-    question: 'What file formats are supported?',
-    answer:
-      "We support: RPG Maker (.rpgsave, .rmmzsave, .rvdata2, .rvdata, .rxdata), Ren'Py (.save), Unity (PlayerPrefs, .xml, .plist), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson), and generic JSON/XML files.",
-  },
-  {
-    question: "Why can't I open my save file?",
-    answer:
-      "Some games use encrypted or proprietary formats. Try selecting a different editor type, or the file may be compressed. If you see 'Invalid file' error, the game might use a format we don't yet support.",
-  },
-  {
-    question: 'Is this free? Are there any limits?',
-    answer:
-      'SaveEditor.top is completely free with no limits on file size or number of edits. We support ourselves through optional donations and non-intrusive ads.',
-  },
-  {
-    question: 'Can I edit multiplayer or online game saves?',
-    answer:
-      'Single-player and local multiplayer saves can be edited. Online/MMO games typically store data on servers, which cannot be modified. Editing online game saves may violate terms of service.',
-  },
-  {
-    question: 'How do I find a specific value in my save?',
-    answer:
-      "Use the search/filter feature in our editor to find specific field names. Common fields include 'hp', 'gold', 'level', 'items', 'inventory'. For complex saves, use JSON path navigation.",
-  },
-  {
-    question: 'Does this work on mobile devices?',
-    answer:
-      'Yes! Our editor works on Android and iOS browsers. However, accessing save files on mobile can be tricky. For mobile games, saves are often in app-specific directories that require file manager apps to access.',
-  },
-  {
-    question: 'Can I undo changes after editing?',
-    answer:
-      "Once you download the edited file, changes are permanent. That's why we always recommend keeping a backup of your original save file before making any modifications.",
-  },
+  { q: t('faq.q1'), a: t('faq.a1') },
+  { q: t('faq.q2'), a: t('faq.a2') },
+  { q: t('faq.q3'), a: t('faq.a3') },
+  { q: t('faq.q4'), a: t('faq.a4') },
+  { q: t('faq.q5'), a: t('faq.a5') },
+  { q: t('faq.q6'), a: t('faq.a6') },
+  { q: t('faq.q7'), a: t('faq.a7') },
+  { q: t('faq.q8'), a: t('faq.a8') },
+  { q: t('faq.q9'), a: t('faq.a9') },
+  { q: t('faq.q10'), a: t('faq.a10') },
+  { q: t('faq.q11'), a: t('faq.a11') },
+  { q: t('faq.q12'), a: t('faq.a12') },
 ];
 ---
 
 <div class="max-w-3xl mx-auto px-4">
-  <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Frequently Asked Questions</h2>
+  <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">{t('faq.title')}</h2>
   <div class="space-y-4">
     {
       faqs.map((faq, index) => (
         <details class="group bg-white rounded-xl shadow-sm border border-gray-100 open:border-primary-200 transition-colors">
           <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-            <h3 class="font-bold text-gray-800 pr-4">{faq.question}</h3>
+            <h3 class="font-bold text-gray-800 pr-4">{faq.q}</h3>
             <span class="text-primary-600 transition-transform group-open:rotate-180">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -97,7 +44,7 @@ const faqs = [
               </svg>
             </span>
           </summary>
-          <div class="px-6 pb-6 text-gray-600 leading-relaxed text-sm">{faq.answer}</div>
+          <div class="px-6 pb-6 text-gray-600 leading-relaxed text-sm">{faq.a}</div>
         </details>
       ))
     }
@@ -111,10 +58,10 @@ const faqs = [
     '@type': 'FAQPage',
     mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
-      name: faq.question,
+      name: faq.q,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: faq.answer,
+        text: faq.a,
       },
     })),
   })}

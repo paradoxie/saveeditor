@@ -146,6 +146,22 @@ O uso do Python pickle pelo Ren'Py torna a edição direta de save tecnicamente 
 
 Nosso Visualizador de Save ajuda você a entender seu estado de save, mesmo que a edição direta não seja totalmente suportada - ainda. Por enquanto, o console do desenvolvedor continua sendo a ferramenta mais segura e poderosa para modificações do Ren'Py.
 
+## Leitura Adicional
+
+- 📖 [Documentação Oficial Ren'Py](https://www.renpy.org/doc/html/) - Documentação oficial do motor
+- 🎮 [Página do Jogo DDLC](/pt/games/ddlc) - Localizações de save Doki Doki Literature Club
+- 📂 [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained) - Entenda .save e outros formatos
+- 🔧 [Visualizador Ren'Py](/pt/editor/renpy) - Nossa ferramenta de visualização de save
+- 🎭 [Guia de Save NaniNovel](/pt/blog/naninovel-save-editing-guide) - Outro motor de visual novel
+
 ---
 
-*Relacionado: [Extensões Comuns de Arquivos de Save Explicadas](/pt/blog/pt/common-save-file-extensions-explained)*
+*Última atualização: Dezembro de 2025*
+
+### Artigos Relacionados
+
+- [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained)
+- [Guia de Edição de Save NaniNovel](/pt/blog/naninovel-save-editing-guide)
+- [Edição de Save Unity](/pt/blog/how-to-edit-unity-saves)
+
+

@@ -129,6 +129,25 @@ Editar saves do Unreal Engine requer entender o formato binário GVAS, mas com a
 
 Lembre-se: sempre faça backup dos seus saves, nunca edite jogos multiplayer/competitivos de forma injusta, e bom modding!
 
+## Leitura Adicional
+
+Expanda seu conhecimento de edição de saves Unreal Engine:
+
+- 📖 [Guia de Edição de Save Palworld](/pt/blog/palworld-save-editing-guide) - Tutorial dedicado ao Palworld
+- 📖 [uesave-rs no GitHub](https://github.com/trumank/uesave-rs) - Parser GVAS open-source
+- 🎮 [Página do Jogo Palworld](/pt/games/palworld) - Localizações de save e itens editáveis
+- 📂 [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained) - Entenda .sav e outros formatos
+- 🔧 [Editor Unreal Engine](/pt/editor/unreal) - Ferramenta online usada neste guia
+- 🎭 [Guia de Edição de Save Unity](/pt/blog/how-to-edit-unity-saves) - Outro motor de jogo popular
+
 ---
 
-*Relacionado: [Extensões Comuns de Arquivos de Save Explicadas](/pt/blog/pt/common-save-file-extensions-explained)*
+*Última atualização: Dezembro de 2025*
+
+### Artigos Relacionados
+
+- [Guia de Edição de Save Palworld](/pt/blog/palworld-save-editing-guide)
+- [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained)
+- [Edição de Save Unity](/pt/blog/how-to-edit-unity-saves)
+
+

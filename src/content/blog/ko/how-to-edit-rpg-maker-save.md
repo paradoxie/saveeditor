@@ -112,6 +112,20 @@ A: 게임이 에셋(이미지, 오디오)만 암호화하고 세이브는 암호
 
 올바른 도구가 있으면 RPG Maker 세이브 편집은 간단합니다. 실험하거나, 노가다를 건너뛰거나, 그냥 재미있게 놀고 싶든, 우리의 무료 온라인 에디터가 쉽게 만들어 드립니다. 세이브를 백업하는 것을 잊지 마시고, 즐거운 게임 되세요!
 
+## 관련 리소스
+
+- 📖 [RPG Maker 세이브 파일 구조 설명](/ko/blog/rpg-maker-save-file-structure) - 기술 심층 분석
+- 📂 [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained) - 다양한 형식 이해하기
+- 🔧 [RPG Maker 에디터](/ko/editor/rpg-maker-mv) - 이 가이드에서 사용한 도구
+- 🎭 [GameMaker 세이브 편집 가이드](/ko/blog/gamemaker-save-editing-guide) - 유사한 기술
+
 ---
 
-*관련 문서: [일반 세이브 파일 확장자 설명](/blog/ko/common-save-file-extensions-explained)*
+*마지막 업데이트: 2025년 12월*
+
+### 관련 문서
+
+- [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
+- [RPG Maker 세이브 파일 구조](/ko/blog/rpg-maker-save-file-structure)
+- [GameMaker 세이브 편집](/ko/blog/gamemaker-save-editing-guide)
+

@@ -148,6 +148,20 @@ Ren'Py의 Python pickle 사용은 직접 세이브 편집을 기술적으로 어
 
 우리의 세이브 뷰어는 직접 편집이 아직 완전히 지원되지 않더라도 세이브 상태를 이해하는 데 도움이 됩니다. 현재로서는 개발자 콘솔이 Ren'Py 수정을 위한 가장 안전하고 강력한 도구입니다.
 
+## 관련 리소스
+
+- 📖 [Ren'Py 공식 문서](https://www.renpy.org/doc/html/) - 공식 문서
+- 🎮 [DDLC 게임 페이지](/ko/games/ddlc) - 세이브 위치 및 편집 가능 항목
+- 📂 [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained) - 다양한 형식 이해하기
+- 🔧 [Ren'Py 에디터](/ko/editor/renpy) - 세이브 뷰어 도구
+- 🎭 [NaniNovel 세이브 가이드](/ko/blog/naninovel-save-editing-guide) - 또 다른 비주얼 노벨 엔진
+
 ---
 
-*관련 문서: [일반 세이브 파일 확장자 설명](/blog/ko/common-save-file-extensions-explained)*
+*마지막 업데이트: 2025년 12월*
+
+### 관련 문서
+
+- [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
+- [NaniNovel 세이브 편집](/ko/blog/naninovel-save-editing-guide)
+

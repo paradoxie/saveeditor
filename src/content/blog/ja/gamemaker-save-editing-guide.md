@@ -165,3 +165,22 @@ INIファイルの場合、階層ビューが表示されます：
 GameMakerの柔軟性は、セーブ編集には一つの方法ですべてに対応できるわけではありませんが、最も一般的な形式（INIとJSON）は当エディタで十分サポートされています。
 
 問題が発生したり改善提案がある場合は、[お問い合わせ](/ja/contact)ください。編集をお楽しみください！
+
+## 関連リソース
+
+- 📖 [Undertale Wiki - セーブファイル](https://undertale.fandom.com/wiki/SAVE) - Undertaleコミュニティドキュメント
+- 🎮 [Undertale ゲームページ](/ja/games/undertale) - セーブ場所と編集可能項目
+- 📂 [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained) - 各種フォーマットを理解
+- 🔧 [GameMaker エディタ](/ja/editor/gamemaker) - 本ガイドで使用したツール
+- 🎭 [RPGツクール セーブ編集ガイド](/ja/blog/how-to-edit-rpg-maker-save) - 別の人気インディーエンジン
+
+---
+
+*最終更新：2025年12月*
+
+### 関連記事
+
+- [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained)
+- [RPGツクール セーブ編集](/ja/blog/how-to-edit-rpg-maker-save)
+- [Undertale セーブ場所](/ja/games/undertale)
+

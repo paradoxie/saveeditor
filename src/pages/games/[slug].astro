@@ -66,6 +66,65 @@ export async function getStaticPaths() {
       relatedGuides: [{ title: 'How to Edit Unity Saves', url: '/blog/how-to-edit-unity-saves' }],
     },
     {
+      slug: 'palworld',
+      name: 'Palworld',
+      engine: 'Unreal Engine (GVAS)',
+      format: '.sav',
+      editorPath: '/editor/unreal',
+      emoji: '🦎',
+      image: '/images/games/palworld.webp',
+      description: 'The viral creature-collecting survival game by Pocketpair.',
+      saveLocations: {
+        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
+        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
+        linux:
+          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Gold', desc: 'Edit your in-game currency' },
+        { icon: '🦎', name: 'Pals', desc: 'Modify Pal stats and abilities' },
+        { icon: '📈', name: 'Player Stats', desc: 'Change level, HP, stamina' },
+        { icon: '🎒', name: 'Inventory', desc: 'Add items and resources' },
+        { icon: '⚔️', name: 'Equipment', desc: 'Edit weapons and armor' },
+        { icon: '🏠', name: 'Base Progress', desc: 'Modify base building data' },
+      ],
+      faq: [
+        {
+          question: 'Where are Palworld save files located?',
+          answer:
+            'Windows: %localappdata%\\Pal\\Saved\\SaveGames. Each world has its own folder with Level.sav (world data) and Players folder (player data).',
+        },
+        {
+          question: 'Can I edit Palworld saves on Steam Deck?',
+          answer:
+            'Yes! The save location is in the Proton prefix folder. You can access it via Desktop Mode or transfer files to a PC for editing.',
+        },
+        {
+          question: 'Will editing break multiplayer saves?',
+          answer:
+            'Be careful with multiplayer saves. Editing your player data should be safe, but modifying world/server data can cause sync issues.',
+        },
+        {
+          question: 'How do I backup Palworld saves?',
+          answer:
+            'Copy the entire SaveGames folder before editing. Palworld auto-saves frequently, so make backups before making changes.',
+        },
+        {
+          question: 'Can I add any Pal to my collection?',
+          answer:
+            'Yes, by editing the Pal data in your save file. You can add Pals, change their stats, or modify their passive skills.',
+        },
+        {
+          question: 'Is save editing bannable in Palworld?',
+          answer:
+            'Palworld is primarily a single-player/co-op game without anti-cheat. However, use caution on dedicated servers as admins may have rules against cheating.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'How to Edit Unreal Engine Saves', url: '/blog/how-to-edit-unreal-engine-saves' },
+      ],
+    },
+    {
       slug: 'undertale',
       name: 'Undertale',
       engine: 'GameMaker',
@@ -626,19 +685,19 @@ const { game } = Astro.props;
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://saveeditor.top/',
+          item: 'https://saveeditor.online/',
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Games',
-          item: 'https://saveeditor.top/games/',
+          item: 'https://saveeditor.online/games/',
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: game.name,
-          item: `https://saveeditor.top/games/${game.slug}/`,
+          item: `https://saveeditor.online/games/${game.slug}/`,
         },
       ],
     })}

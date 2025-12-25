@@ -223,6 +223,27 @@ Entender seu formato de arquivo de save é metade da batalha. Uma vez que você 
 
 Nosso Save Editor Online suporta a maioria dos formatos comuns automaticamente - apenas faça upload do seu arquivo e deixe-nos cuidar do resto!
 
+## Leitura Adicional
+
+Explore nossos guias detalhados para cada motor de jogo:
+
+- 📖 [Guia de Edição de Save RPG Maker](/pt/blog/how-to-edit-rpg-maker-save) - Arquivos .rpgsave e .rvdata2
+- 📖 [Guia de Edição de Save Unity](/pt/blog/how-to-edit-unity-saves) - PlayerPrefs e arquivos XML
+- 📖 [Guia de Save Unreal Engine](/pt/blog/how-to-edit-unreal-engine-saves) - Arquivos GVAS .sav
+- 📖 [Guia de Edição de Save Ren'Py](/pt/blog/renpy-save-editing-guide) - Arquivos Python pickle
+- 📖 [Guia de Edição de Save GameMaker](/pt/blog/gamemaker-save-editing-guide) - Arquivos INI e JSON
+- 📖 [Guia de Edição de Save NaniNovel](/pt/blog/naninovel-save-editing-guide) - Arquivos .nson
+
 ---
 
-*Comece a editar: [Escolha Seu Editor](/pt)*
+*Última atualização: Dezembro de 2025*
+
+### Comece a Editar
+
+- [Editor RPG Maker](/pt/editor/rpg-maker-mv)
+- [Editor Unity](/pt/editor/unity)
+- [Editor Unreal Engine](/pt/editor/unreal)
+- [Visualizador Ren'Py](/pt/editor/renpy)
+- [Editor GameMaker](/pt/editor/gamemaker)
+- [Editor NaniNovel](/pt/editor/naninovel)
+

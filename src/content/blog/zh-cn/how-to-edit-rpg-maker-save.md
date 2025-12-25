@@ -112,6 +112,20 @@ RPG Maker MV 游戏使用 `.rpgsave` 扩展名的存档文件，而 MZ 游戏通
 
 使用正确的工具，编辑 RPG Maker 存档很简单。无论您是想实验、跳过刷怪，还是只是想玩得开心，我们的免费在线编辑器都能让一切变得简单。记得备份您的存档，祝游戏愉快！
 
+## 延伸阅读
+
+- 📖 [RPG Maker 存档文件结构详解](/zh-cn/blog/rpg-maker-save-file-structure) - 技术深度解析
+- 📂 [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained) - 了解各种格式
+- 🔧 [RPG Maker 编辑器](/zh-cn/editor/rpg-maker-mv) - 本指南使用的工具
+- 🎭 [GameMaker 存档编辑指南](/zh-cn/blog/gamemaker-save-editing-guide) - 类似技术
+
 ---
 
-*相关文章：[常见存档文件扩展名详解](/blog/zh-cn/common-save-file-extensions-explained)*
+*最后更新：2025年12月*
+
+### 相关文章
+
+- [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
+- [RPG Maker 存档结构](/zh-cn/blog/rpg-maker-save-file-structure)
+- [GameMaker 存档编辑](/zh-cn/blog/gamemaker-save-editing-guide)
+

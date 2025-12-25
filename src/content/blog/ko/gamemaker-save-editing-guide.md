@@ -143,3 +143,22 @@ INI 파일의 경우 계층적 뷰가 표시됩니다:
 GameMaker의 유연성은 세이브 편집에 만능 접근법이 없다는 것을 의미하지만, 가장 일반적인 형식(INI와 JSON)은 저희 에디터에서 잘 지원됩니다.
 
 문제가 발생하거나 제안 사항이 있으면 [문의하기](/ko/contact)로 연락주세요!
+
+## 관련 리소스
+
+- 📖 [Undertale Wiki - 세이브 파일](https://undertale.fandom.com/wiki/SAVE) - Undertale 커뮤니티 문서
+- 🎮 [Undertale 게임 페이지](/ko/games/undertale) - 세이브 위치 및 편집 가능 항목
+- 📂 [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained) - 다양한 형식 이해하기
+- 🔧 [GameMaker 에디터](/ko/editor/gamemaker) - 이 가이드에서 사용한 도구
+- 🎭 [RPG Maker 세이브 편집 가이드](/ko/blog/how-to-edit-rpg-maker-save) - 또 다른 인기 인디 엔진
+
+---
+
+*마지막 업데이트: 2025년 12월*
+
+### 관련 문서
+
+- [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
+- [RPG Maker 세이브 편집](/ko/blog/how-to-edit-rpg-maker-save)
+- [Undertale 세이브 위치](/ko/games/undertale)
+

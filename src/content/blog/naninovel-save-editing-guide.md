@@ -204,3 +204,24 @@ NaniNovel's NSON format, while using compression, is fundamentally accessible on
 Remember to always backup your saves, and if you encounter any issues or have suggestions for improving our NaniNovel support, please [contact us](/contact).
 
 Happy editing!
+
+## Further Reading
+
+Expand your visual novel save editing knowledge:
+
+- 📖 [NaniNovel Official Documentation](https://naninovel.com/guide/) - Official engine documentation
+- 🎮 [DDLC Game Page](/games/ddlc) - Another popular visual novel
+- 📂 [Common Save File Extensions](/blog/common-save-file-extensions-explained) - Understanding .nson and other formats
+- 🔧 [NaniNovel Editor](/editor/naninovel) - The online tool used in this guide
+- 🎭 [Ren'Py Save Editing Guide](/blog/renpy-save-editing-guide) - Python-based visual novel engine
+
+---
+
+*Last updated: December 2025*
+
+### Related Articles
+
+- [Unity PlayerPrefs Editor](/editor/unity)
+- [Ren'Py Save Viewer](/editor/renpy)
+- [Save File Extensions Guide](/blog/common-save-file-extensions-explained)
+

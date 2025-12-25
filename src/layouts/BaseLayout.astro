@@ -14,7 +14,7 @@ interface Props {
 
 const { title, description, keywords, ogImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveeditor.top');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveeditor.online');
 ---
 
 <!doctype html>
@@ -68,8 +68,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveedit
         return locales.map((locale) => {
           const href =
             locale === 'en'
-              ? `https://saveeditor.top${basePath}`
-              : `https://saveeditor.top/${locale}${basePath}`;
+              ? `https://saveeditor.online${basePath}`
+              : `https://saveeditor.online/${locale}${basePath}`;
           return <link rel="alternate" hreflang={locale} href={href} />;
         });
       })()
@@ -77,7 +77,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveedit
     <link
       rel="alternate"
       hreflang="x-default"
-      href={`https://saveeditor.top${Astro.url.pathname.replace(/^\/(ja|ko|pt|zh-cn)/, '')}`}
+      href={`https://saveeditor.online${Astro.url.pathname.replace(/^\/(ja|ko|pt|zh-cn)/, '')}`}
     />
 
     <!-- Open Graph -->

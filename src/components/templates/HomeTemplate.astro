@@ -1,0 +1,640 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import FAQ from '../FAQ.astro';
+import { ui, defaultLang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang?: keyof typeof ui;
+  title: string;
+  description: string;
+  keywords: string;
+}
+
+const { lang = 'en', title, description, keywords } = Astro.props;
+const t = useTranslations(lang);
+
+// Helper to handle localized links
+const getPath = (path: string) => {
+  if (path.startsWith('http')) return path;
+  // If path is root '/', handle carefully
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  if (lang === defaultLang) {
+    return `/${cleanPath}`;
+  }
+  return `/${lang}/${cleanPath}`;
+};
+
+const blogPosts = (await getCollection('blog'))
+  .filter((post) => {
+    if (lang === 'en') return !post.slug.includes('/');
+    return post.slug.startsWith(`${lang}/`);
+  })
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 4); // Limit to 4 posts
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+  <!-- Hero Section with Gradient Background -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white"
+  >
+    <!-- Decorative Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl">
+      </div>
+      <div class="absolute -bottom-40 -left-40 w-180 h-180 bg-blue-500/20 rounded-full blur-3xl">
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary-600/10 to-transparent rounded-full"
+      >
+      </div>
+    </div>
+
+    <div class="relative container mx-auto px-4 py-20 lg:py-28">
+      <div class="max-w-5xl mx-auto text-center">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-white/20"
+        >
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          {t('hero.badge')}
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          {t('hero.title.prefix')}
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+            >{t('hero.title.highlight')}</span
+          >{t('hero.title.suffix')}
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          <span set:html={t('hero.subtitle')} />
+        </p>
+
+        <!-- Smart Upload Zone -->
+        <div class="max-w-2xl mx-auto mb-12">
+          <div
+            id="smart-upload-zone"
+            class="relative group cursor-pointer border-2 border-dashed border-white/30 hover:border-primary-400 rounded-2xl p-8 lg:p-12 transition-all duration-300 hover:bg-white/5 backdrop-blur-sm"
+          >
+            <input
+              type="file"
+              id="smart-file-input"
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              accept=".rpgsave,.rmmzsave,.rvdata2,.sav,.save,.xml,.plist,.ini,.json,.nson"
+            />
+            <div class="text-center">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-primary-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary-500/30"
+              >
+                <svg
+                  class="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-xl font-semibold mb-2">{t('upload.drop')}</p>
+              <p class="text-gray-400 text-sm">
+                {t('upload.browse')}
+              </p>
+              <div class="flex flex-wrap justify-center gap-2 mt-4">
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.rpgsave</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.rmmzsave</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.sav</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.save</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.xml</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.json</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.nson</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Or Choose Engine -->
+        <p class="text-gray-400 text-sm mb-6">{t('upload.orChoose')}</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-6xl mx-auto">
+          <a
+            href={getPath('editor/rpg-maker-mv')}
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              RPG Maker
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.rpgsave</div>
+          </a>
+          <a
+            href={getPath('editor/unity')}
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Unity
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.xml, .plist</div>
+          </a>
+          <a
+            href={getPath('editor/renpy')}
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Ren'Py
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.save</div>
+          </a>
+          <a
+            href={getPath('editor/unreal')}
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Unreal
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.sav</div>
+          </a>
+          <a
+            href={getPath('editor/gamemaker')}
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              GameMaker
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.ini, .json</div>
+          </a>
+          <a
+            href={getPath('editor/naninovel')}
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              NaniNovel
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.nson</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="flex-grow container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- Social Proof Stats -->
+      <div class="mb-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-primary-600 counter" data-target="80">
+            0
+          </div>
+          <div class="text-xs sm:text-sm text-primary-700 font-medium mt-1">
+            {t('stats.gamesSupported')}
+          </div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-green-600 counter" data-target="6">0</div>
+          <div class="text-xs sm:text-sm text-green-700 font-medium mt-1">
+            {t('stats.gameEngines')}
+          </div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-purple-600 counter" data-target="100">
+            0
+          </div>
+          <div class="text-xs sm:text-sm text-purple-700 font-medium mt-1">
+            {t('stats.clientSide')}
+          </div>
+        </div>
+        <div class="text-center p-6 bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-amber-600">∞</div>
+          <div class="text-xs sm:text-sm text-amber-700 font-medium mt-1">
+            {t('stats.fileSizeLimit')}
+          </div>
+        </div>
+      </div>
+
+      <!-- How it Works -->
+      <div class="mb-20">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">{t('how.title')}</h2>
+        <p class="text-center text-gray-600 mb-12 max-w-xl mx-auto">
+          {t('how.subtitle')}
+        </p>
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <!-- Connecting Lines (Desktop only) -->
+          <div
+            class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200"
+          >
+          </div>
+
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              1
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">{t('how.step1.title')}</h3>
+            <p class="text-gray-600">
+              {t('how.step1.desc')}
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">{t('how.step1.note')}</div>
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              2
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">{t('how.step2.title')}</h3>
+            <p class="text-gray-600">
+              {t('how.step2.desc')}
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">{t('how.step2.note')}</div>
+          </div>
+          <div
+            class="step-card p-6 bg-white rounded-xl shadow-sm border border-gray-100 relative z-10 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div
+              class="step-number w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg"
+            >
+              3
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">{t('how.step3.title')}</h3>
+            <p class="text-gray-600">
+              {t('how.step3.desc')}
+            </p>
+            <div class="mt-4 text-primary-600 text-sm font-medium">{t('how.step3.note')}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="mb-20 bg-gray-900 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-12">{t('benefits.title')}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div class="text-4xl mb-4">🔒</div>
+            <h3 class="text-xl font-bold mb-2">{t('benefits.secure.title')}</h3>
+            <p class="text-gray-400">
+              {t('benefits.secure.desc')}
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold mb-2">{t('benefits.universal.title')}</h3>
+            <p class="text-gray-400">
+              {t('benefits.universal.desc')}
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl mb-4">💸</div>
+            <h3 class="text-xl font-bold mb-2">{t('benefits.free.title')}</h3>
+            <p class="text-gray-400">
+              {t('benefits.free.desc')}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-24">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">{t('games.title')}</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            {t('games.desc')}
+          </p>
+        </div>
+
+        {/* Engine Cards */}
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
+          <a
+            href={getPath('editor/rpg-maker-mv')}
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-blue-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              ⚔️
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">RPG Maker</h3>
+            <p class="text-xs text-gray-400 mt-1">.rpgsave</p>
+          </a>
+
+          <a
+            href={getPath('editor/unity')}
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-gray-400 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-gray-100 text-gray-700 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              🧊
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">Unity</h3>
+            <p class="text-xs text-gray-400 mt-1">PlayerPrefs</p>
+          </a>
+
+          <a
+            href={getPath('editor/renpy')}
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-pink-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              🌸
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">Ren'Py</h3>
+            <p class="text-xs text-gray-400 mt-1">.save</p>
+          </a>
+
+          <a
+            href={getPath('editor/unreal')}
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-slate-400 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-slate-100 text-slate-700 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              ⚫
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">Unreal</h3>
+            <p class="text-xs text-gray-400 mt-1">.sav</p>
+          </a>
+
+          <div
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-green-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              👾
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">GameMaker</h3>
+            <p class="text-xs text-gray-400 mt-1">ini / json</p>
+          </div>
+
+          <div
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-purple-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              📝
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">NaniNovel</h3>
+            <p class="text-xs text-gray-400 mt-1">.nson</p>
+          </div>
+        </div>
+
+        {/* Game Chips */}
+        <div class="relative mb-8">
+          <div class="absolute inset-0 flex items-center" aria-hidden="true">
+            <div class="w-full border-t border-gray-100"></div>
+          </div>
+          <div class="relative flex justify-center">
+            <span class="bg-white px-4 text-sm text-gray-400 uppercase tracking-wider font-medium"
+              >{t('games.popularTitles')}</span
+            >
+          </div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={getPath('games/stardew-valley')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700 transition-all"
+          >
+            <span class="text-lg">🌾</span>
+            <span class="font-medium">{t('games.stardewValley')}</span>
+          </a>
+          <a
+            href={getPath('games/hollow-knight')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all"
+          >
+            <span class="text-lg">🪲</span>
+            <span class="font-medium">{t('games.hollowKnight')}</span>
+          </a>
+          <a
+            href={getPath('games/rpg-maker')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-red-300 hover:bg-red-50 hover:text-red-700 transition-all"
+          >
+            <span class="text-lg">⚔️</span>
+            <span class="font-medium">{t('games.rpgMaker')}</span>
+          </a>
+          <a
+            href={getPath('games/undertale')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-yellow-300 hover:bg-yellow-50 hover:text-yellow-700 transition-all"
+          >
+            <span class="text-lg">❤️</span>
+            <span class="font-medium">{t('games.undertale')}</span>
+          </a>
+          <a
+            href={getPath('games/ddlc')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-pink-300 hover:bg-pink-50 hover:text-pink-700 transition-all"
+          >
+            <span class="text-lg">📚</span>
+            <span class="font-medium">{t('games.ddlc')}</span>
+          </a>
+          <a
+            href={getPath('games')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-full shadow-sm hover:bg-primary-700 transition-all"
+          >
+            <span class="font-medium">{t('games.viewAll')}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Blog Section -->
+      <div class="mt-20 bg-primary-50 rounded-2xl p-12">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">{t('home.blog.title')}</h2>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+          {t('home.blog.desc')}
+        </p>
+        <div class="grid md:grid-cols-2 gap-8">
+          {
+            blogPosts.map((post) => (
+              <a
+                href={getPath(`blog/${post.slug.replace(`${lang}/`, '')}`)}
+                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 block overflow-hidden group border border-gray-100"
+              >
+                <div class="aspect-video w-full overflow-hidden bg-gray-100 relative">
+                  <img
+                    src={post.data.image}
+                    alt={post.data.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <div class="p-6">
+                  <div class="flex items-center gap-2 text-xs text-primary-600 font-medium mb-3">
+                    <span class="bg-primary-50 px-2.5 py-1 rounded-md uppercase tracking-wider">
+                      {post.data.tags[0]}
+                    </span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-gray-500">
+                      {post.data.pubDate.toLocaleDateString(lang === 'zh-cn' ? 'zh-CN' : 'en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </span>
+                  </div>
+                  <h3 class="font-bold text-xl mb-3 text-gray-900 group-hover:text-primary-600 transition-colors line-clamp-2">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm line-clamp-2 mb-4 leading-relaxed">
+                    {post.data.description}
+                  </p>
+                  <div class="flex items-center text-primary-600 text-sm font-bold group-hover:translate-x-1 transition-transform">
+                    {t('home.blog.readMore')}
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+        <div class="text-center mt-8">
+          <a
+            href={getPath('blog')}
+            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+          >
+            {t('home.blog.viewAll')}
+          </a>
+        </div>
+      </div>
+
+      <!-- SEO Content Section -->
+      <slot name="seo-content" />
+
+      <!-- FAQ Section -->
+      <section class="mt-20 border-t border-gray-100 pt-16">
+        <FAQ lang={lang} />
+      </section>
+
+      <!-- HowTo Schema -->
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: t('how.title'),
+          description: t('how.subtitle'),
+          step: [
+            {
+              '@type': 'HowToStep',
+              name: t('how.step1.title'),
+              text: t('how.step1.desc'),
+              image: 'https://saveeditor.online/og-image.png',
+              url: `https://saveeditor.online/${lang === 'en' ? '' : lang}`,
+            },
+            {
+              '@type': 'HowToStep',
+              name: t('how.step2.title'),
+              text: t('how.step2.desc'),
+              image: 'https://saveeditor.online/og-image.png',
+              url: `https://saveeditor.online/${lang === 'en' ? '' : lang}`,
+            },
+            {
+              '@type': 'HowToStep',
+              name: t('how.step3.title'),
+              text: t('how.step3.desc'),
+              image: 'https://saveeditor.online/og-image.png',
+              url: `https://saveeditor.online/${lang === 'en' ? '' : lang}`,
+            },
+          ],
+        })}
+      />
+
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'Save Editor Online',
+          applicationCategory: 'UtilitiesApplication',
+          operatingSystem: 'Web Browser',
+          offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'USD',
+          },
+          description: t('footer.desc'),
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.8',
+            ratingCount: '1250',
+          },
+          featureList: [
+            'RPG Maker MV/MZ Save Editing',
+            'Unity PlayerPrefs Editing',
+            'Unreal Engine GVAS Parsing',
+            "Ren'Py Save Viewing",
+            'GameMaker INI/JSON Editing',
+            'NaniNovel NSON Editing',
+          ],
+          screenshot: 'https://saveeditor.online/og-image.png',
+          softwareVersion: '1.0.0',
+          author: {
+            '@type': 'Organization',
+            name: 'SaveEditor.top',
+          },
+        })}
+      />
+
+      <!-- WebSite Schema with Search Action -->
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'SaveEditor.top',
+          alternateName: 'Save Editor Online',
+          url: 'https://saveeditor.online/',
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: {
+              '@type': 'EntryPoint',
+              urlTemplate: 'https://saveeditor.online/games?q={search_term_string}',
+            },
+            'query-input': 'required name=search_term_string',
+          },
+        })}
+      />
+
+      <!-- Organization Schema -->
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'SaveEditor.top',
+          url: 'https://saveeditor.online/',
+          logo: 'https://saveeditor.online/favicon.svg',
+          description: t('footer.desc'),
+          sameAs: ['https://github.com/paradoxie/saveeditor'],
+          contactPoint: {
+            '@type': 'ContactPoint',
+            contactType: 'customer service',
+            url: 'https://saveeditor.online/contact',
+          },
+        })}
+      />
+
+      <script define:vars={{ lang }}>
+        // Use a client-side script that accepts 'lang' from prop to configure paths
+        // This replaces the inline script logic
+        window.currentLang = lang;
+      </script>
+      <script src="../../scripts/home.ts"></script>
+    </div>
+  </main>
+</BaseLayout>

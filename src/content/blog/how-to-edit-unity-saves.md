@@ -138,6 +138,24 @@ This is more complex than file-based saves, but possible with the right tools.
 
 Editing Unity saves can range from trivially easy (simple XML files) to quite challenging (encrypted binary data). Our free online editor handles the common cases automatically, letting you modify your game progress in seconds. Always back up your saves, and enjoy your enhanced gaming experience!
 
+## Further Reading
+
+Expand your Unity save editing knowledge:
+
+- 📖 [Unity Manual - PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) - Official Unity documentation
+- 🎮 [Stardew Valley Game Page](/games/stardew-valley) - Popular Unity game save locations
+- 🎮 [Hollow Knight Game Page](/games/hollow-knight) - Another Unity game guide
+- 📂 [Common Save File Extensions](/blog/common-save-file-extensions-explained) - Understanding .xml, .plist, and more
+- 🔧 [Unity Editor](/editor/unity) - The online tool used in this guide
+- 🎭 [Unreal Engine Save Guide](/blog/how-to-edit-unreal-engine-saves) - Another popular game engine
+
 ---
 
-*Related: [Common Save File Extensions Explained](/blog/common-save-file-extensions-explained)*
+*Last updated: December 2025*
+
+### Related Articles
+
+- [Common Save File Extensions Explained](/blog/common-save-file-extensions-explained)
+- [How to Edit Unreal Engine Saves](/blog/how-to-edit-unreal-engine-saves)
+- [Stardew Valley Save Editing](/games/stardew-valley)
+

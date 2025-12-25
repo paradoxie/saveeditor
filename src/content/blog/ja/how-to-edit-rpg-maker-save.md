@@ -113,6 +113,20 @@ A: ゲームがアセット（画像、音声）のみを暗号化し、セー�
 
 適切なツールがあれば、RPGツクールのセーブ編集は簡単です。実験したい場合でも、グラインドをスキップしたい場合でも、単に楽しみたい場合でも、私たちの無料オンラインエディタで簡単にできます。セーブをバックアップすることを忘れずに、楽しいゲームを！
 
+## 関連リソース
+
+- 📖 [RPGツクール セーブファイル構造解説](/ja/blog/rpg-maker-save-file-structure) - 技術的な詳細解析
+- 📂 [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained) - 各種フォーマットを理解
+- 🔧 [RPGツクール エディタ](/ja/editor/rpg-maker-mv) - 本ガイドで使用したツール
+- 🎭 [GameMaker セーブ編集ガイド](/ja/blog/gamemaker-save-editing-guide) - 類似のテクニック
+
 ---
 
-*関連記事: [一般的なセーブファイル拡張子の解説](/ja/blog/ja/common-save-file-extensions-explained)*
+*最終更新：2025年12月*
+
+### 関連記事
+
+- [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained)
+- [RPGツクール セーブファイル構造](/ja/blog/rpg-maker-save-file-structure)
+- [GameMaker セーブ編集](/ja/blog/gamemaker-save-editing-guide)
+

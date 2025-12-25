@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import JsonEditor from './JsonEditor';
+import RpgMakerEditor from './editors/RpgMakerEditor';
 import { buildRPGMakerMV } from '../lib/parsers/rpgmaker';
 
 interface SaveEditorProps {
@@ -316,294 +317,39 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                 ) : (
                     <>
                         {activeTab === 'quick' && showQuickEdit ? (
-                            <div className="space-y-6">
-                                {/* Gold Editor */}
-                                <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-5 border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
-                                            <span className="text-xl">💰</span>
+                            format === 'rpgmaker' ? (
+                                <RpgMakerEditor data={data} onChange={handleDataChange} />
+                            ) : (
+                                <div className="space-y-6">
+                                    {/* Gold Editor (Generic) */}
+                                    <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-5 border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                                                <span className="text-xl">💰</span>
+                                            </div>
+                                            <label className="text-base font-semibold text-gray-800">Gold / Money</label>
                                         </div>
-                                        <label className="text-base font-semibold text-gray-800">Gold / Money</label>
-                                    </div>
-                                    <input
-                                        type="number"
-                                        className="block w-full max-w-xs rounded-lg border-amber-200 bg-white shadow-sm focus:border-amber-400 focus:ring-amber-400 text-lg p-3 border font-medium"
-                                        value={data?.party?._gold ?? data?.party?.gold ?? data?.gold ?? 0}
-                                        onChange={(e) => setData((prev: any) => {
-                                            if (!prev) return null;
-                                            const newData = JSON.parse(JSON.stringify(prev)); // Deep clone
-                                            const newGold = parseInt(e.target.value) || 0;
-                                            // 更新所有可能的 gold 存储位置
-                                            if (newData.party) {
-                                                newData.party._gold = newGold;  // RPG Maker MZ
-                                                newData.party.gold = newGold;   // 某些版本可能用这个
-                                            }
-                                            console.log('Gold updated to:', newGold, 'party._gold:', newData.party?._gold);
-                                            return newData;
-                                        })}
-                                    />
-                                </div>
-
-                                {/* Actor Parameter Sets */}
-                                {format === 'rpgmaker' && data?.actors?._data && (
-                                    <div className="space-y-6">
-                                        {data.actors._data
-                                            .filter((actor: any) => actor && actor._actorId)
-                                            .map((actor: any, index: number) => {
-                                                const actorName = actor._name || actor.name || `Actor #${actor._actorId}`;
-                                                const params = actor._paramPlus || [];
-
-                                                // Standard RPG Maker MZ parameters
-                                                const paramNames = ['MHP', 'MMP', 'ATK', 'DEF', 'MAT', 'MDF', 'AGI', 'LUK'];
-
-                                                return (
-                                                    <div key={actor._actorId || index} className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all hover:border-primary-200">
-                                                        <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
-                                                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-100 to-primary-50 flex items-center justify-center">
-                                                                <span className="text-lg font-bold text-primary-600">#{actor._actorId}</span>
-                                                            </div>
-                                                            <h4 className="text-base font-semibold text-gray-800">
-                                                                {actorName}
-                                                            </h4>
-                                                        </div>
-
-                                                        {/* Level */}
-                                                        <div className="mb-4">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="text-sm font-medium text-gray-600 w-16">Level</span>
-                                                                <input
-                                                                    type="number"
-                                                                    className="w-24 rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-sm p-1.5 border"
-                                                                    value={actor._level || actor.level || 1}
-                                                                    onChange={(e) => setData((prev: any) => {
-                                                                        if (!prev) return null;
-                                                                        const newData = JSON.parse(JSON.stringify(prev));
-                                                                        const actorIdx = newData.actors._data.findIndex((a: any) => a && a._actorId === actor._actorId);
-                                                                        if (actorIdx !== -1) {
-                                                                            newData.actors._data[actorIdx]._level = parseInt(e.target.value) || 1;
-                                                                            newData.actors._data[actorIdx].level = parseInt(e.target.value) || 1;
-                                                                        }
-                                                                        return newData;
-                                                                    })}
-                                                                />
-                                                            </div>
-                                                        </div>
-
-                                                        {/* Base Parameters Grid */}
-                                                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                                            {paramNames.map((paramName, paramIndex) => (
-                                                                <div key={paramName} className="flex items-center gap-2">
-                                                                    <span className="text-xs font-medium text-gray-500 w-10">{paramName}</span>
-                                                                    <input
-                                                                        type="number"
-                                                                        className="flex-1 min-w-0 rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-sm p-1.5 border"
-                                                                        value={params[paramIndex] || 0}
-                                                                        onChange={(e) => setData((prev: any) => {
-                                                                            if (!prev) return null;
-                                                                            const newData = JSON.parse(JSON.stringify(prev));
-                                                                            const actorIdx = newData.actors._data.findIndex((a: any) => a && a._actorId === actor._actorId);
-                                                                            if (actorIdx !== -1) {
-                                                                                if (!newData.actors._data[actorIdx]._paramPlus) {
-                                                                                    newData.actors._data[actorIdx]._paramPlus = [0, 0, 0, 0, 0, 0, 0, 0];
-                                                                                }
-                                                                                newData.actors._data[actorIdx]._paramPlus[paramIndex] = parseInt(e.target.value) || 0;
-                                                                            }
-                                                                            return newData;
-                                                                        })}
-                                                                    />
-                                                                </div>
-                                                            ))}
-                                                        </div>
-
-                                                        {/* HP/MP Display */}
-                                                        <div className="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-gray-200">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="text-xs font-medium text-green-600 w-10">HP</span>
-                                                                <input
-                                                                    type="number"
-                                                                    className="flex-1 min-w-0 rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-sm p-1.5 border"
-                                                                    value={actor._hp ?? 0}
-                                                                    onChange={(e) => setData((prev: any) => {
-                                                                        if (!prev) return null;
-                                                                        const newData = JSON.parse(JSON.stringify(prev));
-                                                                        const actorIdx = newData.actors._data.findIndex((a: any) => a && a._actorId === actor._actorId);
-                                                                        if (actorIdx !== -1) {
-                                                                            newData.actors._data[actorIdx]._hp = parseInt(e.target.value) || 0;
-                                                                        }
-                                                                        return newData;
-                                                                    })}
-                                                                />
-                                                            </div>
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="text-xs font-medium text-blue-600 w-10">MP</span>
-                                                                <input
-                                                                    type="number"
-                                                                    className="flex-1 min-w-0 rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-sm p-1.5 border"
-                                                                    value={actor._mp ?? 0}
-                                                                    onChange={(e) => setData((prev: any) => {
-                                                                        if (!prev) return null;
-                                                                        const newData = JSON.parse(JSON.stringify(prev));
-                                                                        const actorIdx = newData.actors._data.findIndex((a: any) => a && a._actorId === actor._actorId);
-                                                                        if (actorIdx !== -1) {
-                                                                            newData.actors._data[actorIdx]._mp = parseInt(e.target.value) || 0;
-                                                                        }
-                                                                        return newData;
-                                                                    })}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                );
+                                        <input
+                                            type="number"
+                                            className="block w-full max-w-xs rounded-lg border-amber-200 bg-white shadow-sm focus:border-amber-400 focus:ring-amber-400 text-lg p-3 border font-medium"
+                                            value={data?.party?._gold ?? data?.party?.gold ?? data?.gold ?? 0}
+                                            onChange={(e) => setData((prev: any) => {
+                                                if (!prev) return null;
+                                                const newData = JSON.parse(JSON.stringify(prev)); // Deep clone
+                                                const newGold = parseInt(e.target.value) || 0;
+                                                // Update all possible gold locations
+                                                if (newData.party) {
+                                                    newData.party._gold = newGold;
+                                                    newData.party.gold = newGold;
+                                                } else {
+                                                    newData.gold = newGold;
+                                                }
+                                                return newData;
                                             })}
-                                    </div>
-                                )}
-
-                                {/* Inventory Section */}
-                                {format === 'rpgmaker' && (data?.party?._items || data?.items) && (
-                                    <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-5 border border-emerald-100 shadow-sm hover:shadow-md transition-shadow">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
-                                                <span className="text-xl">📦</span>
-                                            </div>
-                                            <div>
-                                                <h4 className="text-base font-semibold text-gray-800">Inventory (Items)</h4>
-                                                <p className="text-xs text-gray-500">Format: {"{"}"itemId": quantity, ...{"}"}</p>
-                                            </div>
-                                        </div>
-                                        <textarea
-                                            className="w-full h-32 rounded-lg border-emerald-200 bg-white shadow-sm focus:border-emerald-400 focus:ring-emerald-400 text-sm p-3 border font-mono"
-                                            value={JSON.stringify(data?.party?._items || data?.items || {}, null, 2)}
-                                            onChange={(e) => {
-                                                try {
-                                                    const parsed = JSON.parse(e.target.value);
-                                                    setData((prev: any) => {
-                                                        if (!prev) return null;
-                                                        const newData = JSON.parse(JSON.stringify(prev));
-                                                        if (newData.party) {
-                                                            newData.party._items = parsed;
-                                                        }
-                                                        newData.items = parsed;
-                                                        return newData;
-                                                    });
-                                                } catch (err) {
-                                                    // Invalid JSON, ignore
-                                                }
-                                            }}
-                                        />
-                                        <p className="text-xs text-emerald-700 mt-3 bg-emerald-100/50 p-2 rounded-lg flex items-center gap-2">
-                                            <span>💡</span> Item names are stored in the game's data/Items.json file.
-                                        </p>
-                                    </div>
-                                )}
-
-                                {/* Variables Section */}
-                                {format === 'rpgmaker' && data?.variables && (
-                                    <div className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-5 border border-violet-100 shadow-sm hover:shadow-md transition-shadow">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center">
-                                                <span className="text-xl">🔧</span>
-                                            </div>
-                                            <div>
-                                                <h4 className="text-base font-semibold text-gray-800">Variables</h4>
-                                                <p className="text-xs text-gray-500">Game variables for story progression, quests, etc.</p>
-                                            </div>
-                                        </div>
-                                        <textarea
-                                            className="w-full h-32 rounded-lg border-violet-200 bg-white shadow-sm focus:border-violet-400 focus:ring-violet-400 text-sm p-3 border font-mono"
-                                            value={JSON.stringify(
-                                                // Show non-null variables as an object for easier editing
-                                                Array.isArray(data.variables)
-                                                    ? data.variables.reduce((acc: any, val: any, idx: number) => {
-                                                        if (val !== null && val !== 0 && val !== "") {
-                                                            acc[idx] = val;
-                                                        }
-                                                        return acc;
-                                                    }, {})
-                                                    : data.variables,
-                                                null, 2
-                                            )}
-                                            onChange={(e) => {
-                                                try {
-                                                    const parsed = JSON.parse(e.target.value);
-                                                    setData((prev: any) => {
-                                                        if (!prev) return null;
-                                                        const newData = JSON.parse(JSON.stringify(prev));
-                                                        // If it's an object format, convert back to array
-                                                        if (Array.isArray(newData.variables)) {
-                                                            Object.entries(parsed).forEach(([key, value]) => {
-                                                                const idx = parseInt(key);
-                                                                if (!isNaN(idx)) {
-                                                                    newData.variables[idx] = value;
-                                                                }
-                                                            });
-                                                        } else {
-                                                            newData.variables = parsed;
-                                                        }
-                                                        return newData;
-                                                    });
-                                                } catch (err) {
-                                                    // Invalid JSON, ignore
-                                                }
-                                            }}
-                                        />
-                                        <p className="text-xs text-violet-700 mt-3 bg-violet-100/50 p-2 rounded-lg flex items-center gap-2">
-                                            <span>💡</span> Variable names are stored in the game's data/System.json file.
-                                        </p>
-                                    </div>
-                                )}
-
-                                {/* Switches Section */}
-                                {format === 'rpgmaker' && data?.switches && (
-                                    <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-xl p-5 border border-sky-100 shadow-sm hover:shadow-md transition-shadow">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center">
-                                                <span className="text-xl">🏚️</span>
-                                            </div>
-                                            <div>
-                                                <h4 className="text-base font-semibold text-gray-800">Switches</h4>
-                                                <p className="text-xs text-gray-500">Boolean flags for game events. Shows only enabled switches.</p>
-                                            </div>
-                                        </div>
-                                        <textarea
-                                            className="w-full h-24 rounded-lg border-sky-200 bg-white shadow-sm focus:border-sky-400 focus:ring-sky-400 text-sm p-3 border font-mono"
-                                            value={JSON.stringify(
-                                                // Show only true switches
-                                                Array.isArray(data.switches)
-                                                    ? data.switches.reduce((acc: any, val: boolean, idx: number) => {
-                                                        if (val === true) {
-                                                            acc[idx] = true;
-                                                        }
-                                                        return acc;
-                                                    }, {})
-                                                    : data.switches,
-                                                null, 2
-                                            )}
-                                            onChange={(e) => {
-                                                try {
-                                                    const parsed = JSON.parse(e.target.value);
-                                                    setData((prev: any) => {
-                                                        if (!prev) return null;
-                                                        const newData = JSON.parse(JSON.stringify(prev));
-                                                        if (Array.isArray(newData.switches)) {
-                                                            Object.entries(parsed).forEach(([key, value]) => {
-                                                                const idx = parseInt(key);
-                                                                if (!isNaN(idx)) {
-                                                                    newData.switches[idx] = value;
-                                                                }
-                                                            });
-                                                        } else {
-                                                            newData.switches = parsed;
-                                                        }
-                                                        return newData;
-                                                    });
-                                                } catch (err) {
-                                                    // Invalid JSON, ignore
-                                                }
-                                            }}
                                         />
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            )
                         ) : (
                             <div className="space-y-4">
                                 <div className="bg-blue-50 text-blue-800 p-4 rounded-lg text-sm">

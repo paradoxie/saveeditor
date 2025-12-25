@@ -146,6 +146,20 @@ Ren'PyのPython Pickleの使用は、直接的なセーブ編集を技術的に�
 
 私たちのセーブビューアは、直接編集が完全にはサポートされていなくても、セーブ状態を理解するのに役立ちます。今のところ、開発者コンソールがRen'Py変更のための最も安全で強力なツールです。
 
+## 関連リソース
+
+- 📖 [Ren'Py 公式ドキュメント](https://www.renpy.org/doc/html/) - 公式ドキュメント
+- 🎮 [DDLC ゲームページ](/ja/games/ddlc) - セーブ場所と編集可能項目
+- 📂 [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained) - 各種フォーマットを理解
+- 🔧 [Ren'Py エディタ](/ja/editor/renpy) - セーブビューアツール
+- 🎭 [NaniNovel セーブガイド](/ja/blog/naninovel-save-editing-guide) - 別のビジュアルノベルエンジン
+
 ---
 
-*関連記事: [一般的なセーブファイル拡張子の解説](/ja/blog/ja/common-save-file-extensions-explained)*
+*最終更新：2025年12月*
+
+### 関連記事
+
+- [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained)
+- [NaniNovel セーブ編集](/ja/blog/naninovel-save-editing-guide)
+

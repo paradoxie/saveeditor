@@ -138,6 +138,20 @@ Windows 레지스트리에 PlayerPrefs를 저장하는 게임의 경우:
 
 Unity 세이브 편집은 매우 쉬운 것(간단한 XML 파일)부터 상당히 어려운 것(암호화된 바이너리 데이터)까지 다양합니다. 우리의 무료 온라인 에디터는 일반적인 경우를 자동으로 처리하여, 몇 초 만에 게임 진행 상황을 수정할 수 있게 합니다. 항상 세이브를 백업하고, 향상된 게임 경험을 즐기세요!
 
+## 관련 리소스
+
+- 📖 [Unity PlayerPrefs 공식 문서](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) - 공식 문서
+- 🎮 [Stardew Valley 게임 페이지](/ko/games/stardew-valley) - 인기 Unity 게임
+- 📂 [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained) - 다양한 형식 이해하기
+- 🔧 [Unity 에디터](/ko/editor/unity) - 이 가이드에서 사용한 도구
+- 🎭 [Unreal Engine 세이브 가이드](/ko/blog/how-to-edit-unreal-engine-saves) - 또 다른 인기 엔진
+
 ---
 
-*관련 문서: [일반 세이브 파일 확장자 설명](/blog/ko/common-save-file-extensions-explained)*
+*마지막 업데이트: 2025년 12월*
+
+### 관련 문서
+
+- [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
+- [Unreal Engine 세이브 편집](/ko/blog/how-to-edit-unreal-engine-saves)
+

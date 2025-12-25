@@ -129,6 +129,19 @@ Unreal Engineセーブの編集にはGVASバイナリ形式の理解が必要で
 
 覚えておいてください：常にセーブをバックアップし、マルチプレイヤー/競争ゲームを不公平に編集せず、楽しいModdingを！
 
+## 関連リソース
+
+- 📖 [Palworld セーブ編集ガイド](/ja/blog/palworld-save-editing-guide) - 専用Palworldチュートリアル
+- 📖 [uesave-rs on GitHub](https://github.com/trumank/uesave-rs) - オープンソースGVASパーサー
+- 📂 [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained) - 各種フォーマットを理解
+- 🔧 [Unreal エディタ](/ja/editor/unreal) - 本ガイドで使用したツール
+
 ---
 
-*関連記事: [一般的なセーブファイル拡張子の解説](/ja/blog/ja/common-save-file-extensions-explained)*
+*最終更新：2025年12月*
+
+### 関連記事
+
+- [Palworld セーブ編集ガイド](/ja/blog/palworld-save-editing-guide)
+- [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained)
+

@@ -138,6 +138,19 @@ Unreal Engine 세이브 편집은 GVAS 바이너리 형식을 이해해야 하�
 
 기억하세요: 항상 세이브를 백업하고, 멀티플레이어/경쟁 게임에서 불공정하게 편집하지 마시고, 즐거운 모딩 되세요!
 
+## 관련 리소스
+
+- 📖 [Palworld 세이브 편집 가이드](/ko/blog/palworld-save-editing-guide) - 전용 Palworld 튜토리얼
+- 📖 [uesave-rs on GitHub](https://github.com/trumank/uesave-rs) - 오픈소스 GVAS 파서
+- 📂 [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained) - 다양한 형식 이해하기
+- 🔧 [Unreal 에디터](/ko/editor/unreal) - 이 가이드에서 사용한 도구
+
 ---
 
-*관련 문서: [일반 세이브 파일 확장자 설명](/blog/ko/common-save-file-extensions-explained)*
+*마지막 업데이트: 2025년 12월*
+
+### 관련 문서
+
+- [Palworld 세이브 편집 가이드](/ko/blog/palworld-save-editing-guide)
+- [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
+

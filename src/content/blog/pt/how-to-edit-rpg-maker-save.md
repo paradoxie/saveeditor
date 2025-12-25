@@ -113,6 +113,24 @@ R: Se o jogo apenas criptografa assets (imagens, áudio) mas não saves, sim. Se
 
 Editar saves do RPG Maker é simples com a ferramenta certa. Seja para experimentar, pular grinding ou apenas se divertir, nosso editor online gratuito torna isso fácil. Lembre-se de fazer backup dos seus saves e bom jogo!
 
+## Leitura Adicional
+
+Expanda seu conhecimento de RPG Maker com estes guias relacionados:
+
+- 📖 [Estrutura de Arquivos de Save RPG Maker](/pt/blog/rpg-maker-save-file-structure) - Análise técnica profunda dos formatos
+- 🎮 [Página de Jogos RPG Maker](/pt/games/rpg-maker) - Localizações de save para jogos populares
+- 📂 [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained) - Entenda .rpgsave, .rvdata2 e mais
+- 🔧 [Editor RPG Maker](/pt/editor/rpg-maker-mv) - Ferramenta usada neste guia
+- 🎭 [Guia de Edição de Save GameMaker](/pt/blog/gamemaker-save-editing-guide) - Técnicas similares para jogos GM
+
 ---
 
-*Relacionado: [Extensões Comuns de Arquivos de Save Explicadas](/pt/blog/pt/common-save-file-extensions-explained)*
+*Última atualização: Dezembro de 2025*
+
+### Artigos Relacionados
+
+- [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained)
+- [Estrutura de Arquivos de Save RPG Maker](/pt/blog/rpg-maker-save-file-structure)
+- [Guia de Edição de Save GameMaker](/pt/blog/gamemaker-save-editing-guide)
+
+

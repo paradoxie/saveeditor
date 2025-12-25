@@ -138,6 +138,20 @@ C:\Users\[您的用户名]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 
 记住：始终备份您的存档，永远不要在多人/竞技游戏中不公平地编辑，祝您改装愉快！
 
+## 延伸阅读
+
+- 📖 [幻兽帕鲁存档编辑指南](/zh-cn/blog/palworld-save-editing-guide) - 专门的帕鲁教程
+- 📖 [uesave-rs on GitHub](https://github.com/trumank/uesave-rs) - 开源 GVAS 解析器
+- 🎮 [幻兽帕鲁游戏页面](/games/palworld) - 存档位置和可编辑项
+- 📂 [常见存档扩展名详解](/zh-cn/blog/common-save-file-extensions-explained) - 了解各种格式
+- 🔧 [Unreal 编辑器](/zh-cn/editor/unreal) - 本指南使用的工具
+
 ---
 
-*相关文章：[常见存档文件扩展名详解](/blog/zh-cn/common-save-file-extensions-explained)*
+*最后更新：2025年12月*
+
+### 相关文章
+
+- [幻兽帕鲁存档编辑指南](/zh-cn/blog/palworld-save-editing-guide)
+- [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
+

@@ -259,3 +259,24 @@ GameMaker's flexibility means there's no one-size-fits-all approach to save edit
 4. **Test** your changes in-game
 
 If you encounter any unusual save formats or have suggestions for improvement, please [contact us](/contact). Happy editing!
+
+## Further Reading
+
+Expand your GameMaker knowledge with these related guides:
+
+- 📖 [Undertale Wiki - Save Files](https://undertale.fandom.com/wiki/SAVE) - Community documentation for Undertale
+- 🎮 [Undertale Game Page](/games/undertale) - Save locations and editable items
+- 📂 [Common Save File Extensions](/blog/common-save-file-extensions-explained) - Understanding .ini, .json, and more
+- 🔧 [GameMaker Editor](/editor/gamemaker) - The online tool used in this guide
+- 🎭 [RPG Maker Save Editing Guide](/blog/how-to-edit-rpg-maker-save) - Another popular indie game engine
+
+---
+
+*Last updated: December 2025*
+
+### Related Articles
+
+- [Common Save File Extensions Explained](/blog/common-save-file-extensions-explained)
+- [How to Edit RPG Maker Saves](/blog/how-to-edit-rpg-maker-save)
+- [Undertale Save Locations](/games/undertale)
+

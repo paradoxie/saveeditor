@@ -139,6 +139,20 @@ Windowsレジストリに PlayerPrefs を保存するゲームの場合：
 
 Unityセーブの編集は、非常に簡単（単純なXMLファイル）から非常に難しい（暗号化されたバイナリデータ）まで様々です。私たちの無料オンラインエディタは一般的なケースを自動的に処理し、数秒でゲームの進行状況を変更できます。常にセーブをバックアップし、強化されたゲーム体験をお楽しみください！
 
+## 関連リソース
+
+- 📖 [Unity PlayerPrefs 公式ドキュメント](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) - 公式ドキュメント
+- 🎮 [Stardew Valley ゲームページ](/ja/games/stardew-valley) - 人気Unityゲーム
+- 📂 [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained) - 各種フォーマットを理解
+- 🔧 [Unity エディタ](/ja/editor/unity) - 本ガイドで使用したツール
+- 🎭 [Unreal Engine セーブガイド](/ja/blog/how-to-edit-unreal-engine-saves) - 別の人気エンジン
+
 ---
 
-*関連記事: [一般的なセーブファイル拡張子の解説](/ja/blog/ja/common-save-file-extensions-explained)*
+*最終更新：2025年12月*
+
+### 関連記事
+
+- [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained)
+- [Unreal Engine セーブ編集](/ja/blog/how-to-edit-unreal-engine-saves)
+

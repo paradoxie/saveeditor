@@ -142,3 +142,22 @@ Para arquivos INI, você verá uma visão hierárquica:
 A flexibilidade do GameMaker significa que não há uma abordagem única para edição de saves, mas os formatos mais comuns (INI e JSON) são bem suportados pelo nosso editor.
 
 Se encontrar problemas ou tiver sugestões, por favor [contate-nos](/pt/contact). Boa edição!
+
+## Leitura Adicional
+
+- 📖 [Undertale Wiki - Arquivos de Save](https://undertale.fandom.com/wiki/SAVE) - Documentação da comunidade Undertale
+- 🎮 [Página do Jogo Undertale](/pt/games/undertale) - Localização de saves e itens editáveis
+- 📂 [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained) - Entenda diferentes formatos
+- 🔧 [Editor GameMaker](/pt/editor/gamemaker) - Ferramenta usada neste guia
+- 🎭 [Guia de Edição de Save RPG Maker](/pt/blog/how-to-edit-rpg-maker-save) - Outro motor indie popular
+
+---
+
+*Última atualização: Dezembro de 2025*
+
+### Artigos Relacionados
+
+- [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained)
+- [Edição de Save RPG Maker](/pt/blog/how-to-edit-rpg-maker-save)
+- [Localização de Save Undertale](/pt/games/undertale)
+

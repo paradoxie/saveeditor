@@ -204,3 +204,22 @@ NaniNovel 的 NSON 格式虽然使用压缩，但只要理解其结构，基本�
 记得始终备份存档，如果遇到任何问题或有改进 NaniNovel 支持的建议，请[联系我们](/zh-cn/contact)。
 
 祝编辑愉快！
+
+## 延伸阅读
+
+- 📖 [NaniNovel 官方文档](https://naninovel.com/guide/) - 引擎官方文档
+- 🎮 [心跳文学部游戏页面](/zh-cn/games/ddlc) - 另一款热门视觉小说
+- 📂 [常见存档扩展名详解](/zh-cn/blog/common-save-file-extensions-explained) - 了解各种格式
+- 🔧 [NaniNovel 编辑器](/zh-cn/editor/naninovel) - 本指南使用的工具
+- 🎭 [Ren'Py 存档编辑指南](/zh-cn/blog/renpy-save-editing-guide) - 另一款视觉小说引擎
+
+---
+
+*最后更新：2025年12月*
+
+### 相关文章
+
+- [Unity PlayerPrefs 编辑器](/zh-cn/editor/unity)
+- [Ren'Py 存档查看器](/zh-cn/editor/renpy)
+- [常见存档扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
+

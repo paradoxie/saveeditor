@@ -194,3 +194,22 @@ NaniNovelのNSON形式は圧縮を使用していますが、その構造を理�
 セーブは必ずバックアップし、問題が発生したりNaniNovelサポートの改善提案がある場合は、[お問い合わせ](/ja/contact)ください。
 
 編集をお楽しみください！
+
+## 関連リソース
+
+- 📖 [NaniNovel 公式ドキュメント](https://naninovel.com/guide/) - 公式ドキュメント
+- 🎮 [DDLC ゲームページ](/ja/games/ddlc) - 別の人気ビジュアルノベル
+- 📂 [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained) - 各種フォーマットを理解
+- 🔧 [NaniNovel エディタ](/ja/editor/naninovel) - 本ガイドで使用したツール
+- 🎭 [Ren'Py セーブガイド](/ja/blog/renpy-save-editing-guide) - Pythonベースのビジュアルノベルエンジン
+
+---
+
+*最終更新：2025年12月*
+
+### 関連記事
+
+- [Unity PlayerPrefs エディタ](/ja/editor/unity)
+- [Ren'Py セーブビューア](/ja/editor/renpy)
+- [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained)
+

@@ -169,3 +169,22 @@ cp GlobalSaveSlot.nson GlobalSaveSlot.nson.backup
 NaniNovel의 NSON 형식은 압축을 사용하지만, 구조를 이해하면 기본적으로 접근 가능합니다. 저희 온라인 에디터가 압축 해제와 재압축의 기술적 복잡성을 처리하여, 원하는 변경에 집중할 수 있게 해드립니다.
 
 항상 세이브를 백업하고, 문제가 발생하거나 제안 사항이 있으면 [문의하기](/ko/contact)로 연락주세요!
+
+## 관련 리소스
+
+- 📖 [NaniNovel 공식 문서](https://naninovel.com/guide/) - 공식 문서
+- 🎮 [DDLC 게임 페이지](/ko/games/ddlc) - 또 다른 인기 비주얼 노벨
+- 📂 [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained) - 다양한 형식 이해하기
+- 🔧 [NaniNovel 에디터](/ko/editor/naninovel) - 이 가이드에서 사용한 도구
+- 🎭 [Ren'Py 세이브 가이드](/ko/blog/renpy-save-editing-guide) - Python 기반 비주얼 노벨 엔진
+
+---
+
+*마지막 업데이트: 2025년 12월*
+
+### 관련 문서
+
+- [Unity PlayerPrefs 에디터](/ko/editor/unity)
+- [Ren'Py 세이브 뷰어](/ko/editor/renpy)
+- [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
+
