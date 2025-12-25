@@ -1,6 +1,6 @@
 {
 	"main": "dist/_worker.js/index.js",
-	"name": "save-editor-online",
+	"name": "saveeditor",
   "compatibility_date": "2025-12-05",
   "compatibility_flags": [
     "nodejs_compat",
