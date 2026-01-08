@@ -1,7 +1,7 @@
 ---
 title: "Unreal Engine 세이브 파일 (.sav) 편집 방법 - GVAS 완벽 가이드"
 description: "Unreal Engine 4 및 5 세이브 파일 편집에 대한 종합 가이드입니다. GVAS 형식을 파싱하고 팔월드, 호그와트 레거시, Satisfactory 등 UE 게임을 수정하는 방법을 배워보세요."
-pubDate: 2025-11-20
+pubDate: 2026-01-05
 tags: ["unreal-engine", "gvas", "guide", "palworld", "hogwarts-legacy"]
 author: "SaveEditor Team"
 image: "/images/blog/unreal-cover.webp"
@@ -147,7 +147,7 @@ Unreal Engine 세이브 편집은 GVAS 바이너리 형식을 이해해야 하�
 
 ---
 
-*마지막 업데이트: 2025년 12월*
+*마지막 업데이트: 2026년 1월*
 
 ### 관련 문서
 

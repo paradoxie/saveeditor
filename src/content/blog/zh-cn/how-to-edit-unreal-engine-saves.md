@@ -1,7 +1,7 @@
 ---
 title: "Unreal Engine 存档编辑指南 (.sav) - GVAS 格式完整教程"
 description: "编辑 Unreal Engine 4 和 5 存档文件的完整指南。学习如何解析 GVAS 格式，修改幻兽帕鲁、霍格沃茨之遗、幸福工厂等 UE 游戏。"
-pubDate: 2025-11-20
+pubDate: 2026-01-05
 tags: ["unreal-engine", "gvas", "guide", "palworld", "hogwarts-legacy"]
 author: "SaveEditor Team"
 image: "/images/blog/unreal-cover.webp"
@@ -148,7 +148,7 @@ C:\Users\[您的用户名]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 
 ---
 
-*最后更新：2025年12月*
+*最后更新：2026年1月*
 
 ### 相关文章
 

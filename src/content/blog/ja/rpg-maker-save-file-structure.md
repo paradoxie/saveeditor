@@ -1,7 +1,7 @@
 ---
 title: "RPGツクール セーブファイル構造解説 - MV、MZ、VX Ace ガイド"
 description: "RPGツクールのセーブファイル構造を完全解説。.rpgsave、.rmmzsave、.rvdata2 フォーマットとデータ保存方法を学びます。セーブ編集とゲーム開発に最適。"
-pubDate: 2025-12-25
+pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]
 author: "SaveEditor Team"
 image: "/images/blog/rpg-maker-cover.webp"
@@ -142,7 +142,7 @@ MV と MZ のセーブは最も一般的で編集しやすいです。Base64 エ
 
 ---
 
-*最終更新：2025年12月*
+*最終更新：2026年1月*
 
 ### 関連記事
 

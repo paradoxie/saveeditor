@@ -1,7 +1,7 @@
 ---
 title: "Unity PlayerPrefs 및 XML 세이브 편집 방법 - 완벽 가이드"
 description: "Android, iOS, PC에서 Unity 게임 세이브 파일을 수정하는 완벽한 가이드입니다. 모든 Unity 게임의 PlayerPrefs, XML, JSON, Plist 파일을 편집하는 방법을 배워보세요."
-pubDate: 2025-10-15
+pubDate: 2026-01-04
 tags: ["unity", "guide", "tutorial", "playerprefs"]
 author: "SaveEditor Team"
 image: "/images/blog/unity-cover.webp"
@@ -148,7 +148,7 @@ Unity 세이브 편집은 매우 쉬운 것(간단한 XML 파일)부터 상당�
 
 ---
 
-*마지막 업데이트: 2025년 12월*
+*마지막 업데이트: 2026년 1월*
 
 ### 관련 문서
 

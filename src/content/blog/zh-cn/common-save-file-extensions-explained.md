@@ -1,7 +1,7 @@
 ---
 title: "游戏存档文件扩展名详解 - 完整参考指南"
 description: "全面了解 .json、.xml、.sav、.rpgsave、.save、.dat 等常见游戏存档文件格式及其编辑方法。"
-pubDate: 2025-11-28
+pubDate: 2026-01-01
 tags: ["guide", "file-formats", "education", "reference"]
 author: "SaveEditor Team"
 image: "/images/blog/extensions-cover.webp"
@@ -233,7 +233,7 @@ Apple 平台使用的属性列表文件。可以是 XML 或二进制格式。
 
 ---
 
-*最后更新：2025年12月*
+*最后更新：2026年1月*
 
 ### 开始编辑
 

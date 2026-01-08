@@ -1,7 +1,7 @@
 ---
 title: "RPG Maker Save File Structure Explained - MV, MZ, VX Ace Guide"
 description: "Complete guide to understanding RPG Maker save file structure. Learn about .rpgsave, .rmmzsave, .rvdata2 formats and how they store game data. Perfect for save editing and game development."
-pubDate: 2025-12-25
+pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]
 author: "SaveEditor Team"
 image: "/images/blog/rpg-maker-cover.webp"
@@ -220,7 +220,7 @@ Understanding **RPG Maker save file structure** empowers you to debug games, rec
 
 ---
 
-*Last updated: December 2025*
+*Last updated: January 2026*
 
 ### Related Articles
 

@@ -1,7 +1,7 @@
 ---
 title: "How to Edit Unreal Engine Save Files (.sav) - Complete GVAS Guide"
 description: "A comprehensive guide to editing Unreal Engine 4 and 5 save files. Learn how to parse GVAS format and modify Palworld, Hogwarts Legacy, Satisfactory, and other UE games."
-pubDate: 2025-11-20
+pubDate: 2026-01-05
 tags: ["unreal-engine", "gvas", "guide", "palworld", "hogwarts-legacy"]
 author: "SaveEditor Team"
 image: "/images/blog/unreal-cover.webp"
@@ -151,7 +151,7 @@ Expand your Unreal Engine save editing knowledge:
 
 ---
 
-*Last updated: December 2025*
+*Last updated: January 2026*
 
 ### Related Articles
 

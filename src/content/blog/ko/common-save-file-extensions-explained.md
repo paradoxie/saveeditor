@@ -1,7 +1,7 @@
 ---
 title: "게임 세이브 파일 확장자 설명 - 완벽 참조 가이드"
 description: ".json, .xml, .sav, .rpgsave, .save, .dat 등 일반적인 게임 세이브 파일 형식과 편집 방법에 대한 종합 가이드입니다."
-pubDate: 2025-11-28
+pubDate: 2026-01-01
 tags: ["guide", "file-formats", "education", "reference"]
 author: "SaveEditor Team"
 image: "/images/blog/extensions-cover.webp"
@@ -233,7 +233,7 @@ A: 본인 소유의 싱글 플레이어 게임 파일의 경우, 네. 온라인/
 
 ---
 
-*마지막 업데이트: 2025년 12월*
+*마지막 업데이트: 2026년 1월*
 
 ### 편집 시작
 

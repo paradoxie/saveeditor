@@ -1,7 +1,7 @@
 ---
-title: "Palworld 存档修改完全指南 - PC和Steam Deck适用 (2025)"
+title: "Palworld 存档修改完全指南 - PC和Steam Deck适用 (2026)"
 description: "学习如何修改 Palworld 幻兽帕鲁存档文件。使用免费在线编辑器修改帕鲁、金币、物品和玩家属性。包含存档位置和详细步骤。"
-pubDate: 2025-12-25
+pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
 image: "/images/blog/unreal-cover.webp"
@@ -48,7 +48,7 @@ image: "/images/blog/unreal-cover.webp"
 
 1. 导航到你的存档文件夹
 2. 将整个文件夹复制到安全位置（如桌面）
-3. 标注日期（例如 `Palworld_备份_2025年12月`）
+3. 标注日期（例如 `Palworld_备份_2026年1月`）
 
 ## 步骤 2：上传到在线编辑器
 
@@ -148,4 +148,4 @@ Palworld 的单人/合作模式没有反作弊系统。但在专用服务器上�
 
 ---
 
-*最后更新：2025年12月*
+*最后更新：2026年1月*

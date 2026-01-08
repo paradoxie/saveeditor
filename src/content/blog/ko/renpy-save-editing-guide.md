@@ -1,7 +1,7 @@
 ---
 title: "Ren'Py 세이브 편집: 완벽 기술 가이드"
 description: "Ren'Py 세이브 파일이 어떻게 작동하는지, 왜 편집하기 어려운지, 그리고 비주얼 노벨 게임 진행 상황을 안전하게 수정하는 우회 방법을 배워보세요."
-pubDate: 2025-11-25
+pubDate: 2026-01-08
 tags: ["renpy", "visual-novel", "technical", "guide"]
 author: "SaveEditor Team"
 image: "/images/blog/renpy-cover.webp"
@@ -158,7 +158,7 @@ Ren'Py의 Python pickle 사용은 직접 세이브 편집을 기술적으로 어
 
 ---
 
-*마지막 업데이트: 2025년 12월*
+*마지막 업데이트: 2026년 1월*
 
 ### 관련 문서
 

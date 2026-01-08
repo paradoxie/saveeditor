@@ -1,7 +1,7 @@
 ---
 title: "Edição de Save Ren'Py: Guia Técnico Completo"
 description: "Entenda como os arquivos de save do Ren'Py funcionam, por que são difíceis de editar e aprenda soluções alternativas para modificar seu progresso de jogo de visual novel com segurança."
-pubDate: 2025-11-25
+pubDate: 2026-01-08
 tags: ["Ren'Py", "visual-novel", "técnico", "guia"]
 author: "SaveEditor Team"
 image: "/images/blog/renpy-cover.webp"
@@ -156,7 +156,7 @@ Nosso Visualizador de Save ajuda você a entender seu estado de save, mesmo que 
 
 ---
 
-*Última atualização: Dezembro de 2025*
+*Última atualização: Janeiro de 2026*
 
 ### Artigos Relacionados
 

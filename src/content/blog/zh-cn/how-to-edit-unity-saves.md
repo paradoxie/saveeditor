@@ -1,7 +1,7 @@
 ---
 title: "Unity PlayerPrefs 和 XML 存档编辑指南 - 完整教程"
 description: "完整的 Unity 游戏存档修改指南，适用于 Android、iOS 和 PC。学习如何编辑任何 Unity 游戏的 PlayerPrefs、XML、JSON 和 Plist 文件。"
-pubDate: 2025-10-15
+pubDate: 2026-01-04
 tags: ["unity", "guide", "tutorial", "playerprefs"]
 author: "SaveEditor Team"
 image: "/images/blog/unity-cover.webp"
@@ -148,7 +148,7 @@ Unity PlayerPrefs 通常以描述性的键名存储简单值：
 
 ---
 
-*最后更新：2025年12月*
+*最后更新：2026年1月*
 
 ### 相关文章
 

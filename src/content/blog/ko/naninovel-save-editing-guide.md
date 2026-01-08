@@ -1,7 +1,7 @@
 ---
 title: "NaniNovel 세이브 편집 가이드: .nson 파일 완전 해설"
 description: "NaniNovel 비주얼 노벨 세이브 파일(.nson) 편집 방법을 배우세요. NSON 형식 구조, 압축 알고리즘, 변수 수정, 문제 해결 팁까지 완벽 가이드."
-pubDate: 2025-12-08
+pubDate: 2026-01-06
 tags: ["naninovel", "visual-novel", "guide", "tutorial", "nson"]
 author: "SaveEditor Team"
 image: "/images/blog/naninovel-cover.webp"
@@ -180,7 +180,7 @@ NaniNovel의 NSON 형식은 압축을 사용하지만, 구조를 이해하면 �
 
 ---
 
-*마지막 업데이트: 2025년 12월*
+*마지막 업데이트: 2026년 1월*
 
 ### 관련 문서
 

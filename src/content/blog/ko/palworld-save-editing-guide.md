@@ -1,7 +1,7 @@
 ---
-title: "Palworld 세이브 파일 편집 방법 - 완전 가이드 (2025)"
+title: "Palworld 세이브 파일 편집 방법 - 완전 가이드 (2026)"
 description: "PC와 Steam Deck에서 Palworld 세이브 파일을 편집하는 방법을 알아보세요. 무료 온라인 에디터로 팰, 골드, 인벤토리, 플레이어 스탯을 수정할 수 있습니다."
-pubDate: 2025-12-25
+pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
 image: "/images/blog/unreal-cover.webp"
@@ -48,7 +48,7 @@ image: "/images/blog/unreal-cover.webp"
 
 1. 세이브 폴더로 이동
 2. 전체 폴더를 안전한 위치(바탕화면 등)에 복사
-3. 날짜로 라벨 지정 (예: `Palworld_백업_2025년12월`)
+3. 날짜로 라벨 지정 (예: `Palworld_백업_2026년1월`)
 
 ## 2단계: 온라인 에디터에 업로드
 
@@ -110,4 +110,4 @@ GVAS 포맷을 이해하면 Palworld 세이브 파일 편집은 간단합니다.
 
 ---
 
-*마지막 업데이트: 2025년 12월*
+*마지막 업데이트: 2026년 1월*

@@ -1,7 +1,7 @@
 ---
-title: "Como Editar Arquivos de Save do Palworld - Guia Completo (2025)"
+title: "Como Editar Arquivos de Save do Palworld - Guia Completo (2026)"
 description: "Aprenda a editar arquivos de save do Palworld no PC e Steam Deck. Modifique Pals, ouro, inventário e status do jogador com nosso editor de save online gratuito. Guia passo a passo com localizações de arquivos."
-pubDate: 2025-12-25
+pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guia", "sav-editor"]
 author: "SaveEditor Team"
 lang: "pt"
@@ -49,7 +49,7 @@ Antes de fazer qualquer alteração, **sempre crie um backup**:
 
 1. Navegue até sua pasta de save
 2. Copie a pasta inteira para um local seguro (Desktop, etc.)
-3. Rotule com a data (ex: `Palworld_Backup_Dez2025`)
+3. Rotule com a data (ex: `Palworld_Backup_Jan2026`)
 
 ## Passo 2: Carregue no Editor Online
 
@@ -163,7 +163,7 @@ Seja para se recuperar de um bug, experimentar diferentes builds ou apenas aprov
 
 ---
 
-*Última atualização: Dezembro de 2025*
+*Última atualização: Janeiro de 2026*
 
 ### Artigos Relacionados
 

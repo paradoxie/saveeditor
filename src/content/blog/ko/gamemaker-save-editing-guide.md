@@ -1,7 +1,7 @@
 ---
 title: "GameMaker 세이브 편집 가이드: INI와 JSON 파일 완벽 해설"
 description: "GameMaker Studio 세이브 파일 편집을 마스터하세요. Undertale, Deltarune 등의 게임에서 INI 설정과 JSON 세이브를 수정하는 방법을 상세히 설명합니다."
-pubDate: 2025-12-08
+pubDate: 2026-01-02
 tags: ["gamemaker", "undertale", "guide", "tutorial", "ini", "json"]
 author: "SaveEditor Team"
 image: "/images/blog/gamemaker-cover.webp"
@@ -154,7 +154,7 @@ GameMaker의 유연성은 세이브 편집에 만능 접근법이 없다는 것�
 
 ---
 
-*마지막 업데이트: 2025년 12월*
+*마지막 업데이트: 2026년 1월*
 
 ### 관련 문서
 

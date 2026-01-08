@@ -1,7 +1,7 @@
 ---
 title: "GameMaker Save Editing: Complete Guide to INI and JSON Files"
 description: "Master the art of editing GameMaker Studio save files. Learn to modify INI configurations, JSON saves, and binary formats for games like Undertale, Deltarune, and more."
-pubDate: 2025-12-08
+pubDate: 2026-01-02
 tags: ["gamemaker", "undertale", "guide", "tutorial", "ini", "json"]
 author: "SaveEditor Team"
 image: "/images/blog/gamemaker-cover.webp"
@@ -272,7 +272,7 @@ Expand your GameMaker knowledge with these related guides:
 
 ---
 
-*Last updated: December 2025*
+*Last updated: January 2026*
 
 ### Related Articles
 

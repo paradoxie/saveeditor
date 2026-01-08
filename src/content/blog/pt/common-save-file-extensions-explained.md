@@ -1,7 +1,7 @@
 ---
 title: "Extensões Comuns de Arquivos de Save de Jogos Explicadas - Referência Completa"
 description: "Um guia abrangente para entender .json, .xml, .sav, .rpgsave, .save, .dat e outros formatos comuns de arquivos de save de jogos e como editá-los."
-pubDate: 2025-11-28
+pubDate: 2026-01-01
 tags: ["guia", "formatos-de-arquivo", "educação", "referência"]
 author: "SaveEditor Team"
 lang: "pt"
@@ -236,7 +236,7 @@ Explore nossos guias detalhados para cada motor de jogo:
 
 ---
 
-*Última atualização: Dezembro de 2025*
+*Última atualização: Janeiro de 2026*
 
 ### Comece a Editar
 

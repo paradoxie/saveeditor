@@ -1,7 +1,7 @@
 ---
-title: "Palworld セーブデータの編集方法 - 完全ガイド (2025)"
+title: "Palworld セーブデータの編集方法 - 完全ガイド (2026)"
 description: "PC と Steam Deck で Palworld のセーブファイルを編集する方法を学びましょう。無料オンラインエディタでパル、ゴールド、インベントリ、プレイヤーステータスを変更できます。"
-pubDate: 2025-12-25
+pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
 image: "/images/blog/unreal-cover.webp"
@@ -48,7 +48,7 @@ image: "/images/blog/unreal-cover.webp"
 
 1. セーブフォルダに移動
 2. フォルダ全体を安全な場所（デスクトップなど）にコピー
-3. 日付を付けてラベル付け（例：`Palworld_Backup_2025年12月`）
+3. 日付を付けてラベル付け（例：`Palworld_Backup_2026年1月`）
 
 ## ステップ 2：オンラインエディタにアップロード
 
@@ -111,4 +111,4 @@ GVAS フォーマットを理解すれば、Palworld のセーブファイル編
 
 ---
 
-*最終更新：2025年12月*
+*最終更新：2026年1月*
