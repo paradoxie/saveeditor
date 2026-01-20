@@ -7,6 +7,23 @@ export async function getStaticPaths() {
     {
       slug: 'stardew-valley',
       name: 'Stardew Valley',
+      seoDescription:
+        'Best free online Stardew Valley save editor (No Download). Edit .xml saves, gold, inventory & skills instantly. Safe, local processing for PC/Mobile.',
+      seoContent: `
+        <h2>Why use our Stardew Valley Save Editor?</h2>
+        <p>This automated tool simplifies save editing by parsing the complex XML structure of Stardew Valley save files. Unlike manual text editing which risks file corruption, our editor validates data integrity before saving, ensuring your farm data remains safe.</p>
+        <h3>Key Features</h3>
+        <ul>
+            <li><strong>Instant Resource Editing:</strong> Add unlimited Gold, Qi Gems, and Casino Coins instantly.</li>
+            <li><strong>Inventory Management:</strong> Add any item (Prismatic Shards, Galaxy Sword) directly to your backpack or chest.</li>
+            <li><strong>Skill Maxing:</strong> Level up Farming, Mining, Foraging, Fishing, and Combat to Level 10 immediately.</li>
+            <li><strong>Relationship Modification:</strong> Max out hearts with any villager or bachelor/bachelorette.</li>
+        </ul>
+        <h3>Safe & Local Processing</h3>
+        <p>Your save files are processed entirely within your browser using JavaScript. <strong>No data is ever uploaded to a remote server</strong>, ensuring complete privacy and security for your save data.</p>
+        <h3>Supported Platforms</h3>
+        <p>Fully compatible with PC (Steam/GOG), Mac, Linux, and Mobile (Android/iOS) save files. For Switch/Console saves, you must first export them using a homebrew tool to get the raw file.</p>
+      `,
       engine: 'Unity (XML)',
       format: '.xml',
       editorPath: '/editor/unity',
@@ -68,6 +85,20 @@ export async function getStaticPaths() {
     {
       slug: 'palworld',
       name: 'Palworld',
+      seoDescription:
+        'Online Palworld Save Editor (No Download). Edit .sav files, GVAS format, Pals stats, inventory & base level. Open source & safe tool for Steam/GamePass.',
+      seoContent: `
+        <h2>Advanced Palworld Save Editing</h2>
+        <p>Our Palworld Save Editor allows you to modify the <code>Level.sav</code> and player <code>.sav</code> files easily. It handles the deserialization of the GVAS format (Unreal Engine save format) automatically.</p>
+        <h3>What you can edit:</h3>
+        <ul>
+            <li><strong>Pals:</strong> Modify passive skills (add Legend, Lucky, Musclehead), stats (Atk, Def), and condensation level.</li>
+            <li><strong>Player:</strong> Edit Carry Weight, Capture Power, Technology Points, and Ancient Technology Points.</li>
+            <li><strong>Base & Items:</strong> Unlock all technologies and spawn any item or resource.</li>
+        </ul>
+        <h3>Game Pass vs Steam</h3>
+        <p>This editor works natively with Steam <code>.sav</code> files. For Xbox Game Pass, you may need to use a converter tool first to decrypt the save container into a raw <code>.sav</code> file.</p>
+      `,
       engine: 'Unreal Engine (GVAS)',
       format: '.sav',
       editorPath: '/editor/unreal',
@@ -127,6 +158,20 @@ export async function getStaticPaths() {
     {
       slug: 'undertale',
       name: 'Undertale',
+      seoDescription:
+        'Free Undertale Save Editor (No Install). Edit file0 & undertale.ini. Change HP, Gold, EXP, FUN value & Genocide flags. Web-based tool.',
+      seoContent: `
+        <h2>Undertale Save File Editor (file0 & undertale.ini)</h2>
+        <p>Undertale uses two main files for saving data: <code>file0</code> (your active save slot) and <code>undertale.ini</code> (meta-data and persistent flags). Our editor can modify both.</p>
+        <h3>Common Edits</h3>
+        <ul>
+            <li><strong>Genocide/Pacifist Route:</strong> Reset or trigger route-specific flags to change the story path without replaying.</li>
+            <li><strong>FUN Value:</strong> Edit the 'fun' variable in <code>undertale.ini</code> to trigger random events (like Gaster followers).</li>
+            <li><strong>Battle Stats:</strong> Modify HP, ATK, DEF, and EXP to make battles easier or harder.</li>
+        </ul>
+        <h3>How to use</h3>
+        <p>Simply upload your <code>file0</code> to edit your current stats. To change "meta" events or reset the True Pacifist check, edit the <code>undertale.ini</code> file.</p>
+      `,
       engine: 'GameMaker',
       format: 'file0, undertale.ini',
       editorPath: '/editor/gamemaker',
@@ -190,6 +235,16 @@ export async function getStaticPaths() {
     {
       slug: 'ddlc',
       name: 'Doki Doki Literature Club',
+      seoDescription:
+        'Doki Doki Literature Club Save Editor. Edit .save files, persistent data, and poem words. Unlock all CGs and Endings online.',
+      seoContent: `
+        <h2>DDLC Save & Persistent Data Editor</h2>
+        <p>In Doki Doki Literature Club, manipulating files is part of the game. This editor allows you to modify the Ren'Py save data <code>.save</code> and the <code>persistent</code> file.</p>
+        <h3>Unlock Everything</h3>
+        <p>By editing the <code>persistent</code> data, you can instantly unlocking all CGs (images) in the gallery, all music tracks, and seen scenes without playing through every route multiple times.</p>
+        <h3>Poem Minigame</h3>
+        <p>You can edit the variables related to the poem minigame to ensure your poems always appeal to your chosen character (Sayori, Natsuki, or Yuri).</p>
+      `,
       engine: "Ren'Py",
       format: '.save, persistent',
       editorPath: '/editor/renpy',
@@ -342,7 +397,8 @@ const { game } = Astro.props;
 
 <BaseLayout
   title={`${game.name} Save Editor - Edit ${game.format} Files Online Free`}
-  description={`Free online save editor for ${game.name}. Edit gold, items, stats and more. Find save file location and start editing in your browser.`}
+  description={game.seoDescription ||
+    `Free online save editor for ${game.name}. Edit gold, items, stats and more. Find save file location and start editing in your browser.`}
   keywords={`${game.name.toLowerCase()} save editor, ${game.name.toLowerCase()} save file location, ${game.name.toLowerCase()} edit save, ${game.format} editor`}
 >
   <!-- Hero Section -->
@@ -672,9 +728,18 @@ const { game } = Astro.props;
         </a>
       </section>
     </div>
+
+    {/* SEO Content Section */}
+    {
+      game.seoContent && (
+        <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <Fragment set:html={game.seoContent} />
+        </section>
+      )
+    }
   </main>
 
-  <!-- BreadcrumbList Schema -->
+  <!-- SoftwareApplication Schema -->
   <script
     type="application/ld+json"
     set:html={JSON.stringify({

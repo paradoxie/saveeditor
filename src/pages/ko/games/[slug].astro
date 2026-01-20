@@ -7,6 +7,21 @@ export async function getStaticPaths() {
       slug: 'stardew-valley',
       name: 'Stardew Valley',
       nameLocal: '스타듀 밸리',
+      seoDescription:
+        '스타듀 밸리(Stardew Valley) 무료 온라인 세이브 에디터 (다운로드 없음). 골드, 아이템, 스킬 레벨을 즉시 편집하세요. PC, Mac, 모바일 지원. 안전한 로컬 처리.',
+      seoContent: `
+        <h2>스타듀 밸리 세이브 에디터를 선택해야 하는 이유</h2>
+        <p>이 자동화 도구는 스타듀 밸리의 복잡한 XML 구조를 분석하여 세이브 파일을 쉽고 안전하게 편집할 수 있게 해줍니다. 파일 손상 위험이 있는 수동 편집과 달리, 데이터 무결성을 검증합니다.</p>
+        <h3>주요 기능</h3>
+        <ul>
+            <li><strong>무제한 자원:</strong> 골드, 치 젬, 카지노 코인을 즉시 추가하세요.</li>
+            <li><strong>인벤토리 관리:</strong> 배낭이나 상자에 원하는 아이템(무지개 파편, 갤럭시 소드 등)을 추가하세요.</li>
+            <li><strong>스킬 만렙:</strong> 농사, 채광, 채집, 낚시, 전투 스킬을 즉시 10 레벨로 올리세요.</li>
+            <li><strong>호감도 조절:</strong> 마을 사람이나 결혼 대상과의 하트를 최대로 만드세요.</li>
+        </ul>
+        <h3>안전한 로컬 처리</h3>
+        <p>모든 세이브 파일 처리는 브라우저 내부의 JavaScript를 통해 이루어집니다. <strong>데이터가 외부 서버로 업로드되지 않으므로</strong> 개인 정보가 완벽하게 보호됩니다.</p>
+      `,
       engine: 'Unity (XML)',
       format: '.xml',
       editorPath: '/ko/editor/unity',
@@ -45,6 +60,20 @@ export async function getStaticPaths() {
       slug: 'undertale',
       name: 'Undertale',
       nameLocal: '언더테일',
+      seoDescription:
+        '언더테일(Undertale) 무료 온라인 세이브 에디터. file0 및 undertale.ini 파일 편집. HP, 골드, EXP, FUN 값, 불살/몰살 루트 플래그 변경.',
+      seoContent: `
+        <h2>언더테일 세이브 파일 에디터 (file0 & undertale.ini)</h2>
+        <p>언더테일은 주로 두 개의 파일로 데이터를 관리합니다: <code>file0</code> (현재 세이브 슬롯)과 <code>undertale.ini</code> (메타 데이터 및 영구 플래그). 이 에디터로 두 파일을 모두 수정할 수 있습니다.</p>
+        <h3>주요 수정 가능 항목</h3>
+        <ul>
+            <li><strong>몰살/불살 루트 변경:</strong> 게임을 다시 시작하지 않고도 특정 루트 플래그를 리셋하거나 트리거하여 스토리 진행을 바꿀 수 있습니다.</li>
+            <li><strong>FUN 값:</strong> <code>undertale.ini</code>의 'fun' 변수를 수정하여 가스터 추종자와 같은 무작위 이벤트를 발생시킵니다.</li>
+            <li><strong>전투 능력치:</strong> HP, ATK, DEF, EXP를 수정하여 전투 난이도를 조절하세요.</li>
+        </ul>
+        <h3>사용 방법</h3>
+        <p>현재 능력치를 수정하려면 <code>file0</code>을 업로드하세요. '메타' 이벤트를 변경하거나 진정한 불살 엔딩(True Pacifist) 체크를 리셋하려면 <code>undertale.ini</code> 파일을 편집하세요.</p>
+      `,
       engine: 'GameMaker',
       format: 'file0, undertale.ini',
       editorPath: '/ko/editor/gamemaker',
@@ -56,11 +85,11 @@ export async function getStaticPaths() {
         linux: '~/.config/UNDERTALE',
       },
       editableItems: [
-        { icon: '❤️', name: 'HP·LV', desc: '체력과 LOVE 레벨 변경' },
+        { icon: '❤️', name: 'HP & LV', desc: '체력과 LOVE 레벨 변경' },
         { icon: '🎒', name: '인벤토리', desc: '아이템 편집' },
-        { icon: '💰', name: '골드 (G)', desc: '돈 변경' },
-        { icon: '📍', name: '세이브 위치', desc: '세이브 포인트 변경' },
-        { icon: '🎮', name: '게임 플래그', desc: '스토리 진행 변경' },
+        { icon: '💰', name: '골드 (G)', desc: '소지금 변경' },
+        { icon: '📍', name: '세이브 위치', desc: '저장 지점 변경' },
+        { icon: '🎮', name: '게임 플래그', desc: '스토리 진행 조작' },
       ],
       faq: [
         {
@@ -179,7 +208,8 @@ const { game } = Astro.props;
 
 <BaseLayout
   title={`${game.nameLocal} 세이브 에디터 - ${game.format} 파일 무료 편집`}
-  description={`${game.nameLocal}용 무료 온라인 세이브 에디터. 골드, 아이템, 스탯 편집. 세이브 파일 위치를 확인하고 브라우저에서 편집 시작.`}
+  description={game.seoDescription ||
+    `${game.nameLocal}용 무료 온라인 세이브 에디터. 골드, 아이템, 스탯 편집. 세이브 파일 위치를 확인하고 브라우저에서 편집 시작.`}
   keywords={`${game.name.toLowerCase()} 세이브 에디터, ${game.name.toLowerCase()} 세이브 위치, ${game.name.toLowerCase()} 세이브 편집`}
 >
   <!-- Hero Section -->
@@ -388,6 +418,15 @@ const { game } = Astro.props;
         </a>
       </section>
     </div>
+
+    {/* SEO Content Section */}
+    {
+      game.seoContent && (
+        <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <Fragment set:html={game.seoContent} />
+        </section>
+      )
+    }
   </main>
 
   <!-- BreadcrumbList Schema -->

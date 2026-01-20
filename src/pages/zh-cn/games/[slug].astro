@@ -7,6 +7,21 @@ export async function getStaticPaths() {
       slug: 'stardew-valley',
       name: 'Stardew Valley',
       nameLocal: '星露谷物语',
+      seoDescription:
+        '星露谷物语在线存档修改器（无需下载）。一键修改金币、背包、技能等级。支持 PC、Mac 和手机版存档。安全、本地处理。',
+      seoContent: `
+        <h2>为什么选择我们的星露谷存档修改器？</h2>
+        <p>这个自动化工具可以解析星露谷存档复杂的 XML 结构，让修改变得简单安全。与容易导致坏档的手动文本编辑不同，我们的编辑器在保存前会验证数据完整性。</p>
+        <h3>主要功能</h3>
+        <ul>
+            <li><strong>瞬间暴富：</strong> 一键添加无限金币、齐钻和赌场代币。</li>
+            <li><strong>背包管理：</strong> 直接向背包或箱子添加任意物品（包括五彩碎片、银河剑）。</li>
+            <li><strong>技能满级：</strong> 瞬间将耕种、采矿、觅食、钓鱼和战斗提升至 10 级。</li>
+            <li><strong>人际关系：</strong> 修改与村民或结婚对象的友谊值（好感度）。</li>
+        </ul>
+        <h3>安全且本地化</h3>
+        <p>您的存档文件完全在您的浏览器中通过 JavaScript 处理。<strong>没有任何数据会被上传到远程服务器</strong>，确保您的隐私绝对安全。</p>
+      `,
       engine: 'Unity (XML)',
       format: '.xml',
       editorPath: '/zh-cn/editor/unity',
@@ -46,6 +61,20 @@ export async function getStaticPaths() {
       slug: 'undertale',
       name: 'Undertale',
       nameLocal: '传说之下',
+      seoDescription:
+        '传说之下 (Undertale) 在线存档修改器。编辑 file0 和 undertale.ini。修改 HP、金币、EXP、FUN 值及屠杀线标志。网页版工具。',
+      seoContent: `
+        <h2>传说之下存档编辑器 (file0 & undertale.ini)</h2>
+        <p>Undertale 使用两个主要文件来保存数据：<code>file0</code>（您的当前存档槽）和 <code>undertale.ini</code>（元数据和持久标志）。我们的编辑器支持同时修改两者。</p>
+        <h3>常见修改</h3>
+        <ul>
+            <li><strong>屠杀/和平路线：</strong> 重置或触发特定路线的标志，无需重玩即可改变剧情走向。</li>
+            <li><strong>FUN 值：</strong> 编辑 <code>undertale.ini</code> 中的 'fun' 变量以触发随机事件（如 Gaster 追随者）。</li>
+            <li><strong>战斗属性：</strong> 修改 HP、ATK、DEF 和 EXP，让战斗变得更简单或更具挑战性。</li>
+        </ul>
+        <h3>使用方法</h3>
+        <p>只需上传您的 <code>file0</code> 即可编辑当前状态。若要更改“元”事件或重置真和平结局检查，请编辑 <code>undertale.ini</code> 文件。</p>
+      `,
       engine: 'GameMaker',
       format: 'file0, undertale.ini',
       editorPath: '/zh-cn/editor/gamemaker',
@@ -211,7 +240,8 @@ const { game } = Astro.props;
 
 <BaseLayout
   title={`${game.nameLocal}存档编辑器 - 免费编辑 ${game.format} 文件`}
-  description={`${game.nameLocal}免费在线存档编辑器。编辑金币、物品、属性等。查找存档位置并在浏览器中开始编辑。`}
+  description={game.seoDescription ||
+    `${game.nameLocal}免费在线存档编辑器。编辑金币、物品、属性等。查找存档位置并在浏览器中开始编辑。`}
   keywords={`${game.name.toLowerCase()} 存档编辑器, ${game.name.toLowerCase()} 存档位置, ${game.name.toLowerCase()} 编辑存档, ${game.format} 编辑器`}
 >
   <!-- Hero Section -->
@@ -515,62 +545,71 @@ const { game } = Astro.props;
     </div>
   </main>
 
-  <!-- BreadcrumbList Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '首页', item: 'https://saveeditor.online/zh-cn/' },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: '游戏',
-          item: 'https://saveeditor.online/zh-cn/games/',
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: game.nameLocal,
-          item: `https://saveeditor.online/zh-cn/games/${game.slug}/`,
-        },
-      ],
-    })}
-  />
-
-  <!-- FAQ Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: item.answer,
-        },
-      })),
-    })}
-  />
-
-  <!-- SoftwareApplication Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      name: `${game.nameLocal}存档编辑器`,
-      applicationCategory: 'UtilitiesApplication',
-      operatingSystem: 'Web Browser',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-      description: `${game.nameLocal}免费在线存档编辑器。直接在浏览器中编辑${game.format}文件。`,
-    })}
-  />
+  {/* SEO Content Section */}
+  {
+    game.seoContent && (
+      <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+        <Fragment set:html={game.seoContent} />
+      </section>
+    )
+  }
 </BaseLayout>
+
+<!-- BreadcrumbList Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首页', item: 'https://saveeditor.online/zh-cn/' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: '游戏',
+        item: 'https://saveeditor.online/zh-cn/games/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: game.nameLocal,
+        item: `https://saveeditor.online/zh-cn/games/${game.slug}/`,
+      },
+    ],
+  })}
+/>
+
+<!-- FAQ Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  })}
+/>
+
+<!-- SoftwareApplication Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: `${game.nameLocal}存档编辑器`,
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Web Browser',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description: `${game.nameLocal}免费在线存档编辑器。直接在浏览器中编辑${game.format}文件。`,
+  })}
+/>

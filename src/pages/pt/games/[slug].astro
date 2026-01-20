@@ -7,6 +7,21 @@ export async function getStaticPaths() {
       slug: 'stardew-valley',
       name: 'Stardew Valley',
       nameLocal: 'Stardew Valley',
+      seoDescription:
+        'Editor de Save Stardew Valley Online Grátis (Sem Download). Edite ouro, itens e habilidades instantaneamente. Compatível com PC, Mac e Mobile. Seguro e local.',
+      seoContent: `
+        <h2>Por que usar nosso Editor de Save de Stardew Valley?</h2>
+        <p>Esta ferramenta automatizada simplifica a edição de saves analisando a complexa estrutura XML do Stardew Valley. Diferente da edição manual de texto que arrisca corromper arquivos, nosso editor valida a integridade dos dados antes de salvar.</p>
+        <h3>Principais Recursos</h3>
+        <ul>
+            <li><strong>Recursos Infinitos:</strong> Adicione Ouro, Gemas Qi e Moedas do Cassino instantaneamente.</li>
+            <li><strong>Gerenciamento de Inventário:</strong> Adicione qualquer item (Prismatic Shards, Galaxy Sword) diretamente à sua mochila ou baú.</li>
+            <li><strong>Habilidades no Máximo:</strong> Nivele Agricultura, Mineração, Coleta, Pesca e Combate para o Nível 10 imediatamente.</li>
+            <li><strong>Modificação de Relacionamento:</strong> Maximize os corações com qualquer aldeão ou candidato a casamento.</li>
+        </ul>
+        <h3>Processamento Seguro e Local</h3>
+        <p>Seus arquivos de save são processados inteiramente no seu navegador usando JavaScript. <strong>Nenhum dado é enviado para servidores remotos</strong>, garantindo total privacidade para seus dados.</p>
+      `,
       engine: 'Unity (XML)',
       format: '.xml',
       editorPath: '/pt/editor/unity',
@@ -39,6 +54,20 @@ export async function getStaticPaths() {
       slug: 'undertale',
       name: 'Undertale',
       nameLocal: 'Undertale',
+      seoDescription:
+        'Editor de Save Undertale Grátis Online. Edite file0 e undertale.ini. Altere HP, Ouro, EXP, valor FUN e flags de Genocídio.',
+      seoContent: `
+        <h2>Editor de Arquivo de Save Undertale (file0 & undertale.ini)</h2>
+        <p>Undertale usa dois arquivos principais para salvar dados: <code>file0</code> (seu slot de save ativo) e <code>undertale.ini</code> (meta-dados e flags persistentes). Nosso editor pode modificar ambos.</p>
+        <h3>Edições Comuns</h3>
+        <ul>
+            <li><strong>Rota Genocida/Pacifista:</strong> Resete ou ative flags de rotas específicas para mudar a história sem jogar tudo novamente.</li>
+            <li><strong>Valor FUN:</strong> Edite a variável 'fun' no <code>undertale.ini</code> para ativar eventos aleatórios (como seguidores de Gaster).</li>
+            <li><strong>Stats de Batalha:</strong> Modifique HP, ATK, DEF e EXP para facilitar ou dificultar as batalhas.</li>
+        </ul>
+        <h3>Como usar</h3>
+        <p>Simplesmente faça upload do seu <code>file0</code> para editar seus stats atuais. Para mudar "meta" eventos ou resetar o check de Verdadeiro Pacifista, edite o arquivo <code>undertale.ini</code>.</p>
+      `,
       engine: 'GameMaker',
       format: 'file0, undertale.ini',
       editorPath: '/pt/editor/gamemaker',
@@ -174,7 +203,8 @@ const { game } = Astro.props;
 
 <BaseLayout
   title={`Editor de Save ${game.nameLocal} - Edite Arquivos ${game.format} Grátis`}
-  description={`Editor de save online grátis para ${game.nameLocal}. Edite ouro, itens, stats e mais. Encontre localização do save e comece a editar no navegador.`}
+  description={game.seoDescription ||
+    `Editor de save online grátis para ${game.nameLocal}. Edite ouro, itens, stats e mais. Encontre localização do save e comece a editar no navegador.`}
   keywords={`${game.name.toLowerCase()} save editor, ${game.name.toLowerCase()} localização save, ${game.name.toLowerCase()} editar save`}
 >
   <section
@@ -388,40 +418,49 @@ const { game } = Astro.props;
     </div>
   </main>
 
-  <!-- BreadcrumbList Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://saveeditor.online/pt/' },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Jogos',
-          item: 'https://saveeditor.online/pt/games/',
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: game.nameLocal,
-          item: `https://saveeditor.online/pt/games/${game.slug}/`,
-        },
-      ],
-    })}
-  />
-
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: { '@type': 'Answer', text: item.answer },
-      })),
-    })}
-  />
+  {/* SEO Content Section */}
+  {
+    game.seoContent && (
+      <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+        <Fragment set:html={game.seoContent} />
+      </section>
+    )
+  }
 </BaseLayout>
+
+<!-- BreadcrumbList Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://saveeditor.online/pt/' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Jogos',
+        item: 'https://saveeditor.online/pt/games/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: game.nameLocal,
+        item: `https://saveeditor.online/pt/games/${game.slug}/`,
+      },
+    ],
+  })}
+/>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  })}
+/>

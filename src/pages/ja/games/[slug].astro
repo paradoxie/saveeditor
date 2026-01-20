@@ -7,6 +7,21 @@ export async function getStaticPaths() {
       slug: 'stardew-valley',
       name: 'Stardew Valley',
       nameLocal: 'スターデューバレー',
+      seoDescription:
+        'スターデューバレー無料オンラインセーブエディタ（ダウンロード不要）。ゴールド、アイテム、スキルレベルを瞬時に編集。PC/Mac/スマホ対応。安全なローカル処理。',
+      seoContent: `
+        <h2>スターデューバレーセーブエディタを選ぶ理由</h2>
+        <p>この自動ツールは、スターデューバレーの複雑なXML構造を解析し、セーブデータの編集を簡単かつ安全に行います。データ破損のリスクがある手動編集とは異なり、保存前にデータの整合性を検証します。</p>
+        <h3>主な機能</h3>
+        <ul>
+            <li><strong>資金無限化：</strong> ゴールド、Qiジェム、カジノコインを瞬時に追加。</li>
+            <li><strong>インベントリ管理：</strong> バックパックやチェストに任意のアイテム（レインボージェム、ギャラクシーソードなど）を追加。</li>
+            <li><strong>スキルMAX：</strong> 農業、採鉱、採集、釣り、戦闘のレベルを一気に10まで引き上げます。</li>
+            <li><strong>友好度操作：</strong> 村人や結婚候補とのハートを最大にします。</li>
+        </ul>
+        <h3>安心のローカル処理</h3>
+        <p>セーブデータはすべてブラウザ上のJavaScriptで処理されます。<strong>外部サーバーにアップロードされることは一切ありません</strong>ので、プライバシーは完全に守られます。</p>
+      `,
       engine: 'Unity (XML)',
       format: '.xml',
       editorPath: '/ja/editor/unity',
@@ -48,11 +63,25 @@ export async function getStaticPaths() {
       slug: 'undertale',
       name: 'Undertale',
       nameLocal: 'アンダーテール',
+      seoDescription:
+        'Undertale (アンダーテール) 無料オンラインセーブエディタ。file0 と undertale.ini を編集。HP、G、EXP、FUN値、Gルートフラグ等を変更可能。',
+      seoContent: `
+        <h2>Undertale セーブデータエディタ (file0 & undertale.ini)</h2>
+        <p>Undertaleは主に2つのファイルでデータを管理しています：<code>file0</code>（現在のセーブスロット）と <code>undertale.ini</code>（メタデータと永続フラグ）。当エディタは両方の編集に対応しています。</p>
+        <h3>よくある編集例</h3>
+        <ul>
+            <li><strong>G/Pルート変更：</strong> ストーリーを最初からやり直すことなく、ルート固有のフラグをリセットまたはトリガーできます。</li>
+            <li><strong>FUN値：</strong> <code>undertale.ini</code> の 'fun' 変数を変更して、ガスターのフォロワーなどのランダムイベントを発生させます。</li>
+            <li><strong>戦闘ステータス：</strong> HP、ATK、DEF、EXPを変更して、戦闘の難易度を調整します。</li>
+        </ul>
+        <h3>使い方</h3>
+        <p>現在のステータスを編集するには <code>file0</code> をアップロードしてください。真の平和主義者エンド（Pルート）の判定リセットなどを行いたい場合は <code>undertale.ini</code> を編集します。</p>
+      `,
       engine: 'GameMaker',
       format: 'file0, undertale.ini',
       editorPath: '/ja/editor/gamemaker',
       emoji: '❤️',
-      description: 'Toby Foxによる名作インディーRPG。誰も死ななくていい世界。',
+      description: 'Toby Fox制作の「誰も死ななくていいやさしいRPG」。',
       saveLocations: {
         windows: '%localappdata%\\UNDERTALE',
         mac: '~/Library/Application Support/com.tobyfox.undertale/',
@@ -63,8 +92,8 @@ export async function getStaticPaths() {
         { icon: '🎒', name: 'インベントリ', desc: 'アイテムを編集' },
         { icon: '💰', name: 'ゴールド (G)', desc: 'お金を変更' },
         { icon: '📍', name: 'セーブ位置', desc: 'セーブポイントを変更' },
-        { icon: '🎮', name: 'ゲームフラグ', desc: 'ストーリー進行を変更' },
-        { icon: '👤', name: 'キャラ名', desc: '落ちた子供の名前を変更' },
+        { icon: '🎮', name: 'ゲームフラグ', desc: 'ストーリー進行を操作' },
+        { icon: '👤', name: 'キャラ名', desc: '落ちた人間の名前を変更' },
       ],
       faq: [
         {
@@ -204,7 +233,8 @@ const { game } = Astro.props;
 
 <BaseLayout
   title={`${game.nameLocal}セーブエディタ - ${game.format}ファイルを無料で編集`}
-  description={`${game.nameLocal}の無料オンラインセーブエディタ。ゴールド、アイテム、ステータスを編集。セーブファイルの場所を確認してブラウザで編集開始。`}
+  description={game.seoDescription ||
+    `${game.nameLocal}の無料オンラインセーブエディタ。ゴールド、アイテム、ステータスを編集。セーブファイルの場所を確認してブラウザで編集開始。`}
   keywords={`${game.name.toLowerCase()} セーブエディタ, ${game.name.toLowerCase()} セーブ場所, ${game.name.toLowerCase()} セーブ編集, ${game.format} エディタ`}
 >
   <!-- Hero Section -->
@@ -514,46 +544,55 @@ const { game } = Astro.props;
         </a>
       </section>
     </div>
+
+    {/* SEO Content Section */}
+    {
+      game.seoContent && (
+        <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <Fragment set:html={game.seoContent} />
+        </section>
+      )
+    }
   </main>
-
-  <!-- BreadcrumbList Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://saveeditor.online/ja/' },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'ゲーム',
-          item: 'https://saveeditor.online/ja/games/',
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: game.nameLocal,
-          item: `https://saveeditor.online/ja/games/${game.slug}/`,
-        },
-      ],
-    })}
-  />
-
-  <!-- FAQ Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: item.answer,
-        },
-      })),
-    })}
-  />
 </BaseLayout>
+
+<!-- BreadcrumbList Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://saveeditor.online/ja/' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'ゲーム',
+        item: 'https://saveeditor.online/ja/games/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: game.nameLocal,
+        item: `https://saveeditor.online/ja/games/${game.slug}/`,
+      },
+    ],
+  })}
+/>
+
+<!-- FAQ Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  })}
+/>
