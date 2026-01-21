@@ -14,7 +14,7 @@ interface Props {
 
 const { lang = 'en', title, description, keywords } = Astro.props;
 const t = useTranslations(lang);
-const siteUrl = Astro.site || 'https://saveeditor.top';
+const siteUrl = (Astro.site || 'https://saveeditor.top').replace(/\/$/, '');
 const defaultOgImage = `${siteUrl}/images/blog/rpg-maker-cover.webp`;
 const homeUrl = lang === 'en' ? `${siteUrl}/` : `${siteUrl}/${lang}/`;
 
