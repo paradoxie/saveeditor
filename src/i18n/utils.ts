@@ -2,15 +2,10 @@ import { ui, defaultLang } from './ui';
 
 export function getLangFromUrl(url: URL) {
     const pathParts = url.pathname.split('/');
-    const [, firstPart, secondPart] = pathParts;
+    const [, firstPart] = pathParts;
 
     // Check if it's a standard language-prefixed path (e.g., /ja/about)
     if (firstPart in ui) return firstPart as keyof typeof ui;
-
-    // Check if it's a blog article with language in second position (e.g., /blog/ja/article-slug)
-    if (firstPart === 'blog' && secondPart && secondPart in ui) {
-        return secondPart as keyof typeof ui;
-    }
 
     return defaultLang;
 }

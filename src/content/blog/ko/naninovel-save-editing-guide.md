@@ -162,7 +162,7 @@ cp GlobalSaveSlot.nson GlobalSaveSlot.nson.backup
 
 - [Unity PlayerPrefs 에디터](/ko/editor/unity) – 표준 Unity 세이브용
 - [Ren'Py 세이브 뷰어](/ko/editor/renpy) – Python 기반 비주얼 노벨용
-- [세이브 파일 확장자 가이드](/blog/ko/common-save-file-extensions-explained)
+- [세이브 파일 확장자 가이드](/ko/blog/common-save-file-extensions-explained)
 
 ## 결론
 

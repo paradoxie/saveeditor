@@ -185,7 +185,7 @@ NaniNovelはゲーム設定に応じて複数のセーブ形式をサポート�
 
 - [Unity PlayerPrefsエディタ](/ja/editor/unity) – 標準Unityセーブを使用するゲーム用
 - [Ren'Pyセーブビューア](/ja/editor/renpy) – Pythonベースのビジュアルノベル用
-- [セーブファイル拡張子ガイド](/blog/ja/common-save-file-extensions-explained) – すべてのセーブ形式について
+- [セーブファイル拡張子ガイド](/ja/blog/common-save-file-extensions-explained) – すべてのセーブ形式について
 
 ## まとめ
 

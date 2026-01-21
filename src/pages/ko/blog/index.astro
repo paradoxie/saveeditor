@@ -6,6 +6,8 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog'))
   .filter((post) => post.slug.startsWith('ko/'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const stripLangFromSlug = (slug: string) => slug.replace(/^ko\//, '');
 ---
 
 <BaseLayout
@@ -31,7 +33,7 @@ const posts = (await getCollection('blog'))
                 ))}
               </div>
               <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
-                <a href={`/blog/${post.slug}`} class="hover:text-primary-600 transition-colors">
+                <a href={`/ko/blog/${stripLangFromSlug(post.slug)}`} class="hover:text-primary-600 transition-colors">
                   {post.data.title}
                 </a>
               </h2>

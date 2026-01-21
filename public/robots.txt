@@ -8,7 +8,6 @@ Sitemap: https://saveeditor.top/sitemap-index.xml
 Disallow: /api/
 
 # Allow all supported languages
-Allow: /en/
 Allow: /ja/
 Allow: /pt/
 Allow: /ko/

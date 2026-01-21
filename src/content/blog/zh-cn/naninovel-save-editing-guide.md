@@ -195,7 +195,7 @@ NaniNovel 根据游戏配置支持多种存档格式：
 
 - [Unity PlayerPrefs 编辑器](/zh-cn/editor/unity) – 用于使用标准 Unity 存档的游戏
 - [Ren'Py 存档查看器](/zh-cn/editor/renpy) – 用于基于 Python 的视觉小说
-- [存档文件扩展名指南](/blog/zh-cn/common-save-file-extensions-explained) – 了解所有存档格式
+- [存档文件扩展名指南](/zh-cn/blog/common-save-file-extensions-explained) – 了解所有存档格式
 
 ## 总结
 

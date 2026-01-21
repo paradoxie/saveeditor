@@ -1,4 +1,4 @@
-const https = require('https');
+import https from 'https';
 
 const host = 'saveeditor.top';
 const key = 'fe3e485b300864de61f9a339cbd1f801';

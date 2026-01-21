@@ -11,20 +11,24 @@ let currentPath =
 // Detect blog article pages and extract article slug for smart language switching
 // Blog URL patterns:
 // - English: /blog/article-slug
-// - Other languages: /blog/lang/article-slug
-const blogArticleMatch = currentPath.match(/^\/blog\/(?:(ja|pt|ko|zh-cn)\/)?(.+)$/);
-const isBlogArticle = blogArticleMatch && blogArticleMatch[2];
-const blogArticleSlug = isBlogArticle ? blogArticleMatch[2] : null;
+// - Other languages: /{lang}/blog/article-slug
+const blogArticleMatch =
+  Astro.url.pathname.match(/^\/(ja|pt|ko|zh-cn)\/blog\/(.+)$/) ||
+  Astro.url.pathname.match(/^\/blog\/(.+)$/);
+const blogArticleSlug = blogArticleMatch
+  ? blogArticleMatch.length === 3
+    ? blogArticleMatch[2]
+    : blogArticleMatch[1]
+  : null;
+const isBlogArticle = Boolean(blogArticleSlug);
 
 // Function to generate correct blog URL for target language
 const getBlogUrl = (targetLang: string): string => {
   if (isBlogArticle && blogArticleSlug) {
     // For blog articles, construct the correct path based on target language
-    if (targetLang === 'en') {
-      return `/blog/${blogArticleSlug}`;
-    } else {
-      return `/blog/${targetLang}/${blogArticleSlug}`;
-    }
+    return targetLang === 'en'
+      ? `/blog/${blogArticleSlug}`
+      : `/${targetLang}/blog/${blogArticleSlug}`;
   }
   // For non-blog pages, use normal path construction
   return targetLang === 'en'

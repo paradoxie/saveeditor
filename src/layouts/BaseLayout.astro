@@ -15,6 +15,28 @@ interface Props {
 const { title, description, keywords, ogImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveeditor.top');
+const siteUrl = Astro.site || 'https://saveeditor.top';
+const ogImageUrl = ogImage ? new URL(ogImage, siteUrl).toString() : undefined;
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'SaveEditor.top',
+    url: siteUrl,
+    logo: new URL('/favicon.svg', siteUrl).toString(),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'SaveEditor.top',
+    url: siteUrl,
+    publisher: {
+      '@type': 'Organization',
+      name: 'SaveEditor.top',
+      url: siteUrl,
+    },
+  },
+];
 ---
 
 <!doctype html>
@@ -85,12 +107,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveedit
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -106,6 +129,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveedit
         font-display: swap;
       }
     </style>
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body
     class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-200"

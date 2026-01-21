@@ -150,7 +150,7 @@ Modificações comuns incluem:
 
 - [Editor Unity PlayerPrefs](/pt/editor/unity) – Para jogos usando saves padrão Unity
 - [Visualizador de Save Ren'Py](/pt/editor/renpy) – Para visual novels baseados em Python
-- [Guia de Extensões de Arquivo de Save](/blog/pt/common-save-file-extensions-explained)
+- [Guia de Extensões de Arquivo de Save](/pt/blog/common-save-file-extensions-explained)
 
 ## Conclusão
 

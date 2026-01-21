@@ -1,22 +1,30 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { useTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  const englishPosts = posts.filter((post) => !post.slug.includes('/'));
-  return englishPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  const localizedPosts = posts.filter((post) => post.slug.includes('/'));
+  return localizedPosts.map((post) => {
+    const [lang, ...rest] = post.slug.split('/');
+    return {
+      params: { lang, slug: rest.join('/') },
+      props: { post, lang },
+    };
+  });
 }
 
-const { post } = Astro.props;
+const { post, lang } = Astro.props;
 const { Content } = await post.render();
-const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const stripLangFromSlug = (slug: string) => (slug.includes('/') ? slug.split('/').slice(1).join('/') : slug);
+const buildBlogUrl = (targetLang: string, slug: string) =>
+  targetLang === 'en' ? `/blog/${slug}` : `/${targetLang}/blog/${slug}`;
+
+const articleSlug = stripLangFromSlug(post.slug);
 ---
 
 <BaseLayout
@@ -57,7 +65,9 @@ const t = useTranslations(lang);
                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                 clip-rule="evenodd"></path></svg
             >
-            <a href={`/${lang === 'en' ? '' : lang + '/'}blog`} class="ml-1 hover:text-primary-600"
+            <a
+              href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+              class="ml-1 hover:text-primary-600"
               >{t('nav.blog')}</a
             >
           </div>
@@ -127,24 +137,14 @@ const t = useTranslations(lang);
           {
             (await getCollection('blog'))
               .filter((p) => {
-                // Filter out current post
                 if (p.slug === post.slug) return false;
-
-                // Filter by language
-                const isEnglishPost = !p.slug.includes('/');
-                if (lang === 'en') {
-                  if (!isEnglishPost) return false;
-                } else {
-                  if (!p.slug.startsWith(`${lang}/`)) return false;
-                }
-
-                // Filter by tags
-                return p.data.tags.some((t) => post.data.tags.includes(t));
+                if (!p.slug.startsWith(`${lang}/`)) return false;
+                return p.data.tags.some((tag) => post.data.tags.includes(tag));
               })
               .slice(0, 2)
               .map((relatedPost) => (
                 <a
-                  href={`/blog/${relatedPost.slug}`}
+                  href={buildBlogUrl(lang, stripLangFromSlug(relatedPost.slug))}
                   class="group block bg-white rounded-xl p-6 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all"
                 >
                   <h4 class="font-bold text-lg text-gray-900 group-hover:text-primary-600 mb-2 line-clamp-2">
@@ -179,19 +179,19 @@ const t = useTranslations(lang);
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://saveeditor.top/',
+          item: `https://saveeditor.top/${lang === 'en' ? '' : lang}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Blog',
-          item: 'https://saveeditor.top/blog',
+          item: `https://saveeditor.top/${lang === 'en' ? '' : lang + '/'}blog`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: post.data.title,
-          item: `https://saveeditor.top/blog/${post.slug}`,
+          item: `https://saveeditor.top/${lang === 'en' ? '' : lang + '/'}blog/${articleSlug}`,
         },
       ],
     })}

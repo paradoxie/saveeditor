@@ -215,16 +215,16 @@ const { engine } = Astro.props;
           {
             (() => {
               const tutorialMap = {
-                'rpg-maker-mv': '/blog/pt/how-to-edit-rpg-maker-save',
-                unity: '/blog/pt/how-to-edit-unity-saves',
-                unreal: '/blog/pt/how-to-edit-unreal-engine-saves',
-                renpy: '/blog/pt/renpy-save-editing-guide',
-                naninovel: '/blog/pt/naninovel-save-editing-guide',
-                gamemaker: '/blog/pt/gamemaker-save-editing-guide',
+                'rpg-maker-mv': '/pt/blog/how-to-edit-rpg-maker-save',
+                unity: '/pt/blog/how-to-edit-unity-saves',
+                unreal: '/pt/blog/how-to-edit-unreal-engine-saves',
+                renpy: '/pt/blog/renpy-save-editing-guide',
+                naninovel: '/pt/blog/naninovel-save-editing-guide',
+                gamemaker: '/pt/blog/gamemaker-save-editing-guide',
               } as const;
               const tutorialLink =
                 tutorialMap[engine.slug as keyof typeof tutorialMap] ||
-                '/blog/pt/common-save-file-extensions-explained';
+                '/pt/blog/common-save-file-extensions-explained';
 
               return (
                 <a
