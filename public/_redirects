@@ -1,4 +1,4 @@
-/blog/ja/* /ja/blog/:splat 301
-/blog/ko/* /ko/blog/:splat 301
-/blog/pt/* /pt/blog/:splat 301
-/blog/zh-cn/* /zh-cn/blog/:splat 301
+/blog/ja/* /ja/blog/:splat/ 301
+/blog/ko/* /ko/blog/:splat/ 301
+/blog/pt/* /pt/blog/:splat/ 301
+/blog/zh-cn/* /zh-cn/blog/:splat/ 301
