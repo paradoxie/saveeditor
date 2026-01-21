@@ -7,6 +7,9 @@ const t = useTranslations(lang);
 // Remove language prefix from current path (supports all languages including those with hyphens)
 let currentPath =
   Astro.url.pathname.replace(new RegExp(`^/(${Object.keys(languages).join('|')})`), '') || '/';
+const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+const isCurrentPath = (path: string) =>
+  normalizedPath === (path.endsWith('/') ? path : `${path}/`);
 
 // Detect blog article pages and extract article slug for smart language switching
 // Blog URL patterns:
@@ -60,6 +63,7 @@ const getBlogUrl = (targetLang: string): string => {
     <nav class="hidden md:flex items-center gap-8 ml-auto">
       <a
         href={`/${lang === 'en' ? '' : lang}`}
+        aria-current={isCurrentPath('/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.home')}</a
       >
@@ -113,11 +117,13 @@ const getBlogUrl = (targetLang: string): string => {
       </div>
       <a
         href={`/${lang === 'en' ? '' : lang + '/'}blog/`}
+        aria-current={isCurrentPath('/blog/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.blog')}</a
       >
       <a
         href={`/${lang === 'en' ? '' : lang + '/'}faq/`}
+        aria-current={isCurrentPath('/faq/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >FAQ</a
       >
@@ -235,6 +241,7 @@ const getBlogUrl = (targetLang: string): string => {
     <nav class="container mx-auto px-4 py-4 space-y-2">
       <a
         href={`/${lang === 'en' ? '' : lang}`}
+        aria-current={isCurrentPath('/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.home')}</a
       >
@@ -276,11 +283,13 @@ const getBlogUrl = (targetLang: string): string => {
 
       <a
         href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+        aria-current={isCurrentPath('/blog/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.blog')}</a
       >
       <a
         href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+        aria-current={isCurrentPath('/faq/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >FAQ</a
       >
