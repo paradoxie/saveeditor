@@ -14,8 +14,9 @@ interface Props {
 
 const { title, description, keywords, ogImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveeditor.top');
-const siteUrl = (Astro.site || 'https://saveeditor.top').replace(/\/$/, '');
+const siteOrigin = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
+const canonicalURL = new URL(Astro.url.pathname, siteOrigin);
+const siteUrl = siteOrigin;
 const defaultOgImage = new URL('/images/blog/rpg-maker-cover.webp', siteUrl).toString();
 const ogImageUrl = new URL(ogImage || defaultOgImage, siteUrl).toString();
 const structuredData = [
