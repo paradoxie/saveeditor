@@ -143,6 +143,10 @@ export async function getStaticPaths() {
 }
 
 const { engine } = Astro.props;
+const siteOrigin = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
+const absUrl = (path: string) =>
+  new URL(path.endsWith('/') ? path : `${path}/`, siteOrigin).toString();
+const lang = 'pt';
 ---
 
 <BaseLayout title={engine.title} description={engine.description} keywords={engine.keywords}>
@@ -264,7 +268,7 @@ const { engine } = Astro.props;
       author: {
         '@type': 'Organization',
         name: 'Save Editor Online',
-        url: 'https://saveeditor.top',
+        url: absUrl('/'),
       },
     })}
   />
@@ -275,17 +279,12 @@ const { engine } = Astro.props;
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Início',
-          item: 'https://saveeditor.top/pt/',
-        },
+        { '@type': 'ListItem', position: 1, name: 'Início', item: absUrl(`/${lang}/`) },
         {
           '@type': 'ListItem',
           position: 2,
           name: `Editor ${engine.name}`,
-          item: `https://saveeditor.top/pt/editor/${engine.slug}`,
+          item: absUrl(`/${lang}/editor/${engine.slug}`),
         },
       ],
     })}

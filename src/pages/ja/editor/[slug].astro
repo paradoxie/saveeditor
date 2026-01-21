@@ -141,6 +141,10 @@ export async function getStaticPaths() {
 }
 
 const { engine } = Astro.props;
+const siteOrigin = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
+const absUrl = (path: string) =>
+  new URL(path.endsWith('/') ? path : `${path}/`, siteOrigin).toString();
+const lang = 'ja';
 ---
 
 <BaseLayout title={engine.title} description={engine.description} keywords={engine.keywords}>
@@ -262,7 +266,7 @@ const { engine } = Astro.props;
       author: {
         '@type': 'Organization',
         name: 'Save Editor Online',
-        url: 'https://saveeditor.top',
+        url: absUrl('/'),
       },
     })}
   />
@@ -277,13 +281,13 @@ const { engine } = Astro.props;
           '@type': 'ListItem',
           position: 1,
           name: 'ホーム',
-          item: 'https://saveeditor.top/ja/',
+          item: absUrl(`/${lang}/`),
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: `${engine.name} エディタ`,
-          item: `https://saveeditor.top/ja/editor/${engine.slug}`,
+          item: absUrl(`/${lang}/editor/${engine.slug}`),
         },
       ],
     })}
