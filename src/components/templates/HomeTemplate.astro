@@ -586,9 +586,11 @@ const blogPosts = (await getCollection('blog'))
           ],
           screenshot: defaultOgImage,
           softwareVersion: '1.0.0',
+          url: homeUrl,
           author: {
             '@type': 'Organization',
             name: 'SaveEditor.top',
+            url: `${siteUrl}/`,
           },
         })}
       />

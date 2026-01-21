@@ -393,6 +393,9 @@ export async function getStaticPaths() {
 }
 
 const { game } = Astro.props;
+const siteOrigin = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
+const absUrl = (path: string) =>
+  new URL(path.endsWith('/') ? path : `${path}/`, siteOrigin).toString();
 ---
 
 <BaseLayout
@@ -794,12 +797,18 @@ const { game } = Astro.props;
       name: `${game.name} Save Editor`,
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web Browser',
+      url: absUrl(`/games/${game.slug}`),
       offers: {
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
       },
       description: `Free online save editor for ${game.name}. Edit ${game.format} files directly in your browser.`,
+      author: {
+        '@type': 'Organization',
+        name: 'SaveEditor.top',
+        url: absUrl('/'),
+      },
     })}
   />
 </BaseLayout>

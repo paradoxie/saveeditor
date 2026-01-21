@@ -269,6 +269,7 @@ const absUrl = (path: string) =>
         priceCurrency: 'USD',
       },
       featureList: engine.features,
+      url: absUrl(`/editor/${engine.slug}`),
       author: {
         '@type': 'Organization',
         name: 'Save Editor Online',
