@@ -16,7 +16,8 @@ const { title, description, keywords, ogImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://saveeditor.top');
 const siteUrl = Astro.site || 'https://saveeditor.top';
-const ogImageUrl = ogImage ? new URL(ogImage, siteUrl).toString() : undefined;
+const defaultOgImage = new URL('/images/blog/rpg-maker-cover.webp', siteUrl).toString();
+const ogImageUrl = new URL(ogImage || defaultOgImage, siteUrl).toString();
 const structuredData = [
   {
     '@context': 'https://schema.org',

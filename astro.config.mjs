@@ -9,11 +9,12 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://saveeditor.top',
+  trailingSlash: 'always',
   vite: {
     plugins: [tailwindcss()]
   },
 
-  integrations: [react(), sitemap()],
+  integrations: [react(), sitemap({ lastmod: new Date() })],
   adapter: cloudflare(),
   i18n: {
     defaultLocale: "en",

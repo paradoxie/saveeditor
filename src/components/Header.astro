@@ -27,8 +27,8 @@ const getBlogUrl = (targetLang: string): string => {
   if (isBlogArticle && blogArticleSlug) {
     // For blog articles, construct the correct path based on target language
     return targetLang === 'en'
-      ? `/blog/${blogArticleSlug}`
-      : `/${targetLang}/blog/${blogArticleSlug}`;
+      ? `/blog/${blogArticleSlug}/`
+      : `/${targetLang}/blog/${blogArticleSlug}/`;
   }
   // For non-blog pages, use normal path construction
   return targetLang === 'en'
@@ -80,44 +80,44 @@ const getBlogUrl = (targetLang: string): string => {
           class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-lg border border-gray-100 py-2 hidden group-hover:block dark:bg-gray-800 dark:border-gray-700"
         >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv`}
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv/`}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >RPG Maker</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/unity`}
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/unity/`}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >Unity</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy`}
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy/`}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >Ren'Py</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal`}
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal/`}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >Unreal Engine</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker`}
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker/`}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >GameMaker</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel`}
+            href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel/`}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >NaniNovel</a
           >
         </div>
       </div>
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+        href={`/${lang === 'en' ? '' : lang + '/'}blog/`}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.blog')}</a
       >
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+        href={`/${lang === 'en' ? '' : lang + '/'}faq/`}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >FAQ</a
       >

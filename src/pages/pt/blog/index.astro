@@ -33,7 +33,7 @@ const stripLangFromSlug = (slug: string) => slug.replace(/^pt\//, '');
                 ))}
               </div>
               <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
-                <a href={`/pt/blog/${stripLangFromSlug(post.slug)}`} class="hover:text-primary-600 transition-colors">
+                <a href={`/pt/blog/${stripLangFromSlug(post.slug)}/`} class="hover:text-primary-600 transition-colors">
                   {post.data.title}
                 </a>
               </h2>

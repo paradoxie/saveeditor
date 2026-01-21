@@ -14,6 +14,9 @@ interface Props {
 
 const { lang = 'en', title, description, keywords } = Astro.props;
 const t = useTranslations(lang);
+const siteUrl = Astro.site || 'https://saveeditor.top';
+const defaultOgImage = `${siteUrl}/images/blog/rpg-maker-cover.webp`;
+const homeUrl = lang === 'en' ? `${siteUrl}/` : `${siteUrl}/${lang}/`;
 
 // Helper to handle localized links
 const getPath = (path: string) => {
@@ -21,9 +24,9 @@ const getPath = (path: string) => {
   // If path is root '/', handle carefully
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   if (lang === defaultLang) {
-    return `/${cleanPath}`;
+    return cleanPath ? `/${cleanPath}/` : '/';
   }
-  return `/${lang}/${cleanPath}`;
+  return cleanPath ? `/${lang}/${cleanPath}/` : `/${lang}/`;
 };
 
 const blogPosts = (await getCollection('blog'))
@@ -533,22 +536,22 @@ const blogPosts = (await getCollection('blog'))
               '@type': 'HowToStep',
               name: t('how.step1.title'),
               text: t('how.step1.desc'),
-              image: 'https://saveeditor.online/og-image.png',
-              url: `https://saveeditor.online/${lang === 'en' ? '' : lang}`,
+              image: defaultOgImage,
+              url: homeUrl,
             },
             {
               '@type': 'HowToStep',
               name: t('how.step2.title'),
               text: t('how.step2.desc'),
-              image: 'https://saveeditor.online/og-image.png',
-              url: `https://saveeditor.online/${lang === 'en' ? '' : lang}`,
+              image: defaultOgImage,
+              url: homeUrl,
             },
             {
               '@type': 'HowToStep',
               name: t('how.step3.title'),
               text: t('how.step3.desc'),
-              image: 'https://saveeditor.online/og-image.png',
-              url: `https://saveeditor.online/${lang === 'en' ? '' : lang}`,
+              image: defaultOgImage,
+              url: homeUrl,
             },
           ],
         })}
@@ -581,50 +584,11 @@ const blogPosts = (await getCollection('blog'))
             'GameMaker INI/JSON Editing',
             'NaniNovel NSON Editing',
           ],
-          screenshot: 'https://saveeditor.online/og-image.png',
+          screenshot: defaultOgImage,
           softwareVersion: '1.0.0',
           author: {
             '@type': 'Organization',
             name: 'SaveEditor.top',
-          },
-        })}
-      />
-
-      <!-- WebSite Schema with Search Action -->
-      <script
-        type="application/ld+json"
-        set:html={JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'SaveEditor.top',
-          alternateName: 'Save Editor Online',
-          url: 'https://saveeditor.online/',
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: {
-              '@type': 'EntryPoint',
-              urlTemplate: 'https://saveeditor.online/games?q={search_term_string}',
-            },
-            'query-input': 'required name=search_term_string',
-          },
-        })}
-      />
-
-      <!-- Organization Schema -->
-      <script
-        type="application/ld+json"
-        set:html={JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          name: 'SaveEditor.top',
-          url: 'https://saveeditor.online/',
-          logo: 'https://saveeditor.online/favicon.svg',
-          description: t('footer.desc'),
-          sameAs: ['https://github.com/paradoxie/saveeditor'],
-          contactPoint: {
-            '@type': 'ContactPoint',
-            contactType: 'customer service',
-            url: 'https://saveeditor.online/contact',
           },
         })}
       />

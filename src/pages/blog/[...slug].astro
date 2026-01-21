@@ -17,6 +17,34 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const siteUrl = Astro.site || 'https://saveeditor.top';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const articleImage = post.data.image ? new URL(post.data.image, siteUrl).toString() : undefined;
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: post.data.author,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalURL.toString(),
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'SaveEditor.top',
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/favicon.svg', siteUrl).toString(),
+    },
+  },
+  inLanguage: lang,
+  ...(articleImage ? { image: articleImage } : {}),
+};
 ---
 
 <BaseLayout
@@ -57,7 +85,7 @@ const t = useTranslations(lang);
                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                 clip-rule="evenodd"></path></svg
             >
-            <a href={`/${lang === 'en' ? '' : lang + '/'}blog`} class="ml-1 hover:text-primary-600"
+            <a href={`/${lang === 'en' ? '' : lang + '/'}blog/`} class="ml-1 hover:text-primary-600"
               >{t('nav.blog')}</a
             >
           </div>
@@ -144,7 +172,7 @@ const t = useTranslations(lang);
               .slice(0, 2)
               .map((relatedPost) => (
                 <a
-                  href={`/blog/${relatedPost.slug}`}
+                  href={`/blog/${relatedPost.slug}/`}
                   class="group block bg-white rounded-xl p-6 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all"
                 >
                   <h4 class="font-bold text-lg text-gray-900 group-hover:text-primary-600 mb-2 line-clamp-2">
@@ -159,7 +187,7 @@ const t = useTranslations(lang);
 
       <div class="mt-12 text-center">
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+          href={`/${lang === 'en' ? '' : lang + '/'}blog/`}
           class="text-primary-600 hover:text-primary-700 font-medium"
         >
           {t('blog.backToTutorials')}
@@ -185,15 +213,17 @@ const t = useTranslations(lang);
           '@type': 'ListItem',
           position: 2,
           name: 'Blog',
-          item: 'https://saveeditor.top/blog',
+          item: 'https://saveeditor.top/blog/',
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: post.data.title,
-          item: `https://saveeditor.top/blog/${post.slug}`,
+          item: `https://saveeditor.top/blog/${post.slug}/`,
         },
       ],
     })}
   />
+
+  <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
 </BaseLayout>

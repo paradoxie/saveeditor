@@ -6,6 +6,7 @@ Sitemap: https://saveeditor.top/sitemap-index.xml
 
 # Disallow admin/API routes if any
 Disallow: /api/
+Disallow: /_astro/
 
 # Allow all supported languages
 Allow: /ja/
