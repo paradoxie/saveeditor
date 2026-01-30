@@ -3,20 +3,25 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { languages } from '../i18n/ui';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const homeHref = lang === 'en' ? '/' : `/${lang}/`;
+const withTrailingSlash = (path: string) => (path.endsWith('/') ? path : `${path}/`);
 
 // Remove language prefix from current path (supports all languages including those with hyphens)
 let currentPath =
   Astro.url.pathname.replace(new RegExp(`^/(${Object.keys(languages).join('|')})`), '') || '/';
 const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
-const isCurrentPath = (path: string) =>
-  normalizedPath === (path.endsWith('/') ? path : `${path}/`);
+const isCurrentPath = (path: string) => normalizedPath === (path.endsWith('/') ? path : `${path}/`);
 
+// Detect blog article pages and extract article slug for smart language switching
 // Detect blog article pages and extract article slug for smart language switching
 // Blog URL patterns:
 // - English: /blog/article-slug
 // - Other languages: /{lang}/blog/article-slug
+const supportedLangs = Object.keys(languages)
+  .filter((k) => k !== 'en')
+  .join('|');
 const blogArticleMatch =
-  Astro.url.pathname.match(/^\/(ja|pt|ko|zh-cn)\/blog\/(.+)$/) ||
+  Astro.url.pathname.match(new RegExp(`^/(${supportedLangs})/blog/(.+)$`)) ||
   Astro.url.pathname.match(/^\/blog\/(.+)$/);
 const blogArticleSlug = blogArticleMatch
   ? blogArticleMatch.length === 3
@@ -34,13 +39,14 @@ const getBlogUrl = (targetLang: string): string => {
       : `/${targetLang}/blog/${blogArticleSlug}/`;
   }
   // For non-blog pages, use normal path construction
-  return targetLang === 'en'
+  const href = targetLang === 'en'
     ? currentPath === '/'
       ? '/'
       : currentPath
     : currentPath === '/'
-      ? `/${targetLang}`
+      ? `/${targetLang}/`
       : `/${targetLang}${currentPath}`;
+  return withTrailingSlash(href);
 };
 ---
 
@@ -48,7 +54,7 @@ const getBlogUrl = (targetLang: string): string => {
   class="bg-white border-b border-gray-100 sticky top-0 z-50 dark:bg-gray-900 dark:border-gray-800"
 >
   <div class="container mx-auto px-4 h-16 flex items-center">
-    <a href={`/${lang === 'en' ? '' : lang}`} class="flex items-center gap-2 group">
+    <a href={homeHref} class="flex items-center gap-2 group">
       <div
         class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white font-bold text-xl group-hover:bg-primary-700 transition-colors"
       >
@@ -62,7 +68,7 @@ const getBlogUrl = (targetLang: string): string => {
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-8 ml-auto">
       <a
-        href={`/${lang === 'en' ? '' : lang}`}
+        href={homeHref}
         aria-current={isCurrentPath('/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.home')}</a
@@ -160,7 +166,7 @@ const getBlogUrl = (targetLang: string): string => {
       </button>
 
       <a
-        href={`/${lang === 'en' ? '' : lang}`}
+        href={homeHref}
         class="hidden sm:block bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
       >
         {t('nav.start')}
@@ -240,7 +246,7 @@ const getBlogUrl = (targetLang: string): string => {
   >
     <nav class="container mx-auto px-4 py-4 space-y-2">
       <a
-        href={`/${lang === 'en' ? '' : lang}`}
+        href={homeHref}
         aria-current={isCurrentPath('/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.home')}</a
@@ -250,45 +256,45 @@ const getBlogUrl = (targetLang: string): string => {
       <div class="border-t border-b border-gray-100 py-2 my-2 dark:border-gray-800">
         <p class="px-4 py-2 text-xs uppercase text-gray-500 font-semibold">{t('nav.editors')}</p>
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv`}
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv/`}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >RPG Maker</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/unity`}
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/unity/`}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >Unity</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy`}
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy/`}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >Ren'Py</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal`}
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal/`}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >Unreal Engine</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker`}
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker/`}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >GameMaker</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel`}
+          href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel/`}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >NaniNovel</a
         >
       </div>
 
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+        href={`/${lang === 'en' ? '' : lang + '/'}blog/`}
         aria-current={isCurrentPath('/blog/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.blog')}</a
       >
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+        href={`/${lang === 'en' ? '' : lang + '/'}faq/`}
         aria-current={isCurrentPath('/faq/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >FAQ</a
@@ -317,7 +323,7 @@ const getBlogUrl = (targetLang: string): string => {
       <!-- Mobile CTA -->
       <div class="pt-4">
         <a
-          href={`/${lang === 'en' ? '' : lang}`}
+          href={homeHref}
           class="block w-full text-center bg-primary-600 text-white px-4 py-3 rounded-lg text-base font-medium hover:bg-primary-700 transition-colors"
         >
           {t('nav.start')}

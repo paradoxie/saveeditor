@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Контакты | Save Editor Online"
+  description="Свяжитесь с Save Editor Online. Вопросы, поддержка и отзывы."
+>
+  <main class="container mx-auto px-4 py-12 max-w-6xl">
+    <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">Контакты</h1>
+
+    <div class="grid md:grid-cols-2 gap-12">
+      <div>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+          Вопросы, предложения или просто приветствия. Заполните форму, и мы ответим как можно
+          скорее.
+        </p>
+
+        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mb-8">
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Время ответа</h3>
+          <p class="text-blue-800 dark:text-blue-200 text-sm mb-4">
+            Мы небольшая команда, но стараемся отвечать на все запросы в течение **24-48 часов**.
+          </p>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Деловое сотрудничество</h3>
+          <p class="text-blue-800 dark:text-blue-200 text-sm">
+            По вопросам партнерства, прессы или бизнеса выберите "Деловое сотрудничество" в форме
+            или напишите нам напрямую.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
+            >
+              📧
+            </div>
+            <div>
+              <div class="font-bold text-gray-900 dark:text-white">Email</div>
+              <a href="mailto:support@saveeditor.online" class="text-primary-600 hover:underline"
+                >support@saveeditor.online</a
+              >
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div
+              class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
+            >
+              🐛
+            </div>
+            <div>
+              <div class="font-bold text-gray-900 dark:text-white">Сообщить о баге</div>
+              <a
+                href="https://github.com/paradoxie/saveeditor/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary-600 hover:underline">Открыть Issue на GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700"
+      >
+        <div
+          id="success-message"
+          class="hidden mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong class="font-bold">Сообщение отправлено!</strong>
+          <span class="block sm:inline">Спасибо, что связались с нами. Мы скоро ответим.</span>
+        </div>
+        <form class="space-y-6" id="contact-form">
+          <div>
+            <label
+              for="name"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Имя</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="Ваше имя"
+            />
+          </div>
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="vash@email.com"
+            />
+          </div>
+          <div>
+            <label
+              for="subject"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Тема</label
+            >
+            <select
+              id="subject"
+              name="subject"
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="general">Общий вопрос</option>
+              <option value="support">Техподдержка</option>
+              <option value="feature">Запрос функции</option>
+              <option value="bug">Отчет о баге</option>
+              <option value="business">Деловое сотрудничество</option>
+            </select>
+          </div>
+          <div>
+            <label
+              for="message"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >Сообщение</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="Чем мы можем помочь?"></textarea>
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+          >
+            <span>Отправить</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
+              ></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const successMessage = document.getElementById('success-message');
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Simulate form submission
+        setTimeout(() => {
+          form.reset();
+          successMessage?.classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1000);
+      });
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Save Editor Online Контакты",
+      "url": "https://saveeditor.top/ru/contact",
+      "description": "Страница контактов Save Editor Online."
+    }
+  </script>
+</BaseLayout>

@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqCategories = [
+  {
+    title: 'Introducción',
+    icon: '🚀',
+    questions: [
+      {
+        question: '¿Qué es SaveEditor.top?',
+        answer:
+          "SaveEditor.top es una herramienta gratuita basada en navegador para editar archivos de guardado de juegos. Funciona completamente en tu navegador, por lo que tus archivos nunca salen de tu dispositivo. Soporta motores populares como RPG Maker, Unity, Ren'Py y Unreal Engine.",
+      },
+      {
+        question: '¿Es seguro?',
+        answer:
+          'Sí. SaveEditor.top se ejecuta completamente en tu navegador web (JavaScript del lado del cliente). Tus archivos de guardado nunca se suben a ningún servidor. Usamos Google Analytics y AdSense para mejorar el sitio y mostrar anuncios. Consulta la Política de Privacidad para más detalles.',
+      },
+      {
+        question: '¿Necesito registrarme?',
+        answer:
+          'No. SaveEditor.top no requiere registro, inicio de sesión ni información personal. Simplemente sube tu archivo y empieza a editar al instante.',
+      },
+      {
+        question: '¿Es realmente gratis?',
+        answer:
+          'Sí, 100% gratuito. Hasta 50MB por archivo, sin límite de ediciones. Nos apoyamos en donaciones opcionales y publicidad no intrusiva.',
+      },
+    ],
+  },
+  {
+    title: 'Juegos y Formatos',
+    icon: '🎮',
+    questions: [
+      {
+        question: '¿Qué juegos puedo editar?',
+        answer:
+          "Soportamos miles de juegos de múltiples motores. Títulos populares incluyen Stardew Valley, Undertale, Hollow Knight, Doki Doki Literature Club, Celeste, Omori, y muchos juegos hechos con RPG Maker, Ren'Py, Unity y GameMaker.",
+      },
+      {
+        question: '¿Qué formatos de archivo son compatibles?',
+        answer:
+          "RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav), GameMaker (.ini, .json), NaniNovel (.nson), y formatos genéricos JSON/XML.",
+      },
+      {
+        question: '¿Puedo editar partidas de consola (PS, Xbox, Switch)?',
+        answer:
+          'Lamentablemente, las partidas de consola están encriptadas con DRM específico de la plataforma y no se pueden editar. Nuestro editor es solo para archivos de PC/Mac/Linux.',
+      },
+    ],
+  },
+  {
+    title: 'Ubicación de Archivos',
+    icon: '📂',
+    questions: [
+      {
+        question: '¿Dónde están mis partidas en Windows?',
+        answer:
+          'Ubicaciones comunes: %AppData% (Win+R y escribe %appdata%), %LocalAppData%, Documentos/My Games, o la carpeta de instalación del juego. Para juegos de Steam, revisa también Steam/userdata/[ID]/[GameID]/.',
+      },
+      {
+        question: '¿Dónde están mis partidas en Mac?',
+        answer:
+          "La mayoría de juegos están en ~/Library/Application Support/. Para Unity: ~/Library/Application Support/unity.[Company].[Game]. Para Ren'Py: ~/Library/RenPy/[GameName].",
+      },
+      {
+        question: '¿Dónde están mis partidas en Linux?',
+        answer:
+          'La mayoría guardan en ~/.config/[GameName] o ~/.local/share/[GameName]. Para juegos de Steam via Proton, revisa ~/.steam/steam/steamapps/compatdata/[GameID]/pfx/.',
+      },
+    ],
+  },
+  {
+    title: 'Editando Partidas',
+    icon: '✏️',
+    questions: [
+      {
+        question: '¿Cómo edito oro/dinero?',
+        answer:
+          "Sube tu archivo, busca campos como 'gold', 'money', 'currency', 'coins'. Cambia el valor a la cantidad deseada. Para RPG Maker, busca '_gold' en los datos del grupo.",
+      },
+      {
+        question: '¿Cómo añado objetos al inventario?',
+        answer:
+          'Localiza el array de inventario/items. En RPG Maker, los items se guardan como pares [ItemID, Cantidad]. Añade una nueva entrada siguiendo el formato existente.',
+      },
+      {
+        question: '¿Editar romperá mi juego?',
+        answer:
+          'Nuestro editor valida cambios para prevenir errores obvios, pero ediciones extremas pueden causar problemas. ¡Haz siempre una copia de seguridad primero!',
+      },
+    ],
+  },
+  {
+    title: 'Solución de Problemas',
+    icon: '🔧',
+    questions: [
+      {
+        question: '¿Por qué dice "Archivo Inválido"?',
+        answer:
+          'El juego podría usar un formato no soportado, encriptación o compresión. Intenta: 1) Seleccionar otro tipo de editor manualmente, 2) Verificar que es un archivo de guardado real, 3) El juego podría usar codificación propietaria.',
+      },
+      {
+        question: '¡El juego no carga mi partida editada!',
+        answer:
+          'Soluciones comunes: 1) Asegúrate de haber reemplazado el archivo correcto, 2) Verifica que Steam Cloud no haya restaurado el original, 3) Algunos juegos tienen sumas de verificación (checksums) - prueba ediciones más pequeñas, 4) Restaura tu copia de seguridad.',
+      },
+      {
+        question: '¿Puedo deshacer cambios?',
+        answer:
+          'Una vez descargado, los cambios son permanentes. ¡Guarda siempre una copia de seguridad! Si no tienes, revisa si hay copias en la nube o si el juego crea archivos .bak.',
+      },
+    ],
+  },
+];
+
+const allQuestions = faqCategories.flatMap((cat) => cat.questions);
+---
+
+<BaseLayout
+  title="Preguntas Frecuentes - FAQ de Edición de Partidas"
+  description="Respuestas a preguntas comunes sobre SaveEditor.top. Ubicaciones de archivos, edición de datos, solución de problemas y más."
+  keywords="faq editor partidas, ayuda save editor, ubicación partidas guardadas, tutorial edición juegos"
+>
+  <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >Preguntas Frecuentes</span
+        >
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        Todo lo que necesitas saber sobre la edición de partidas en SaveEditor.top
+      </p>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+      <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Ir a sección</h2>
+        <div class="flex flex-wrap gap-3">
+          {
+            faqCategories.map((category, index) => (
+              <a
+                href={`#section-${index}`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
+              >
+                <span>{category.icon}</span>
+                <span>{category.title}</span>
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+
+      {
+        faqCategories.map((category, catIndex) => (
+          <section id={`section-${catIndex}`} class="mb-12">
+            <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
+              <span class="text-3xl">{category.icon}</span>
+              {category.title}
+            </h2>
+            <div class="space-y-4">
+              {category.questions.map((faq) => (
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                  <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                    {faq.question}
+                    <svg
+                      class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </summary>
+                  <div class="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
+        <h2 class="text-2xl font-bold mb-4">¿Aún tienes preguntas?</h2>
+        <p class="text-gray-300 mb-6">
+          ¿No encuentras lo que buscas? Revisa nuestras guías por juego o contáctanos.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/games"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+            >Ver Juegos</a
+          >
+          <a
+            href="/es/contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
+            >Contactar</a
+          >
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQuestions.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://saveeditor.top/es/' },
+        { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/es/faq/' },
+      ],
+    })}
+  />
+</BaseLayout>

@@ -13,3 +13,5 @@ Allow: /ja/
 Allow: /pt/
 Allow: /ko/
 Allow: /zh-cn/
+Allow: /es/
+Allow: /ru/

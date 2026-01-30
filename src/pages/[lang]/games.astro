@@ -9,6 +9,8 @@ export function getStaticPaths() {
     { params: { lang: 'pt' } },
     { params: { lang: 'ko' } },
     { params: { lang: 'zh-cn' } },
+    { params: { lang: 'ru' } },
+    { params: { lang: 'es' } },
   ];
 }
 
@@ -143,7 +145,7 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
 <BaseLayout
   title={t('gamesPage.seoTitle')}
   description={t('gamesPage.seoDesc')}
-  keywords="save editor games, rpg maker games, unity games, unreal engine games, supported games list"
+  keywords={t('gamesPage.seoKeywords')}
 >
   <main class="flex-grow container mx-auto px-4 py-12">
     <div class="max-w-6xl mx-auto">

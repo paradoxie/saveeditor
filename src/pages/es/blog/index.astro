@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const localizedPosts = allPosts.filter((post) => post.slug.startsWith('es/'));
+const fallbackPosts = allPosts.filter((post) => !post.slug.includes('/'));
+const posts = (localizedPosts.length ? localizedPosts : fallbackPosts).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const isFallback = localizedPosts.length === 0;
+const stripLangFromSlug = (slug: string) => slug.replace(/^es\//, '');
+const getPostUrl = (slug: string) =>
+  isFallback ? `/blog/${slug}/` : `/es/blog/${stripLangFromSlug(slug)}/`;
+---
+
+<BaseLayout
+  title="Guías y Tutoriales | Save Editor Online"
+  description="Guías completas sobre cómo editar archivos de guardado, modificar estadísticas y desbloquear funciones en tus juegos favoritos."
+>
+  <main class="container mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4 dark:text-white">Guías y Tutoriales</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300">
+        Domina el arte de la edición de partidas
+      </p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((post) => (
+          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow">
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-4">
+                {post.data.tags.map((tag) => (
+                  <span class="bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs px-2 py-1 rounded-full font-medium uppercase tracking-wide">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                <a href={getPostUrl(post.slug)} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  {post.data.title}
+                </a>
+              </h2>
+              <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 text-sm">
+                {post.data.description}
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mt-auto">
+                <span>{post.data.pubDate.toLocaleDateString('es-ES')}</span>
+                <span>{post.data.author}</span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {
+      isFallback && (
+        <div class="text-center py-6">
+          <p class="text-gray-500 dark:text-gray-400">
+            Aún no hay artículos en español. Mostrando artículos en inglés.
+          </p>
+        </div>
+      )
+    }
+  </main>
+</BaseLayout>

@@ -476,7 +476,7 @@ const blogPosts = (await getCollection('blog'))
                     </span>
                     <span class="text-gray-300">•</span>
                     <span class="text-gray-500">
-                      {post.data.pubDate.toLocaleDateString(lang === 'zh-cn' ? 'zh-CN' : 'en-US', {
+                      {post.data.pubDate.toLocaleDateString(lang, {
                         month: 'short',
                         day: 'numeric',
                         year: 'numeric',

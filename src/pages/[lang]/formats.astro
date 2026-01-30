@@ -9,6 +9,8 @@ export function getStaticPaths() {
     { params: { lang: 'pt' } },
     { params: { lang: 'ko' } },
     { params: { lang: 'zh-cn' } },
+    { params: { lang: 'ru' } },
+    { params: { lang: 'es' } },
   ];
 }
 
@@ -109,7 +111,7 @@ const formats = [
 <BaseLayout
   title={t('formatsPage.seoTitle')}
   description={t('formatsPage.seoDesc')}
-  keywords="game save format, rpgsave, playerprefs, gvas, save file extension, game data format"
+  keywords={t('formatsPage.seoKeywords')}
 >
   <main class="flex-grow container mx-auto px-4 py-12">
     <div class="max-w-6xl mx-auto">
@@ -197,16 +199,13 @@ const formats = [
         <h3>{t('formatsPage.howToFind')}</h3>
         <ul>
           <li>
-            <strong>Windows:</strong> Check <code>%APPDATA%</code>, <code>Documents/My Games</code>,
-            or the game's installation folder
+            <span set:html={t('formatsPage.howToFind.windows')} />
           </li>
           <li>
-            <strong>macOS:</strong> Look in <code>~/Library/Application Support</code> or <code
-              >~/Library/Preferences</code
-            >
+            <span set:html={t('formatsPage.howToFind.mac')} />
           </li>
           <li>
-            <strong>Linux:</strong> Check <code>~/.local/share</code> or <code>~/.config</code>
+            <span set:html={t('formatsPage.howToFind.linux')} />
           </li>
         </ul>
       </div>

@@ -16,9 +16,11 @@ export async function getStaticPaths() {
   });
 }
 
+import { ui } from '../../../i18n/ui';
+
 const { post, lang } = Astro.props;
 const { Content } = await post.render();
-const t = useTranslations(lang);
+const t = useTranslations(lang as keyof typeof ui);
 const siteUrl = Astro.site || 'https://saveeditor.top';
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const articleImage = post.data.image ? new URL(post.data.image, siteUrl).toString() : undefined;
@@ -48,7 +50,8 @@ const blogPostingSchema = {
   ...(articleImage ? { image: articleImage } : {}),
 };
 
-const stripLangFromSlug = (slug: string) => (slug.includes('/') ? slug.split('/').slice(1).join('/') : slug);
+const stripLangFromSlug = (slug: string) =>
+  slug.includes('/') ? slug.split('/').slice(1).join('/') : slug;
 const buildBlogUrl = (targetLang: string, slug: string) =>
   targetLang === 'en' ? `/blog/${slug}` : `/${targetLang}/blog/${slug}`;
 
@@ -93,9 +96,7 @@ const articleSlug = stripLangFromSlug(post.slug);
                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                 clip-rule="evenodd"></path></svg
             >
-            <a
-              href={`/${lang === 'en' ? '' : lang + '/'}blog/`}
-              class="ml-1 hover:text-primary-600"
+            <a href={`/${lang === 'en' ? '' : lang + '/'}blog/`} class="ml-1 hover:text-primary-600"
               >{t('nav.blog')}</a
             >
           </div>

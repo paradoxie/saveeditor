@@ -114,7 +114,12 @@ export async function parseRPGMakerMV(file: File): Promise<RPGMakerSave> {
                 try {
                     if (debug) console.log('Trying fflate.unzip...');
                     // fflate.unzip 自动检测 GZIP/Zlib
-                    const inflated = fflate.unzipSync(uint8Array);
+                    const unzipped = fflate.unzipSync(uint8Array);
+                    // Extract the first file from the zip
+                    const firstFilename = Object.keys(unzipped)[0];
+                    if (!firstFilename) throw new Error('Empty zip file');
+                    const inflated = unzipped[firstFilename];
+
                     const decoder = new TextDecoder('utf-8');
                     decompressed = decoder.decode(inflated);
                     compressionType = 'fflate';

@@ -1,0 +1,696 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const games = [
+    {
+      slug: 'stardew-valley',
+      name: 'Stardew Valley',
+      seoDescription:
+        'El mejor editor de partidas de Stardew Valley online y gratuito (Sin descarga). Edita saves .xml, oro, inventario y habilidades al instante. Procesamiento local y seguro.',
+      seoContent: `
+        <h2>¿Por qué usar nuestro Editor de Stardew Valley?</h2>
+        <p>Esta herramienta automatizada simplifica la edición analizando la compleja estructura XML de los archivos de guardado de Stardew Valley. A diferencia de la edición manual de texto que arriesga corromper archivos, nuestro editor valida la integridad de los datos antes de guardar, asegurando que tu granja permanezca segura.</p>
+        <h3>Características Principales</h3>
+        <ul>
+            <li><strong>Edición Instantánea de Recursos:</strong> Añade Oro ilimitado, Gemas Qi y Monedas de Casino al instante.</li>
+            <li><strong>Gestión de Inventario:</strong> Añade cualquier objeto (Esquirlas Prismáticas, Espada Galaxia) directamente a tu mochila o cofre.</li>
+            <li><strong>Maximizar Habilidades:</strong> Sube Agricultura, Minería, Recolección, Pesca y Combate al Nivel 10 inmediatamente.</li>
+            <li><strong>Modificación de Relaciones:</strong> Maximiza los corazones con cualquier aldeano o soltero/a.</li>
+        </ul>
+        <h3>Procesamiento Local y Seguro</h3>
+        <p>Tus archivos de guardado se procesan completamente en tu navegador usando JavaScript. <strong>Ningún dato se sube a un servidor remoto</strong>, garantizando total privacidad y seguridad para tus datos.</p>
+        <h3>Plataformas Soportadas</h3>
+        <p>Totalmente compatible con archivos de guardado de PC (Steam/GOG), Mac, Linux y Móvil (Android/iOS). Para Switch/Consolas, primero debes exportarlos usando una herramienta homebrew.</p>
+      `,
+      engine: 'Unity (XML)',
+      format: '.xml',
+      editorPath: '/es/editor/unity',
+      emoji: '🌾',
+      image: '/images/games/stardew-valley.webp',
+      description: 'El querido RPG de simulación de granja de ConcernedApe.',
+      saveLocations: {
+        windows: '%appdata%\\StardewValley\\Saves',
+        mac: '~/Library/Application Support/StardewValley/Saves',
+        linux: '~/.config/StardewValley/Saves',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Oro y Dinero', desc: 'Edita los ingresos de tu granja' },
+        { icon: '🎒', name: 'Inventario', desc: 'Añade cualquier objeto a tu bolsa' },
+        { icon: '❤️', name: 'Relaciones', desc: 'Modifica corazones de amistad' },
+        { icon: '📈', name: 'Habilidades', desc: 'Sube nivel de agricultura, etc.' },
+        { icon: '🏆', name: 'Logros', desc: 'Desbloquea lotes del centro cívico' },
+        { icon: '🗓️', name: 'Tiempo y Estación', desc: 'Cambia la fecha actual' },
+      ],
+      faq: [
+        {
+          question: '¿Dónde está mi archivo de guardado de Stardew Valley?',
+          answer:
+            'En Windows, tus partidas están en %appdata%\\StardewValley\\Saves. Cada carpeta tiene el nombre de tu granjero (ej. FarmerName_123456789).',
+        },
+        {
+          question: '¿Puedo editar partidas multijugador?',
+          answer:
+            'Sí, pero solo deberías editar tu propia partida como anfitrión. Ten cuidado de no corromper datos de granja compartidos.',
+        },
+        {
+          question: '¿Romperá mi juego la edición?',
+          answer:
+            '¡Siempre haz una copia de seguridad antes! Nuestro editor valida cambios, pero modificaciones extremas podrían causar problemas.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Cómo editar saves de Unity', url: '/blog/how-to-edit-unity-saves' },
+      ],
+    },
+    {
+      slug: 'palworld',
+      name: 'Palworld',
+      seoDescription:
+        'Editor de Partidas de Palworld Online (Sin descarga). Edita archivos .sav, formato GVAS, estadísticas de Pals, inventario y nivel de base. Herramienta segura y open source.',
+      seoContent: `
+        <h2>Edición Avanzada de Palworld</h2>
+        <p>Nuestro Editor de Palworld te permite modificar los archivos <code>Level.sav</code> y <code>.sav</code> del jugador fácilmente. Maneja la deserialización del formato GVAS (formato de guardado de Unreal Engine) automáticamente.</p>
+        <h3>Qué puedes editar:</h3>
+        <ul>
+            <li><strong>Pals:</strong> Modifica habilidades pasivas (añade Leyenda, Suerte), estadísticas (Atk, Def) y nivel de condensación.</li>
+            <li><strong>Jugador:</strong> Edita Peso de Carga, Poder de Captura, Puntos de Tecnología y Puntos de Tecnología Antigua.</li>
+            <li><strong>Base y Objetos:</strong> Desbloquea todas las tecnologías y genera cualquier objeto o recurso.</li>
+        </ul>
+      `,
+      engine: 'Unreal Engine (GVAS)',
+      format: '.sav',
+      editorPath: '/es/editor/unreal',
+      emoji: '🦎',
+      image: '/images/games/palworld.webp',
+      description: 'El viral juego de supervivencia y colección de criaturas.',
+      saveLocations: {
+        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
+        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
+        linux:
+          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Oro', desc: 'Edita tu moneda del juego' },
+        { icon: '🦎', name: 'Pals', desc: 'Modifica stats y habilidades de Pals' },
+        { icon: '📈', name: 'Stats Jugador', desc: 'Cambia nivel, HP, estamina' },
+        { icon: '🎒', name: 'Inventario', desc: 'Añade objetos y recursos' },
+        { icon: '⚔️', name: 'Equipamiento', desc: 'Edita armas y armaduras' },
+        { icon: '🏠', name: 'Progreso Base', desc: 'Modifica datos de construcción' },
+      ],
+      faq: [
+        {
+          question: '¿Dónde están los archivos de Palworld?',
+          answer:
+            'Windows: %localappdata%\\Pal\\Saved\\SaveGames. Cada mundo tiene su propia carpeta.',
+        },
+        {
+          question: '¿Puedo editar saves de Game Pass?',
+          answer:
+            'Este editor funciona nativamente con archivos de Steam. Para Game Pass, necesitas desencriptar el contenedor primero.',
+        },
+      ],
+      relatedGuides: [
+        {
+          title: 'Cómo editar saves de Unreal Engine',
+          url: '/blog/how-to-edit-unreal-engine-saves',
+        },
+      ],
+    },
+    {
+      slug: 'undertale',
+      name: 'Undertale',
+      seoDescription:
+        'Editor de Partidas Undertale Gratis. Edita file0 y undertale.ini. Cambia HP, Oro, EXP, valor FUN y flags de Genocida.',
+      seoContent: `
+        <h2>Editor de Archivos de Undertale (file0 & undertale.ini)</h2>
+        <p>Undertale usa dos archivos principales: <code>file0</code> (tu ranura de guardado activa) y <code>undertale.ini</code> (meta-datos y flags persistentes). Nuestro editor puede modificar ambos.</p>
+        <h3>Ediciones Comunes</h3>
+        <ul>
+            <li><strong>Ruta Genocida/Pacifista:</strong> Resetea o activa flags específicos de ruta para cambiar la historia sin volver a jugar.</li>
+            <li><strong>Valor FUN:</strong> Edita la variable 'fun' en <code>undertale.ini</code> para activar eventos aleatorios (como seguidores de Gaster).</li>
+            <li><strong>Estadísticas de Batalla:</strong> Modifica HP, ATK, DEF y EXP para facilitar o dificultar las batallas.</li>
+        </ul>
+      `,
+      engine: 'GameMaker',
+      format: 'file0, undertale.ini',
+      editorPath: '/es/editor/gamemaker',
+      emoji: '❤️',
+      image: '/images/games/undertale.webp',
+      description: 'El icónico RPG indie de Toby Fox donde nadie tiene que morir.',
+      saveLocations: {
+        windows: '%localappdata%\\UNDERTALE',
+        mac: '~/Library/Application Support/com.tobyfox.undertale/',
+        linux: '~/.config/UNDERTALE',
+      },
+      editableItems: [
+        { icon: '❤️', name: 'HP y AMOR', desc: 'Cambia salud y nivel de AMOR' },
+        { icon: '🎒', name: 'Inventario', desc: 'Edita objetos en tu inventario' },
+        { icon: '💰', name: 'Oro (G)', desc: 'Modifica tu dinero' },
+        { icon: '📍', name: 'Ubicación', desc: 'Cambia tu punto de guardado' },
+        { icon: '🎮', name: 'Flags de Juego', desc: 'Alterna progreso de historia' },
+        { icon: '👤', name: 'Nombre', desc: 'Cambia el nombre del humano caído' },
+      ],
+      faq: [
+        {
+          question: '¿Dónde están los saves de Undertale?',
+          answer:
+            'Windows: %localappdata%\\UNDERTALE. Archivos principales: file0 y undertale.ini.',
+        },
+        {
+          question: '¿Cómo hago un True Reset?',
+          answer:
+            'Puedes editar tu save para restaurar el estado previo o resetear los flags en undertale.ini.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Guía de edición GameMaker', url: '/blog/gamemaker-save-editing-guide' },
+      ],
+    },
+    {
+      slug: 'ddlc',
+      name: 'Doki Doki Literature Club',
+      seoDescription:
+        'Editor de Partidas DDLC. Edita archivos .save, datos persistentes y palabras de poemas. Desbloquea CGs y Finales online.',
+      seoContent: `
+        <h2>Editor de Datos y Saves de DDLC</h2>
+        <p>En Doki Doki Literature Club, manipular archivos es parte del juego. Este editor te permite modificar los datos <code>.save</code> de Ren'Py y el archivo <code>persistent</code>.</p>
+        <h3>Desbloquea Todo</h3>
+        <p>Editando los datos <code>persistent</code>, puedes desbloquear instantáneamente todas las CGs (imágenes) en la galería y pistas de música.</p>
+      `,
+      engine: "Ren'Py",
+      format: '.save, persistent',
+      editorPath: '/es/editor/renpy',
+      emoji: '📚',
+      image: '/images/games/ddlc.webp',
+      description: 'Una novela visual de terror psicológico que no es lo que parece.',
+      saveLocations: {
+        windows: '%appdata%\\RenPy\\DDLC-1454445547',
+        mac: '~/Library/RenPy/DDLC-1454445547',
+        linux: '~/.renpy/DDLC-1454445547',
+      },
+      editableItems: [
+        { icon: '📖', name: 'Progreso Historia', desc: 'Salta a cualquier capítulo' },
+        { icon: '📝', name: 'Variables Poema', desc: 'Cambia palabras de poemas' },
+        { icon: '❤️', name: 'Afinidad', desc: 'Modifica relación con personajes' },
+        { icon: '🖼️', name: 'Galería CG', desc: 'Desbloquea todas las imágenes' },
+      ],
+      faq: [
+        {
+          question: '¿Dónde está mi save de DDLC?',
+          answer:
+            'Windows: %appdata%\\RenPy\\DDLC-1454445547. Para DDLC Plus: %appdata%\\..\\LocalLow\\Team Salvato',
+        },
+      ],
+      relatedGuides: [{ title: "Guía de edición Ren'Py", url: '/blog/renpy-save-editing-guide' }],
+    },
+    {
+      slug: 'hollow-knight',
+      name: 'Hollow Knight',
+      engine: 'Unity',
+      format: 'user#.dat',
+      editorPath: '/es/editor/unity',
+      emoji: '🪲',
+      image: '/images/games/hollow-knight.webp',
+      description: 'El aclamado Metroidvania de Team Cherry.',
+      saveLocations: {
+        windows: '%appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight',
+        mac: '~/Library/Application Support/unity.Team Cherry.Hollow Knight',
+        linux: '~/.config/unity3d/Team Cherry/Hollow Knight',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Geo', desc: 'Edita tu moneda' },
+        { icon: '❤️', name: 'Máscaras', desc: 'Modifica HP máximo' },
+        { icon: '💎', name: 'Alma', desc: 'Cambia medidor de alma' },
+        { icon: '🗡️', name: 'Aguijón', desc: 'Desbloquea mejoras de aguijón' },
+        { icon: '✨', name: 'Amuletos', desc: 'Edita muescas y amuletos' },
+      ],
+      faq: [
+        {
+          question: '¿Dónde están los saves de Hollow Knight?',
+          answer:
+            'Windows: %appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight. Archivos user1.dat, etc.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Cómo editar saves de Unity', url: '/blog/how-to-edit-unity-saves' },
+      ],
+    },
+    {
+      slug: 'rpg-maker',
+      name: 'Juegos RPG Maker',
+      engine: 'RPG Maker (MV/MZ/VX Ace/XP)',
+      format: '.rpgsave, .rvdata2',
+      editorPath: '/es/editor/rpg-maker-mv',
+      emoji: '⚔️',
+      image: '/images/games/hollow-knight.webp',
+      description: 'Miles de juegos creados con la serie RPG Maker.',
+      saveLocations: {
+        windows: 'Carpeta del juego/www/save o Carpeta del juego/save',
+        mac: 'Game.app/Contents/Resources/app.nw/save',
+        linux: 'Carpeta del juego/save',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Oro', desc: 'Edita oro del equipo' },
+        { icon: '👥', name: 'Stats Equipo', desc: 'Cambia HP, MP, Nivel, EXP' },
+        { icon: '🎒', name: 'Inventario', desc: 'Añade y elimina objetos' },
+        { icon: '⚔️', name: 'Equipamiento', desc: 'Modifica armas y armaduras' },
+        { icon: '✨', name: 'Habilidades', desc: 'Aprende cualquier habilidad' },
+        { icon: '🎮', name: 'Interruptores', desc: 'Edita lógica del juego' },
+      ],
+      faq: [
+        {
+          question: '¿Dónde están los saves de RPG Maker?',
+          answer:
+            'La mayoría en www/save dentro del directorio del juego. Juegos de navegador usan localStorage.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Cómo editar saves de RPG Maker', url: '/blog/how-to-edit-rpg-maker-save' },
+      ],
+    },
+  ];
+
+  return games.map((game) => ({
+    params: { slug: game.slug },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+const siteOrigin = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
+const absUrl = (path: string) =>
+  new URL(path.endsWith('/') ? path : `${path}/`, siteOrigin).toString();
+---
+
+<BaseLayout
+  title={`Editor de Partidas ${game.name} - Editar Archivos ${game.format} Online Gratis`}
+  description={game.seoDescription ||
+    `Editor online gratuito para ${game.name}. Edita oro, objetos, estadisticas y más. Encuentra la ubicación del archivo de guardado y empieza a editar.`}
+  keywords={`${game.name.toLowerCase()} save editor, ${game.name.toLowerCase()} ubicacion save, ${game.name.toLowerCase()} editar partida, ${game.format} editor`}
+>
+  <!-- Hero Section -->
+  <section class="relative bg-slate-900 text-white overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src={game.image}
+        alt={`Fondo de ${game.name}`}
+        class="w-full h-full object-cover opacity-20 blur-sm"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/80 to-slate-900"
+      >
+      </div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-4 py-20 lg:py-28">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="mb-8 relative inline-block group">
+          <div
+            class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-cyan-600 rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-200"
+          >
+          </div>
+          <img
+            src={game.image}
+            alt={game.name}
+            class="relative w-full max-w-lg h-auto rounded-xl shadow-2xl border border-white/10 mx-auto transform transition hover:scale-[1.02]"
+          />
+          <div
+            class="absolute -top-6 -right-6 w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center text-4xl shadow-lg rotate-12"
+          >
+            {game.emoji}
+          </div>
+        </div>
+
+        <h1 class="text-5xl lg:text-7xl font-bold tracking-tight mb-6 mt-8">
+          Editor de Partidas
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+            >{game.name}</span
+          >
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          {game.description} Edita tus archivos de guardado online gratis.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">
+            Motor: {game.engine}
+          </span>
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">
+            Formato: {game.format}
+          </span>
+          <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">
+            ✓ 100% Gratis
+          </span>
+        </div>
+
+        <a
+          href={game.editorPath}
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg"
+        >
+          Empezar a Editar {game.name} →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- What Can You Edit Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          ¿Qué puedes editar en {game.name}?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            game.editableItems.map((item: { icon: string; name: string; desc: string }) => (
+              <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="text-3xl mb-3">{item.icon}</div>
+                <h3 class="font-bold text-gray-900 mb-2">{item.name}</h3>
+                <p class="text-gray-600 text-sm">{item.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Save File Location Section -->
+      <section class="mb-16 bg-gray-50 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">
+          📂 Ubicación del Archivo de Guardado de {game.name}
+        </h2>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded"
+                >Windows</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.windows}</code>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded"
+                >macOS</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.mac}</code>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="px-3 py-1 bg-orange-100 text-orange-700 text-sm font-medium rounded"
+                >Linux</span
+              >
+            </div>
+            <code class="text-sm text-gray-600 break-all">{game.saveLocations.linux}</code>
+          </div>
+        </div>
+        <p class="text-gray-500 text-sm mt-4">
+          💡 Consejo: Presiona Win+R en Windows y pega la ruta para acceder rápidamente.
+        </p>
+      </section>
+
+      <!-- How to Edit Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          Cómo Editar Partidas de {game.name}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              1
+            </div>
+            <h3 class="font-bold text-lg mb-2">Encuentra tu Save</h3>
+            <p class="text-gray-600">
+              Usa las rutas de arriba. ¡Haz una copia de seguridad primero!
+            </p>
+          </div>
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              2
+            </div>
+            <h3 class="font-bold text-lg mb-2">Sube y Edita</h3>
+            <p class="text-gray-600">
+              Arrastra tu archivo al editor. Modifica oro, objetos y stats.
+            </p>
+          </div>
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
+            >
+              3
+            </div>
+            <h3 class="font-bold text-lg mb-2">Descarga y Juega</h3>
+            <p class="text-gray-600">
+              Reemplaza el original con el archivo editado. ¡Lanza el juego!
+            </p>
+          </div>
+        </div>
+        <div class="text-center mt-8">
+          <a
+            href={game.editorPath}
+            class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors"
+          >
+            Abrir Editor de {game.name}
+          </a>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">Preguntas Frecuentes</h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {
+            game.faq.map((item: { question: string; answer: string }) => (
+              <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                  {item.question}
+                  <svg
+                    class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">{item.answer}</div>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Related Guides -->
+      {
+        game.relatedGuides.length > 0 && (
+          <section class="mb-16 bg-primary-50 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">📖 Guías Relacionadas</h2>
+            <div class="space-y-4">
+              {game.relatedGuides.map((guide: { title: string; url: string }) => (
+                <a
+                  href={guide.url}
+                  class="flex items-center justify-between p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300 transition-colors"
+                >
+                  <span class="font-medium text-gray-900">{guide.title}</span>
+                  <svg
+                    class="w-5 h-5 text-primary-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- Related Games (Cross-linking) -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Otros Juegos Populares</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {
+            game.slug !== 'stardew-valley' && (
+              <a
+                href="/es/games/stardew-valley"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🌾</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Stardew Valley
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'undertale' && (
+              <a
+                href="/es/games/undertale"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">❤️</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Undertale
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'ddlc' && (
+              <a
+                href="/es/games/ddlc"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">📚</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  DDLC
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'hollow-knight' && (
+              <a
+                href="/es/games/hollow-knight"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🪲</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Hollow Knight
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'rpg-maker' && (
+              <a
+                href="/es/games/rpg-maker"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">⚔️</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  RPG Maker
+                </span>
+              </a>
+            )
+          }
+        </div>
+        <div class="text-center mt-6">
+          <a href="/es/games" class="text-primary-600 hover:text-primary-700 font-medium">
+            Ver Todos los Juegos →
+          </a>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-4">¿Listo para editar tu partida de {game.name}?</h2>
+        <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+          100% gratis, sin descargas. Tus archivos nunca salen de tu dispositivo.
+        </p>
+        <a
+          href={game.editorPath}
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100 transition-colors"
+        >
+          Empezar a Editar Ahora →
+        </a>
+      </section>
+    </div>
+
+    {/* SEO Content Section */}
+    {
+      game.seoContent && (
+        <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <Fragment set:html={game.seoContent} />
+        </section>
+      )
+    }
+  </main>
+
+  <!-- SoftwareApplication Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://saveeditor.top/es/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Juegos',
+          item: 'https://saveeditor.top/es/games/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: game.name,
+          item: `https://saveeditor.top/es/games/${game.slug}/`,
+        },
+      ],
+    })}
+  />
+
+  <!-- FAQ Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    })}
+  />
+
+  <!-- SoftwareApplication Schema -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: `${game.name} Save Editor`,
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web Browser',
+      url: absUrl(`/es/games/${game.slug}`),
+      author: {
+        '@type': 'Organization',
+        name: 'Save Editor Online',
+        url: absUrl('/es/'),
+      },
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    })}
+  />
+</BaseLayout>

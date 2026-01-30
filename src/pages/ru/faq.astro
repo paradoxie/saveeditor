@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqCategories = [
+  {
+    title: 'Введение',
+    icon: '🚀',
+    questions: [
+      {
+        question: 'Что такое SaveEditor.top?',
+        answer:
+          "SaveEditor.top — это бесплатный браузерный инструмент для редактирования сохраненных игр. Он работает полностью в вашем браузере, поэтому файлы никогда не покидают ваше устройство. Поддерживает популярные движки, такие как RPG Maker, Unity, Ren'Py и Unreal Engine.",
+      },
+      {
+        question: 'Это безопасно?',
+        answer:
+          'Да. SaveEditor.top работает полностью в вашем веб-браузере (клиентский JavaScript). Ваши сохранения никогда не загружаются на сервер. Мы используем Google Analytics и AdSense для улучшения сайта и показа рекламы. См. Политику конфиденциальности.',
+      },
+      {
+        question: 'Нужна ли регистрация?',
+        answer:
+          'Нет. SaveEditor.top не требует регистрации, входа или личной информации. Просто загрузите файл и начните редактировать мгновенно.',
+      },
+      {
+        question: 'Это правда бесплатно?',
+        answer:
+          'Да, на 100% бесплатно. До 50 МБ на файл, без ограничений по количеству редактирований. Мы поддерживаемся за счет добровольных пожертвований и ненавязчивой рекламы.',
+      },
+    ],
+  },
+  {
+    title: 'Игры и форматы',
+    icon: '🎮',
+    questions: [
+      {
+        question: 'Какие игры можно редактировать?',
+        answer:
+          "Мы поддерживаем тысячи игр на разных движках. Популярные названия включают Stardew Valley, Undertale, Hollow Knight, Doki Doki Literature Club, Celeste, Omori и многие игры на RPG Maker, Ren'Py, Unity и GameMaker.",
+      },
+      {
+        question: 'Какие форматы файлов поддерживаются?',
+        answer:
+          "RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav), GameMaker (.ini, .json), NaniNovel (.nson) и общие форматы JSON/XML.",
+      },
+      {
+        question: 'Можно ли редактировать сохранения с консолей (PS, Xbox, Switch)?',
+        answer:
+          'К сожалению, сохранения с консолей зашифрованы платформенным DRM и не могут быть отредактированы. Наш редактор предназначен только для файлов ПК/Mac/Linux.',
+      },
+    ],
+  },
+  {
+    title: 'Расположение файлов',
+    icon: '📂',
+    questions: [
+      {
+        question: 'Где мои сохранения на Windows?',
+        answer:
+          'Обычные места: %AppData% (Win+R и введите %appdata%), %LocalAppData%, Documents/My Games или папка установки игры. Для игр Steam проверьте Steam/userdata/[ID]/[GameID]/.',
+      },
+      {
+        question: 'Где мои сохранения на Mac?',
+        answer:
+          "Большинство игр находятся в ~/Library/Application Support/. Для Unity: ~/Library/Application Support/unity.[Company].[Game]. Для Ren'Py: ~/Library/RenPy/[GameName].",
+      },
+      {
+        question: 'Где мои сохранения на Linux?',
+        answer:
+          'Большинство сохраняются в ~/.config/[GameName] или ~/.local/share/[GameName]. Для игр Steam через Proton проверьте ~/.steam/steam/steamapps/compatdata/[GameID]/pfx/.',
+      },
+    ],
+  },
+  {
+    title: 'Редактирование',
+    icon: '✏️',
+    questions: [
+      {
+        question: 'Как изменить золото/деньги?',
+        answer:
+          "Загрузите файл, найдите поля, такие как 'gold', 'money', 'currency', 'coins'. Измените значение на желаемое. Для RPG Maker ищите '_gold' в данных группы.",
+      },
+      {
+        question: 'Как добавить предметы в инвентарь?',
+        answer:
+          'Найдите массив инвентаря/предметов. В RPG Maker предметы хранятся как пары [ItemID, Количество]. Добавьте новую запись, следуя существующему формату.',
+      },
+      {
+        question: 'Сломает ли редактирование мою игру?',
+        answer:
+          'Наш редактор проверяет изменения, чтобы предотвратить очевидные ошибки, но экстремальные правки могут вызвать проблемы. Всегда делайте резервную копию перед началом!',
+      },
+    ],
+  },
+  {
+    title: 'Устранение неполадок',
+    icon: '🔧',
+    questions: [
+      {
+        question: 'Почему пишет "Неверный файл"?',
+        answer:
+          'Игра может использовать неподдерживаемый формат, шифрование или сжатие. Попробуйте: 1) Выбрать другой тип редактора вручную, 2) Проверить, что это настоящий файл сохранения, 3) Игра может использовать собственную кодировку.',
+      },
+      {
+        question: 'Игра не загружает отредактированное сохранение!',
+        answer:
+          'Частые решения: 1) Убедитесь, что заменили правильный файл, 2) Проверьте, не восстановил ли Steam Cloud оригинал, 3) В некоторых играх есть контрольные суммы — попробуйте меньшие правки, 4) Восстановите резервную копию.',
+      },
+      {
+        question: 'Можно ли отменить изменения?',
+        answer:
+          'После скачивания изменения необратимы. Всегда сохраняйте резервную копию! Если ее нет, проверьте облачные сохранения или создает ли игра файлы .bak.',
+      },
+    ],
+  },
+];
+
+const allQuestions = faqCategories.flatMap((cat) => cat.questions);
+---
+
+<BaseLayout
+  title="Часто задаваемые вопросы - FAQ по редактированию"
+  description="Ответы на частые вопросы о SaveEditor.top. Расположение файлов, редактирование данных, устранение неполадок и многое другое."
+  keywords="faq редактор сохранений, помощь save editing, где лежат сохранения, гайд по редактированию"
+>
+  <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >Часто задаваемые вопросы</span
+        >
+      </h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        Всё, что нужно знать о редактировании сохранений на SaveEditor.top
+      </p>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+      <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Перейти к разделу</h2>
+        <div class="flex flex-wrap gap-3">
+          {
+            faqCategories.map((category, index) => (
+              <a
+                href={`#section-${index}`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
+              >
+                <span>{category.icon}</span>
+                <span>{category.title}</span>
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+
+      {
+        faqCategories.map((category, catIndex) => (
+          <section id={`section-${catIndex}`} class="mb-12">
+            <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
+              <span class="text-3xl">{category.icon}</span>
+              {category.title}
+            </h2>
+            <div class="space-y-4">
+              {category.questions.map((faq) => (
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                  <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+                    {faq.question}
+                    <svg
+                      class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </summary>
+                  <div class="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
+        <h2 class="text-2xl font-bold mb-4">Остались вопросы?</h2>
+        <p class="text-gray-300 mb-6">
+          Не нашли то, что искали? Проверьте наши гайды по играм или свяжитесь с нами.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/games"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+            >Смотреть игры</a
+          >
+          <a
+            href="/ru/contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
+            >Связаться</a
+          >
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQuestions.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    })}
+  />
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://saveeditor.top/ru/' },
+        { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/ru/faq/' },
+      ],
+    })}
+  />
+</BaseLayout>
