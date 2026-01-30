@@ -153,17 +153,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
   <script>
     const form = document.getElementById('contact-form') as HTMLFormElement;
-    const successMessage = document.getElementById('success-message');
 
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        // Simulate form submission
-        setTimeout(() => {
-          form.reset();
-          successMessage?.classList.remove('hidden');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 1000);
+
+        const formData = new FormData(form);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const subject = formData.get('subject');
+        const message = formData.get('message');
+
+        const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
+        const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+
+        window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
       });
     }
   </script>
