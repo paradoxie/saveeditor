@@ -4,9 +4,11 @@ import ReactJson from 'react-json-view';
 interface JsonEditorProps {
     data: object;
     onChange: (newData: object) => void;
+    readOnly?: boolean;
+    canEdit?: (path: Array<string | number>, value: any, action: 'edit' | 'add' | 'delete') => boolean;
 }
 
-export default function JsonEditor({ data, onChange }: JsonEditorProps) {
+export default function JsonEditor({ data, onChange, readOnly = false, canEdit }: JsonEditorProps) {
     const [searchTerm, setSearchTerm] = React.useState('');
     const [matches, setMatches] = React.useState<Set<string>>(new Set());
 
@@ -64,14 +66,26 @@ export default function JsonEditor({ data, onChange }: JsonEditorProps) {
     }, [searchTerm, data]);
 
     const handleEdit = (edit: any) => {
+        if (readOnly) return false;
+        if (canEdit && !canEdit([...edit.namespace, edit.name], edit.new_value, 'edit')) {
+            return false;
+        }
         onChange(edit.updated_src);
     };
 
     const handleAdd = (add: any) => {
+        if (readOnly) return false;
+        if (canEdit && !canEdit([...add.namespace, add.name], add.new_value, 'add')) {
+            return false;
+        }
         onChange(add.updated_src);
     };
 
     const handleDelete = (del: any) => {
+        if (readOnly) return false;
+        if (canEdit && !canEdit([...del.namespace, del.name], del.existing_value, 'delete')) {
+            return false;
+        }
         onChange(del.updated_src);
     };
 
@@ -112,9 +126,9 @@ export default function JsonEditor({ data, onChange }: JsonEditorProps) {
                 <ReactJson
                     src={data}
                     theme="monokai"
-                    onEdit={handleEdit}
-                    onAdd={handleAdd}
-                    onDelete={handleDelete}
+                    onEdit={readOnly ? false : handleEdit}
+                    onAdd={readOnly ? false : handleAdd}
+                    onDelete={readOnly ? false : handleDelete}
                     displayDataTypes={false}
                     displayObjectSize={true}
                     enableClipboard={true}

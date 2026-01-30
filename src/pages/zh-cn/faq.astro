@@ -14,7 +14,7 @@ const faqCategories = [
       {
         question: '这个工具安全吗？',
         answer:
-          '是的，100% 安全。与可能包含恶意软件的可下载编辑器不同，SaveEditor.top 完全在您的网络浏览器中运行（客户端 JavaScript）。您的存档文件永远不会上传到任何服务器。',
+          '是的。SaveEditor.top 完全在您的网络浏览器中运行（客户端 JavaScript）。您的存档文件永远不会上传到任何服务器。我们会使用 Google Analytics 和 AdSense 进行站点分析与广告展示，详情请查看隐私与 Cookie 政策。',
       },
       {
         question: '需要创建账户吗？',
@@ -24,7 +24,7 @@ const faqCategories = [
       {
         question: '这真的免费吗？',
         answer:
-          '是的，完全免费，没有隐藏费用、高级版本或功能限制。我们通过可选捐赠和非侵入性广告来支持运营。',
+          '是的，完全免费。每个文件最大 50MB，且编辑次数不受限制。我们通过可选捐赠和非侵入性广告来支持运营。',
       },
     ],
   },
@@ -239,7 +239,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         <p class="text-gray-300 mb-6">找不到您需要的内容？查看我们的游戏专题指南或联系我们。</p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
-            href="/zh-cn/games"
+            href="/games"
             class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
             >浏览游戏</a
           >

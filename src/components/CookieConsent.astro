@@ -15,13 +15,19 @@ const t = useTranslations(lang);
     <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base text-center md:text-left">
       {t('cookie.consent')}
     </p>
-    <div class="flex gap-4 items-center">
+    <div class="flex gap-3 items-center">
       <a
         href={`/${lang === 'en' ? '' : lang + '/'}cookie-policy`}
         class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium text-sm whitespace-nowrap"
       >
         {t('cookie.learnMore')}
       </a>
+      <button
+        id="cookie-reject"
+        class="border border-gray-300 text-gray-700 dark:text-gray-200 dark:border-gray-600 px-5 py-2 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700"
+      >
+        {t('cookie.reject')}
+      </button>
       <button
         id="cookie-accept"
         class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg text-sm font-bold transition-colors whitespace-nowrap"
@@ -35,7 +41,13 @@ const t = useTranslations(lang);
 <script>
   const cookieConsent = document.getElementById('cookie-consent');
   const acceptButton = document.getElementById('cookie-accept');
-  const storageKey = 'cookie-consent-accepted';
+  const rejectButton = document.getElementById('cookie-reject');
+  const storageKey = 'cookie-consent';
+  const legacyKey = 'cookie-consent-accepted';
+
+  if (localStorage.getItem(legacyKey) && !localStorage.getItem(storageKey)) {
+    localStorage.setItem(storageKey, 'accepted');
+  }
 
   if (!localStorage.getItem(storageKey)) {
     // Show banner after a small delay
@@ -49,10 +61,20 @@ const t = useTranslations(lang);
   }
 
   acceptButton?.addEventListener('click', () => {
-    localStorage.setItem(storageKey, 'true');
+    localStorage.setItem(storageKey, 'accepted');
     cookieConsent?.classList.add('translate-y-full');
     setTimeout(() => {
       cookieConsent?.classList.add('hidden');
     }, 300);
+    window.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: 'accepted' }));
+  });
+
+  rejectButton?.addEventListener('click', () => {
+    localStorage.setItem(storageKey, 'rejected');
+    cookieConsent?.classList.add('translate-y-full');
+    setTimeout(() => {
+      cookieConsent?.classList.add('hidden');
+    }, 300);
+    window.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: 'rejected' }));
   });
 </script>

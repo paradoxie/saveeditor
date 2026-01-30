@@ -21,10 +21,27 @@ export async function parseGamemaker(file: File): Promise<any> {
     const ini: Record<string, any> = {};
     let currentSection = 'default';
     let isIni = false;
+    let pendingKey: string | null = null;
+    let pendingValue = '';
 
     for (const line of lines) {
         const trimmed = line.trim();
         if (!trimmed || trimmed.startsWith(';') || trimmed.startsWith('#')) continue;
+
+        // Handle multiline values ending with backslash
+        if (pendingKey) {
+            pendingValue += trimmed;
+            if (pendingValue.endsWith('\\')) {
+                pendingValue = pendingValue.slice(0, -1);
+                continue;
+            }
+            if (!ini[currentSection]) ini[currentSection] = {};
+            ini[currentSection][pendingKey] = coerceIniValue(unquoteIni(pendingValue));
+            pendingKey = null;
+            pendingValue = '';
+            isIni = true;
+            continue;
+        }
 
         if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
             currentSection = trimmed.slice(1, -1);
@@ -39,15 +56,15 @@ export async function parseGamemaker(file: File): Promise<any> {
             let value = match[2].trim();
 
             // Remove quotes if present
-            if (value.startsWith('"') && value.endsWith('"')) {
-                value = value.slice(1, -1);
+            if (value.endsWith('\\')) {
+                pendingKey = key;
+                pendingValue = value.slice(0, -1);
+                continue;
             }
 
             if (!ini[currentSection]) ini[currentSection] = {};
 
-            // Try to parse number
-            const num = Number(value);
-            ini[currentSection][key] = !isNaN(num) ? num : value;
+            ini[currentSection][key] = coerceIniValue(unquoteIni(value));
             isIni = true;
         }
     }
@@ -58,6 +75,22 @@ export async function parseGamemaker(file: File): Promise<any> {
 
     // If neither, return raw text
     return { type: 'raw', data: text };
+}
+
+function unquoteIni(value: string): string {
+    const trimmed = value.trim();
+    if (trimmed.startsWith('"') && trimmed.endsWith('"')) {
+        const inner = trimmed.slice(1, -1);
+        return inner.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+    }
+    return trimmed;
+}
+
+function coerceIniValue(value: string): any {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    const num = Number(value);
+    return !isNaN(num) && value !== '' ? num : value;
 }
 
 export async function buildGamemaker(originalFile: File, parsed: { type: string, data: any }): Promise<Blob> {

@@ -1,7 +1,9 @@
 import plist from 'plist';
 
 export async function parseUnity(file: File): Promise<any> {
-    const text = await file.text();
+    const buffer = await file.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
 
     // Detection
     if (text.trim().startsWith('<?xml') && text.includes('<!DOCTYPE plist')) {
@@ -54,6 +56,10 @@ export async function parseUnity(file: File): Promise<any> {
             throw new Error("Failed to parse Unity XML: " + e.message);
         }
     } else {
+        const hasBinary = bytes.some((b) => b === 0);
+        if (hasBinary) {
+            throw new Error("Unsupported Unity format: binary PlayerPrefs is not supported.");
+        }
         throw new Error("Unsupported Unity format. Only XML and Plist are supported.");
     }
 }

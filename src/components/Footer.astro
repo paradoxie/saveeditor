@@ -70,10 +70,7 @@ const currentYear = new Date().getFullYear();
         <h4 class="font-bold text-gray-900 mb-4">{t('footer.resources')}</h4>
         <ul class="space-y-2 text-sm text-gray-600">
           <li>
-            <a
-              href={`/${lang === 'en' ? '' : lang + '/'}games`}
-              class="hover:text-primary-600 transition-colors">{t('footer.allGames')}</a
-            >
+            <a href="/games" class="hover:text-primary-600 transition-colors">{t('footer.allGames')}</a>
           </li>
           <li>
             <a

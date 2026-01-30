@@ -28,7 +28,7 @@ export async function getStaticPaths() {
     {
       slug: 'unity',
       name: 'Unity',
-      fileType: '.xml, .plist, .prefs',
+      fileType: '.xml, .plist',
       title: 'Editor de Save Unity | Editar PlayerPrefs Online',
       description:
         'Editor de save Unity online gratuito. Modifique Unity PlayerPrefs (.xml, .plist) para jogos Android, iOS e PC. Sem download.',
@@ -53,20 +53,20 @@ export async function getStaticPaths() {
       fileType: '.save',
       title: "Editor de Save Ren'Py | Editar Arquivos de Save Online",
       description:
-        "Editor de arquivos de save Ren'Py online. Analise e edite arquivos .save, modifique o estado do jogo, variáveis e flags. Salvamento experimental com formato Protocol 0 Pickle.",
+        "Editor de arquivos de save Ren'Py online. Analise e edite arquivos .save, modifique o estado do jogo, variáveis e flags. Salvamento é experimental.",
       keywords:
         'editor de save renpy, modificador de save renpy, editar arquivo save renpy, editor arquivo .save',
       features: [
         "Visualizar e Editar Dados de Save Ren'Py",
         'Modificar Variáveis e Flags do Jogo',
         'Inspecionar Histórico e Tempo de Jogo',
-        'Suporte Experimental de Salvamento (Protocol 0 Pickle)',
+        'Salvamento experimental (pode corromper arquivos)',
       ],
       instructions: [
         "Encontre seus arquivos de save Ren'Py (geralmente em `game/saves/`)",
         'Envie o arquivo `.save`',
         'Edite o estado do jogo e variáveis',
-        "⚠️ Nota: O salvamento é experimental. Ren'Py 8.0+ pode rejeitar saves modificados devido a verificações de segurança.",
+        "⚠️ Nota: Salvamento é experimental e pode corromper arquivos. Ative apenas se você entender o risco.",
       ],
     },
     {
@@ -88,7 +88,7 @@ export async function getStaticPaths() {
         'Localize seu arquivo `.sav` no diretório de save do jogo',
         'Envie o arquivo para o editor',
         'Modifique a estrutura JSON dos dados de save',
-        'Baixe o arquivo `.sav` modificado',
+        'Salvar pode ser instável. Recomendamos ferramentas dedicadas para Unreal.',
       ],
     },
     {

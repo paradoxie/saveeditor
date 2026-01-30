@@ -28,7 +28,7 @@ export async function getStaticPaths() {
     {
       slug: 'unity',
       name: 'Unity',
-      fileType: '.xml, .plist, .prefs',
+      fileType: '.xml, .plist',
       title: 'Unity 存档编辑器 | 在线编辑 PlayerPrefs',
       description:
         '免费在线 Unity 存档编辑器。修改 Android、iOS 和 PC 游戏的 Unity PlayerPrefs (.xml, .plist)。无需下载。',
@@ -52,19 +52,19 @@ export async function getStaticPaths() {
       fileType: '.save',
       title: "Ren'Py 存档编辑器 | 在线编辑存档文件",
       description:
-        "在线 Ren'Py 存档文件编辑器。解析和编辑 .save 文件，修改游戏状态、变量和标记。支持 Protocol 0 Pickle 格式的实验性保存功能。",
+        "在线 Ren'Py 存档文件编辑器。解析和编辑 .save 文件，修改游戏状态、变量和标记。保存为实验性功能。",
       keywords: "Ren'Py 存档编辑器, Ren'Py 存档修改, .save 文件编辑",
       features: [
         "查看和编辑 Ren'Py 存档数据",
         '修改游戏变量和标记',
         '检查历史记录和游戏时间',
-        '实验性保存支持 (Protocol 0 Pickle)',
+        '实验性保存（可能损坏文件）',
       ],
       instructions: [
         "找到您的 Ren'Py 存档文件 (通常在 `game/saves/`)",
         '上传 `.save` 文件',
         '编辑游戏状态和变量',
-        "⚠️ 注意：保存功能为实验性。Ren'Py 8.0+ 可能因安全检查拒绝修改后的存档。",
+        "⚠️ 注意：保存为实验性功能，可能导致损坏。仅在理解风险后启用。",
       ],
     },
     {
@@ -85,7 +85,7 @@ export async function getStaticPaths() {
         '在游戏存档目录中找到 `.sav` 文件',
         '将文件上传到编辑器',
         '修改存档数据的 JSON 结构',
-        '下载修改后的 `.sav` 文件',
+        '保存可能不稳定，建议使用 Unreal 专用工具。',
       ],
     },
     {

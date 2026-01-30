@@ -60,23 +60,81 @@ const structuredData = [
                    connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com;"
     />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K67NRPJ1VR" is:inline></script>
+    <!-- Consent-gated Analytics/Ads -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-K67NRPJ1VR');
-    </script>
+      (function () {
+        const CONSENT_KEY = 'cookie-consent';
+        const CONSENT_ACCEPTED = 'accepted';
+        const GA_ID = 'G-K67NRPJ1VR';
+        const ADS_CLIENT = 'ca-pub-1703945044985159';
 
-    <!-- Google AdSense -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1703945044985159"
-      crossorigin="anonymous"
-      is:inline></script>
+        const ensureDataLayer = () => {
+          window.dataLayer = window.dataLayer || [];
+          if (!window.gtag) {
+            window.gtag = function () {
+              window.dataLayer.push(arguments);
+            };
+          }
+        };
+
+        const setDefaultConsent = () => {
+          ensureDataLayer();
+          window.gtag('consent', 'default', {
+            ad_storage: 'denied',
+            analytics_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+        };
+
+        const grantConsent = () => {
+          ensureDataLayer();
+          window.gtag('consent', 'update', {
+            ad_storage: 'granted',
+            analytics_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+          });
+        };
+
+        const loadGtag = () => {
+          if (window.__gaLoaded) return;
+          window.__gaLoaded = true;
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(script);
+          window.gtag('js', new Date());
+          window.gtag('config', GA_ID);
+        };
+
+        const loadAdSense = () => {
+          if (window.__adsLoaded) return;
+          window.__adsLoaded = true;
+          const script = document.createElement('script');
+          script.async = true;
+          script.src =
+            'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + ADS_CLIENT;
+          script.crossOrigin = 'anonymous';
+          document.head.appendChild(script);
+        };
+
+        const applyConsent = (value) => {
+          setDefaultConsent();
+          if (value === CONSENT_ACCEPTED) {
+            grantConsent();
+            loadGtag();
+            loadAdSense();
+          }
+        };
+
+        applyConsent(localStorage.getItem(CONSENT_KEY));
+
+        window.addEventListener('cookie-consent-changed', (event) => {
+          applyConsent(event?.detail || null);
+        });
+      })();
+    </script>
 
     <!-- SEO Meta -->
     <title>{title}</title>

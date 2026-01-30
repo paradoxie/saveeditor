@@ -45,13 +45,17 @@ export async function parseUnreal(file: File): Promise<any> {
         const gvas = new Gvas();
         gvas.deserialize(serializer);
 
-        return gvas;
+        return {
+            ...gvas,
+            _unrealParseStatus: 'ok'
+        };
     } catch (e: any) {
         console.warn("uesavetool failed or not compatible:", e);
         // Fallback: Return raw data with GVAS type
         return {
             type: 'GVAS (Unreal Engine)',
             _note: 'Full parsing failed or library incompatible with browser. Raw data available.',
+            _unrealParseStatus: 'partial',
             header: 'GVAS',
             size: buffer.length
         };

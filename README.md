@@ -5,7 +5,7 @@
 [![Built with Astro](https://astro.new/ux/badge-blue.svg)](https://astro.build)
 
 **The universal, privacy-focused online save file editor.**  
-Edit your game saves directly in your browser. No uploads, no data collection, 100% local processing.
+Edit your game saves directly in your browser. Save files stay local; site analytics/ads may use cookies.
 
 👉 **Start Editing Now:** [https://saveeditor.top](https://saveeditor.top)
 
@@ -13,7 +13,7 @@ Edit your game saves directly in your browser. No uploads, no data collection, 1
 
 ## ✨ Features
 
-*   **🔒 100% Private**: All logic runs client-side using WebAssembly and JavaScript. Your save files never leave your device.
+*   **🔒 100% Private (Save Files)**: All logic runs client-side using WebAssembly and JavaScript. Your save files never leave your device.
 *   **🌍 Universal Support**:
     *   **RPG Maker** (MV/MZ `.rpgsave`)
     *   **Unity** (PlayerPrefs, JSON, XML)
