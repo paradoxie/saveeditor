@@ -4,7 +4,7 @@ description: "RPGツクールのセーブファイル構造を完全解説。.rp
 pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]
 author: "SaveEditor Team"
-image: "/images/blog/rpg-maker-cover.webp"
+image: "/images/blog/rpg-maker-structure-cover-v2.png"
 ---
 
 ## はじめに
@@ -24,6 +24,8 @@ RPGツクールは数十年にわたりゲームクリエイターを支えて�
 ## RPGツクール MV/MZ セーブ構造
 
 MV と MZ のセーブは最も一般的で編集しやすいです。Base64 エンコードされた JSON を使用します。
+
+![システム、パーティ、アクター、マップノードを含むRPGツクールJSONセーブファイル構造の図](/images/blog/rpg-maker-structure-content.webp)
 
 ### 基本構造
 

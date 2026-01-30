@@ -13,6 +13,8 @@ image: "/images/blog/unreal-cover.webp"
 
 무료 온라인 **Palworld 세이브 에디터** 를 사용하면 의심스러운 소프트웨어를 다운로드하지 않고도 게임을 쉽게 수정할 수 있습니다. 모든 처리는 브라우저에서 이루어지므로 세이브 파일이 컴퓨터를 떠나지 않습니다.
 
+![플레이어 통계와 인벤토리를 보여주는 팰월드 세이브 에디터 인터페이스](/images/blog/palworld-content.webp)
+
 ## 세이브 파일 위치
 
 ### Windows (Steam)

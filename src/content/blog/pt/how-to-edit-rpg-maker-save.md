@@ -5,7 +5,7 @@ pubDate: 2026-01-03
 author: "Save Editor Team"
 tags: ["RPG Maker", "tutorial", "rpgsave", "guia"]
 lang: "pt"
-image: "/images/blog/rpg-maker-cover.webp"
+image: "/images/blog/rpg-maker-guide-cover-v2.png"
 ---
 
 ## Introdução

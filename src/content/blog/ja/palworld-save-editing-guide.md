@@ -13,6 +13,8 @@ image: "/images/blog/unreal-cover.webp"
 
 無料オンライン **Palworld セーブエディタ** を使えば、怪しいソフトウェアをダウンロードすることなくゲームを簡単に変更できます。すべての処理はブラウザで行われ、セーブファイルはあなたのコンピュータから離れることはありません。
 
+![プレイヤーステータスとインベントリを表示するPalworldセーブエディタのインターフェース](/images/blog/palworld-content.webp)
+
 ## セーブファイルの場所
 
 ### Windows (Steam)

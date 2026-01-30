@@ -13,6 +13,8 @@ image: "/images/blog/unreal-cover.webp"
 
 我们的免费在线 **Palworld 存档编辑器** 让修改游戏变得简单，无需下载任何可疑软件。所有处理都在你的浏览器中进行，存档文件永远不会离开你的电脑。
 
+![Palworld 存档编辑器界面显示的玩家属性和背包](/images/blog/palworld-content.webp)
+
 ## 存档文件位置
 
 ### Windows (Steam)

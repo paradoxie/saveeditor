@@ -5,7 +5,7 @@ pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guia", "técnico"]
 author: "SaveEditor Team"
 lang: "pt"
-image: "/images/blog/rpg-maker-cover.webp"
+image: "/images/blog/rpg-maker-structure-cover-v2.png"
 ---
 
 ## Introdução
@@ -27,6 +27,8 @@ Este guia detalha exatamente como o RPG Maker armazena dados de save, o que cada
 ## Estrutura de Save RPG Maker MV/MZ
 
 Saves MV e MZ são os mais comuns e fáceis de editar. Eles usam JSON codificado em Base64.
+
+![Diagrama visualizando a estrutura do arquivo de save JSON do RPG Maker com nós de Sistema, Grupo, Atores e Mapa](/images/blog/rpg-maker-structure-content.webp)
 
 ### Estrutura Básica
 

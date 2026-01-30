@@ -4,7 +4,7 @@ description: "全面了解 RPG Maker 存档文件结构。学习 .rpgsave、.rmm
 pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]
 author: "SaveEditor Team"
-image: "/images/blog/rpg-maker-cover.webp"
+image: "/images/blog/rpg-maker-structure-cover-v2.png"
 ---
 
 ## 简介
@@ -26,6 +26,8 @@ RPG Maker 数十年来一直在赋能游戏创作者，从 MV 和 MZ 到 VX Ace 
 ## RPG Maker MV/MZ 存档结构
 
 MV 和 MZ 存档是最常见且最容易编辑的，它们使用 Base64 编码的 JSON。
+
+![RPG Maker JSON 存档文件结构的可视化图表](/images/blog/rpg-maker-structure-content.webp)
 
 ### 基本结构
 

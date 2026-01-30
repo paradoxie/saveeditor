@@ -4,7 +4,7 @@ description: "RPG 만들기 세이브 파일 구조를 완전 해설. .rpgsave, 
 pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]
 author: "SaveEditor Team"
-image: "/images/blog/rpg-maker-cover.webp"
+image: "/images/blog/rpg-maker-structure-cover-v2.png"
 ---
 
 ## 소개
@@ -24,6 +24,8 @@ RPG 만들기는 수십 년간 게임 제작자들을 지원해 왔습니다. MV
 ## RPG 만들기 MV/MZ 세이브 구조
 
 MV와 MZ 세이브는 가장 일반적이고 편집하기 쉽습니다. Base64 인코딩된 JSON을 사용합니다.
+
+![시스템, 파티, 액터, 맵 노드가 포함된 RPG 만들기 JSON 세이브 파일 구조 다이어그램](/images/blog/rpg-maker-structure-content.webp)
 
 ### 기본 구조
 

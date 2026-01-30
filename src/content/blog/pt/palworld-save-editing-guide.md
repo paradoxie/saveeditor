@@ -14,6 +14,8 @@ image: "/images/blog/unreal-cover.webp"
 
 Nosso **editor de save Palworld** online e gratuito facilita a modificação do seu jogo sem baixar software suspeito. Todo o processamento acontece no seu navegador, então seus arquivos de save nunca saem do seu computador.
 
+![Interface do editor de save Palworld mostrando status do jogador e inventário](/images/blog/palworld-content.webp)
+
 ## Localização de Arquivos de Save do Palworld
 
 ### Windows (Steam)
