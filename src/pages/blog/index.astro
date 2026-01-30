@@ -21,7 +21,17 @@ const posts = (await getCollection('blog'))
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
         posts.map((post) => (
-          <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+          <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group">
+            {post.data.image && (
+              <div class="aspect-video w-full overflow-hidden bg-gray-100 relative">
+                <img
+                  src={post.data.image}
+                  alt={post.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+            )}
             <div class="p-6">
               <div class="flex items-center gap-2 mb-4">
                 {post.data.tags.map((tag) => (

@@ -6,7 +6,7 @@ const allPosts = await getCollection('blog');
 const localizedPosts = allPosts.filter((post) => post.slug.startsWith('es/'));
 const fallbackPosts = allPosts.filter((post) => !post.slug.includes('/'));
 const posts = (localizedPosts.length ? localizedPosts : fallbackPosts).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 const isFallback = localizedPosts.length === 0;
 const stripLangFromSlug = (slug: string) => slug.replace(/^es\//, '');
@@ -29,7 +29,17 @@ const getPostUrl = (slug: string) =>
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
         posts.map((post) => (
-          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow">
+          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow group">
+            {post.data.image && (
+              <div class="aspect-video w-full overflow-hidden bg-gray-100 dark:bg-gray-700 relative">
+                <img
+                  src={post.data.image}
+                  alt={post.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+            )}
             <div class="p-6">
               <div class="flex items-center gap-2 mb-4">
                 {post.data.tags.map((tag) => (
@@ -39,7 +49,10 @@ const getPostUrl = (slug: string) =>
                 ))}
               </div>
               <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
-                <a href={getPostUrl(post.slug)} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <a
+                  href={getPostUrl(post.slug)}
+                  class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
                   {post.data.title}
                 </a>
               </h2>

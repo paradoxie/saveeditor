@@ -280,21 +280,68 @@ const blogPosts = (await getCollection('blog'))
         <h2 class="text-3xl font-bold mb-12">{t('benefits.title')}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <div class="text-4xl mb-4">🔒</div>
+            <div
+              class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-2xl"
+            >
+              <svg
+                class="w-6 h-6 text-primary-400 opacity-80"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                ></path>
+              </svg>
+            </div>
             <h3 class="text-xl font-bold mb-2">{t('benefits.secure.title')}</h3>
             <p class="text-gray-400">
               {t('benefits.secure.desc')}
             </p>
           </div>
           <div>
-            <div class="text-4xl mb-4">⚡</div>
+            <div
+              class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-2xl"
+            >
+              <svg
+                class="w-6 h-6 text-amber-400 opacity-80"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
             <h3 class="text-xl font-bold mb-2">{t('benefits.universal.title')}</h3>
             <p class="text-gray-400">
               {t('benefits.universal.desc')}
             </p>
           </div>
           <div>
-            <div class="text-4xl mb-4">💸</div>
+            <div
+              class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-2xl"
+            >
+              <svg
+                class="w-6 h-6 text-green-400 opacity-80"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
             <h3 class="text-xl font-bold mb-2">{t('benefits.free.title')}</h3>
             <p class="text-gray-400">
               {t('benefits.free.desc')}
@@ -320,7 +367,13 @@ const blogPosts = (await getCollection('blog'))
             <div
               class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
             >
-              ⚔️
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
             </div>
             <h3 class="font-bold text-gray-900 text-sm">RPG Maker</h3>
             <p class="text-xs text-gray-400 mt-1">.rpgsave</p>
@@ -333,7 +386,13 @@ const blogPosts = (await getCollection('blog'))
             <div
               class="w-12 h-12 bg-gray-100 text-gray-700 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
             >
-              🧊
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+              </svg>
             </div>
             <h3 class="font-bold text-gray-900 text-sm">Unity</h3>
             <p class="text-xs text-gray-400 mt-1">PlayerPrefs</p>
@@ -346,7 +405,14 @@ const blogPosts = (await getCollection('blog'))
             <div
               class="w-12 h-12 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
             >
-              🌸
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                ></path>
+              </svg>
             </div>
             <h3 class="font-bold text-gray-900 text-sm">Ren'Py</h3>
             <p class="text-xs text-gray-400 mt-1">.save</p>
@@ -359,7 +425,14 @@ const blogPosts = (await getCollection('blog'))
             <div
               class="w-12 h-12 bg-slate-100 text-slate-700 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
             >
-              ⚫
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                ></path>
+              </svg>
             </div>
             <h3 class="font-bold text-gray-900 text-sm">Unreal</h3>
             <p class="text-xs text-gray-400 mt-1">.sav</p>
@@ -371,7 +444,19 @@ const blogPosts = (await getCollection('blog'))
             <div
               class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
             >
-              👾
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
             </div>
             <h3 class="font-bold text-gray-900 text-sm">GameMaker</h3>
             <p class="text-xs text-gray-400 mt-1">ini / json</p>
@@ -383,7 +468,14 @@ const blogPosts = (await getCollection('blog'))
             <div
               class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
             >
-              📝
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
             </div>
             <h3 class="font-bold text-gray-900 text-sm">NaniNovel</h3>
             <p class="text-xs text-gray-400 mt-1">.nson</p>
@@ -407,35 +499,70 @@ const blogPosts = (await getCollection('blog'))
             href={getPath('games/stardew-valley')}
             class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700 transition-all"
           >
-            <span class="text-lg">🌾</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+              ></path></svg
+            >
             <span class="font-medium">{t('games.stardewValley')}</span>
           </a>
           <a
             href={getPath('games/hollow-knight')}
             class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all"
           >
-            <span class="text-lg">🪲</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+              ></path></svg
+            >
             <span class="font-medium">{t('games.hollowKnight')}</span>
           </a>
           <a
             href={getPath('games/rpg-maker')}
             class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-red-300 hover:bg-red-50 hover:text-red-700 transition-all"
           >
-            <span class="text-lg">⚔️</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path></svg
+            >
             <span class="font-medium">{t('games.rpgMaker')}</span>
           </a>
           <a
             href={getPath('games/undertale')}
             class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-yellow-300 hover:bg-yellow-50 hover:text-yellow-700 transition-all"
           >
-            <span class="text-lg">❤️</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path></svg
+            >
             <span class="font-medium">{t('games.undertale')}</span>
           </a>
           <a
             href={getPath('games/ddlc')}
             class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-pink-300 hover:bg-pink-50 hover:text-pink-700 transition-all"
           >
-            <span class="text-lg">📚</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path></svg
+            >
             <span class="font-medium">{t('games.ddlc')}</span>
           </a>
           <a
