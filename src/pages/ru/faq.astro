@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import FaqIcon from '../../components/FaqIcon.astro';
 
 const faqCategories = [
   {
     title: 'Введение',
-    icon: '🚀',
+    icon: 'rocket',
     questions: [
       {
         question: 'Что такое SaveEditor.top?',
@@ -30,7 +31,7 @@ const faqCategories = [
   },
   {
     title: 'Игры и форматы',
-    icon: '🎮',
+    icon: 'game',
     questions: [
       {
         question: 'Какие игры можно редактировать?',
@@ -51,7 +52,7 @@ const faqCategories = [
   },
   {
     title: 'Расположение файлов',
-    icon: '📂',
+    icon: 'folder',
     questions: [
       {
         question: 'Где мои сохранения на Windows?',
@@ -72,7 +73,7 @@ const faqCategories = [
   },
   {
     title: 'Редактирование',
-    icon: '✏️',
+    icon: 'pencil',
     questions: [
       {
         question: 'Как изменить золото/деньги?',
@@ -93,7 +94,7 @@ const faqCategories = [
   },
   {
     title: 'Устранение неполадок',
-    icon: '🔧',
+    icon: 'wrench',
     questions: [
       {
         question: 'Почему пишет "Неверный файл"?',
@@ -146,7 +147,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
                 href={`#section-${index}`}
                 class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
               >
-                <span>{category.icon}</span>
+                <FaqIcon name={category.icon} class="w-4 h-4 text-primary-500" />
                 <span>{category.title}</span>
               </a>
             ))
@@ -158,7 +159,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         faqCategories.map((category, catIndex) => (
           <section id={`section-${catIndex}`} class="mb-12">
             <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
-              <span class="text-3xl">{category.icon}</span>
+              <FaqIcon name={category.icon} class="w-8 h-8 text-primary-500" />
               {category.title}
             </h2>
             <div class="space-y-4">
