@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../../i18n/utils';
 
 // Only show English posts (posts without language prefix in slug)
 const posts = (await getCollection('blog'))
@@ -47,7 +48,7 @@ const posts = (await getCollection('blog'))
               </h2>
               <p class="text-gray-600 mb-4 line-clamp-3 text-sm">{post.data.description}</p>
               <div class="flex items-center justify-between text-sm text-gray-500 mt-auto">
-                <span>{post.data.pubDate.toLocaleDateString()}</span>
+                <span>{formatDate(post.data.pubDate, 'en')}</span>
                 <span>{post.data.author}</span>
               </div>
             </div>

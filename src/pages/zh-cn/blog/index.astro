@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../../../i18n/utils';
 
 // Only show Chinese posts (posts with 'zh-cn/' prefix in slug)
 const posts = (await getCollection('blog'))
@@ -52,7 +53,7 @@ const stripLangFromSlug = (slug: string) => slug.replace(/^zh-cn\//, '');
               </h2>
               <p class="text-gray-600 mb-4 line-clamp-3 text-sm">{post.data.description}</p>
               <div class="flex items-center justify-between text-sm text-gray-500 mt-auto">
-                <span>{post.data.pubDate.toLocaleDateString('zh-CN')}</span>
+                <span>{formatDate(post.data.pubDate, 'zh-cn')}</span>
                 <span>{post.data.author}</span>
               </div>
             </div>

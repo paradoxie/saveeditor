@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-import { useTranslations } from '../../../i18n/utils';
+import { useTranslations, formatDate } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -134,7 +134,7 @@ const articleSlug = stripLangFromSlug(post.slug);
           {post.data.title}
         </h1>
         <div class="text-gray-500 flex items-center justify-center gap-4">
-          <span>{post.data.pubDate.toLocaleDateString()}</span>
+          <span>{formatDate(post.data.pubDate, lang)}</span>
           <span>•</span>
           <span>By {post.data.author}</span>
         </div>

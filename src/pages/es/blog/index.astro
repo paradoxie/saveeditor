@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../../../i18n/utils';
 
 const allPosts = await getCollection('blog');
 const localizedPosts = allPosts.filter((post) => post.slug.startsWith('es/'));
@@ -60,7 +61,7 @@ const getPostUrl = (slug: string) =>
                 {post.data.description}
               </p>
               <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mt-auto">
-                <span>{post.data.pubDate.toLocaleDateString('es-ES')}</span>
+                <span>{formatDate(post.data.pubDate, 'es')}</span>
                 <span>{post.data.author}</span>
               </div>
             </div>

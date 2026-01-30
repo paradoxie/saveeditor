@@ -23,3 +23,11 @@ export function getRouteFromUrl(url: URL): string | undefined {
     }
     return rest.join('/') || undefined; // Handle default locale case if needed, or adjust logic
 }
+
+export function formatDate(date: Date, lang: string): string {
+    return date.toLocaleDateString(lang, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+}
