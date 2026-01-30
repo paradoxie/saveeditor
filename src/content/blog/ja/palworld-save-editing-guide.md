@@ -4,7 +4,7 @@ description: "PC と Steam Deck で Palworld のセーブファイルを編集�
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
-image: "/images/blog/unreal-cover.webp"
+image: "/images/blog/palworld-guide-cover-v2.png"
 ---
 
 ## はじめに

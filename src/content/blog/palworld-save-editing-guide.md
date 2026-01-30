@@ -4,7 +4,7 @@ description: "Learn how to edit Palworld save files on PC and Steam Deck. Modify
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
-image: "/images/blog/palworld-cover.webp"
+image: "/images/blog/palworld-guide-cover-v2.png"
 ---
 
 ## Introduction

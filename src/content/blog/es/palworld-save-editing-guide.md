@@ -4,7 +4,7 @@ description: "Aprende a editar archivos de guardado de Palworld en PC y Steam De
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guía", "editor-sav"]
 author: "Equipo SaveEditor"
-image: "/images/blog/palworld-cover.webp"
+image: "/images/blog/palworld-guide-cover-v2.png"
 ---
 
 ## Introducción a la Edición de Guardados de Palworld

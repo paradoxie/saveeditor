@@ -4,7 +4,7 @@ description: "学习如何修改 Palworld 幻兽帕鲁存档文件。使用免�
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
-image: "/images/blog/unreal-cover.webp"
+image: "/images/blog/palworld-guide-cover-v2.png"
 ---
 
 ## 简介

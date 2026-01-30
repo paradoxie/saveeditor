@@ -5,7 +5,7 @@ pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guia", "sav-editor"]
 author: "SaveEditor Team"
 lang: "pt"
-image: "/images/blog/unreal-cover.webp"
+image: "/images/blog/palworld-guide-cover-v2.png"
 ---
 
 ## Introdução

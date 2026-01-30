@@ -4,7 +4,7 @@ description: "Узнайте, как редактировать файлы со�
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "руководство", "editor-sav"]
 author: "Команда SaveEditor"
-image: "/images/blog/palworld-cover.webp"
+image: "/images/blog/palworld-guide-cover-v2.png"
 ---
 
 ## Введение в редактирование сохранений Palworld
