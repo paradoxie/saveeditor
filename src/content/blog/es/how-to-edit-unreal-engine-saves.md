@@ -13,6 +13,8 @@ Unreal Engine (UE4 y UE5) es la potencia detrás de muchos de los juegos más gr
 
 A diferencia de motores más simples que usan archivos de texto, Unreal utiliza un formato binario complejo para los guardados, a menudo llamado **GVAS** (Game Variable Archive Save). No puedes simplemente abrir estos archivos en el Bloc de notas y esperar leerlos. Esta guía explica cómo funciona este formato y cómo puedes editarlos de manera segura.
 
+![Unreal Engine Save Editor Interface](/images/blog/unreal-content.webp)
+
 ## Entendiendo el Formato GVAS
 
 Un archivo típico `.sav` de Unreal Engine contiene:

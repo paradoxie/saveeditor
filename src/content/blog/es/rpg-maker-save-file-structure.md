@@ -4,7 +4,7 @@ description: "Análisis técnico profundo de la estructura de archivos de guarda
 pubDate: 2026-01-09
 tags: ["rpg-maker", "técnico", "json", "estructura-de-datos"]
 author: "Equipo SaveEditor"
-image: "/images/blog/rpg-maker-structure-cover.webp"
+image: "/images/blog/rpg-maker-cover.webp"
 ---
 
 ## Introducción
@@ -12,6 +12,8 @@ image: "/images/blog/rpg-maker-structure-cover.webp"
 Para los desarrolladores y entusiastas de la edición de guardados, entender el formato **.rpgsave** es crucial. A diferencia de los motores que utilizan bases de datos binarias complejas, RPG Maker MV y MZ utilizan un enfoque basado en web, aprovechando JSON para el almacenamiento de datos.
 
 Este artículo proporciona una inmersión técnica profunda en cómo RPG Maker estructura sus datos de guardado, maneja la compresión y organiza el estado del juego.
+
+![RPG Maker Save File Structure decoded showing JSON data](/images/blog/rpg-maker-structure-content.webp)
 
 ## Compresión y Codificación de Archivos
 

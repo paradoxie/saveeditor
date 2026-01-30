@@ -15,6 +15,8 @@ A diferencia de los guardados estándar de Unity, NaniNovel utiliza su propio fo
 
 Esta guía te llevará a través de la estructura interna de los archivos NSON y cómo editarlos de forma segura utilizando nuestras herramientas.
 
+![NaniNovel Save Editor Interface](/images/blog/naninovel-content.webp)
+
 ## Entendiendo el Formato de Archivo NSON
 
 ### Estructura Técnica

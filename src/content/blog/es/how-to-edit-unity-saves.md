@@ -13,6 +13,8 @@ Unity es el motor detrás de miles de juegos populares, desde éxitos móviles h
 
 Esta guía te ayudará a localizar, identificar y editar archivos de guardado de juegos hechos con Unity, cubriendo los métodos de almacenamiento más comunes: **PlayerPrefs** (Preferencias del Jugador), XML, JSON y serialización binaria.
 
+![Unity Save Editor Interface](/images/blog/unity-content.webp)
+
 ## Entendiendo las Ubicaciones de Guardado de Unity
 
 Antes de poder editar, necesitas encontrar el archivo. Unity tiene rutas predeterminadas, pero los desarrolladores pueden cambiarlas.

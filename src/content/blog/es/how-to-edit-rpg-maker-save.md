@@ -13,6 +13,8 @@ Los juegos de RPG Maker son increíblemente populares en la escena indie. Ya sea
 
 Esta guía te mostrará exactamente cómo editar archivos de guardado de RPG Maker usando nuestra herramienta online gratuita.
 
+![RPG Maker Save Editor Interface](/images/blog/rpg-maker-content.webp)
+
 ## Entendiendo los Formatos de RPG Maker
 
 Hay dos tipos principales de archivos:

@@ -4,7 +4,7 @@ description: "Глубокий технический анализ структ�
 pubDate: 2026-01-09
 tags: ["rpg-maker", "техническое", "json", "структура-данных"]
 author: "Команда SaveEditor"
-image: "/images/blog/rpg-maker-structure-cover.webp"
+image: "/images/blog/rpg-maker-cover.webp"
 ---
 
 ## Введение
@@ -12,6 +12,8 @@ image: "/images/blog/rpg-maker-structure-cover.webp"
 Для разработчиков и энтузиастов редактирования сохранений понимание формата **.rpgsave** имеет решающее значение. В отличие от движков, использующих сложные бинарные базы данных, RPG Maker MV и MZ используют веб-подход, используя JSON для хранения данных.
 
 Эта статья представляет собой глубокое техническое погружение в то, как RPG Maker структурирует свои сохраненные данные, обрабатывает сжатие и организует состояние игры.
+
+![RPG Maker Save File Structure decoded showing JSON data](/images/blog/rpg-maker-structure-content.webp)
 
 ## Сжатие и кодирование файлов
 
