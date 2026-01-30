@@ -135,7 +135,7 @@ export default function EditorApp({ acceptedFileTypes }: EditorAppProps) {
                                 </div>
                                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                                     <a
-                                        href={`mailto:support@saveeditor.online?subject=Request Support for ${unsupportedFile?.name}&body=I would like to request support for the file type: ${unsupportedFile?.name.split('.').pop()}.%0D%0A%0D%0AAttached is a sample file (please attach your file manually).`}
+                                        href={`mailto:support@saveeditor.top?subject=Request Support for ${unsupportedFile?.name}&body=I would like to request support for the file type: ${unsupportedFile?.name.split('.').pop()}.%0D%0A%0D%0AAttached is a sample file (please attach your file manually).`}
                                         className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ml-3 sm:w-auto sm:text-sm"
                                         onClick={() => setErrorModalOpen(false)}
                                     >
