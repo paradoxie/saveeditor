@@ -4,7 +4,7 @@ description: "Aprende a modificar oro, estadísticas y objetos en juegos de RPG 
 pubDate: 2026-01-05
 tags: ["rpg-maker", "guía", "tutorial"]
 author: "Equipo SaveEditor"
-image: "/images/blog/rpg-maker-cover.webp"
+image: "/images/blog/rpg-maker-guide-cover-v2.png"
 ---
 
 ## Introducción

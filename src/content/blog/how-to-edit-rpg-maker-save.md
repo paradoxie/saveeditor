@@ -4,7 +4,7 @@ description: "A complete guide on how to edit RPG Maker MV save files using our 
 pubDate: 2026-01-03
 author: "Save Editor Team"
 tags: ["rpg maker", "tutorial", "rpgsave", "guide"]
-image: "/images/blog/rpg-maker-cover.webp"
+image: "/images/blog/rpg-maker-guide-cover-v2.png"
 ---
 
 ## Introduction
