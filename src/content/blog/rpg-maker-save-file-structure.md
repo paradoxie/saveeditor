@@ -27,6 +27,8 @@ This guide breaks down exactly how RPG Maker stores save data, what each propert
 
 MV and MZ saves are the most common and easiest to edit. They use Base64-encoded JSON.
 
+![Diagram visualizing RPG Maker JSON save file structure with System, Party, Actors and Map nodes](/images/blog/rpg-maker-structure-content.webp)
+
 ### Basic Structure
 
 ```json

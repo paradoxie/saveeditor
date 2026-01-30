@@ -1,10 +1,31 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, defaultLang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ja' } },
+    { params: { lang: 'pt' } },
+    { params: { lang: 'ko' } },
+    { params: { lang: 'zh-cn' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof ui);
+
+// Helper for localized links
+const getPath = (path: string) => {
+  if (path.startsWith('http')) return path;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `/${lang}/${cleanPath}`;
+};
 
 const games = {
   rpgMaker: {
     name: 'RPG Maker',
-    editor: '/editor/rpg-maker-mv',
+    editor: getPath('editor/rpg-maker-mv'),
     formats: ['.rpgsave', '.rvdata2'],
     games: [
       'Omori',
@@ -28,7 +49,7 @@ const games = {
   },
   unity: {
     name: 'Unity',
-    editor: '/editor/unity',
+    editor: getPath('editor/unity'),
     formats: ['PlayerPrefs', '.xml', '.plist', '.json'],
     games: [
       'Stardew Valley',
@@ -50,7 +71,7 @@ const games = {
   },
   renpy: {
     name: "Ren'Py",
-    editor: '/editor/renpy',
+    editor: getPath('editor/renpy'),
     formats: ['.save'],
     games: [
       'Doki Doki Literature Club',
@@ -67,7 +88,7 @@ const games = {
   },
   unreal: {
     name: 'Unreal Engine',
-    editor: '/editor/unreal',
+    editor: getPath('editor/unreal'),
     formats: ['.sav (GVAS)'],
     games: [
       'Palworld',
@@ -88,7 +109,7 @@ const games = {
   },
   gamemaker: {
     name: 'GameMaker',
-    editor: '/editor/gamemaker',
+    editor: getPath('editor/gamemaker'),
     formats: ['.ini', '.json', '.sav'],
     games: [
       'Undertale',
@@ -105,11 +126,12 @@ const games = {
       'Gunpoint',
       'Nidhogg',
       'Forager',
+      'Forager',
     ],
   },
   naninovel: {
     name: 'NaniNovel',
-    editor: '/editor/naninovel',
+    editor: getPath('editor/naninovel'),
     formats: ['.nson'],
     games: ['NaniNovel Visual Novels', 'Unity-based VN Projects'],
   },
@@ -119,8 +141,8 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
 ---
 
 <BaseLayout
-  title="Supported Games List - 80+ Games | Save Editor Online"
-  description="Browse all games supported by our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more. Find your game and start editing!"
+  title={t('gamesPage.seoTitle')}
+  description={t('gamesPage.seoDesc')}
   keywords="save editor games, rpg maker games, unity games, unreal engine games, supported games list"
 >
   <main class="flex-grow container mx-auto px-4 py-12">
@@ -128,12 +150,12 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
       <!-- Hero Section -->
       <div class="text-center mb-12">
         <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-6">
-          Supported <span class="text-primary-600">Games</span>
+          {t('gamesPage.title')}
         </h1>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-          Our save editor supports <span class="font-bold text-primary-600">{totalGames}+</span> games
-          across 6 major game engines. Find your game below and start editing!
-        </p>
+        <p
+          class="text-lg text-gray-600 max-w-2xl mx-auto mb-6"
+          set:html={t('gamesPage.subtitle').replace('{count}', totalGames.toString())}
+        />
 
         <!-- Search Box -->
         <div class="max-w-md mx-auto">
@@ -141,7 +163,7 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
             <input
               type="text"
               id="game-search"
-              placeholder="Search for your game..."
+              placeholder={t('gamesPage.searchPlaceholder')}
               class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
             />
             <svg
@@ -163,7 +185,7 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
 
       <!-- Popular Games Grid -->
       <div class="mb-16">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Popular Games</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">{t('gamesPage.popularGames')}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
             [
@@ -199,7 +221,7 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
               },
             ].map((game) => (
               <a
-                href={`/games/${game.slug}`}
+                href={getPath(`games/${game.slug}`)}
                 class="group relative block overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
               >
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
@@ -242,7 +264,7 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
                     href={engine.editor}
                     class="bg-white text-primary-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-50 transition-colors"
                   >
-                    Open Editor →
+                    {t('gamesPage.openEditor')}
                   </a>
                 </div>
               </div>
@@ -265,16 +287,15 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
 
       <!-- CTA Section -->
       <div class="mt-16 text-center bg-gray-900 text-white rounded-2xl p-12">
-        <h2 class="text-3xl font-bold mb-4">Don't See Your Game?</h2>
+        <h2 class="text-3xl font-bold mb-4">{t('gamesPage.ctaTitle')}</h2>
         <p class="text-gray-300 mb-8 max-w-xl mx-auto">
-          Our generic JSON editor works with most save file formats. Try uploading your save file
-          and we'll do our best to parse it!
+          {t('gamesPage.ctaDesc')}
         </p>
         <a
-          href="/"
+          href={getPath('')}
           class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-gray-900 bg-white hover:bg-gray-100 transition-colors"
         >
-          Try Universal Editor
+          {t('gamesPage.ctaButton')}
         </a>
       </div>
     </div>
@@ -337,9 +358,8 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: 'Supported Games List',
-      description:
-        "Browse all games supported by our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more.",
+      name: t('gamesPage.title'),
+      description: t('gamesPage.seoDesc'),
       orderBy: 'name',
       itemListElement: [
         {
@@ -366,7 +386,7 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
         '@type': 'ListItem',
         position: index + 1,
         name: game.name,
-        url: `https://saveeditor.top/games/${game.slug}`,
+        url: `https://saveeditor.top/${lang}/games/${game.slug}`,
       })),
     })}
   />

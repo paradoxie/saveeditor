@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, defaultLang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ja' } },
+    { params: { lang: 'pt' } },
+    { params: { lang: 'ko' } },
+    { params: { lang: 'zh-cn' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof ui);
+
+// Helper for localized links
+const getPath = (path: string) => {
+  if (path.startsWith('http')) return path;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `/${lang}/${cleanPath}`;
+};
+
+const formats = [
+  {
+    id: 'rpgsave',
+    extension: '.rpgsave',
+    name: 'RPG Maker Save',
+    engines: ['RPG Maker MV', 'RPG Maker MZ'],
+    editor: getPath('editor/rpg-maker-mv'),
+    games: ['Omori', 'OneShot', 'To the Moon', 'Corpse Party'],
+  },
+  {
+    id: 'rvdata2',
+    extension: '.rvdata2',
+    name: 'Ruby Marshal Data',
+    engines: ['RPG Maker VX Ace'],
+    editor: getPath('editor/rpg-maker-mv'),
+    games: ['To the Moon', "The Witch's House", 'Mad Father'],
+  },
+  {
+    id: 'renpy',
+    extension: '.save',
+    name: "Ren'Py Save",
+    engines: ["Ren'Py"],
+    editor: getPath('editor/renpy'),
+    games: ['Doki Doki Literature Club', 'Katawa Shoujo', 'VA-11 HALL-A'],
+  },
+  {
+    id: 'playerprefs',
+    extension: 'PlayerPrefs',
+    name: 'Unity PlayerPrefs',
+    engines: ['Unity'],
+    editor: getPath('editor/unity'),
+    games: ['Hollow Knight', 'Cuphead', 'Subnautica'],
+  },
+  {
+    id: 'gvas',
+    extension: '.sav (GVAS)',
+    name: 'Unreal Engine Save',
+    engines: ['Unreal Engine 4', 'Unreal Engine 5'],
+    editor: getPath('editor/unreal'),
+    games: ['Palworld', 'Satisfactory', 'Deep Rock Galactic'],
+  },
+  {
+    id: 'ini',
+    extension: '.ini',
+    name: 'INI Configuration',
+    engines: ['GameMaker Studio', 'Custom'],
+    editor: getPath('editor/gamemaker'),
+    games: ['Undertale', 'Deltarune'],
+  },
+  {
+    id: 'json',
+    extension: '.json',
+    name: 'JSON Data',
+    engines: ['Unity', 'GameMaker', 'Custom'],
+    editor: getPath('editor/unity'),
+    games: ['Among Us', 'Various indie games'],
+  },
+  {
+    id: 'nson',
+    extension: '.nson',
+    name: 'NaniNovel Save',
+    engines: ['NaniNovel (Unity)'],
+    editor: getPath('editor/naninovel'),
+    games: ['NaniNovel-based visual novels'],
+  },
+  {
+    id: 'xml',
+    extension: '.xml',
+    name: 'XML Data',
+    engines: ['Unity', 'Custom'],
+    editor: getPath('editor/unity'),
+    games: ['Cities: Skylines', 'Various strategy games'],
+  },
+  {
+    id: 'plist',
+    extension: '.plist',
+    name: 'Property List',
+    engines: ['Unity (macOS/iOS)', 'Native macOS'],
+    editor: getPath('editor/unity'),
+    games: ['iOS/macOS Unity games'],
+  },
+];
+---
+
+<BaseLayout
+  title={t('formatsPage.seoTitle')}
+  description={t('formatsPage.seoDesc')}
+  keywords="game save format, rpgsave, playerprefs, gvas, save file extension, game data format"
+>
+  <main class="flex-grow container mx-auto px-4 py-12">
+    <div class="max-w-6xl mx-auto">
+      <!-- Hero Section -->
+      <div class="text-center mb-16">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-6">
+          {t('formatsPage.title')}
+        </h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          {t('formatsPage.subtitle')}
+        </p>
+      </div>
+
+      <!-- Format Cards -->
+      <div class="grid gap-6">
+        {
+          formats.map((format) => (
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
+              <div class="p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                  <div class="flex-shrink-0">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center">
+                      <span class="text-white font-mono text-xs font-bold text-center px-1">
+                        {format.extension}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex-grow">
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                      <h2 class="text-xl font-bold text-gray-900">{format.name}</h2>
+                      {format.engines.map((engine) => (
+                        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full">
+                          {engine}
+                        </span>
+                      ))}
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                      {t(`formats.desc.${format.id}` as keyof (typeof ui)[typeof defaultLang])}
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4">
+                      <div class="text-sm text-gray-500">
+                        <span class="font-medium">{t('formatsPage.exampleGames')}</span>{' '}
+                        {format.games.join(', ')}
+                      </div>
+                      <a
+                        href={format.editor}
+                        class="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700"
+                      >
+                        {t('formatsPage.openEditor')}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- CTA Section -->
+      <div
+        class="mt-16 text-center bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-2xl p-12"
+      >
+        <h2 class="text-3xl font-bold mb-4">{t('formatsPage.ctaTitle')}</h2>
+        <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+          {t('formatsPage.ctaDesc')}
+        </p>
+        <a
+          href={getPath('')}
+          class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-gray-900 bg-white hover:bg-gray-100 transition-colors"
+        >
+          {t('formatsPage.ctaButton')}
+        </a>
+      </div>
+
+      <!-- SEO Content -->
+      <div class="mt-16 prose prose-gray max-w-none">
+        <h2>{t('formatsPage.contentTitle')}</h2>
+        <p>
+          {t('formatsPage.contentP1')}
+        </p>
+        <p>
+          {t('formatsPage.contentP2')}
+        </p>
+        <h3>{t('formatsPage.howToFind')}</h3>
+        <ul>
+          <li>
+            <strong>Windows:</strong> Check <code>%APPDATA%</code>, <code>Documents/My Games</code>,
+            or the game's installation folder
+          </li>
+          <li>
+            <strong>macOS:</strong> Look in <code>~/Library/Application Support</code> or <code
+              >~/Library/Preferences</code
+            >
+          </li>
+          <li>
+            <strong>Linux:</strong> Check <code>~/.local/share</code> or <code>~/.config</code>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

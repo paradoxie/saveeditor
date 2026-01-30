@@ -4,7 +4,7 @@ description: "Learn how to edit Palworld save files on PC and Steam Deck. Modify
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
-image: "/images/blog/unreal-cover.webp"
+image: "/images/blog/palworld-cover.webp"
 ---
 
 ## Introduction
@@ -12,6 +12,8 @@ image: "/images/blog/unreal-cover.webp"
 **Palworld** has taken the gaming world by storm with its unique blend of creature collection, survival mechanics, and base building. Whether you want to give yourself more gold, modify your Pal's stats, or add rare items to your inventory, this guide will show you exactly how to edit Palworld save files safely.
 
 Our free online **Palworld save editor** makes it easy to modify your game without downloading any suspicious software. All processing happens in your browser, so your save files never leave your computer.
+
+![Palworld Save Editor Interface showing player stats and inventory](/images/blog/palworld-content.webp)
 
 ## Palworld Save File Location
 
