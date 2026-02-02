@@ -371,7 +371,7 @@ export const ui = {
         'gamesPage.ctaDesc': "汎用JSONエディタはほとんどのセーブ形式に対応しています。セーブファイルをアップロードしてみてください。解析を試みます！",
         'gamesPage.ctaButton': '汎用エディタを試す',
         'gamesPage.seoTitle': '対応ゲーム一覧 - 80タイトル以上 | Save Editor Online',
-        'gamesPage.seoDesc': "当エディタが対応しているすべてのゲームを閲覧できます。RPGツクール、Unity、Unreal Engine、Ren'Py、GameMakerなど。ゲームを見つけて編集を始めましょう！",
+        'gamesPage.seoDesc': "当エディタが対応しているすべてのゲームを閲覧できます。RPGツクール、Unity、Unreal Engine、Ren'Py、GameMakerなど、主要なエンジンをサポート。Stardew ValleyやUndertaleなどの人気タイトルも含め、80以上のゲームと互換性があります。今すぐゲームを見つけて編集を始めましょう！",
 
         // Formats Page
         'formatsPage.title': 'セーブファイル形式',
@@ -382,7 +382,7 @@ export const ui = {
         'formatsPage.ctaDesc': 'セーブファイルをアップロードすれば、ツールが自動的に形式を検出し、適切なパーサーを選択します。専門知識は不要です！',
         'formatsPage.ctaButton': 'アップロード＆自動検出',
         'formatsPage.seoTitle': 'ゲームセーブファイル形式の解説 | Save Editor Online',
-        'formatsPage.seoDesc': '.rpgsave、.sav、PlayerPrefsなどのゲームセーブファイル形式に関する包括的なガイドです。ゲームが使用している形式と編集方法を学びましょう。',
+        'formatsPage.seoDesc': ".rpgsave、.sav、PlayerPrefsなどのゲームセーブファイル形式に関する包括的なガイドです。ゲームが使用している形式、その仕組み、そして私たちのツールを使ってブラウザで安全に編集する方法を学びましょう。",
         'formatsPage.contentTitle': 'ゲームセーブ形式を理解する',
         'formatsPage.contentP1': 'ゲーム開発者は、セキュリティ、プラットフォーム要件、データの複雑さに基づいてセーブファイル形式を選択します。JSONやINIのように人間が読める形式もあれば、GVASやRuby Marshalのように解読に専用ツールが必要な形式もあります。',
         'formatsPage.contentP2': "当Save Editor Onlineは主要な形式すべてをサポートしており、ファイル内容に基づいて使用するパーサーを自動的に検出できます。RPGツクール、Unity、Unreal Engineの名作など、あらゆるゲームに対応しています。",
@@ -765,7 +765,7 @@ export const ui = {
         'gamesPage.ctaDesc': "범용 JSON 에디터는 대부분의 형식과 작동합니다. 세이브 파일을 업로드하면 최선을 다해 분석해 드립니다!",
         'gamesPage.ctaButton': '범용 에디터 체험',
         'gamesPage.seoTitle': '지원 게임 목록 - 80+ 게임 | Save Editor Online',
-        'gamesPage.seoDesc': "지원되는 모든 게임을 찾아보세요. RPG 만들기, Unity, Unreal Engine, Ren'Py, GameMaker 등을 포함합니다.",
+        'gamesPage.seoDesc': "Save Editor Online에서 지원되는 모든 게임을 찾아보세요. RPG 만들기, Unity, Unreal Engine, Ren'Py, GameMaker 등을 포함합니다. Stardew Valley와 같은 인기 게임을 포함하여 80개 이상의 게임을 지원합니다. 지금 바로 게임을 찾아 편집을 시작하세요!",
 
         // Formats Page
         'formatsPage.title': '세이브 파일 형식',
@@ -776,7 +776,7 @@ export const ui = {
         'formatsPage.ctaDesc': '세이브 파일을 업로드하면 도구가 자동으로 형식을 감지하고 올바른 파서를 선택합니다. 기술적 지식이 필요 없습니다!',
         'formatsPage.ctaButton': '업로드 및 자동 감지',
         'formatsPage.seoTitle': '게임 세이브 파일 형식 설명 | Save Editor Online',
-        'formatsPage.seoDesc': '.rpgsave, .sav, PlayerPrefs 등 게임 세이브 파일 형식에 대한 포괄적인 가이드입니다. 게임이 어떤 형식을 사용하는지 확인하세요.',
+        'formatsPage.seoDesc': '.rpgsave, .sav, PlayerPrefs 및 다양한 게임 세이브 파일 형식에 대한 포괄적인 가이드입니다. 여러분의 게임이 어떤 형식을 사용하는지 확인하고, 무료 온라인 도구를 사용하여 안전하게 편집하는 방법을 알아보세요.',
         'formatsPage.contentTitle': '세이브 형식 이해하기',
         'formatsPage.contentP1': '개발자는 보안 및 복잡성에 따라 형식을 선택합니다. JSON이나 INI처럼 읽기 쉬운 것도 있고, GVAS나 Ruby Marshal처럼 전용 도구가 필요한 것도 있습니다.',
         'formatsPage.contentP2': "저희 에디터는 모든 주요 형식을 지원하며 파일 내용에 따라 파서를 자동 감지합니다. RPG 만들기, Unity, Unreal Engine 등 모두 지원합니다.",
@@ -962,7 +962,7 @@ export const ui = {
         'gamesPage.ctaDesc': "通用 JSON 编辑器适用于大多数存档格式。尝试上传存档文件，我们会尽力解析！",
         'gamesPage.ctaButton': '尝试通用编辑器',
         'gamesPage.seoTitle': '支持游戏列表 - 80+ 款游戏 | Save Editor Online',
-        'gamesPage.seoDesc': "浏览我们支持的所有游戏。包括 RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker 等。查找您的游戏并开始编辑！",
+        'gamesPage.seoDesc': "浏览 Save Editor Online 支持的所有游戏列表。我们完美支持包括 RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker 在内的多种引擎。涵盖星露谷物语、传说之下等80多款热门游戏。立即查找您的游戏并开始免费在线修改存档！",
 
         // Formats Page
         'formatsPage.title': '存档文件格式',
@@ -973,7 +973,7 @@ export const ui = {
         'formatsPage.ctaDesc': '上传您的存档文件，工具会自动检测格式并选择正确的解析器。无需技术知识！',
         'formatsPage.ctaButton': '上传并自动检测',
         'formatsPage.seoTitle': '游戏存档格式详解 | Save Editor Online',
-        'formatsPage.seoDesc': '关于 .rpgsave, .sav, PlayerPrefs 等存档格式的综合指南。了解您的游戏使用哪种格式以及如何编辑。',
+        'formatsPage.seoDesc': '关于 .rpgsave, .sav, PlayerPrefs 等常见游戏存档格式的综合指南。深入了解您的游戏使用哪种数据格式，以及如何通过我们的安全在线工具在浏览器中直接编辑它们，无需下载任何软件。',
         'formatsPage.contentTitle': '了解游戏存档格式',
         'formatsPage.contentP1': '开发人员根据安全性、平台要求和数据复杂性选择存档格式。虽然 JSON 和 INI 等格式易于阅读，但 GVAS 和 Ruby Marshal 等格式需要专用工具解码。',
         'formatsPage.contentP2': "Save Editor Online 支持所有主流格式，并能根据文件内容自动检测解析器。无论是 RPG Maker、Unity 还是 Unreal Engine 大作，我们都能搞定。",
