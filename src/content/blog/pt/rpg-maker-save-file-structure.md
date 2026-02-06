@@ -5,7 +5,7 @@ pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guia", "técnico"]
 author: "SaveEditor Team"
 lang: "pt"
-image: "/images/blog/rpg-maker-structure-cover-v2.png"
+image: "/images/blog/rpg-maker-structure-cover-v2.webp"
 ---
 
 ## Introdução

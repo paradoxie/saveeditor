@@ -4,7 +4,7 @@ description: "RPGツクールのセーブファイル構造を完全解説。.rp
 pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]
 author: "SaveEditor Team"
-image: "/images/blog/rpg-maker-structure-cover-v2.png"
+image: "/images/blog/rpg-maker-structure-cover-v2.webp"
 ---
 
 ## はじめに

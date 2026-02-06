@@ -4,7 +4,7 @@ description: "Compatibility-first Palworld save editing guide for PC and Steam D
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
-image: "/images/blog/palworld-guide-cover-v2.png"
+image: "/images/blog/palworld-guide-cover-v2.webp"
 ---
 
 > **Support Status (February 2026):** This Palworld workflow focuses on **standard GVAS** saves first. If your file is containerized/encrypted, the editor may switch to read-only or recommend dedicated tooling.

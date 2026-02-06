@@ -77,14 +77,20 @@ const currentYear = new Date().getFullYear();
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}faq`}
-              class="hover:text-primary-600 transition-colors">{t('footer.faq')}</a
+              href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+              class="hover:text-primary-600 transition-colors">{t('nav.blog')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}blog`}
-              class="hover:text-primary-600 transition-colors">{t('nav.blog')}</a
+              href={`/${lang === 'en' ? '' : lang + '/'}saves`}
+              class="hover:text-primary-600 transition-colors">{t('footer.saves')}</a
+            >
+          </li>
+          <li>
+            <a
+              href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+              class="hover:text-primary-600 transition-colors">{t('footer.faq')}</a
             >
           </li>
           <li>

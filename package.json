@@ -41,6 +41,7 @@
     "@types/react-dom": "^19.2.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
+    "unist-util-visit": "^5.1.0",
     "wrangler": "^4.52.1"
   }
 }

@@ -4,7 +4,7 @@ description: "Руководство по редактированию сохр�
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "руководство", "editor-sav"]
 author: "Команда SaveEditor"
-image: "/images/blog/palworld-guide-cover-v2.png"
+image: "/images/blog/palworld-guide-cover-v2.webp"
 ---
 
 > **Статус поддержки (февраль 2026):** Этот поток для Palworld в первую очередь рассчитан на **стандартный GVAS**. Если файл контейнеризирован/зашифрован, редактор может перейти в режим только чтения или рекомендовать профильные инструменты.

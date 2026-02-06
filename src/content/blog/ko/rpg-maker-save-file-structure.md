@@ -4,7 +4,7 @@ description: "RPG 만들기 세이브 파일 구조를 완전 해설. .rpgsave, 
 pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]
 author: "SaveEditor Team"
-image: "/images/blog/rpg-maker-structure-cover-v2.png"
+image: "/images/blog/rpg-maker-structure-cover-v2.webp"
 ---
 
 ## 소개

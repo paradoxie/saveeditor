@@ -4,7 +4,7 @@ description: "Полное руководство по редактирован�
 pubDate: 2026-01-03
 author: "Команда SaveEditor"
 tags: ["rpg maker", "руководство", "rpgsave", "гайд"]
-image: "/images/blog/rpg-maker-guide-cover-v2.png"
+image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 ---
 
 ## Введение

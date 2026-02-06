@@ -4,7 +4,7 @@ description: "RPG Maker MV 세이브 파일 편집에 대한 완벽한 가이드
 pubDate: 2026-01-03
 author: "Save Editor Team"
 tags: ["rpg maker", "tutorial", "rpgsave", "guide"]
-image: "/images/blog/rpg-maker-guide-cover-v2.png"
+image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 ---
 
 ## 소개

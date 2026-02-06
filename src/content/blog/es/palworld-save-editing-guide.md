@@ -4,7 +4,7 @@ description: "Guía de edición de guardados de Palworld enfocada en compatibili
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guía", "editor-sav"]
 author: "Equipo SaveEditor"
-image: "/images/blog/palworld-guide-cover-v2.png"
+image: "/images/blog/palworld-guide-cover-v2.webp"
 ---
 
 > **Estado de soporte (febrero de 2026):** Este flujo para Palworld prioriza saves **GVAS estándar**. Si el archivo está encapsulado/cifrado, el editor puede quedar en solo lectura o recomendar herramientas dedicadas.

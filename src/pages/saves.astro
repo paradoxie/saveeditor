@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../i18n/utils';
+
+// Filter English posts (no lang prefix or starting with en/) that have 'save-file' tag
+// Actually my blog posts don't have en/ prefix for english usually, just slug.
+// Let's check how other pages filter. src/pages/index.astro might give a clue.
+// But for now assuming English posts are those WITHOUT 'zh-cn/', 'ja/', etc prefix OR explicit 'en/'
+// And filtering by tag 'save-file' or 'download'.
+
+const allPosts = await getCollection('blog');
+const supportedLangs = ['zh-cn', 'ja', 'ko', 'pt', 'es', 'ru'];
+
+const posts = allPosts
+  .filter((post) => {
+    const isEnglish = !supportedLangs.some((lang) => post.slug.startsWith(`${lang}/`));
+    const isSaveFile =
+      post.data.tags?.includes('save-file') || post.data.tags?.includes('download');
+    return isEnglish && isSaveFile;
+  })
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Game Save File Downloads | Save Editor Online"
+  description="Download verified 100% completion save files, starter saves, and more for your favorite games. Palworld, Stardew Valley, Hollow Knight, and more."
+>
+  <main class="container mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4 dark:text-white">Game Save Downloads</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400">
+        Perfect saves, starter files, and recovery data
+      </p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((post) => (
+          <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group dark:bg-gray-800 dark:border-gray-700">
+            {post.data.image && (
+              <div class="aspect-video w-full overflow-hidden bg-gray-100 relative">
+                <img
+                  src={post.data.image}
+                  alt={post.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-4 flex-wrap">
+                {post.data.tags.map((tag) => (
+                  <span class="bg-primary-50 text-primary-700 text-xs px-2 py-1 rounded-full font-medium uppercase tracking-wide dark:bg-primary-900/30 dark:text-primary-300">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2 dark:text-white">
+                <a href={`/blog/${post.slug}/`} class="hover:text-primary-600 transition-colors">
+                  {post.data.title}
+                </a>
+              </h2>
+              <p class="text-gray-600 mb-4 line-clamp-3 text-sm dark:text-gray-400">
+                {post.data.description}
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mt-auto dark:text-gray-500">
+                <span>{formatDate(post.data.pubDate, 'en')}</span>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full dark:bg-green-900/30 dark:text-green-300">
+                  Verified
+                </span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {
+      posts.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-gray-500 dark:text-gray-400">
+            No save files available yet. Check back soon!
+          </p>
+        </div>
+      )
+    }
+  </main>
+</BaseLayout>

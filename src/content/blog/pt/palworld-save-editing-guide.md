@@ -5,7 +5,7 @@ pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guia", "sav-editor"]
 author: "SaveEditor Team"
 lang: "pt"
-image: "/images/blog/palworld-guide-cover-v2.png"
+image: "/images/blog/palworld-guide-cover-v2.webp"
 ---
 
 > **Status de suporte (fevereiro de 2026):** Este fluxo de Palworld prioriza saves **GVAS padrão**. Se o arquivo estiver encapsulado/criptografado, o editor pode ficar em somente leitura ou recomendar ferramentas dedicadas.

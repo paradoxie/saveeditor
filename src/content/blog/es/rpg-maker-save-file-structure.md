@@ -4,7 +4,7 @@ description: "Análisis técnico profundo de la estructura de archivos de guarda
 pubDate: 2026-01-09
 tags: ["rpg-maker", "técnico", "json", "estructura-de-datos"]
 author: "Equipo SaveEditor"
-image: "/images/blog/rpg-maker-structure-cover-v2.png"
+image: "/images/blog/rpg-maker-structure-cover-v2.webp"
 ---
 
 ## Introducción

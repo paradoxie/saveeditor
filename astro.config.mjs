@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
+import { rehypeLazyLoadImages } from './src/plugins/rehype-lazy-image.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,5 +23,8 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false
     }
+  },
+  markdown: {
+    rehypePlugins: [rehypeLazyLoadImages],
   }
 });

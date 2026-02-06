@@ -4,7 +4,7 @@ description: "호환성 우선 Palworld 세이브 가이드. PC/Steam Deck 저�
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
-image: "/images/blog/palworld-guide-cover-v2.png"
+image: "/images/blog/palworld-guide-cover-v2.webp"
 ---
 
 > **지원 상태(2026년 2월):** 이 Palworld 워크플로우는 **표준 GVAS**를 우선 대상으로 합니다. 컨테이너/암호화 변형은 읽기 전용이 되거나 전용 도구가 필요할 수 있습니다.

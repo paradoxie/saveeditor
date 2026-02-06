@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { formatDate, useTranslations } from '../../i18n/utils';
+import { languages } from '../../i18n/ui';
+
+export async function getStaticPaths() {
+  return Object.keys(languages)
+    .map((lang) => {
+      // Filter out english if needed, but getStaticPaths usually needs all params
+      // Since English is handled by src/pages/saves.astro (root), we filter it out?
+      // Or we include it if structure is [lang]/saves.
+      // Usually default lang is at root. So we return all except 'en'.
+      if (lang === 'en') return undefined;
+      return { params: { lang } };
+    })
+    .filter(Boolean);
+}
+
+const { lang } = Astro.params as { lang: string };
+const t = useTranslations(lang as keyof typeof languages);
+
+// Get posts for this language OR fallback to English posts but localized URL?
+// For now, let's show English posts if no localized posts exist, or just show English posts always since I haven't translated them.
+// "Saves" are binary files, descriptions can be English for now.
+// But to keep it clean, maybe just show English posts for all languages for now?
+// Or better: filter by lang IF available, else fallback?
+// Given I only created English posts, I should show English posts for everyone, just with localized UI.
+
+const allPosts = await getCollection('blog');
+const supportedLangs = Object.keys(languages).filter((l) => l !== 'en');
+
+const posts = allPosts
+  .filter((post) => {
+    // Currently my posts are: 'palworld-complete-save-download.md' (English/Root)
+    // They don't have lang prefix.
+    // So they are considered 'en'.
+    // I want to list these 'en' posts for ALL languages because the file download is the value.
+    const isEnglish = !supportedLangs.some((l) => post.slug.startsWith(`${l}/`));
+    const isSaveFile =
+      post.data.tags?.includes('save-file') || post.data.tags?.includes('download');
+    return isEnglish && isSaveFile;
+  })
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Helper not needed if we link to English blog posts...
+// But if I link /blog/slug, Astro might redirect?
+// My Header.astro logic handles /blog/slug vs /zh-cn/blog/slug.
+// If the post is english, it should be at /blog/slug.
+// So links should be fine.
+---
+
+<BaseLayout title={`${t('nav.saves')} | SaveEditor.Online`} description={t('hero.subtitle')}>
+  <main class="container mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4 dark:text-white">{t('nav.saves')}</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400">
+        {t('gamesPage.subtitle').replace(/<[^>]*>/g, '')}
+      </p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((post) => (
+          <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group dark:bg-gray-800 dark:border-gray-700">
+            {post.data.image && (
+              <div class="aspect-video w-full overflow-hidden bg-gray-100 relative">
+                <img
+                  src={post.data.image}
+                  alt={post.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-4 flex-wrap">
+                {post.data.tags.map((tag) => (
+                  <span class="bg-primary-50 text-primary-700 text-xs px-2 py-1 rounded-full font-medium uppercase tracking-wide dark:bg-primary-900/30 dark:text-primary-300">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2 dark:text-white">
+                <a href={`/blog/${post.slug}/`} class="hover:text-primary-600 transition-colors">
+                  {post.data.title}
+                </a>
+              </h2>
+              <p class="text-gray-600 mb-4 line-clamp-3 text-sm dark:text-gray-400">
+                {post.data.description}
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mt-auto dark:text-gray-500">
+                <span>{formatDate(post.data.pubDate, lang)}</span>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full dark:bg-green-900/30 dark:text-green-300">
+                  Verified
+                </span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {
+      posts.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-gray-500 dark:text-gray-400">No save files available yet.</p>
+        </div>
+      )
+    }
+  </main>
+</BaseLayout>

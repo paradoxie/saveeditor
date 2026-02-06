@@ -4,7 +4,7 @@ description: "面向兼容性优先的 Palworld 存档指南。包含 PC/Steam D
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
-image: "/images/blog/palworld-guide-cover-v2.png"
+image: "/images/blog/palworld-guide-cover-v2.webp"
 ---
 
 > **兼容性说明（2026年2月）：** 该 Palworld 工作流优先支持**标准 GVAS**。若存档使用容器/加密变体，编辑器可能转为只读或建议使用专用工具。

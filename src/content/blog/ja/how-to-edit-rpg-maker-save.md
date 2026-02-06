@@ -5,7 +5,7 @@ pubDate: 2026-01-03
 author: "Save Editor Team"
 tags: ["RPGツクール", "チュートリアル", "rpgsave", "ガイド"]
 lang: "ja"
-image: "/images/blog/rpg-maker-guide-cover-v2.png"
+image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 ---
 
 ## はじめに

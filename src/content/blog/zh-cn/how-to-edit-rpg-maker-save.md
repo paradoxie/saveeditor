@@ -4,7 +4,7 @@ description: "完整的 RPG Maker MV 存档编辑教程。使用我们的免费�
 pubDate: 2026-01-03
 author: "Save Editor Team"
 tags: ["rpg maker", "tutorial", "rpgsave", "guide"]
-image: "/images/blog/rpg-maker-guide-cover-v2.png"
+image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 ---
 
 ## 简介

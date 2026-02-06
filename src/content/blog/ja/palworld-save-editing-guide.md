@@ -4,7 +4,7 @@ description: "互換性優先のPalworldセーブ編集ガイド。PC/Steam Deck
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
 author: "SaveEditor Team"
-image: "/images/blog/palworld-guide-cover-v2.png"
+image: "/images/blog/palworld-guide-cover-v2.webp"
 ---
 
 > **対応状況（2026年2月）：** このPalworld向けフローは**標準GVAS**を優先します。コンテナ化/暗号化された保存は読み取り専用になるか、専用ツールが必要です。

@@ -39,13 +39,14 @@ const getBlogUrl = (targetLang: string): string => {
       : `/${targetLang}/blog/${blogArticleSlug}/`;
   }
   // For non-blog pages, use normal path construction
-  const href = targetLang === 'en'
-    ? currentPath === '/'
-      ? '/'
-      : currentPath
-    : currentPath === '/'
-      ? `/${targetLang}/`
-      : `/${targetLang}${currentPath}`;
+  const href =
+    targetLang === 'en'
+      ? currentPath === '/'
+        ? '/'
+        : currentPath
+      : currentPath === '/'
+        ? `/${targetLang}/`
+        : `/${targetLang}${currentPath}`;
   return withTrailingSlash(href);
 };
 ---
@@ -128,10 +129,10 @@ const getBlogUrl = (targetLang: string): string => {
         >{t('nav.blog')}</a
       >
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}faq/`}
-        aria-current={isCurrentPath('/faq/') ? 'page' : undefined}
+        href={`/${lang === 'en' ? '' : lang + '/'}saves/`}
+        aria-current={isCurrentPath('/saves/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
-        >FAQ</a
+        >{t('nav.saves')}</a
       >
     </nav>
 
@@ -294,10 +295,10 @@ const getBlogUrl = (targetLang: string): string => {
         >{t('nav.blog')}</a
       >
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}faq/`}
-        aria-current={isCurrentPath('/faq/') ? 'page' : undefined}
+        href={`/${lang === 'en' ? '' : lang + '/'}saves/`}
+        aria-current={isCurrentPath('/saves/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
-        >FAQ</a
+        >{t('nav.saves')}</a
       >
 
       <!-- Language Picker (Mobile) -->

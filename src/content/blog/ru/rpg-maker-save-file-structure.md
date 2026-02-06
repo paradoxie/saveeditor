@@ -4,7 +4,7 @@ description: "Глубокий технический анализ структ�
 pubDate: 2026-01-09
 tags: ["rpg-maker", "техническое", "json", "структура-данных"]
 author: "Команда SaveEditor"
-image: "/images/blog/rpg-maker-structure-cover-v2.png"
+image: "/images/blog/rpg-maker-structure-cover-v2.webp"
 ---
 
 ## Введение

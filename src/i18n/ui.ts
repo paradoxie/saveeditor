@@ -17,6 +17,7 @@ export const ui = {
         'nav.blog': 'Blog',
         'nav.about': 'About',
         'nav.contact': 'Contact',
+        'nav.saves': 'Saves',
         'nav.start': 'Start Editing',
 
         // Hero Section
@@ -79,6 +80,7 @@ export const ui = {
 
         'footer.desc': 'The free, secure, and universal online save file editor. Modify your games directly in your browser without downloading any software.',
         'footer.editors': 'Editors',
+        'footer.saves': 'Saves',
         'footer.resources': 'Resources',
         'footer.legal': 'Legal',
         'footer.privacy': 'Privacy Policy',
@@ -248,6 +250,7 @@ export const ui = {
         'nav.blog': 'ブログ',
         'nav.about': '私たちについて',
         'nav.contact': 'お問い合わせ',
+        'nav.saves': 'セーブデータ',
         'nav.start': '編集を開始',
 
         // Hero Section
@@ -310,6 +313,7 @@ export const ui = {
 
         'footer.desc': '無料、安全、そして万能なオンラインセーブデータエディタ。ソフトウェアをダウンロードすることなく、ブラウザで直接ゲームを修正できます。',
         'footer.editors': 'エディタ一覧',
+        'footer.saves': 'セーブデータ',
         'footer.resources': 'リソース',
         'footer.legal': '法的情報',
         'footer.privacy': 'プライバシーポリシー',
@@ -479,6 +483,7 @@ export const ui = {
         'nav.blog': 'Blog',
         'nav.about': 'Sobre',
         'nav.contact': 'Contato',
+        'nav.saves': 'Saves',
         'nav.start': 'Começar a Editar',
 
         // Hero Section
@@ -710,6 +715,7 @@ export const ui = {
         'nav.blog': '블로그',
         'nav.about': '소개',
         'nav.contact': '문의',
+        'nav.saves': '세이브 파일',
         'nav.start': '편집 시작',
 
         // Hero Section
@@ -772,6 +778,7 @@ export const ui = {
 
         'footer.desc': '무료, 안전, 만능 온라인 세이브 파일 에디터. 소프트웨어 다운로드 없이 브라우저에서 직접 게임을 수정하세요.',
         'footer.editors': '에디터',
+        'footer.saves': '세이브 파일',
         'footer.resources': '리소스',
         'footer.legal': '법적 고지',
         'footer.privacy': '개인정보 처리방침',
@@ -941,6 +948,7 @@ export const ui = {
         'nav.blog': '博客',
         'nav.about': '关于',
         'nav.contact': '联系我们',
+        'nav.saves': '存档下载',
         'nav.start': '开始编辑',
 
         // Hero Section
@@ -1003,6 +1011,7 @@ export const ui = {
 
         'footer.desc': '免费、安全、通用的在线游戏存档编辑器。无需下载软件，直接在浏览器中修改您的游戏存档。',
         'footer.editors': '编辑器',
+        'footer.saves': '存档下载',
         'footer.resources': '资源',
         'footer.legal': '法律信息',
         'footer.privacy': '隐私政策',
@@ -1172,6 +1181,7 @@ export const ui = {
         'nav.blog': 'Blog',
         'nav.about': 'Sobre',
         'nav.contact': 'Contacto',
+        'nav.saves': 'Partidas',
         'nav.start': 'Empezar a Editar',
 
         // Hero Section
@@ -1403,6 +1413,7 @@ export const ui = {
         'nav.blog': 'Блог',
         'nav.about': 'О нас',
         'nav.contact': 'Контакты',
+        'nav.saves': 'Сохранения',
         'nav.start': 'Начать редактирование',
 
         // Hero Section
@@ -1465,6 +1476,7 @@ export const ui = {
 
         'footer.desc': 'Бесплатный, безопасный и универсальный онлайн редактор сохранений. Модифицируйте игры прямо в браузере.',
         'footer.editors': 'Редакторы',
+        'footer.saves': 'Сохранения',
         'footer.resources': 'Ресурсы',
         'footer.legal': 'Инфо',
         'footer.privacy': 'Политика конфиденциальности',
