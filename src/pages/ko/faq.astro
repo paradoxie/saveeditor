@@ -10,7 +10,7 @@ const faqCategories = [
       {
         question: 'SaveEditor.top이 무엇인가요?',
         answer:
-          "SaveEditor.top은 게임 세이브 파일을 편집하는 무료 브라우저 기반 도구입니다. 완전히 브라우저에서 실행되므로 파일이 기기를 떠나지 않습니다. RPG Maker, Unity, Ren'Py, Unreal Engine 등 인기 엔진을 지원합니다.",
+          "SaveEditor.top은 게임 세이브 파일을 편집하는 무료 브라우저 기반 도구입니다. 완전히 브라우저에서 실행되므로 파일이 기기를 떠나지 않습니다. RPG Maker, Unity, Ren'Py, Unreal Engine 등 인기 엔진을 지원합니다. Unreal `.sav` 는 호환성 우선으로 동작하며, 표준 비암호화 GVAS를 우선 지원하고 게임별 컨테이너/압축 변형은 읽기 전용일 수 있습니다.",
       },
       {
         question: '사용해도 안전한가요?',
@@ -41,7 +41,7 @@ const faqCategories = [
       {
         question: '어떤 파일 형식이 지원되나요?',
         answer:
-          "RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav), GameMaker (.ini, .json), NaniNovel (.nson) 및 일반 JSON/XML 형식을 지원합니다.",
+          "RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav; 표준 비암호화 GVAS 우선, 컨테이너/압축 변형은 읽기 전용 가능), GameMaker (.ini, .json), NaniNovel (.nson) 및 일반 JSON/XML 형식을 지원합니다.",
       },
       {
         question: '콘솔 게임(PlayStation, Xbox, Switch) 세이브도 편집할 수 있나요?',

@@ -76,20 +76,42 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Редактор Сохранений Unreal Engine - .sav Бесплатно | Palworld',
       description:
-        'Бесплатный редактор сохранений Unreal Engine. Редактируйте файлы .sav онлайн для Palworld, Satisfactory и др. Парсинг формата GVAS, изменение инвентаря и характеристик.',
+        'Веб-инструмент для Unreal `.sav` в стандартном формате GVAS. Поддерживает анализ, распознавание сжатия и экспериментальную сборку совместимых файлов.',
       keywords:
         'unreal engine save editor, редактор palworld, редактор .sav, редактор файлов sav, gvas editor онлайн, uesave editor',
       features: [
-        'Парсинг Формата GVAS (.sav)',
-        'Редактировать Свойства Игры',
-        'Изменять Инвентарь и Характеристики',
-        'Поддержка Игр UE4 и UE5',
+        'Парсинг стандартного GVAS (.sav)',
+        'Определение zlib/gzip/raw-deflate',
+        'Автоматический режим только чтения для неподдерживаемых структур',
+        'Экспериментальная пересборка совместимых файлов',
       ],
       instructions: [
         'Найдите файл `.sav` в папке сохранений игры',
         'Загрузите файл в редактор',
-        'Измените JSON структуру данных',
-        'Сохранение нестабильно для многих игр. Мы рекомендуем специализированные инструменты для сложных сохранений Unreal.',
+        'Редактируйте только поддерживаемые поля при полном разборе',
+        'Для сложных форматов конкретных игр используйте профильные инструменты.',
+      ],
+    },
+    {
+      slug: 'palworld',
+      name: 'Palworld',
+      fileType: '.sav',
+      title: 'Редактор Palworld | Безопасный просмотр GVAS',
+      description:
+        'Специализированная точка входа для работы с Palworld `.sav`. Фокус на безопасной проверке стандартного GVAS и аккуратном редактировании.',
+      keywords:
+        'редактор palworld, palworld .sav, palworld gvas',
+      features: [
+        'Проверка формата Steam `.sav`',
+        'Структурированный просмотр JSON GVAS',
+        'Автоматический fallback в режим только чтения',
+        'Ссылки на профильные инструменты сообщества Palworld',
+      ],
+      instructions: [
+        'Перед редактированием сделайте backup всей папки SaveGames',
+        'Загрузите файл игрока `.sav` или `Level.sav`',
+        'Проверьте верхний баннер режима (редактирование / только чтение)',
+        'Если формат не поддержан, используйте специализированный инструмент Palworld',
       ],
     },
     {
@@ -191,7 +213,7 @@ const absUrl = (path: string) =>
 
       <!-- Interactive Editor App -->
       <div class="min-h-[400px]">
-        <EditorApp client:only="react" acceptedFileTypes={engine.fileType} />
+        <EditorApp client:only="react" acceptedFileTypes={engine.fileType} editorSlug={engine.slug} />
       </div>
 
       <div class="mt-16 prose prose-blue max-w-none">
@@ -223,6 +245,7 @@ const absUrl = (path: string) =>
               'rpg-maker-mv': '/blog/how-to-edit-rpg-maker-save',
               unity: '/blog/how-to-edit-unity-saves',
               unreal: '/blog/how-to-edit-unreal-engine-saves',
+              palworld: '/blog/palworld-save-editing-guide',
               renpy: '/blog/renpy-save-editing-guide',
               naninovel: '/blog/naninovel-save-editing-guide',
               gamemaker: '/blog/gamemaker-save-editing-guide',

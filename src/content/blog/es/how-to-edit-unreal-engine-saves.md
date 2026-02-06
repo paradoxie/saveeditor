@@ -1,11 +1,13 @@
 ---
 title: "Cómo Editar Archivos de Guardado de Unreal Engine (.sav) - Guía Completa GVAS"
-description: "Una guía completa para editar archivos de guardado de Unreal Engine 4 y 5. Aprende a analizar el formato GVAS y modificar juegos como Palworld, Hogwarts Legacy, Satisfactory y más."
+description: "Guía de compatibilidad para guardados Unreal Engine 4/5 (`.sav`). Aprende a analizar GVAS de forma segura y cuándo usar herramientas específicas del juego."
 pubDate: 2026-01-05
 tags: ["unreal-engine", "gvas", "guía", "palworld", "hogwarts-legacy"]
 author: "Equipo SaveEditor"
 image: "/images/blog/unreal-cover.webp"
 ---
+
+> **Estado de soporte (febrero de 2026):** El editor web prioriza archivos **GVAS estándar y sin cifrado**. Las variantes con contenedor/compresión específica del juego pueden quedar en solo lectura o sin reconstrucción segura.
 
 ## Introducción
 
@@ -53,7 +55,7 @@ Para juegos de Steam, a veces están enterrados en la carpeta de userdata de Ste
 
 ## Paso 3: Subir al Editor Online
 
-Nuestro editor es un analizador GVAS especializado que funciona en tu navegador. Convierte los datos binarios en JSON editable y luego los re-ensambla perfectamente.
+Nuestro editor intenta analizar primero GVAS estándar y mostrarlo como JSON editable cuando es seguro. En variantes encapsuladas o personalizadas puede pasar a solo lectura.
 
 1.  Ve a nuestro [Editor de Unreal Engine](/es/editor/unreal).
 2.  Arrastra y suelta tu archivo `.sav`.
@@ -79,9 +81,10 @@ Para cambiar dinero, busca términos como `Gold`, `Credits`, `Currency` o `Money
 
 ## Paso 5: Descargar y Reemplazar
 
-1.  Haz clic en "Descargar" en el editor.
-2.  El editor re-empaquetará el JSON en el formato binario GVAS correcto, actualizando las longitudes de los arrays y los encabezados automáticamente.
-3.  Reemplaza el archivo original en la carpeta del juego.
+1.  Haz clic en "Descargar" solo si el editor muestra modo compatible y editable.
+2.  La herramienta intentará reempaquetar el JSON a GVAS binario.
+3.  Si aparece modo solo lectura, usa una herramienta específica del juego.
+4.  Reemplaza el archivo original solo después de validar tus backups.
 
 ## Solución de Problemas
 
@@ -107,7 +110,7 @@ Para ediciones muy complejas o juegos específicos, podrías necesitar utilidade
 
 ## Conclusión
 
-La edición de guardados de Unreal Engine es una tarea poderosa pero arriesgada debido a la complejidad del formato binario GVAS. Nuestro editor simplifica el proceso encargándose de la conversión binaria, permitiéndote concentrarte en los datos JSON.
+La edición de guardados de Unreal Engine es útil pero arriesgada por la complejidad binaria de GVAS. Nuestro editor ayuda con variantes compatibles y prioriza modo solo lectura cuando no existe reconstrucción segura.
 
 ¡Explora, experimenta, y disfruta de tus juegos de Unreal a tu manera!
 

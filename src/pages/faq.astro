@@ -10,7 +10,7 @@ const faqCategories = [
       {
         question: 'What is SaveEditor.top?',
         answer:
-          "SaveEditor.top is a free, browser-based tool for editing game save files. It works entirely in your browser, meaning your files never leave your device. We support popular game engines like RPG Maker, Unity, Ren'Py, Unreal Engine, and more.",
+          "SaveEditor.top is a free, browser-based tool for editing game save files. It works entirely in your browser, meaning your files never leave your device. We support popular game engines like RPG Maker, Unity, Ren'Py, Unreal Engine, and more. For Unreal `.sav`, support is compatibility-first: standard unencrypted GVAS is best supported, while game-specific containers/compression may be read-only.",
       },
       {
         question: 'Is this safe to use?',
@@ -41,7 +41,7 @@ const faqCategories = [
       {
         question: 'What file formats are supported?',
         answer:
-          "We support: RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav), GameMaker (.ini, .json), NaniNovel (.nson), and generic JSON/XML formats.",
+          "We support: RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav; standard unencrypted GVAS first, containerized/compressed variants may be read-only), GameMaker (.ini, .json), NaniNovel (.nson), and generic JSON/XML formats.",
       },
       {
         question: 'Can I edit console game saves (PlayStation, Xbox, Switch)?',

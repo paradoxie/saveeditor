@@ -10,7 +10,7 @@ const faqCategories = [
       {
         question: 'Что такое SaveEditor.top?',
         answer:
-          "SaveEditor.top — это бесплатный браузерный инструмент для редактирования сохраненных игр. Он работает полностью в вашем браузере, поэтому файлы никогда не покидают ваше устройство. Поддерживает популярные движки, такие как RPG Maker, Unity, Ren'Py и Unreal Engine.",
+          "SaveEditor.top — это бесплатный браузерный инструмент для редактирования сохраненных игр. Он работает полностью в вашем браузере, поэтому файлы никогда не покидают ваше устройство. Поддерживает популярные движки, такие как RPG Maker, Unity, Ren'Py и Unreal Engine. Для Unreal `.sav` действует режим совместимости: лучше всего поддерживается стандартный нешифрованный GVAS, а игровые контейнеры/сжатие могут открываться только для чтения.",
       },
       {
         question: 'Это безопасно?',
@@ -41,7 +41,7 @@ const faqCategories = [
       {
         question: 'Какие форматы файлов поддерживаются?',
         answer:
-          "RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav), GameMaker (.ini, .json), NaniNovel (.nson) и общие форматы JSON/XML.",
+          "RPG Maker MV/MZ (.rpgsave, .rmmzsave), RPG Maker VX/VX Ace (.rvdata2, .rvdata), RPG Maker XP (.rxdata), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav; приоритет стандартному нешифрованному GVAS, контейнерные/сжатые варианты могут быть только для чтения), GameMaker (.ini, .json), NaniNovel (.nson) и общие форматы JSON/XML.",
       },
       {
         question: 'Можно ли редактировать сохранения с консолей (PS, Xbox, Switch)?',

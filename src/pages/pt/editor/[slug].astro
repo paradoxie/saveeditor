@@ -75,20 +75,42 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Editor de Save Unreal Engine | Editar Arquivos .sav',
       description:
-        'Edite arquivos de save da Unreal Engine 4 & 5 (.sav) online. Analise o formato GVAS, modifique propriedades e inventário. Funciona para Palworld e mais.',
+        'Ferramenta web para arquivos Unreal `.sav` em formato GVAS padrão. Inclui análise básica, detecção de compressão e salvamento experimental para arquivos compatíveis.',
       keywords:
         'editor de save unreal engine, editor uesave, editar arquivo .sav, editor gvas online',
       features: [
-        'Analisar Formato GVAS (.sav)',
-        'Editar Propriedades do Jogo',
-        'Modificar Inventário e Status',
-        'Suporte para Jogos UE4 e UE5',
+        'Analisar GVAS padrão (.sav)',
+        'Detectar wrappers zlib/gzip/raw-deflate',
+        'Modo somente leitura para variantes não suportadas',
+        'Reconstrução experimental para arquivos compatíveis',
       ],
       instructions: [
         'Localize seu arquivo `.sav` no diretório de save do jogo',
         'Envie o arquivo para o editor',
-        'Modifique a estrutura JSON dos dados de save',
-        'Salvar pode ser instável. Recomendamos ferramentas dedicadas para Unreal.',
+        'Edite apenas campos suportados quando o parsing for completo',
+        'Para formatos complexos específicos de jogo, use ferramentas dedicadas.',
+      ],
+    },
+    {
+      slug: 'palworld',
+      name: 'Palworld',
+      fileType: '.sav',
+      title: 'Editor de Save Palworld | Visualização GVAS Segura',
+      description:
+        'Entrada dedicada para o fluxo de saves do Palworld. Foco em inspeção confiável de GVAS padrão e edição com cautela.',
+      keywords:
+        'editor de save palworld, palworld .sav, palworld gvas',
+      features: [
+        'Validação de formato para `.sav` da Steam',
+        'Visualização estruturada de JSON GVAS',
+        'Fallback automático para somente leitura',
+        'Links para ferramentas da comunidade Palworld',
+      ],
+      instructions: [
+        'Faça backup de toda a pasta SaveGames antes de editar',
+        'Envie o arquivo `.sav` do jogador ou `Level.sav`',
+        'Confirme o modo mostrado no topo (editável vs somente leitura)',
+        'Se aparecer não suportado, use uma ferramenta específica de Palworld',
       ],
     },
     {
@@ -191,7 +213,7 @@ const lang = 'pt';
 
       <!-- Interactive Editor App -->
       <div class="min-h-[400px]">
-        <EditorApp client:only="react" />
+        <EditorApp client:only="react" acceptedFileTypes={engine.fileType} editorSlug={engine.slug} />
       </div>
 
       <div class="mt-16 prose prose-blue max-w-none">
@@ -222,6 +244,7 @@ const lang = 'pt';
                 'rpg-maker-mv': '/pt/blog/how-to-edit-rpg-maker-save',
                 unity: '/pt/blog/how-to-edit-unity-saves',
                 unreal: '/pt/blog/how-to-edit-unreal-engine-saves',
+                palworld: '/pt/blog/palworld-save-editing-guide',
                 renpy: '/pt/blog/renpy-save-editing-guide',
                 naninovel: '/pt/blog/naninovel-save-editing-guide',
                 gamemaker: '/pt/blog/gamemaker-save-editing-guide',

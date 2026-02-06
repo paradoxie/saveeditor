@@ -76,20 +76,42 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Unreal Engine Save Editor - Free .sav Editor | Palworld, GVAS',
       description:
-        'Free Unreal Engine save editor. Edit .sav files online for Palworld, Satisfactory & more. Parse GVAS format, modify inventory, stats, and properties. Best sav file editor.',
+        'Browser-based Unreal .sav inspector for standard GVAS files. View data safely, edit supported structures, and use experimental download for compatible saves.',
       keywords:
         'unreal engine save editor, palworld save editor, .sav editor, sav file editor, gvas editor online, uesave editor, edit unreal save file',
       features: [
-        'Parse GVAS (.sav) Format',
-        'Edit Game Properties',
-        'Modify Inventory and Stats',
-        'Support for UE4 and UE5 Games',
+        'Parse Standard GVAS (.sav)',
+        'Detect zlib/gzip/raw-deflate wrappers',
+        'Read-only fallback for unsupported containers',
+        'Experimental save rebuild for compatible files',
       ],
       instructions: [
         "Locate your `.sav` file in the game's save directory",
         'Upload the file to the editor',
-        'Modify the JSON structure of the save data',
-        'Saving is unreliable for many games. We recommend dedicated tools for Unreal saves.',
+        'If parsing succeeds, edit supported fields in JSON view',
+        'Enable experimental saving only for standard GVAS files. For complex game-specific saves, use dedicated tools.',
+      ],
+    },
+    {
+      slug: 'palworld',
+      name: 'Palworld',
+      fileType: '.sav',
+      title: 'Palworld Save Editor | Safe GVAS Viewer for .sav',
+      description:
+        'Palworld-focused save workflow for `.sav` files. Best for inspecting standard GVAS data and applying cautious, backup-first edits.',
+      keywords:
+        'palworld save editor, palworld .sav, palworld gvas, palworld save tools',
+      features: [
+        'Steam `.sav` upload with format checks',
+        'Structured GVAS JSON inspection',
+        'Read-only fallback for unsupported variants',
+        'Links to dedicated Palworld community tooling',
+      ],
+      instructions: [
+        'Backup your entire SaveGames folder before editing',
+        'Upload your player `.sav` (or `Level.sav`) file',
+        'Check the mode banner (editable vs read-only)',
+        'Use dedicated Palworld tools when this editor reports unsupported structure',
       ],
     },
     {
@@ -191,7 +213,7 @@ const absUrl = (path: string) =>
 
       <!-- Interactive Editor App -->
       <div class="min-h-[400px]">
-        <EditorApp client:only="react" acceptedFileTypes={engine.fileType} />
+        <EditorApp client:only="react" acceptedFileTypes={engine.fileType} editorSlug={engine.slug} />
       </div>
 
       <div class="mt-16 prose prose-blue max-w-none">
@@ -223,6 +245,7 @@ const absUrl = (path: string) =>
               'rpg-maker-mv': '/blog/how-to-edit-rpg-maker-save',
               unity: '/blog/how-to-edit-unity-saves',
               unreal: '/blog/how-to-edit-unreal-engine-saves',
+              palworld: '/blog/palworld-save-editing-guide',
               renpy: '/blog/renpy-save-editing-guide',
               naninovel: '/blog/naninovel-save-editing-guide',
               gamemaker: '/blog/gamemaker-save-editing-guide',

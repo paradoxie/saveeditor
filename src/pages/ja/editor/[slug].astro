@@ -74,19 +74,40 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Unreal Engine セーブエディタ | .sav ファイル編集',
       description:
-        'Unreal Engine 4 & 5 のセーブファイル (.sav) をオンラインで編集。GVAS形式を解析し、プロパティとインベントリを変更。Palworldなどに対応。',
+        '標準GVAS向けの Unreal `.sav` ビューア/エディタ。基本解析、圧縮検出、互換ファイルでの実験的保存に対応。',
       keywords: 'Unreal Engine セーブエディタ, uesave エディタ, .sav ファイル 編集, GVAS エディタ',
       features: [
-        'GVAS (.sav) フォーマットの解析',
-        'ゲームプロパティの編集',
-        'インベントリとステータスの変更',
-        'UE4 および UE5 ゲームのサポート',
+        '標準 GVAS (.sav) の解析',
+        'zlib/gzip/raw-deflate 圧縮検出',
+        '未対応構造は自動で読み取り専用',
+        '互換ファイルのみ実験的保存を許可',
       ],
       instructions: [
         'ゲームのセーブディレクトリにある `.sav` ファイルを探します',
         'ファイルをエディタにアップロードします',
-        'セーブデータのJSON構造を変更します',
-        '保存は不安定な場合があります。Unreal向けの専用ツールの利用を推奨します。',
+        '解析成功時のみ JSON ビューで対応項目を編集します',
+        '標準GVAS以外は専用ツール（ゲーム別）を利用してください。',
+      ],
+    },
+    {
+      slug: 'palworld',
+      name: 'Palworld',
+      fileType: '.sav',
+      title: 'Palworld セーブエディタ | GVAS 安全ビュー',
+      description:
+        'Palworld 向け `.sav` ワークフロー。標準GVASの確認と安全重視の編集に特化した入口です。',
+      keywords: 'Palworld セーブエディタ, パルワールド .sav, Palworld GVAS',
+      features: [
+        'Steam `.sav` の形式チェック',
+        'GVAS JSON の構造確認',
+        '未対応バリアントは読み取り専用',
+        'Palworld 専用コミュニティツールへの案内',
+      ],
+      instructions: [
+        '編集前に SaveGames フォルダ全体をバックアップ',
+        'プレイヤー `.sav` または `Level.sav` をアップロード',
+        '上部のモード表示（編集可/読み取り専用）を確認',
+        '未対応表示時は Palworld 専用ツールへ切り替え',
       ],
     },
     {
@@ -188,7 +209,7 @@ const lang = 'ja';
 
       <!-- Interactive Editor App -->
       <div class="min-h-[400px]">
-        <EditorApp client:only="react" />
+        <EditorApp client:only="react" acceptedFileTypes={engine.fileType} editorSlug={engine.slug} />
       </div>
 
       <div class="mt-16 prose prose-blue max-w-none">
@@ -219,6 +240,7 @@ const lang = 'ja';
                 'rpg-maker-mv': '/ja/blog/how-to-edit-rpg-maker-save',
                 unity: '/ja/blog/how-to-edit-unity-saves',
                 unreal: '/ja/blog/how-to-edit-unreal-engine-saves',
+                palworld: '/ja/blog/palworld-save-editing-guide',
                 renpy: '/ja/blog/renpy-save-editing-guide',
                 naninovel: '/ja/blog/naninovel-save-editing-guide',
                 gamemaker: '/ja/blog/gamemaker-save-editing-guide',

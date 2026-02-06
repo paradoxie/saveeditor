@@ -1,11 +1,13 @@
 ---
 title: "How to Edit Unreal Engine Save Files (.sav) - Complete GVAS Guide"
-description: "A comprehensive guide to editing Unreal Engine 4 and 5 save files. Learn how to parse GVAS format and modify Palworld, Hogwarts Legacy, Satisfactory, and other UE games."
+description: "Compatibility-first guide for Unreal Engine 4/5 `.sav` workflows. Learn GVAS parsing, safe browser limits, and when to switch to dedicated game-specific tools."
 pubDate: 2026-01-05
 tags: ["unreal-engine", "gvas", "guide", "palworld", "hogwarts-legacy"]
 author: "SaveEditor Team"
 image: "/images/blog/unreal-cover.webp"
 ---
+
+> **Support Status (February 2026):** The web editor currently focuses on **standard, unencrypted GVAS** files. Containerized/compressed game-specific variants may be read-only or unsupported for safe rebuild.
 
 ## Introduction
 
@@ -13,7 +15,7 @@ image: "/images/blog/unreal-cover.webp"
 
 Unreal Engine is one of the most powerful game engines in the world, used by AAA studios and indie developers alike. Games like **Palworld**, **Hogwarts Legacy**, **Satisfactory**, and **Deep Rock Galactic** all use Unreal Engine and store their save data in a proprietary binary format.
 
-If you've ever wanted to edit your inventory, give yourself more resources, or unlock features in an Unreal Engine game, this guide will walk you through the process. Unlike simple JSON or XML files, UE saves require specialized tools to parse – and that's exactly what our **Save Editor Online** provides.
+If you want to inspect Unreal save data and cautiously edit compatible files, this guide walks through the practical workflow. Unlike simple JSON or XML files, UE saves require specialized parsers. Our web editor focuses on standard GVAS and degrades to read-only when safe rebuild is not possible.
 
 ## What is the GVAS Format?
 
@@ -64,7 +66,7 @@ Create a folder called `Backups` and copy your save files there before proceedin
 2.  Drag and drop your `.sav` file.
 3.  Wait for the GVAS parser to process the file.
 
-Our editor uses a browser-compatible GVAS parser to convert the binary data into a navigable JSON tree.
+Our editor attempts to parse standard GVAS data into a navigable JSON tree. For custom containers/encryption, it will switch to read-only or fail safely.
 
 ## Step 4: Navigate and Edit Properties
 
@@ -90,10 +92,10 @@ Palworld stores captured Pals as complex nested structures. To modify a Pal:
 
 ## Step 5: Download and Replace
 
-1.  Click **Download Modified Save**.
-2.  The editor reconstructs the binary GVAS file with your changes.
-3.  Replace the original file in your save folder.
-4.  Launch the game and load your save!
+1.  Click **Download Modified Save** if the editor shows a compatible editable mode.
+2.  The tool will attempt to rebuild a binary GVAS file from your changes.
+3.  If the editor is read-only, use a dedicated game-specific tool instead.
+4.  Replace the original file only after validating with backups.
 
 ## Troubleshooting
 
@@ -134,7 +136,7 @@ A: If it's not standard GVAS, you may need game-specific modding tools.
 
 ## Conclusion
 
-Editing Unreal Engine saves requires understanding the GVAS binary format, but with the right tools, it's completely achievable. Whether you want to spawn rare items in Palworld, max out your stats in Hogwarts Legacy, or just experiment with game mechanics, our free online editor makes it accessible to everyone.
+Editing Unreal Engine saves still requires understanding GVAS boundaries. Use the web editor for standard, parseable variants, and switch to game-specific tooling when files are containerized or cannot be safely rebuilt.
 
 Remember: always back up your saves, never edit multiplayer/competitive games unfairly, and happy modding!
 
@@ -158,4 +160,3 @@ Expand your Unreal Engine save editing knowledge:
 - [Palworld Save Editing Guide](/blog/palworld-save-editing-guide)
 - [Common Save File Extensions Explained](/blog/common-save-file-extensions-explained)
 - [How to Edit Unity Saves](/blog/how-to-edit-unity-saves)
-

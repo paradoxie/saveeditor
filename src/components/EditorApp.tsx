@@ -4,34 +4,35 @@ import SaveEditor from './SaveEditor';
 
 interface EditorAppProps {
     acceptedFileTypes?: string;
+    editorSlug?: string;
 }
 
-export default function EditorApp({ acceptedFileTypes }: EditorAppProps) {
+function extractExtensionToken(raw: string): string | null {
+    const match = raw.trim().toLowerCase().match(/\.[a-z0-9]+/);
+    return match ? match[0] : null;
+}
+
+export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppProps) {
     const [file, setFile] = useState<File | null>(null);
     const [errorModalOpen, setErrorModalOpen] = useState(false);
     const [unsupportedFile, setUnsupportedFile] = useState<File | null>(null);
 
     const handleFileSelect = (selectedFile: File) => {
-        console.log('File selected:', selectedFile.name);
-        console.log('Accepted types:', acceptedFileTypes);
-
         if (!acceptedFileTypes) {
             setFile(selectedFile);
             return;
         }
 
-        const allowedExtensions = acceptedFileTypes.split(',').map(ext => ext.trim().toLowerCase());
-        const fileExtension = '.' + selectedFile.name.split('.').pop()?.toLowerCase();
+        const allowedExtensions = acceptedFileTypes
+            .split(',')
+            .map((ext) => extractExtensionToken(ext))
+            .filter((ext): ext is string => Boolean(ext));
+        const extensionPart = selectedFile.name.split('.').pop()?.toLowerCase();
+        const fileExtension = extensionPart ? `.${extensionPart}` : '';
 
-        console.log('Allowed extensions:', allowedExtensions);
-        console.log('File extension:', fileExtension);
-        console.log('Is allowed:', allowedExtensions.includes(fileExtension));
-
-        if (allowedExtensions.includes(fileExtension)) {
-            console.log('File accepted, setting file');
+        if (fileExtension && allowedExtensions.includes(fileExtension)) {
             setFile(selectedFile);
         } else {
-            console.log('File rejected, showing modal');
             setUnsupportedFile(selectedFile);
             setErrorModalOpen(true);
         }
@@ -157,5 +158,5 @@ export default function EditorApp({ acceptedFileTypes }: EditorAppProps) {
         );
     }
 
-    return <SaveEditor file={file} onBack={() => setFile(null)} />;
+    return <SaveEditor file={file} onBack={() => setFile(null)} editorSlug={editorSlug} />;
 }

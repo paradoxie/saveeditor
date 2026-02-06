@@ -1,6 +1,6 @@
 ---
 title: "Como Editar Arquivos de Save do Palworld - Guia Completo (2026)"
-description: "Aprenda a editar arquivos de save do Palworld no PC e Steam Deck. Modifique Pals, ouro, inventário e status do jogador com nosso editor de save online gratuito. Guia passo a passo com localizações de arquivos."
+description: "Guia de edição de save do Palworld com foco em compatibilidade. Veja onde ficam os arquivos no PC/Steam Deck, como inspecionar GVAS padrão com segurança e quando usar ferramentas dedicadas."
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guia", "sav-editor"]
 author: "SaveEditor Team"
@@ -8,11 +8,13 @@ lang: "pt"
 image: "/images/blog/palworld-guide-cover-v2.png"
 ---
 
+> **Status de suporte (fevereiro de 2026):** Este fluxo de Palworld prioriza saves **GVAS padrão**. Se o arquivo estiver encapsulado/criptografado, o editor pode ficar em somente leitura ou recomendar ferramentas dedicadas.
+
 ## Introdução
 
-**Palworld** conquistou o mundo dos games com sua mistura única de coleta de criaturas, mecânicas de sobrevivência e construção de base. Se você quer dar a si mesmo mais ouro, modificar os status do seu Pal ou adicionar itens raros ao seu inventário, este guia mostrará exatamente como editar arquivos de save do Palworld com segurança.
+**Palworld** conquistou o mundo dos games com sua mistura única de coleta de criaturas, mecânicas de sobrevivência e construção de base. Se você quer recuperar progresso após bug ou ajustar sua evolução, este guia mostra um fluxo de inspeção e edição cautelosa com foco em compatibilidade.
 
-Nosso **editor de save Palworld** online e gratuito facilita a modificação do seu jogo sem baixar software suspeito. Todo o processamento acontece no seu navegador, então seus arquivos de save nunca saem do seu computador.
+Nosso **editor de save Palworld** online e gratuito facilita a inspeção do arquivo e edições cautelosas em variantes compatíveis, sem baixar software suspeito. Todo o processamento acontece no seu navegador, então seus arquivos de save nunca saem do seu computador.
 
 ![Interface do editor de save Palworld mostrando status do jogador e inventário](/images/blog/palworld-content.webp)
 
@@ -55,13 +57,15 @@ Antes de fazer qualquer alteração, **sempre crie um backup**:
 
 ## Passo 2: Carregue no Editor Online
 
-1. Acesse nosso [Editor de Save Palworld](/pt/editor/unreal) (editor Unreal Engine)
+1. Acesse nosso [Editor de Save Palworld](/pt/editor/palworld) (editor Unreal Engine)
 2. Arraste e solte seu arquivo `.sav` do jogador
 3. Aguarde o parser GVAS processar os dados binários
 
 ## Passo 3: Encontre e Edite Dados
 
-Uma vez analisado, você verá uma árvore JSON com todos os dados do jogo. Aqui está o que você pode modificar:
+Os campos variam por versão e tipo de save. Se o editor entrar em modo somente leitura, interrompa a edição e use uma ferramenta dedicada.
+
+Após a análise, você verá uma árvore JSON com os dados do jogo. Em saves compatíveis, estes campos podem estar disponíveis:
 
 ### Editar Ouro/Dinheiro
 Procure propriedades chamadas:
@@ -69,33 +73,32 @@ Procure propriedades chamadas:
 - `Gold`
 - `Currency`
 
-Simplesmente mude o número para a quantidade desejada.
+Se esses campos existirem, altere com cautela e valide no jogo após cada mudança.
 
-### Modificar Status dos Pals
+### Ajustar Status dos Pals (quando exposto)
 Navegue até `CharacterSaveParameterMap` para encontrar seus Pals:
-- **Level**: Mude o nível do Pal diretamente
-- **Stats**: Modifique valores de HP, Ataque, Defesa
-- **PassiveSkills**: Edite ou adicione habilidades passivas
-- **ActiveSkills**: Ajuste slots de habilidades ativas
+- **Level**: Ajuste o nível do Pal
+- **Stats**: Faça ajustes graduais de HP, Ataque e Defesa
+- **PassiveSkills**: Revise/ajuste habilidades passivas
+- **ActiveSkills**: Revise/ajuste slots de habilidades ativas
 
-### Adicionar Itens ao Inventário
+### Inventário (quando exposto)
 Encontre `ItemContainerSaveData` para modificar seu inventário:
-- Adicione itens pelo ID interno
-- Mude tamanhos de pilha
-- Desbloqueie equipamentos raros
+- Ajuste IDs/quantidades com mudanças pequenas e verificáveis
+- Valide cada alteração dentro do jogo antes de continuar
 
-### Editar Status do Jogador
+### Campos do Jogador (quando exposto)
 Procure `PlayerCharacterMakeData`:
 - **Level**: Seu nível de personagem
 - **HP/Stamina**: Status base
-- **Technology Points**: Desbloqueie toda tecnologia instantaneamente
+- **Technology Points**: Ajuste pontos de progressão com cuidado
 
 ## Passo 4: Baixe e Substitua
 
-1. Clique em **Baixar Save Modificado**
-2. Navegue até sua pasta de save do Palworld
-3. Substitua o arquivo `.sav` original
-4. Inicie o Palworld e carregue seu save!
+1. Clique em **Baixar Save Modificado** apenas quando o editor indicar modo compatível e editável.
+2. Navegue até sua pasta de save do Palworld.
+3. Substitua o `.sav` original somente após validar seu backup.
+4. Se o editor estiver em somente leitura, use uma ferramenta dedicada de Palworld.
 
 ## Perguntas Comuns
 
@@ -119,16 +122,16 @@ Palworld não tem anti-cheat para single-player/co-op. Entretanto, em servidores
 
 Sim, mas saves do Xbox estão em uma localização diferente e podem ter problemas adicionais de sincronização. Certifique-se de pausar a sincronização na nuvem enquanto edita.
 
-## Resumo de Itens Editáveis
+## Resumo de Compatibilidade
 
-| Categoria | O Que Você Pode Editar |
-|-----------|------------------------|
-| **Dinheiro** | Ouro, quantidades de moeda |
-| **Pals** | Nível, status, habilidades, características |
-| **Inventário** | Itens, equipamento, recursos |
-| **Jogador** | Nível, HP, stamina, pontos de tecnologia |
-| **Base** | Progresso de construção, níveis de instalações |
-| **Mundo** | Respawn de Pals raros, nós de recursos |
+| Categoria | Acesso típico em saves compatíveis |
+|-----------|-----------------------------------|
+| **Dinheiro** | Campos de moeda costumam ser ajustáveis |
+| **Pals** | Alguns campos de nível/status/habilidade podem aparecer |
+| **Inventário** | Estruturas geralmente visíveis; edição varia por caso |
+| **Jogador** | Alguns campos de progressão podem ser ajustáveis |
+| **Base** | Normalmente mais para inspeção; edição limitada |
+| **Mundo** | Geralmente avançado/somente leitura |
 
 ## Dicas para Edição Segura
 
@@ -153,15 +156,15 @@ Expanda seu conhecimento de edição de saves com estes guias relacionados:
 
 - 📖 [Como Editar Arquivos de Save Unreal Engine](/pt/blog/how-to-edit-unreal-engine-saves) - Análise profunda do formato GVAS
 - 📂 [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained) - Entendendo .sav, .rpgsave e mais
-- 🔧 [Editor Unreal Engine](/pt/editor/unreal) - Ferramenta usada neste guia
+- 🔧 [Editor Unreal Engine](/pt/editor/palworld) - Ferramenta usada neste guia
 
 ## Conclusão
 
-Editar arquivos de save do Palworld é simples uma vez que você entende o formato GVAS. Nosso **editor de save Palworld** gratuito lida com toda a análise complexa para você - apenas carregue, edite e baixe.
+Editar saves de Palworld fica muito mais seguro quando você entende o formato GVAS e os limites de compatibilidade. Nosso **editor de save Palworld** ajuda com variantes padrão e sinaliza claramente os casos não suportados.
 
 Seja para se recuperar de um bug, experimentar diferentes builds ou apenas aproveitar o jogo do seu jeito, a edição de saves dá controle completo sobre sua experiência no Palworld.
 
-**Pronto para começar?** [Abrir o Editor de Save Palworld →](/pt/editor/unreal)
+**Pronto para começar?** [Abrir o Editor de Save Palworld →](/pt/editor/palworld)
 
 ---
 

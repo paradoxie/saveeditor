@@ -1,0 +1,7 @@
+{
+  "file": "plain.sav",
+  "parser": "unreal",
+  "expectMode": "not_gvas",
+  "expectCanSave": false,
+  "expectReasonCode": "not_gvas"
+}

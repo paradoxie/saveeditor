@@ -1,0 +1,7 @@
+{
+  "file": "Level.sav",
+  "parser": "palworld",
+  "expectMode": "full",
+  "expectCanSave": true,
+  "expectReasonCode": "standard_gvas"
+}

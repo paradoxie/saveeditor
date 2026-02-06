@@ -1,6 +1,6 @@
 ---
 title: "Unreal Engineのセーブファイル(.sav)を編集する方法 - 完全GVASガイド"
-description: "Unreal Engine 4および5のセーブファイルを編集する包括的なガイド。GVASフォーマットを解析し、Palworld、Hogwarts Legacy、Satisfactoryなどのゲームを編集する方法を学びます。"
+description: "Unreal Engine 4/5 の `.sav` 向け互換性重視ガイド。GVAS 解析の安全な進め方と、専用ツールへ切り替える判断基準を解説します。"
 pubDate: 2026-01-05
 tags: ["Unreal Engine", "GVAS", "ガイド", "Palworld", "Hogwarts Legacy"]
 author: "SaveEditor Team"
@@ -8,13 +8,15 @@ lang: "ja"
 image: "/images/blog/unreal-cover.webp"
 ---
 
+> **対応状況（2026年2月）：** 現在のWebエディタは**標準・非暗号化GVAS**を優先対応しています。ゲーム固有の圧縮/コンテナ形式は読み取り専用または未対応になる場合があります。
+
 ## はじめに
 
 ![Unreal Engineセーブエディタインターフェース](/images/blog/unreal-content.webp)
 
 Unreal Engineは世界で最も強力なゲームエンジンの一つで、AAAスタジオからインディー開発者まで幅広く使用されています。**Palworld**、**Hogwarts Legacy**、**Satisfactory**、**Deep Rock Galactic**などのゲームはすべてUnreal Engineを使用し、独自のバイナリ形式でセーブデータを保存しています。
 
-Unreal Engineゲームでインベントリを編集したり、リソースを増やしたり、機能をアンロックしたい場合、このガイドでプロセスを順を追って説明します。単純なJSONやXMLファイルとは異なり、UEセーブは解析に専門的なツールが必要です。それがまさに私たちの**Save Editor Online**が提供するものです。
+Unreal Engineゲームのセーブを確認し、互換ファイルを慎重に編集したい場合に、このガイドは実運用フローを示します。単純なJSONやXMLとは異なり、UEセーブには専用パーサーが必要です。私たちのWebエディタは標準GVASを優先し、安全な再構築が難しい場合は読み取り専用に切り替えます。
 
 ## GVAS形式とは？
 
@@ -64,7 +66,7 @@ C:\Users\[YourName]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 2.  `.sav`ファイルをドラッグ＆ドロップします。
 3.  GVASパーサーがファイルを処理するまで待ちます。
 
-私たちのエディタはブラウザ互換のGVASパーサーを使用して、バイナリデータをナビゲート可能なJSONツリーに変換します。
+私たちのエディタは標準GVASの解析を優先し、可能な場合にJSONツリーとして表示します。ゲーム固有の圧縮・コンテナ形式では読み取り専用になる場合があります。
 
 ## ステップ4: プロパティをナビゲートして編集
 
@@ -81,10 +83,10 @@ C:\Users\[YourName]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 
 ## ステップ5: ダウンロードして置き換え
 
-1.  **変更したセーブをダウンロード**をクリックします。
-2.  エディタが変更を加えたバイナリGVASファイルを再構築します。
-3.  セーブフォルダ内の元のファイルを置き換えます。
-4.  ゲームを起動してセーブをロードします！
+1.  エディタが互換モード（編集可能）を表示した場合のみ、**変更したセーブをダウンロード**をクリックします。
+2.  ツールは変更内容からGVASの再構築を試みます。
+3.  読み取り専用モードの場合は、ゲーム専用ツールを使用してください。
+4.  バックアップ確認後にのみ元ファイルを置き換えてください。
 
 ## トラブルシューティング
 
@@ -125,7 +127,7 @@ A: 標準GVASでない場合は、ゲーム固有のModdingツールが必要に
 
 ## まとめ
 
-Unreal Engineセーブの編集にはGVASバイナリ形式の理解が必要ですが、適切なツールがあれば完全に達成可能です。Palworldでレアアイテムをスポーンさせたい場合でも、Hogwarts Legacyでステータスを最大にしたい場合でも、単にゲームメカニクスを実験したい場合でも、私たちの無料オンラインエディタで誰でもアクセスできるようになります。
+Unreal Engineセーブ編集では、GVASの互換境界を理解することが重要です。標準GVASはWebエディタで扱い、コンテナ化や再構築不可のケースはゲーム専用ツールへ切り替えるのが安全です。
 
 覚えておいてください：常にセーブをバックアップし、マルチプレイヤー/競争ゲームを不公平に編集せず、楽しいModdingを！
 
@@ -144,4 +146,3 @@ Unreal Engineセーブの編集にはGVASバイナリ形式の理解が必要で
 
 - [Palworld セーブ編集ガイド](/ja/blog/palworld-save-editing-guide)
 - [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained)
-

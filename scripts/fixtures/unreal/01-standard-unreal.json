@@ -1,0 +1,7 @@
+{
+  "file": "standard-gvas.sav",
+  "parser": "unreal",
+  "expectMode": "full",
+  "expectCanSave": true,
+  "expectReasonCode": "standard_gvas"
+}

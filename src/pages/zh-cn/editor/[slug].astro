@@ -73,19 +73,39 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Unreal Engine 存档编辑器 | 编辑 .sav 文件',
       description:
-        '在线编辑 Unreal Engine 4 & 5 存档文件 (.sav)。解析 GVAS 格式，修改属性和物品栏。支持幻兽帕鲁等游戏。',
+        '面向标准 GVAS 的 Unreal `.sav` 在线查看与谨慎编辑工具。支持基础解析、压缩识别与受限保存。',
       keywords: 'Unreal Engine 存档编辑器, uesave 编辑器, .sav 文件编辑, GVAS 编辑器',
       features: [
-        '解析 GVAS (.sav) 格式',
-        '编辑游戏属性',
-        '修改物品栏和属性',
-        '支持 UE4 和 UE5 游戏',
+        '解析标准 GVAS (.sav) 结构',
+        '识别 zlib/gzip/raw-deflate 压缩',
+        '不支持结构自动切换只读模式',
+        '兼容文件可启用实验性保存',
       ],
       instructions: [
         '在游戏存档目录中找到 `.sav` 文件',
         '将文件上传到编辑器',
-        '修改存档数据的 JSON 结构',
-        '保存可能不稳定，建议使用 Unreal 专用工具。',
+        '若解析成功，可在 JSON 视图中修改支持字段',
+        '仅对标准 GVAS 启用实验性保存；复杂游戏专用格式建议使用社区工具。',
+      ],
+    },
+    {
+      slug: 'palworld',
+      name: 'Palworld',
+      fileType: '.sav',
+      title: 'Palworld 存档编辑器 | GVAS 安全查看',
+      description: '面向 Palworld 的 `.sav` 工作流入口。优先保证可读性与安全性，适合标准 GVAS 文件的谨慎修改。',
+      keywords: 'Palworld 存档编辑器, 幻兽帕鲁 存档, Palworld .sav, Palworld GVAS',
+      features: [
+        'Steam `.sav` 格式检查与上传',
+        '结构化 GVAS JSON 查看',
+        '不兼容变体自动只读',
+        '提供 Palworld 专用社区工具引导',
+      ],
+      instructions: [
+        '编辑前先备份整个 SaveGames 文件夹',
+        '上传玩家 `.sav` 或 `Level.sav`',
+        '先确认顶部模式提示（可编辑 / 只读）',
+        '若显示不支持，请改用 Palworld 专用工具',
       ],
     },
     {
@@ -179,7 +199,7 @@ const lang = 'zh-cn';
       </div>
 
       <div class="min-h-[400px]">
-        <EditorApp client:only="react" />
+        <EditorApp client:only="react" acceptedFileTypes={engine.fileType} editorSlug={engine.slug} />
       </div>
 
       <div class="mt-16 prose prose-blue max-w-none">
@@ -208,6 +228,7 @@ const lang = 'zh-cn';
                 'rpg-maker-mv': '/zh-cn/blog/how-to-edit-rpg-maker-save',
                 unity: '/zh-cn/blog/how-to-edit-unity-saves',
                 unreal: '/zh-cn/blog/how-to-edit-unreal-engine-saves',
+                palworld: '/zh-cn/blog/palworld-save-editing-guide',
                 renpy: '/zh-cn/blog/renpy-save-editing-guide',
                 naninovel: '/zh-cn/blog/naninovel-save-editing-guide',
                 gamemaker: '/zh-cn/blog/gamemaker-save-editing-guide',

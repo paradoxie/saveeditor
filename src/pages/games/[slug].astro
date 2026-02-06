@@ -86,22 +86,22 @@ export async function getStaticPaths() {
       slug: 'palworld',
       name: 'Palworld',
       seoDescription:
-        'Online Palworld Save Editor (No Download). Edit .sav files, GVAS format, Pals stats, inventory & base level. Open source & safe tool for Steam/GamePass.',
+        'Online Palworld `.sav` workflow for standard GVAS saves. Inspect data safely, attempt cautious edits on compatible files, and keep dedicated tools ready for complex variants.',
       seoContent: `
         <h2>Advanced Palworld Save Editing</h2>
-        <p>Our Palworld Save Editor allows you to modify the <code>Level.sav</code> and player <code>.sav</code> files easily. It handles the deserialization of the GVAS format (Unreal Engine save format) automatically.</p>
-        <h3>What you can edit:</h3>
+        <p>Our Palworld workflow focuses on <strong>safe inspection first</strong>. It works best with standard GVAS saves and may switch to read-only mode for containerized or custom variants.</p>
+        <h3>What may be editable in compatible saves:</h3>
         <ul>
-            <li><strong>Pals:</strong> Modify passive skills (add Legend, Lucky, Musclehead), stats (Atk, Def), and condensation level.</li>
-            <li><strong>Player:</strong> Edit Carry Weight, Capture Power, Technology Points, and Ancient Technology Points.</li>
-            <li><strong>Base & Items:</strong> Unlock all technologies and spawn any item or resource.</li>
+            <li><strong>Pals:</strong> Inspect passive skills, stats, and progression fields where exposed in standard GVAS data.</li>
+            <li><strong>Player:</strong> Adjust selected progression values when the structure is parseable and safe to rebuild.</li>
+            <li><strong>Base & Items:</strong> Review inventory/base structures before making conservative edits and testing with backups.</li>
         </ul>
         <h3>Game Pass vs Steam</h3>
-        <p>This editor works natively with Steam <code>.sav</code> files. For Xbox Game Pass, you may need to use a converter tool first to decrypt the save container into a raw <code>.sav</code> file.</p>
+        <p>Steam <code>.sav</code> files are usually easier to inspect. Xbox/Game Pass saves often use additional containers; convert/decrypt first and expect read-only fallback in many cases.</p>
       `,
       engine: 'Unreal Engine (GVAS)',
       format: '.sav',
-      editorPath: '/editor/unreal',
+      editorPath: '/editor/palworld',
       emoji: '🦎',
       image: '/images/games/palworld.webp',
       description: 'The viral creature-collecting survival game by Pocketpair.',
@@ -112,12 +112,12 @@ export async function getStaticPaths() {
           '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
       },
       editableItems: [
-        { icon: '💰', name: 'Gold', desc: 'Edit your in-game currency' },
-        { icon: '🦎', name: 'Pals', desc: 'Modify Pal stats and abilities' },
-        { icon: '📈', name: 'Player Stats', desc: 'Change level, HP, stamina' },
-        { icon: '🎒', name: 'Inventory', desc: 'Add items and resources' },
-        { icon: '⚔️', name: 'Equipment', desc: 'Edit weapons and armor' },
-        { icon: '🏠', name: 'Base Progress', desc: 'Modify base building data' },
+        { icon: '💰', name: 'Gold', desc: 'Inspect or adjust currency fields in compatible saves' },
+        { icon: '🦎', name: 'Pals', desc: 'Review Pal structures; edit carefully when parseable' },
+        { icon: '📈', name: 'Player Stats', desc: 'Potentially adjust level/HP/stamina in supported variants' },
+        { icon: '🎒', name: 'Inventory', desc: 'Inspect item arrays and test conservative edits' },
+        { icon: '⚔️', name: 'Equipment', desc: 'Check equipment records for compatible save structures' },
+        { icon: '🏠', name: 'Base Progress', desc: 'View base-related data where it is exposed in GVAS' },
       ],
       faq: [
         {
@@ -143,7 +143,7 @@ export async function getStaticPaths() {
         {
           question: 'Can I add any Pal to my collection?',
           answer:
-            'Yes, by editing the Pal data in your save file. You can add Pals, change their stats, or modify their passive skills.',
+            'Sometimes. If your save parses as standard GVAS, you can edit exposed Pal entries. For many server/world variants, dedicated Palworld scripts are still required.',
         },
         {
           question: 'Is save editing bannable in Palworld?',
@@ -152,6 +152,7 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
+        { title: 'Palworld Save Editing Guide', url: '/blog/palworld-save-editing-guide' },
         { title: 'How to Edit Unreal Engine Saves', url: '/blog/how-to-edit-unreal-engine-saves' },
       ],
     },
@@ -551,7 +552,11 @@ const absUrl = (path: string) =>
             </div>
             <h3 class="font-bold text-lg mb-2">Upload & Edit</h3>
             <p class="text-gray-600">
-              Drag your save file to our editor. Modify gold, items, stats and more.
+              {
+                game.slug === 'palworld'
+                  ? 'Upload your `.sav` and check compatibility mode first. If it is read-only, inspect safely and switch to a dedicated Palworld tool for write operations.'
+                  : 'Drag your save file to our editor. Modify gold, items, stats and more.'
+              }
             </p>
           </div>
           <div class="text-center p-6">
@@ -562,7 +567,11 @@ const absUrl = (path: string) =>
             </div>
             <h3 class="font-bold text-lg mb-2">Download & Play</h3>
             <p class="text-gray-600">
-              Download your edited save and replace the original. Launch the game!
+              {
+                game.slug === 'palworld'
+                  ? 'Download only when the editor confirms compatible editable mode. Otherwise keep your backup and continue with a dedicated Palworld tool.'
+                  : 'Download your edited save and replace the original. Launch the game!'
+              }
             </p>
           </div>
         </div>
@@ -643,7 +652,7 @@ const absUrl = (path: string) =>
       <!-- Related Games (Cross-linking) -->
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Other Popular Games</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
             game.slug !== 'stardew-valley' && (
               <a
@@ -653,6 +662,19 @@ const absUrl = (path: string) =>
                 <span class="text-2xl block mb-2">🌾</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
                   Stardew Valley
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'palworld' && (
+              <a
+                href="/games/palworld"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🦎</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Palworld
                 </span>
               </a>
             )

@@ -57,6 +57,69 @@ export async function getStaticPaths() {
       ],
     },
     {
+      slug: 'palworld',
+      name: 'Palworld',
+      nameLocal: '팰월드',
+      seoDescription:
+        'Palworld `.sav` 전용 온라인 워크플로우. 표준 GVAS를 우선 지원하며, 안전한 조회와 호환 파일의 신중한 편집에 초점을 둡니다. 비호환 포맷은 자동 읽기 전용 처리됩니다.',
+      seoContent: `
+        <h2>팰월드 세이브 편집 (호환성 우선)</h2>
+        <p>이 워크플로우는 <strong>안전한 조회를 우선</strong>합니다. 표준 GVAS는 편집 가능할 수 있지만, 게임별 컨테이너/암호화 포맷은 읽기 전용으로 전환됩니다.</p>
+        <h3>호환 세이브에서 조정 가능한 항목(예시)</h3>
+        <ul>
+            <li><strong>플레이어:</strong> 레벨 및 일부 진행 수치(실제 파싱 구조 기준).</li>
+            <li><strong>팰:</strong> 노출된 파라미터 확인 및 백업 기반의 보수적 수정.</li>
+            <li><strong>인벤토리/기지:</strong> 구조를 확인하며 작은 단위로 변경 후 즉시 검증.</li>
+        </ul>
+        <h3>Steam vs Game Pass</h3>
+        <p>Steam 저장은 표준 플로우에 들어갈 가능성이 높고, Game Pass/Xbox 저장은 추가 컨테이너로 인해 읽기 전용이 되는 경우가 많습니다.</p>
+      `,
+      engine: 'Unreal Engine (GVAS)',
+      format: '.sav',
+      editorPath: '/ko/editor/palworld',
+      emoji: '🦎',
+      description: 'Pocketpair가 개발한 생존형 몬스터 수집 게임.',
+      saveLocations: {
+        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
+        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
+        linux:
+          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
+      },
+      editableItems: [
+        { icon: '💰', name: '골드', desc: '호환 세이브에서 화폐 필드 확인/조정' },
+        { icon: '🦎', name: '팰 데이터', desc: '팰 구조를 검토하고 지원 시에만 신중히 수정' },
+        { icon: '📈', name: '플레이어 스탯', desc: '지원 변형에서 레벨/체력 등 조정' },
+        { icon: '🎒', name: '인벤토리', desc: '아이템 배열을 확인하고 단계적으로 수정' },
+        { icon: '🏠', name: '기지 진행도', desc: 'GVAS에 노출된 기지 관련 데이터 확인' },
+      ],
+      faq: [
+        {
+          question: 'Palworld 세이브 파일은 어디에 있나요?',
+          answer:
+            'Windows: %localappdata%\\Pal\\Saved\\SaveGames. 일반적으로 각 월드 폴더에 Level.sav(월드)와 Players 폴더(플레이어)가 있습니다.',
+        },
+        {
+          question: 'Steam Deck에서도 편집 가능한가요?',
+          answer:
+            '가능합니다. Proton prefix 경로에서 파일을 가져와 편집 후 다시 넣을 수 있습니다.',
+        },
+        {
+          question: '왜 읽기 전용으로 뜨나요?',
+          answer:
+            '게임 전용 컨테이너/암호화 포맷일 가능성이 높습니다. 브라우저에서 안전한 재패키징이 어려워 읽기 전용으로 제한됩니다.',
+        },
+        {
+          question: '안전하게 편집하려면 어떻게 해야 하나요?',
+          answer:
+            '매번 SaveGames 폴더 전체를 백업하고, 한 번에 한 항목씩 변경한 뒤 즉시 게임에서 확인하세요.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Palworld 세이브 편집 가이드', url: '/ko/blog/palworld-save-editing-guide' },
+        { title: 'Unreal Engine 세이브 편집 가이드', url: '/ko/blog/how-to-edit-unreal-engine-saves' },
+      ],
+    },
+    {
       slug: 'undertale',
       name: 'Undertale',
       nameLocal: '언더테일',
@@ -333,7 +396,7 @@ const { game } = Astro.props;
       <!-- Related Games -->
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">다른 인기 게임</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
             game.slug !== 'stardew-valley' && (
               <a
@@ -343,6 +406,19 @@ const { game } = Astro.props;
                 <span class="text-2xl block mb-2">🌾</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
                   스타듀 밸리
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'palworld' && (
+              <a
+                href="/ko/games/palworld"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🦎</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  팰월드
                 </span>
               </a>
             )
@@ -401,7 +477,7 @@ const { game } = Astro.props;
           }
         </div>
         <div class="text-center mt-6">
-          <a href="/games" class="text-primary-600 hover:text-primary-700 font-medium">
+          <a href="/ko/games" class="text-primary-600 hover:text-primary-700 font-medium">
             80개 이상의 게임 보기 →
           </a>
         </div>

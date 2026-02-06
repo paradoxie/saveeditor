@@ -1,11 +1,13 @@
 ---
 title: "Unreal Engine 存档编辑指南 (.sav) - GVAS 格式完整教程"
-description: "编辑 Unreal Engine 4 和 5 存档文件的完整指南。学习如何解析 GVAS 格式，修改幻兽帕鲁、霍格沃茨之遗、幸福工厂等 UE 游戏。"
+description: "面向 Unreal Engine 4/5 `.sav` 的兼容性指南。重点讲解 GVAS 的安全解析流程，以及何时应切换到游戏专用工具。"
 pubDate: 2026-01-05
 tags: ["unreal-engine", "gvas", "guide", "palworld", "hogwarts-legacy"]
 author: "SaveEditor Team"
 image: "/images/blog/unreal-cover.webp"
 ---
+
+> **兼容性说明（2026年2月）：** 当前在线编辑器优先支持**标准、未加密 GVAS**。部分游戏特定容器或压缩变体会进入只读，或暂不支持安全重建。
 
 ## 简介
 
@@ -13,7 +15,7 @@ image: "/images/blog/unreal-cover.webp"
 
 Unreal Engine 是世界上最强大的游戏引擎之一，被 AAA 工作室和独立开发者广泛使用。像**幻兽帕鲁**、**霍格沃茨之遗**、**幸福工厂**和**深岩银河**等游戏都使用 Unreal Engine，并以专有的二进制格式存储存档数据。
 
-如果您想编辑 Unreal Engine 游戏中的物品栏、给自己更多资源或解锁功能，本指南将引导您完成整个过程。与简单的 JSON 或 XML 文件不同，UE 存档需要专门的工具来解析——这正是我们的 **Save Editor Online** 所提供的。
+如果您希望查看 Unreal 存档结构并在兼容文件中谨慎修改，本指南会给出一套可落地流程。与简单 JSON/XML 不同，UE 存档需要专门解析器。我们的网页编辑器优先处理标准 GVAS，在无法安全重建时会自动转入只读。
 
 ## 什么是 GVAS 格式？
 
@@ -64,7 +66,7 @@ C:\Users\[您的用户名]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 2.  拖放您的 `.sav` 文件。
 3.  等待 GVAS 解析器处理文件。
 
-我们的编辑器使用浏览器兼容的 GVAS 解析器将二进制数据转换为可导航的 JSON 树。
+我们的编辑器会优先尝试将标准 GVAS 解析为可导航的 JSON。若遇到自定义容器或加密，通常会切换为只读或安全失败。
 
 ## 步骤 4：导航和编辑属性
 
@@ -90,10 +92,10 @@ C:\Users\[您的用户名]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 
 ## 步骤 5：下载并替换
 
-1.  点击**下载修改后的存档**。
-2.  编辑器将使用您的更改重建二进制 GVAS 文件。
-3.  将原始文件替换为存档文件夹中的文件。
-4.  启动游戏并加载您的存档！
+1.  若编辑器显示为可编辑兼容模式，再点击**下载修改后的存档**。
+2.  工具会尝试根据你的修改重建二进制 GVAS。
+3.  若当前为只读模式，请改用游戏专用工具。
+4.  仅在完成备份并验证后再替换原文件。
 
 ## 故障排除
 
@@ -134,7 +136,7 @@ C:\Users\[您的用户名]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 
 ## 结语
 
-编辑 Unreal Engine 存档需要理解 GVAS 二进制格式，但使用正确的工具，这是完全可以实现的。无论您是想在幻兽帕鲁中生成稀有物品、在霍格沃茨之遗中最大化您的属性，还是只是想尝试游戏机制，我们的免费在线编辑器使每个人都可以访问。
+编辑 Unreal 存档的关键不只是“能不能改”，而是先判断是否属于可安全重建的结构。标准 GVAS 可在网页端处理；遇到容器化或重封装受限的变体，应切换到对应游戏专用工具。
 
 记住：始终备份您的存档，永远不要在多人/竞技游戏中不公平地编辑，祝您改装愉快！
 
@@ -142,7 +144,7 @@ C:\Users\[您的用户名]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 
 - 📖 [幻兽帕鲁存档编辑指南](/zh-cn/blog/palworld-save-editing-guide) - 专门的帕鲁教程
 - 📖 [uesave-rs on GitHub](https://github.com/trumank/uesave-rs) - 开源 GVAS 解析器
-- 🎮 [幻兽帕鲁游戏页面](/games/palworld) - 存档位置和可编辑项
+- 🎮 [幻兽帕鲁游戏页面](/zh-cn/games/palworld) - 存档位置和可编辑项
 - 📂 [常见存档扩展名详解](/zh-cn/blog/common-save-file-extensions-explained) - 了解各种格式
 - 🔧 [Unreal 编辑器](/zh-cn/editor/unreal) - 本指南使用的工具
 
@@ -154,4 +156,3 @@ C:\Users\[您的用户名]\AppData\Local\Pal\Saved\SaveGames\[SteamID]\
 
 - [幻兽帕鲁存档编辑指南](/zh-cn/blog/palworld-save-editing-guide)
 - [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
-

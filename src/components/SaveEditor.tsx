@@ -2,18 +2,33 @@ import React, { useState } from 'react';
 import { ui } from '../i18n/ui';
 import JsonEditor from './JsonEditor';
 import RpgMakerEditor from './editors/RpgMakerEditor';
-import { buildRPGMakerMV } from '../lib/parsers/rpgmaker';
+import type {
+    PalworldInsightNote,
+    PalworldParseResult,
+    PalworldQuickField
+} from '../lib/parsers/palworld';
+import type { UnrealParseResult } from '../lib/parsers/unreal';
 
 interface SaveEditorProps {
     file: File;
     onBack: () => void;
+    editorSlug?: string;
 }
 
-export default function SaveEditor({ file, onBack }: SaveEditorProps) {
+interface UnrealCapabilityState {
+    canView: boolean;
+    canEdit: boolean;
+    canSave: boolean;
+    requiresExperimental: boolean;
+}
+
+type UnrealFamilyResult = UnrealParseResult | PalworldParseResult;
+
+export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps) {
     const lang = typeof window !== 'undefined'
         ? (document.documentElement.getAttribute('lang') as keyof typeof ui) || 'en'
         : 'en';
-    const t = (key: keyof typeof ui['en']) => ui[lang]?.[key] || ui.en[key];
+    const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any).en[key] || key;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [data, setData] = useState<any>(null);
@@ -50,18 +65,22 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                     parsed = await parseUnity(file);
                     setFormat('unity');
                 } else if (ext === 'sav') {
-                    // Check if it's Unreal (GVAS) or generic
-                    try {
+                    if (editorSlug === 'palworld') {
+                        const { parsePalworld } = await import('../lib/parsers/palworld');
+                        const palworldResult = await parsePalworld(file);
+                        if (palworldResult.mode === 'not_gvas') {
+                            throw new Error(t('editor.unrealNotGvasBody'));
+                        }
+                        parsed = palworldResult;
+                        setFormat('palworld');
+                    } else {
                         const { parseUnreal } = await import('../lib/parsers/unreal');
-                        parsed = await parseUnreal(file);
+                        const unrealResult = await parseUnreal(file);
+                        if (unrealResult.mode === 'not_gvas') {
+                            throw new Error(t('editor.unrealNotGvasBody'));
+                        }
+                        parsed = unrealResult;
                         setFormat('unreal');
-                    } catch (e) {
-                        // If Unreal parsing fails or it's not GVAS, fall back to generic
-                        console.log("Not a GVAS file or parsing failed, falling back to generic");
-                        const { parseGamemaker } = await import('../lib/parsers/gamemaker');
-                        const result = await parseGamemaker(file);
-                        parsed = result.data;
-                        setFormat(result.type);
                     }
                 } else if (ext === 'nson') {
                     const { parseNaniNovel } = await import('../lib/parsers/naninovel');
@@ -92,13 +111,23 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
         };
 
         parseFile();
-    }, [file]);
+    }, [file, editorSlug]);
 
     const handleDownload = async () => {
         if (!data) return;
 
         if (format === 'renpy' && !experimentalEnabled) {
             alert(t('editor.renpyExperimentalAlert'));
+            return;
+        }
+
+        const isUnrealFamily = format === 'unreal' || format === 'palworld';
+        const unrealData = data as UnrealFamilyResult | null;
+        const unrealCapabilities = isUnrealFamily
+            ? ((unrealData?._capabilities as UnrealCapabilityState | undefined) ?? null)
+            : null;
+        if (isUnrealFamily && unrealCapabilities?.requiresExperimental && !experimentalEnabled) {
+            alert(t('editor.unrealExperimentalAlert'));
             return;
         }
 
@@ -110,6 +139,9 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
             } else if (format === 'unreal') {
                 const { buildUnreal } = await import('../lib/parsers/unreal');
                 blob = await buildUnreal(file, data);
+            } else if (format === 'palworld') {
+                const { buildPalworld } = await import('../lib/parsers/palworld');
+                blob = await buildPalworld(file, data);
             } else if (format.startsWith('naninovel')) {
                 const { buildNaniNovel } = await import('../lib/parsers/naninovel');
                 blob = await buildNaniNovel(file, data, format as any);
@@ -117,6 +149,7 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                 const { buildRenpy } = await import('../lib/parsers/renpy');
                 blob = await buildRenpy(file, data);
             } else if (format === 'rpgmaker') {
+                const { buildRPGMakerMV } = await import('../lib/parsers/rpgmaker');
                 blob = await buildRPGMakerMV(file, data);
             } else {
                 // Gamemaker / Raw
@@ -138,6 +171,13 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
     };
 
     const handleDataChange = (newData: any) => {
+        if ((format === 'unreal' || format === 'palworld') && data?.jsonView !== undefined) {
+            setData((prev: any) => ({
+                ...prev,
+                jsonView: newData,
+            }));
+            return;
+        }
         setData(newData);
     };
 
@@ -209,14 +249,29 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
 
     const isRaw = format === 'raw';
     const isRenpy = format === 'renpy';
-    const isUnrealPartial = format === 'unreal' && data?._unrealParseStatus === 'partial';
-    const isUnrealSaveSupported = format === 'unreal' && typeof data?.serialize === 'function';
+    const isUnrealFamily = format === 'unreal' || format === 'palworld';
+    const isPalworld = format === 'palworld';
+    const unrealData = (isUnrealFamily ? data : null) as UnrealFamilyResult | null;
+    const palworldData = (format === 'palworld' ? data : null) as PalworldParseResult | null;
+    const unrealMode = unrealData?.mode;
+    const unrealCapabilities = (unrealData?._capabilities as UnrealCapabilityState | undefined) ?? null;
+    const isUnrealPartial = isUnrealFamily && unrealMode === 'partial';
+    const isUnrealCompressedUnsupported = isUnrealFamily && unrealMode === 'unsupported_compressed';
+    const isUnrealSaveSupported = isUnrealFamily && !!unrealCapabilities?.canSave;
+    const isUnrealExperimentalRequired = isUnrealFamily && !!unrealCapabilities?.requiresExperimental;
+    const palworldQuickFields = palworldData?._palworld?.quickFields ?? [];
+    const palworldRole = palworldData?._palworld?.fileRole ?? 'unknown';
+    const palworldNotes = palworldData?._palworld?.notes ?? [];
+    const unrealReason = isUnrealFamily ? getUnrealReasonText(unrealData, t) : '';
     const isSaveDisabled =
         (isRenpy && !experimentalEnabled) ||
-        (format === 'unreal' && (!isUnrealSaveSupported || !experimentalEnabled)) ||
-        isUnrealPartial;
-    const isReadOnly = isUnrealPartial || (format === 'unreal' && !isUnrealSaveSupported);
-    const showQuickEdit = format === 'rpgmaker' || (format === 'json' && data?.gold !== undefined);
+        (isUnrealFamily && (!isUnrealSaveSupported || (isUnrealExperimentalRequired && !experimentalEnabled)));
+    const isReadOnly = isUnrealFamily ? !unrealCapabilities?.canEdit : false;
+    const editorData = isUnrealFamily ? unrealData?.jsonView : data;
+    const showQuickEdit =
+        isPalworld ||
+        format === 'rpgmaker' ||
+        (format === 'json' && editorData?.gold !== undefined);
 
     return (
         <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
@@ -293,31 +348,15 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                         </div>
                     </div>
                 )}
-                {format === 'unreal' && (
+                {isUnrealFamily && (
                     <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded-lg text-sm flex items-start gap-3">
                         <svg className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                         <div className="space-y-2">
-                            <p><strong>Limited Support / 支持受限 / 제한된 지원 / サポート制限:</strong></p>
-                            <p>
-                                <strong>EN:</strong> Unreal Engine GVAS save files use a complex binary format that varies between games.
-                                Basic viewing may work, but saving is not reliable. Each game defines its own unique save structure.
-                            </p>
-                            <p>
-                                <strong>中文:</strong> 虚幻引擎 GVAS 存档使用复杂的二进制格式，每个游戏的格式都不同。
-                                基本查看可能有效，但保存功能不可靠。每个游戏都有独特的存档结构。
-                            </p>
-                            <p>
-                                <strong>日本語:</strong> Unreal Engine の GVAS セーブファイルは、ゲームごとに異なる複雑なバイナリ形式を使用しています。
-                                基本的な閲覧は可能ですが、保存機能は信頼性がありません。
-                            </p>
-                            <p>
-                                <strong>한국어:</strong> 언리얼 엔진 GVAS 세이브 파일은 게임마다 다른 복잡한 바이너리 형식을 사용합니다.
-                                기본 보기는 작동할 수 있지만 저장은 신뢰할 수 없습니다.
-                            </p>
+                            <p><strong>{t('editor.unrealLimitedSupportTitle')}:</strong> {t('editor.unrealLimitedSupportBody')}</p>
                             <p className="text-red-700 font-medium mt-2">
-                                💡 We recommend using dedicated tools like UESaveEditor for Unreal games.
+                                {t('editor.unrealLimitedSupportAction')}
                             </p>
                         </div>
                     </div>
@@ -327,12 +366,22 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                         <strong>{t('editor.unrealReadOnlyTitle')}:</strong> {t('editor.unrealPartialBody')}
                     </div>
                 )}
-                {format === 'unreal' && !isUnrealPartial && !isUnrealSaveSupported && (
+                {isUnrealCompressedUnsupported && (
+                    <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg text-sm">
+                        <strong>{t('editor.unrealReadOnlyTitle')}:</strong> {t('editor.unrealCompressedBody')}
+                    </div>
+                )}
+                {isUnrealFamily && !isUnrealPartial && !isUnrealSaveSupported && (
                     <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg text-sm">
                         <strong>{t('editor.unrealReadOnlyTitle')}:</strong> {t('editor.unrealReadOnlyBody')}
                     </div>
                 )}
-                {(format === 'renpy' || (format === 'unreal' && isUnrealSaveSupported && !isUnrealPartial)) && (
+                {isUnrealFamily && unrealReason && (
+                    <div className="bg-slate-50 border border-slate-200 text-slate-800 p-4 rounded-lg text-sm">
+                        <strong>{t('editor.unrealParseDetailTitle')}:</strong> {unrealReason}
+                    </div>
+                )}
+                {(format === 'renpy' || (isUnrealFamily && isUnrealSaveSupported && isUnrealExperimentalRequired)) && (
                     <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-lg text-sm">
                         <label className="flex items-start gap-3">
                             <input
@@ -355,7 +404,7 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                         </div>
                         <textarea
                             className="w-full h-[500px] font-mono text-sm p-4 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                            value={data}
+                            value={typeof data === 'string' ? data : ''}
                             readOnly={isReadOnly}
                             onChange={(e) => setData(e.target.value)}
                         />
@@ -365,6 +414,79 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                         {activeTab === 'quick' && showQuickEdit ? (
                             format === 'rpgmaker' ? (
                                 <RpgMakerEditor data={data} onChange={handleDataChange} />
+                            ) : format === 'palworld' ? (
+                                <div className="space-y-5">
+                                    <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4 text-sm text-indigo-900">
+                                        <p className="font-semibold">{t('editor.palworldQuickTitle')}</p>
+                                        <p className="mt-1 text-indigo-700">{t('editor.palworldQuickDesc')}</p>
+                                        <div className="mt-3 flex flex-wrap gap-2">
+                                            <span className="inline-flex items-center rounded-full bg-white px-3 py-1 border border-indigo-200 text-xs font-medium">
+                                                {t('editor.palworldRoleLabel')}: {getPalworldRoleLabel(palworldRole, t)}
+                                            </span>
+                                            <span className="inline-flex items-center rounded-full bg-white px-3 py-1 border border-indigo-200 text-xs font-medium">
+                                                {t('editor.palworldFieldCountLabel')}: {palworldQuickFields.length}
+                                            </span>
+                                            {isReadOnly && (
+                                                <span className="inline-flex items-center rounded-full bg-amber-100 text-amber-900 px-3 py-1 border border-amber-200 text-xs font-medium">
+                                                    {t('editor.palworldQuickReadOnly')}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {palworldQuickFields.length === 0 ? (
+                                        <div className="bg-white border border-gray-200 rounded-xl p-4 text-sm text-gray-700">
+                                            <p className="font-medium">{t('editor.palworldQuickEmpty')}</p>
+                                            {palworldNotes.length > 0 && (
+                                                <ul className="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                                                    {palworldNotes.map((note, idx) => (
+                                                        <li key={idx}>{getPalworldNoteText(note, t)}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {palworldQuickFields.map((field) => {
+                                                const currentValue = getNumericValueAtPath(editorData, field.path) ?? field.value;
+                                                return (
+                                                    <div
+                                                        key={field.path.join('.')}
+                                                        className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm"
+                                                    >
+                                                        <div className="flex items-center justify-between mb-2">
+                                                            <p className="font-semibold text-gray-900">
+                                                                {getPalworldFieldLabel(field.id, t)}
+                                                            </p>
+                                                            <span className={`text-[11px] px-2 py-0.5 rounded-full border ${
+                                                                field.confidence === 'high'
+                                                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                                                    : 'bg-amber-50 text-amber-700 border-amber-200'
+                                                            }`}>
+                                                                {getPalworldConfidenceLabel(field.confidence, t)}
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-xs text-gray-500 mb-2 font-mono break-all">
+                                                            {field.path.join('.')}
+                                                        </p>
+                                                        <input
+                                                            type="number"
+                                                            className="block w-full rounded-lg border border-gray-300 bg-white shadow-sm focus:border-primary-500 focus:ring-primary-500 p-2.5"
+                                                            value={currentValue}
+                                                            readOnly={isReadOnly}
+                                                            onChange={(event) => {
+                                                                const nextValue = Number(event.target.value);
+                                                                if (!Number.isFinite(nextValue) || !editorData) return;
+                                                                const updated = setValueAtPath(editorData, field.path, nextValue);
+                                                                handleDataChange(updated);
+                                                            }}
+                                                        />
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                </div>
                             ) : (
                                 <div className="space-y-6">
                                     {/* Gold Editor (Generic) */}
@@ -378,7 +500,7 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                                         <input
                                             type="number"
                                             className="block w-full max-w-xs rounded-lg border-amber-200 bg-white shadow-sm focus:border-amber-400 focus:ring-amber-400 text-lg p-3 border font-medium"
-                                            value={data?.party?._gold ?? data?.party?.gold ?? data?.gold ?? 0}
+                                            value={editorData?.party?._gold ?? editorData?.party?.gold ?? editorData?.gold ?? 0}
                                             onChange={(e) => setData((prev: any) => {
                                                 if (!prev) return null;
                                                 const newData = JSON.parse(JSON.stringify(prev)); // Deep clone
@@ -408,9 +530,9 @@ export default function SaveEditor({ file, onBack }: SaveEditorProps) {
                                         <p className="text-gray-400 text-xs">{t('editor.loadingLargeFile')}</p>
                                     </div>
                                 ) : (
-                                    data && (
+                                    editorData && (
                                         <JsonEditor
-                                            data={data}
+                                            data={editorData}
                                             onChange={handleDataChange}
                                             readOnly={isReadOnly}
                                             canEdit={isRenpy ? canEditRenpy : undefined}
@@ -482,16 +604,131 @@ function canEditRenpy(path: Array<string | number>, value: any, action: 'edit' |
     return isPrimitive;
 }
 
+function getPalworldRoleLabel(role: string, t: (key: string) => string): string {
+    if (role === 'player') return t('editor.palworldRolePlayer');
+    if (role === 'world') return t('editor.palworldRoleWorld');
+    return t('editor.palworldRoleUnknown');
+}
+
+function getPalworldFieldLabel(id: PalworldQuickField['id'], t: (key: string) => string): string {
+    if (id === 'gold') return t('editor.palworldFieldGold');
+    if (id === 'techPoints') return t('editor.palworldFieldTechPoints');
+    if (id === 'playerLevel') return t('editor.palworldFieldLevel');
+    if (id === 'hp') return t('editor.palworldFieldHp');
+    return t('editor.palworldFieldStamina');
+}
+
+function getPalworldConfidenceLabel(
+    confidence: PalworldQuickField['confidence'],
+    t: (key: string) => string
+): string {
+    if (confidence === 'high') return t('editor.palworldConfidenceHigh');
+    return t('editor.palworldConfidenceMedium');
+}
+
+function getPalworldNoteText(note: PalworldInsightNote, t: (key: string) => string): string {
+    if (note === 'read_only') return t('editor.palworldNoteReadOnly');
+    if (note === 'world_file_limited') return t('editor.palworldNoteWorldLimited');
+    if (note === 'heuristic_quick_fields') return t('editor.palworldNoteHeuristic');
+    if (note === 'quick_scan_limited') return t('editor.palworldNoteScanLimited');
+    return t('editor.palworldNoteNoQuickFields');
+}
+
+function replaceTokens(template: string, values: Record<string, string>): string {
+    return Object.entries(values).reduce(
+        (output, [key, value]) => output.replace(new RegExp(`\\{${key}\\}`, 'g'), value),
+        template
+    );
+}
+
+function getUnrealReasonText(
+    data: UnrealFamilyResult | null,
+    t: (key: string) => string
+): string {
+    if (!data) return '';
+
+    const compression = data.reasonMeta?.compression ?? data.compression ?? 'unknown';
+    const parseError = data.reasonMeta?.parserError;
+    const maxBytes = data.reasonMeta?.maxDecompressedBytes;
+    const maxMb = maxBytes ? Math.round((maxBytes / (1024 * 1024)) * 10) / 10 : null;
+
+    switch (data.reasonCode) {
+        case 'standard_gvas':
+            return '';
+        case 'compressed_readonly':
+            return replaceTokens(t('editor.unrealReasonCompressedReadonly'), { compression });
+        case 'gvas_parse_failed': {
+            const base = t('editor.unrealReasonGvasParseFailed');
+            return parseError ? `${base} (${parseError})` : base;
+        }
+        case 'decompression_limit':
+            return replaceTokens(t('editor.unrealReasonDecompressionLimit'), {
+                compression,
+                maxMb: maxMb ? `${maxMb}` : '64',
+            });
+        case 'unsupported_container':
+            return replaceTokens(t('editor.unrealReasonUnsupportedContainer'), { compression });
+        case 'decompression_failed':
+            return replaceTokens(t('editor.unrealReasonDecompressionFailed'), { compression });
+        case 'not_gvas':
+            return t('editor.unrealReasonNotGvas');
+        default:
+            return data.reason || '';
+    }
+}
+
+function getNumericValueAtPath(data: unknown, path: Array<string | number>): number | null {
+    let cursor: any = data;
+    for (const segment of path) {
+        if (cursor === null || cursor === undefined) return null;
+        cursor = cursor[segment as any];
+    }
+    return typeof cursor === 'number' && Number.isFinite(cursor) ? cursor : null;
+}
+
+function cloneContainer(value: unknown): any {
+    if (Array.isArray(value)) return [...value];
+    if (value && typeof value === 'object') return { ...(value as Record<string, unknown>) };
+    return undefined;
+}
+
+function setValueAtPath(root: unknown, path: Array<string | number>, nextValue: number): unknown {
+    if (path.length === 0) return root;
+    const clonedRoot = cloneContainer(root);
+    if (!clonedRoot) return root;
+
+    let cursor: any = clonedRoot;
+    for (let i = 0; i < path.length - 1; i++) {
+        const segment = path[i];
+        const originalNext = cursor?.[segment as any];
+        const clonedNext = cloneContainer(originalNext);
+        if (!clonedNext) return root;
+        cursor[segment as any] = clonedNext;
+        cursor = clonedNext;
+    }
+
+    const lastSegment = path[path.length - 1];
+    cursor[lastSegment as any] = nextValue;
+    return clonedRoot;
+}
+
 function buildErrorAdvice(
     ext: string | undefined,
     message: string,
-    t: (key: keyof typeof ui['en']) => string
+    t: (key: string) => string
 ): string[] {
     const advice: string[] = [t('editor.advice.generic1'), t('editor.advice.generic2')];
 
     if (ext === 'sav') {
         advice.unshift(t('editor.advice.unreal1'));
         advice.push(t('editor.advice.unreal2'));
+        const lowerMessage = message.toLowerCase();
+        if (lowerMessage.includes('not a standard unreal gvas')) {
+            advice.unshift(t('editor.unrealNotGvasBody'));
+        }
+        if (lowerMessage.includes('compressed')) {
+            advice.unshift(t('editor.unrealCompressedBody'));
+        }
     }
 
     if (ext === 'save') {

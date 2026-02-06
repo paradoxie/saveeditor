@@ -60,6 +60,69 @@ export async function getStaticPaths() {
       relatedGuides: [{ title: 'Unityセーブ編集ガイド', url: '/ja/blog/how-to-edit-unity-saves' }],
     },
     {
+      slug: 'palworld',
+      name: 'Palworld',
+      nameLocal: 'パルワールド',
+      seoDescription:
+        'Palworld `.sav` 向けオンライン編集フロー。標準GVASを優先し、安全な閲覧と互換ファイルの慎重な編集に対応。非互換は読み取り専用に自動切替。',
+      seoContent: `
+        <h2>Palworldセーブ編集（互換性重視）</h2>
+        <p>本ワークフローは <strong>まず安全に読めること</strong> を優先します。標準GVASは編集可能になる場合がありますが、ゲーム固有コンテナ/暗号化形式は読み取り専用になります。</p>
+        <h3>互換セーブで編集できる可能性がある項目</h3>
+        <ul>
+            <li><strong>プレイヤー:</strong> レベルや一部進行値（実際の解析構造に依存）。</li>
+            <li><strong>パル:</strong> 露出しているパラメータを確認し、バックアップ前提で慎重に変更。</li>
+            <li><strong>インベントリ/拠点:</strong> 構造を確認しながら小さな変更を段階的に適用。</li>
+        </ul>
+        <h3>Steam と Game Pass の違い</h3>
+        <p>Steam版は標準フローに入りやすい一方、Game Pass/Xbox版は追加コンテナにより読み取り専用になるケースがあります。</p>
+      `,
+      engine: 'Unreal Engine (GVAS)',
+      format: '.sav',
+      editorPath: '/ja/editor/palworld',
+      emoji: '🦎',
+      description: 'Pocketpairが開発したサバイバル×モンスター育成ゲーム。',
+      saveLocations: {
+        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
+        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
+        linux:
+          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
+      },
+      editableItems: [
+        { icon: '💰', name: 'ゴールド', desc: '互換セーブで通貨フィールドを確認・調整' },
+        { icon: '🦎', name: 'パル情報', desc: 'パル構造を確認し、対応時のみ慎重に編集' },
+        { icon: '📈', name: 'プレイヤー能力', desc: '対応バリアントでレベル/体力等を調整' },
+        { icon: '🎒', name: 'インベントリ', desc: 'アイテム配列を確認し、小刻みに変更' },
+        { icon: '🏠', name: '拠点進行', desc: 'GVASで露出している拠点データを確認' },
+      ],
+      faq: [
+        {
+          question: 'Palworldのセーブはどこにありますか？',
+          answer:
+            'Windows: %localappdata%\\Pal\\Saved\\SaveGames。通常、各ワールドにLevel.sav（ワールド）とPlayersフォルダ（プレイヤー）があります。',
+        },
+        {
+          question: 'Steam Deckでも編集できますか？',
+          answer:
+            '可能です。Protonプレフィックス内の保存先にアクセスし、必要に応じてPCへ転送して編集できます。',
+        },
+        {
+          question: 'なぜ読み取り専用になるのですか？',
+          answer:
+            'ゲーム固有コンテナや特殊圧縮/暗号化が原因です。ブラウザでは安全な再パッケージ化ができないため、専用ツールの利用を推奨します。',
+        },
+        {
+          question: '安全に編集するには？',
+          answer:
+            '毎回 SaveGames フォルダ全体をバックアップし、1項目ずつ変更して即ゲーム内で検証してください。',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Palworldセーブ編集ガイド', url: '/ja/blog/palworld-save-editing-guide' },
+        { title: 'Unreal Engineセーブ編集ガイド', url: '/ja/blog/how-to-edit-unreal-engine-saves' },
+      ],
+    },
+    {
       slug: 'undertale',
       name: 'Undertale',
       nameLocal: 'アンダーテール',
@@ -364,7 +427,11 @@ const { game } = Astro.props;
             </div>
             <h3 class="font-bold text-lg mb-2">アップロードして編集</h3>
             <p class="text-gray-600">
-              セーブファイルをエディタにドラッグ。ゴールド、アイテム、ステータスを変更。
+              {
+                game.slug === 'palworld'
+                  ? '`.sav` をアップロード後、まず互換モードを確認してください。読み取り専用の場合は閲覧のみに留め、書き込みは専用ツールへ切り替えてください。'
+                  : 'セーブファイルをエディタにドラッグ。ゴールド、アイテム、ステータスを変更。'
+              }
             </p>
           </div>
           <div class="text-center p-6">
@@ -375,7 +442,11 @@ const { game } = Astro.props;
             </div>
             <h3 class="font-bold text-lg mb-2">ダウンロードしてプレイ</h3>
             <p class="text-gray-600">
-              編集したセーブをダウンロードして元のファイルと置き換え。ゲームを起動！
+              {
+                game.slug === 'palworld'
+                  ? 'エディタが「編集可能・保存可能」と表示した場合のみダウンロードして置き換えてください。そうでない場合はバックアップを保持して専用ツールを利用してください。'
+                  : '編集したセーブをダウンロードして元のファイルと置き換え。ゲームを起動！'
+              }
             </p>
           </div>
         </div>
@@ -454,7 +525,7 @@ const { game } = Astro.props;
       <!-- Related Games (Cross-linking) -->
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">他の人気ゲーム</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
             game.slug !== 'stardew-valley' && (
               <a
@@ -464,6 +535,19 @@ const { game } = Astro.props;
                 <span class="text-2xl block mb-2">🌾</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
                   スターデューバレー
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'palworld' && (
+              <a
+                href="/ja/games/palworld"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🦎</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  パルワールド
                 </span>
               </a>
             )
@@ -522,7 +606,7 @@ const { game } = Astro.props;
           }
         </div>
         <div class="text-center mt-6">
-          <a href="/games" class="text-primary-600 hover:text-primary-700 font-medium">
+          <a href="/ja/games" class="text-primary-600 hover:text-primary-700 font-medium">
             80以上のゲームを見る →
           </a>
         </div>

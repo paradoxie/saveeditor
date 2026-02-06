@@ -51,6 +51,69 @@ export async function getStaticPaths() {
       ],
     },
     {
+      slug: 'palworld',
+      name: 'Palworld',
+      nameLocal: 'Palworld',
+      seoDescription:
+        'Fluxo online de `.sav` para Palworld com foco em GVAS padrão. Inspeção segura primeiro, edição cautelosa em arquivos compatíveis e fallback claro para somente leitura.',
+      seoContent: `
+        <h2>Edição de save do Palworld (prioridade em compatibilidade)</h2>
+        <p>Nosso fluxo prioriza <strong>inspeção segura</strong>. Saves GVAS padrão podem permitir edição; variantes com contêiner/criptografia específica do jogo entram em modo somente leitura.</p>
+        <h3>O que pode ser ajustado em saves compatíveis</h3>
+        <ul>
+            <li><strong>Jogador:</strong> nível e alguns campos de progressão (dependendo da estrutura analisada).</li>
+            <li><strong>Pals:</strong> revisão de atributos expostos e ajustes conservadores com backup.</li>
+            <li><strong>Inventário/Base:</strong> inspeção de estruturas e mudanças graduais com validação em jogo.</li>
+        </ul>
+        <h3>Steam vs Game Pass</h3>
+        <p>Saves da Steam costumam entrar no fluxo padrão com mais frequência. No Game Pass/Xbox, contêineres extras podem limitar o arquivo a somente leitura.</p>
+      `,
+      engine: 'Unreal Engine (GVAS)',
+      format: '.sav',
+      editorPath: '/pt/editor/palworld',
+      emoji: '🦎',
+      description: 'O jogo de sobrevivência e captura de criaturas da Pocketpair.',
+      saveLocations: {
+        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
+        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
+        linux:
+          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
+      },
+      editableItems: [
+        { icon: '💰', name: 'Ouro', desc: 'Inspecione e ajuste moeda em saves compatíveis' },
+        { icon: '🦎', name: 'Dados de Pals', desc: 'Revise estrutura dos Pals e edite com cautela quando suportado' },
+        { icon: '📈', name: 'Status do Jogador', desc: 'Ajuste nível/HP/fôlego em variantes suportadas' },
+        { icon: '🎒', name: 'Inventário', desc: 'Verifique arrays de itens e faça mudanças graduais' },
+        { icon: '🏠', name: 'Progresso da Base', desc: 'Consulte campos de base expostos no GVAS' },
+      ],
+      faq: [
+        {
+          question: 'Onde ficam os saves do Palworld?',
+          answer:
+            'Windows: %localappdata%\\Pal\\Saved\\SaveGames. Em geral, cada mundo contém Level.sav (mundo) e a pasta Players (dados do jogador).',
+        },
+        {
+          question: 'Posso editar no Steam Deck?',
+          answer:
+            'Sim. O caminho fica dentro do prefixo Proton. Você pode editar no próprio Deck (modo Desktop) ou transferir para um PC.',
+        },
+        {
+          question: 'Por que meu arquivo ficou somente leitura?',
+          answer:
+            'Isso normalmente indica contêiner/criptografia específica do jogo. O navegador consegue detectar, mas não reconstruir com segurança esse formato.',
+        },
+        {
+          question: 'Qual a forma mais segura de editar?',
+          answer:
+            'Faça backup da pasta SaveGames inteira antes de cada alteração e teste uma mudança por vez dentro do jogo.',
+        },
+      ],
+      relatedGuides: [
+        { title: 'Guia de Edição de Save do Palworld', url: '/pt/blog/palworld-save-editing-guide' },
+        { title: 'Como Editar Saves do Unreal Engine', url: '/pt/blog/how-to-edit-unreal-engine-saves' },
+      ],
+    },
+    {
       slug: 'undertale',
       name: 'Undertale',
       nameLocal: 'Undertale',
@@ -329,7 +392,7 @@ const { game } = Astro.props;
       <!-- Related Games -->
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Outros Jogos Populares</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
             game.slug !== 'stardew-valley' && (
               <a
@@ -339,6 +402,19 @@ const { game } = Astro.props;
                 <span class="text-2xl block mb-2">🌾</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
                   Stardew Valley
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'palworld' && (
+              <a
+                href="/pt/games/palworld"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🦎</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Palworld
                 </span>
               </a>
             )
@@ -397,7 +473,7 @@ const { game } = Astro.props;
           }
         </div>
         <div class="text-center mt-6">
-          <a href="/games" class="text-primary-600 hover:text-primary-700 font-medium">
+          <a href="/pt/games" class="text-primary-600 hover:text-primary-700 font-medium">
             Ver Todos os 80+ Jogos →
           </a>
         </div>

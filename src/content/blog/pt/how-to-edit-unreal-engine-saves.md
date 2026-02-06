@@ -1,6 +1,6 @@
 ---
 title: "Como Editar Arquivos de Save do Unreal Engine (.sav) - Guia Completo GVAS"
-description: "Um guia abrangente para editar arquivos de save do Unreal Engine 4 e 5. Aprenda a analisar o formato GVAS e modificar Palworld, Hogwarts Legacy, Satisfactory e outros jogos UE."
+description: "Guia com foco em compatibilidade para `.sav` do Unreal Engine 4/5. Aprenda a analisar GVAS com segurança e quando migrar para ferramentas específicas de cada jogo."
 pubDate: 2026-01-05
 tags: ["Unreal Engine", "GVAS", "guia", "Palworld", "Hogwarts Legacy"]
 author: "SaveEditor Team"
@@ -8,13 +8,15 @@ lang: "pt"
 image: "/images/blog/unreal-cover.webp"
 ---
 
+> **Status de suporte (fevereiro de 2026):** O editor web prioriza arquivos **GVAS padrão e sem criptografia**. Variantes com contêiner/compressão específica do jogo podem ficar em somente leitura ou sem reconstrução segura.
+
 ## Introdução
 
 ![Interface do Editor de Save Unreal Engine](/images/blog/unreal-content.webp)
 
 Unreal Engine é um dos motores de jogos mais poderosos do mundo, usado por estúdios AAA e desenvolvedores indie. Jogos como **Palworld**, **Hogwarts Legacy**, **Satisfactory** e **Deep Rock Galactic** todos usam Unreal Engine e armazenam seus dados de save em um formato binário proprietário.
 
-Se você já quis editar seu inventário, dar a si mesmo mais recursos ou desbloquear recursos em um jogo Unreal Engine, este guia vai guiá-lo pelo processo. Diferente de arquivos JSON ou XML simples, saves UE requerem ferramentas especializadas para analisar - e é exatamente isso que nosso **Save Editor Online** fornece.
+Se você quer inspecionar saves Unreal e editar apenas variantes compatíveis, este guia mostra o fluxo prático. Diferente de arquivos JSON ou XML simples, saves UE exigem parsers especializados. Nosso editor web prioriza GVAS padrão e muda para somente leitura quando a reconstrução segura não é possível.
 
 ## O que é o Formato GVAS?
 
@@ -64,7 +66,7 @@ Crie uma pasta chamada `Backups` e copie seus arquivos de save lá antes de pros
 2.  Arraste e solte seu arquivo `.sav`.
 3.  Aguarde o parser GVAS processar o arquivo.
 
-Nosso editor usa um parser GVAS compatível com navegador para converter os dados binários em uma árvore JSON navegável.
+Nosso editor tenta analisar primeiro o GVAS padrão e mostrar os dados como árvore JSON quando possível. Variantes com contêiner/compressão específica podem cair em modo somente leitura.
 
 ## Passo 4: Navegue e Edite Propriedades
 
@@ -81,10 +83,10 @@ Clique em uma propriedade para expandir e editar seu valor. Para propriedades nu
 
 ## Passo 5: Baixe e Substitua
 
-1.  Clique em **Download Modified Save**.
-2.  O editor reconstrói o arquivo binário GVAS com suas alterações.
-3.  Substitua o arquivo original na sua pasta de save.
-4.  Inicie o jogo e carregue seu save!
+1.  Clique em **Download Modified Save** apenas quando o editor indicar modo compatível e editável.
+2.  A ferramenta tentará reconstruir o GVAS binário com suas alterações.
+3.  Se estiver em somente leitura, use uma ferramenta dedicada ao jogo.
+4.  Só substitua o arquivo original após validar seus backups.
 
 ## Solução de Problemas
 
@@ -125,7 +127,7 @@ R: Se não for GVAS padrão, você pode precisar de ferramentas de modding espec
 
 ## Conclusão
 
-Editar saves do Unreal Engine requer entender o formato binário GVAS, mas com as ferramentas certas, é completamente alcançável. Seja para spawnar itens raros no Palworld, maximizar seus status no Hogwarts Legacy ou apenas experimentar com mecânicas do jogo, nosso editor online gratuito torna isso acessível para todos.
+Editar saves do Unreal Engine exige entender os limites de compatibilidade do GVAS. Use o editor web para variantes padrão e recorra a ferramentas específicas quando o arquivo estiver encapsulado ou sem reconstrução segura.
 
 Lembre-se: sempre faça backup dos seus saves, nunca edite jogos multiplayer/competitivos de forma injusta, e bom modding!
 
@@ -149,5 +151,4 @@ Expanda seu conhecimento de edição de saves Unreal Engine:
 - [Guia de Edição de Save Palworld](/pt/blog/palworld-save-editing-guide)
 - [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained)
 - [Edição de Save Unity](/pt/blog/how-to-edit-unity-saves)
-
 

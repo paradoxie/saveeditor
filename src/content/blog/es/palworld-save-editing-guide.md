@@ -1,11 +1,13 @@
 ---
 title: "Cómo Editar Archivos de Guardado de Palworld - Guía Completa (2026)"
-description: "Aprende a editar archivos de guardado de Palworld en PC y Steam Deck. Modifica Pals, oro, inventario y estadísticas del jugador con nuestro editor de guardado online gratuito. Guía paso a paso con ubicaciones de archivos."
+description: "Guía de edición de guardados de Palworld enfocada en compatibilidad. Incluye ubicaciones en PC/Steam Deck, inspección segura de GVAS estándar y cuándo cambiar a herramientas dedicadas."
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guía", "editor-sav"]
 author: "Equipo SaveEditor"
 image: "/images/blog/palworld-guide-cover-v2.png"
 ---
+
+> **Estado de soporte (febrero de 2026):** Este flujo para Palworld prioriza saves **GVAS estándar**. Si el archivo está encapsulado/cifrado, el editor puede quedar en solo lectura o recomendar herramientas dedicadas.
 
 ## Introducción a la Edición de Guardados de Palworld
 
@@ -13,7 +15,7 @@ image: "/images/blog/palworld-guide-cover-v2.png"
 
 **Palworld** ha tomado al mundo por sorpresa con su mezcla adictiva de captura de monstruos, supervivencia y automatización de bases. Como juego de Unreal Engine 5, utiliza el complejo formato de guardado binario **GVAS** (`.sav`), lo que hace que la edición manual sea imposible sin herramientas especializadas.
 
-Ya sea que quieras recuperar un Pal perdido por un error, evitar el grindeo de materiales de construcción o experimentar con estadísticas máximas, esta guía te enseñará cómo modificar tus partidas guardadas de manera segura y efectiva.
+Ya sea que quieras recuperar progreso tras un error o ajustar tu partida con cuidado, esta guía te enseña un flujo de inspección y edición con enfoque de compatibilidad.
 
 ## Ubicación del Archivo de Guardado de Palworld
 
@@ -63,22 +65,24 @@ Dentro de la carpeta de tu mundo, encontrarás varios archivos clave:
 
 Dado que los archivos son binarios GVAS comprimidos, no puedes usar el Bloc de notas.
 
-1.  Ve a nuestro [Editor de Palworld](/es/editor/unreal).
+1.  Ve a nuestro [Editor de Palworld](/es/editor/palworld).
 2.  Para editar **Pals, Bases o el Mundo**, sube `Level.sav`.
 3.  Para editar **Inventario del Jugador o Puntos de Tecnología**, sube tu archivo `Players/0000...00001.sav` (para host) o el ID correspondiente.
 4.  Espera a que la herramienta analice el archivo (archivos `Level.sav` grandes pueden tardar unos segundos).
 
 ## Paso 3: Encontrar y Editar Datos
 
-Una vez cargado, verás una estructura de árbol. Aquí está dónde encontrar las cosas comunes:
+Los campos disponibles cambian según la versión y el tipo de guardado. Si el editor entra en modo de solo lectura, detén la edición y usa una herramienta dedicada.
 
-### Editar Oro / Dinero
+Una vez cargado, verás una estructura de árbol. En variantes compatibles, aquí suelen aparecer campos comunes:
+
+### Oro / Dinero (si está expuesto)
 El oro es un objeto en tu inventario, no solo un número.
 1.  En el archivo del Jugador, navega a `InventoryInfo`.
 2.  Busca el objeto con ID estático `Money` o `GoldCoin`.
 3.  Cambia el valor `StackCount` a `999999`.
 
-### Modificar Estadísticas de Pals (En `Level.sav`)
+### Estadísticas de Pals (en `Level.sav`, cuando estén expuestas)
 Esto es complejo porque los Pals se almacenan en un mapa masivo.
 1.  Busca `CharacterSaveParameterMap`.
 2.  Cada entrada es una instancia de un Pal.
@@ -89,23 +93,23 @@ Esto es complejo porque los Pals se almacenan en un mapa masivo.
     *   `PassiveSkillList`: Lista de habilidades pasivas (ej. `Legend`, `Ferocious`).
     *   `Gender`: `Male` o `Female`.
 
-### Añadir Objetos al Inventario
+### Inventario (cuando esté expuesto)
 1.  En el archivo del Jugador, ve a `InventoryInfo`.
 2.  Encuentra una ranura vacía o un objeto existente que no quieras.
 3.  Cambia el `StaticID` al ID del objeto que deseas (ej. `Accessory_HeatResist_3`).
 4.  Ajusta el `StackCount`.
 
-### Editar Estadísticas del Jugador
+### Campos del Jugador (cuando estén expuestos)
 En el archivo del Jugador `PlayerCharacterMakeData`:
 *   `StatusPoint`: Puntos de estadística no gastados.
 *   `TechnologyPoint`: Puntos para desbloquear recetas.
 
 ## Paso 4: Descargar y Reemplazar
 
-1.  Haz clic en **Descargar**.
+1.  Haz clic en **Descargar** solo si el editor muestra modo compatible y editable.
 2.  Asegúrate de que el nombre del archivo sea **exactamente** el original (`Level.sav` o el ID del jugador).
-3.  Reemplaza el archivo en la carpeta de guardado.
-4.  Si tienes activado Steam Cloud, podría intentar restaurar el archivo antiguo. Inicia el juego inmediatamente o desactiva Steam Cloud.
+3.  Reemplaza el archivo solo después de validar tu backup.
+4.  Si el editor aparece en solo lectura, usa una herramienta específica de Palworld.
 
 ## Preguntas Comunes
 
@@ -118,16 +122,18 @@ R: Es complicado. Requiere copiar la entrada del jugador dentro de `Level.sav` d
 **P: ¿Mi archivo es demasiado grande?**
 R: `Level.sav` puede crecer mucho (50MB+). Nuestro editor maneja archivos grandes, pero asegúrate de tener una conexión estable y paciencia durante el análisis.
 
-## Resumen de Ítems Editables
+## Resumen de Compatibilidad
 
-| Categoría | Ubicación | Dificultad |
+| Categoría | Ubicación habitual | Dificultad |
 |---|---|---|
-| Dinero/Oro | Archivo de Jugador (Inventario) | Fácil |
-| Puntos de Tecnología | Archivo de Jugador | Fácil |
-| Estadísticas de Pals (IVs) | Level.sav | Avanzado |
-| Habilidades Pasivas de Pals | Level.sav | Avanzado |
+| Dinero/Oro | Archivo de Jugador (Inventario) | Fácil* |
+| Puntos de Tecnología | Archivo de Jugador | Fácil* |
+| Estadísticas de Pals (IVs) | Level.sav | Avanzado* |
+| Habilidades Pasivas de Pals | Level.sav | Avanzado* |
 | Materiales de Base | Level.sav (Inventario de Contenedores) | Avanzado |
 | Tiempo del Mundo | LevelMeta.sav | Fácil |
+
+\*Disponible solo en estructuras compatibles; en modo solo lectura usa herramientas dedicadas.
 
 ## Consejos para una Edición Segura
 
@@ -141,9 +147,9 @@ R: `Level.sav` puede crecer mucho (50MB+). Nuestro editor maneja archivos grande
 
 ## Conclusión
 
-Editar guardados de Palworld abre un nuevo nivel de libertad para experimentar con construcciones de bases y cría de Pals sin el grindeo masivo. Con nuestro editor web, puedes hacer ajustes rápidos de manera segura y volver a la acción.
+Editar guardados de Palworld abre un gran margen de personalización, pero requiere respetar los límites de compatibilidad. Con nuestro editor web puedes trabajar de forma segura en variantes estándar y detectar pronto cuándo necesitas una herramienta especializada.
 
-[Abrir Editor de Palworld →](/es/editor/unreal)
+[Abrir Editor de Palworld →](/es/editor/palworld)
 
 ---
 

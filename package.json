@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:unreal": "tsx scripts/test-unreal-parser.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

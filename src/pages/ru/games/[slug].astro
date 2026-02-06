@@ -60,27 +60,27 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
-        { title: 'Как редактировать сохранения Unity', url: '/blog/how-to-edit-unity-saves' },
+        { title: 'Как редактировать сохранения Unity', url: '/ru/blog/how-to-edit-unity-saves' },
       ],
     },
     {
       slug: 'palworld',
       name: 'Palworld',
       seoDescription:
-        'Онлайн редактор сохранений Palworld (Без загрузки). Редактируйте .sav файлы, формат GVAS, характеристики Палов, инвентарь и уровень базы. Безопасный инструмент с открытым кодом.',
+        'Поток работы с Palworld `.sav` для стандартных GVAS-вариантов. Сначала безопасный просмотр, затем аккуратное редактирование только совместимых файлов.',
       seoContent: `
         <h2>Продвинутое редактирование Palworld</h2>
-        <p>Наш редактор Palworld позволяет легко изменять файлы <code>Level.sav</code> и <code>.sav</code> игрока. Он автоматически обрабатывает десериализацию формата GVAS (формат сохранения Unreal Engine).</p>
-        <h3>Что можно изменить:</h3>
+        <p>Наш сценарий для Palworld ставит на первое место <strong>безопасность сохранения</strong>. Лучше всего работает со стандартным GVAS и может переходить в режим только чтения для контейнерных/кастомных вариантов.</p>
+        <h3>Что может редактироваться в совместимых вариантах:</h3>
         <ul>
-            <li><strong>Палы:</strong> Изменяйте пассивные навыки (добавьте Легенду, Счастливчика), характеристики (Атака, Защита) и уровень конденсации.</li>
-            <li><strong>Игрок:</strong> Редактируйте Вес, Силу поимки, Очки технологий и Очки древних технологий.</li>
-            <li><strong>База и Предметы:</strong> Разблокируйте все технологии и создайте любой предмет или ресурс.</li>
+            <li><strong>Палы:</strong> Просмотр открытых полей навыков/характеристик и осторожные правки с резервной копией.</li>
+            <li><strong>Игрок:</strong> Корректировка отдельных параметров прогресса при полном и безопасном разборе.</li>
+            <li><strong>База и предметы:</strong> Проверка структур перед консервативными изменениями.</li>
         </ul>
       `,
       engine: 'Unreal Engine (GVAS)',
       format: '.sav',
-      editorPath: '/ru/editor/unreal',
+      editorPath: '/ru/editor/palworld',
       emoji: '🦎',
       image: '/images/games/palworld.webp',
       description: 'Вирусная игра про выживание и коллекционирование существ.',
@@ -91,12 +91,12 @@ export async function getStaticPaths() {
           '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
       },
       editableItems: [
-        { icon: '💰', name: 'Золото', desc: 'Изменить валюту' },
-        { icon: '🦎', name: 'Палы', desc: 'Изменить характеристики Палов' },
-        { icon: '📈', name: 'Характеристики', desc: 'Уровень, HP, выносливость' },
-        { icon: '🎒', name: 'Инвентарь', desc: 'Добавить предметы и ресурсы' },
-        { icon: '⚔️', name: 'Экипировка', desc: 'Изменить оружие и броню' },
-        { icon: '🏠', name: 'База', desc: 'Изменить данные строительства' },
+        { icon: '💰', name: 'Золото', desc: 'Просмотр/изменение валюты в совместимых файлах' },
+        { icon: '🦎', name: 'Палы', desc: 'Проверка структур Палов и осторожные правки' },
+        { icon: '📈', name: 'Характеристики', desc: 'Потенциальные изменения в поддерживаемых вариантах' },
+        { icon: '🎒', name: 'Инвентарь', desc: 'Анализ массивов предметов с пошаговой проверкой' },
+        { icon: '⚔️', name: 'Экипировка', desc: 'Проверка записей экипировки в совместимых структурах' },
+        { icon: '🏠', name: 'База', desc: 'Просмотр данных базы, если они доступны в GVAS' },
       ],
       faq: [
         {
@@ -111,8 +111,12 @@ export async function getStaticPaths() {
       ],
       relatedGuides: [
         {
+          title: 'Руководство по редактированию Palworld',
+          url: '/ru/blog/palworld-save-editing-guide',
+        },
+        {
           title: 'Как редактировать сохранения Unreal Engine',
-          url: '/blog/how-to-edit-unreal-engine-saves',
+          url: '/ru/blog/how-to-edit-unreal-engine-saves',
         },
       ],
     },
@@ -162,7 +166,7 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
-        { title: 'Гайд по редактированию GameMaker', url: '/blog/gamemaker-save-editing-guide' },
+        { title: 'Гайд по редактированию GameMaker', url: '/ru/blog/gamemaker-save-editing-guide' },
       ],
     },
     {
@@ -201,7 +205,7 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
-        { title: "Гайд по редактированию Ren'Py", url: '/blog/renpy-save-editing-guide' },
+        { title: "Гайд по редактированию Ren'Py", url: '/ru/blog/renpy-save-editing-guide' },
       ],
     },
     {
@@ -233,7 +237,7 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
-        { title: 'Как редактировать сохранения Unity', url: '/blog/how-to-edit-unity-saves' },
+        { title: 'Как редактировать сохранения Unity', url: '/ru/blog/how-to-edit-unity-saves' },
       ],
     },
     {
@@ -268,7 +272,7 @@ export async function getStaticPaths() {
       relatedGuides: [
         {
           title: 'Как редактировать сохранения RPG Maker',
-          url: '/blog/how-to-edit-rpg-maker-save',
+          url: '/ru/blog/how-to-edit-rpg-maker-save',
         },
       ],
     },
@@ -437,7 +441,11 @@ const absUrl = (path: string) =>
             </div>
             <h3 class="font-bold text-lg mb-2">Загрузите и Редактируйте</h3>
             <p class="text-gray-600">
-              Перетащите файл в редактор. Измените золото, предметы и характеристики.
+              {
+                game.slug === 'palworld'
+                  ? 'Загрузите `.sav` и сначала проверьте режим совместимости. Если включен режим только чтения, используйте страницу для проверки структуры и переходите на профильный инструмент для записи.'
+                  : 'Перетащите файл в редактор. Измените золото, предметы и характеристики.'
+              }
             </p>
           </div>
           <div class="text-center p-6">
@@ -448,7 +456,11 @@ const absUrl = (path: string) =>
             </div>
             <h3 class="font-bold text-lg mb-2">Скачайте и Играйте</h3>
             <p class="text-gray-600">
-              Замените оригинал отредактированным файлом. Запускайте игру!
+              {
+                game.slug === 'palworld'
+                  ? 'Скачивайте файл только если редактор явно показывает совместимый режим редактирования и сохранения. Иначе оставьте резервную копию и используйте профильный инструмент.'
+                  : 'Замените оригинал отредактированным файлом. Запускайте игру!'
+              }
             </p>
           </div>
         </div>
@@ -527,7 +539,7 @@ const absUrl = (path: string) =>
       <!-- Related Games (Cross-linking) -->
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Другие Популярные Игры</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
             game.slug !== 'stardew-valley' && (
               <a
@@ -537,6 +549,19 @@ const absUrl = (path: string) =>
                 <span class="text-2xl block mb-2">🌾</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
                   Stardew Valley
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'palworld' && (
+              <a
+                href="/ru/games/palworld"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🦎</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Palworld
                 </span>
               </a>
             )

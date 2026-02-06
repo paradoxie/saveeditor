@@ -60,27 +60,27 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
-        { title: 'Cómo editar saves de Unity', url: '/blog/how-to-edit-unity-saves' },
+        { title: 'Cómo editar saves de Unity', url: '/es/blog/how-to-edit-unity-saves' },
       ],
     },
     {
       slug: 'palworld',
       name: 'Palworld',
       seoDescription:
-        'Editor de Partidas de Palworld Online (Sin descarga). Edita archivos .sav, formato GVAS, estadísticas de Pals, inventario y nivel de base. Herramienta segura y open source.',
+        'Flujo de Palworld `.sav` para variantes GVAS estándar. Inspección segura primero, edición cuidadosa en archivos compatibles y fallback claro a solo lectura.',
       seoContent: `
         <h2>Edición Avanzada de Palworld</h2>
-        <p>Nuestro Editor de Palworld te permite modificar los archivos <code>Level.sav</code> y <code>.sav</code> del jugador fácilmente. Maneja la deserialización del formato GVAS (formato de guardado de Unreal Engine) automáticamente.</p>
-        <h3>Qué puedes editar:</h3>
+        <p>Nuestro flujo para Palworld prioriza la <strong>seguridad del archivo</strong>. Funciona mejor con guardados GVAS estándar y puede activar modo solo lectura en variantes encapsuladas o personalizadas.</p>
+        <h3>Qué puede ser editable en variantes compatibles:</h3>
         <ul>
-            <li><strong>Pals:</strong> Modifica habilidades pasivas (añade Leyenda, Suerte), estadísticas (Atk, Def) y nivel de condensación.</li>
-            <li><strong>Jugador:</strong> Edita Peso de Carga, Poder de Captura, Puntos de Tecnología y Puntos de Tecnología Antigua.</li>
-            <li><strong>Base y Objetos:</strong> Desbloquea todas las tecnologías y genera cualquier objeto o recurso.</li>
+            <li><strong>Pals:</strong> Revisar habilidades/estadísticas expuestas y ajustar con respaldo previo.</li>
+            <li><strong>Jugador:</strong> Ajustar campos de progresión cuando el parsing sea completo y seguro.</li>
+            <li><strong>Base y Objetos:</strong> Inspeccionar estructuras antes de aplicar cambios conservadores.</li>
         </ul>
       `,
       engine: 'Unreal Engine (GVAS)',
       format: '.sav',
-      editorPath: '/es/editor/unreal',
+      editorPath: '/es/editor/palworld',
       emoji: '🦎',
       image: '/images/games/palworld.webp',
       description: 'El viral juego de supervivencia y colección de criaturas.',
@@ -91,12 +91,12 @@ export async function getStaticPaths() {
           '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
       },
       editableItems: [
-        { icon: '💰', name: 'Oro', desc: 'Edita tu moneda del juego' },
-        { icon: '🦎', name: 'Pals', desc: 'Modifica stats y habilidades de Pals' },
-        { icon: '📈', name: 'Stats Jugador', desc: 'Cambia nivel, HP, estamina' },
-        { icon: '🎒', name: 'Inventario', desc: 'Añade objetos y recursos' },
-        { icon: '⚔️', name: 'Equipamiento', desc: 'Edita armas y armaduras' },
-        { icon: '🏠', name: 'Progreso Base', desc: 'Modifica datos de construcción' },
+        { icon: '💰', name: 'Oro', desc: 'Inspecciona o ajusta moneda en archivos compatibles' },
+        { icon: '🦎', name: 'Pals', desc: 'Revisa estructuras de Pals y edita con cautela' },
+        { icon: '📈', name: 'Stats Jugador', desc: 'Posibles ajustes en variantes parseables' },
+        { icon: '🎒', name: 'Inventario', desc: 'Revisión de arrays de objetos con pruebas conservadoras' },
+        { icon: '⚔️', name: 'Equipamiento', desc: 'Validación de registros en estructuras compatibles' },
+        { icon: '🏠', name: 'Progreso Base', desc: 'Vista de datos de base cuando están expuestos en GVAS' },
       ],
       faq: [
         {
@@ -112,8 +112,12 @@ export async function getStaticPaths() {
       ],
       relatedGuides: [
         {
+          title: 'Guía de Edición de Save Palworld',
+          url: '/es/blog/palworld-save-editing-guide',
+        },
+        {
           title: 'Cómo editar saves de Unreal Engine',
-          url: '/blog/how-to-edit-unreal-engine-saves',
+          url: '/es/blog/how-to-edit-unreal-engine-saves',
         },
       ],
     },
@@ -164,7 +168,7 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
-        { title: 'Guía de edición GameMaker', url: '/blog/gamemaker-save-editing-guide' },
+        { title: 'Guía de edición GameMaker', url: '/es/blog/gamemaker-save-editing-guide' },
       ],
     },
     {
@@ -202,7 +206,7 @@ export async function getStaticPaths() {
             'Windows: %appdata%\\RenPy\\DDLC-1454445547. Para DDLC Plus: %appdata%\\..\\LocalLow\\Team Salvato',
         },
       ],
-      relatedGuides: [{ title: "Guía de edición Ren'Py", url: '/blog/renpy-save-editing-guide' }],
+      relatedGuides: [{ title: "Guía de edición Ren'Py", url: '/es/blog/renpy-save-editing-guide' }],
     },
     {
       slug: 'hollow-knight',
@@ -233,7 +237,7 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
-        { title: 'Cómo editar saves de Unity', url: '/blog/how-to-edit-unity-saves' },
+        { title: 'Cómo editar saves de Unity', url: '/es/blog/how-to-edit-unity-saves' },
       ],
     },
     {
@@ -266,7 +270,7 @@ export async function getStaticPaths() {
         },
       ],
       relatedGuides: [
-        { title: 'Cómo editar saves de RPG Maker', url: '/blog/how-to-edit-rpg-maker-save' },
+        { title: 'Cómo editar saves de RPG Maker', url: '/es/blog/how-to-edit-rpg-maker-save' },
       ],
     },
   ];
@@ -436,7 +440,11 @@ const absUrl = (path: string) =>
             </div>
             <h3 class="font-bold text-lg mb-2">Sube y Edita</h3>
             <p class="text-gray-600">
-              Arrastra tu archivo al editor. Modifica oro, objetos y stats.
+              {
+                game.slug === 'palworld'
+                  ? 'Sube tu `.sav` y revisa primero el modo de compatibilidad. Si aparece solo lectura, úsalo para inspección y cambia a una herramienta dedicada para guardar.'
+                  : 'Arrastra tu archivo al editor. Modifica oro, objetos y stats.'
+              }
             </p>
           </div>
           <div class="text-center p-6">
@@ -447,7 +455,11 @@ const absUrl = (path: string) =>
             </div>
             <h3 class="font-bold text-lg mb-2">Descarga y Juega</h3>
             <p class="text-gray-600">
-              Reemplaza el original con el archivo editado. ¡Lanza el juego!
+              {
+                game.slug === 'palworld'
+                  ? 'Descarga solo si el editor confirma modo editable y guardado compatible. Si no, conserva tu copia de seguridad y usa una herramienta dedicada.'
+                  : 'Reemplaza el original con el archivo editado. ¡Lanza el juego!'
+              }
             </p>
           </div>
         </div>
@@ -526,7 +538,7 @@ const absUrl = (path: string) =>
       <!-- Related Games (Cross-linking) -->
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Otros Juegos Populares</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
             game.slug !== 'stardew-valley' && (
               <a
@@ -536,6 +548,19 @@ const absUrl = (path: string) =>
                 <span class="text-2xl block mb-2">🌾</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
                   Stardew Valley
+                </span>
+              </a>
+            )
+          }
+          {
+            game.slug !== 'palworld' && (
+              <a
+                href="/es/games/palworld"
+                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
+              >
+                <span class="text-2xl block mb-2">🦎</span>
+                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
+                  Palworld
                 </span>
               </a>
             )
