@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const troubleshootingSteps = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-red-500"><path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" /></svg>`,
+    title: t('support.issue.corrupt'),
+    desc: t('support.issue.corruptDesc'),
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-blue-500"><path d="M19.5 21a3 3 0 003-3v-4.5a3 3 0 00-3-3h-15a3 3 0 00-3 3V18a3 3 0 003 3h15zM1.5 10.146V6a3 3 0 013-3h5.379a2.25 2.25 0 011.59.659l2.122 2.121c.14.141.331.22.53.22H19.5a3 3 0 013 3v1.146A4.483 4.483 0 0019.5 9h-15a4.483 4.483 0 00-3 1.146z" /></svg>`,
+    title: t('support.issue.location'),
+    desc: t('support.issue.locationDesc'),
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-green-500"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd" /><path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" /></svg>`,
+    title: t('support.issue.format'),
+    desc: t('support.issue.formatDesc'),
+  },
+];
+
+const officialLinks = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-gray-700 dark:text-gray-200"><path fill-rule="evenodd" d="M4.5 9a1.5 1.5 0 00-1.5 1.5v9a1.5 1.5 0 001.5 1.5h15a1.5 1.5 0 001.5-1.5v-9a1.5 1.5 0 00-1.5-1.5h-15zM2.528 9.28a3 3 0 012.972-2.78h13a3 3 0 012.972 2.78 4.502 4.502 0 00-2.327-2.617l-.845-.337A1.5 1.5 0 0017.5 5.25h-11a1.5 1.5 0 00-.8 2.776l-.845.337a4.502 4.502 0 00-2.327 2.617z" clip-rule="evenodd" /></svg>`,
+    name: t('support.official.steam'),
+    url: 'https://help.steampowered.com/',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-emerald-600"><path d="M11.25 4.533A9.707 9.707 0 006 3.75a9.707 9.707 0 00-5.25.783c0 .242.064 1.353.064 1.418.015.064.444 2.89.5 3.251.054.417.027.085.06.402.02.19.097 1.05.097 1.116.03.22.185.733.25 1.716.007.133.007.266.01.4.01.12.016.27.022.42A9.79 9.79 0 0111.25 15V4.534zM12.75 15c2.457-.1 4.743.612 6.643 1.897.042-.29.13-.574.248-.846.12-.27.247-.648.337-.993.093-.357.147-.783.18-1.187.033-.404.053-.9.08-1.55.03-.703.04-1.255.027-1.464-.013-.21-.06-.576-.11-1.008-.05-.433-.142-.876-.245-1.396-.103-.52-.228-1.254-.34-1.874-.112-.62-.257-2.026-.257-2.09A9.707 9.707 0 0018 3.75c-1.896 0-3.64.63-5.25 1.566zm-1.5 0V15A9.707 9.707 0 006 13.193a9.707 9.707 0 00-6-.783V3.75a11.23 11.23 0 016 1.127 11.23 11.23 0 015.25-.344z" /></svg>`,
+    name: t('support.official.wiki'),
+    url: 'https://stardewvalleywiki.com/Saves',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-orange-500"><path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177 7.547 7.547 0 01-1.705-1.715.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" /></svg>`,
+    name: t('support.official.palworld'),
+    url: 'https://palworld.pocketpair.jp/',
+  },
+];
+---
+
+<BaseLayout
+  title={`${t('nav.support')} | Save Editor Online`}
+  description={t('support.hero.subtitle')}
+>
+  <main class="container mx-auto px-4 py-12 max-w-5xl">
+    {/* Hero Section */}
+    <div class="text-center mb-16">
+      <h1 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+        {t('support.hero.title')}
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300">
+        {t('support.hero.subtitle')}
+      </p>
+    </div>
+
+    {/* Primary Actions Grid */}
+    <div class="grid md:grid-cols-2 gap-8 mb-16">
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow"
+      >
+        <div
+          class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center p-3 mb-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-full h-full"
+          >
+            <path
+              d="M11.25 4.533A9.707 9.707 0 006 3.75a9.707 9.707 0 00-5.25.783c0 .242.064 1.353.064 1.418.015.064.444 2.89.5 3.251.054.417.027.085.06.402.02.19.097 1.05.097 1.116.03.22.185.733.25 1.716.007.133.007.266.01.4.01.12.016.27.022.42A9.79 9.79 0 0111.25 15V4.534zM12.75 15c2.457-.1 4.743.612 6.643 1.897.042-.29.13-.574.248-.846.12-.27.247-.648.337-.993.093-.357.147-.783.18-1.187.033-.404.053-.9.08-1.55.03-.703.04-1.255.027-1.464-.013-.21-.06-.576-.11-1.008-.05-.433-.142-.876-.245-1.396-.103-.52-.228-1.254-.34-1.874-.112-.62-.257-2.026-.257-2.09A9.707 9.707 0 0018 3.75c-1.896 0-3.64.63-5.25 1.566zm-1.5 0V15A9.707 9.707 0 006 13.193a9.707 9.707 0 00-6-.783V3.75a11.23 11.23 0 016 1.127 11.23 11.23 0 015.25-.344z"
+            ></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">{t('footer.faq')}</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-6 min-h-[3rem]">
+          {t('support.troubleshooting.desc')}
+        </p>
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+          class="inline-block px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold rounded-lg transition-colors w-full text-center"
+        >
+          {t('footer.faq')}
+        </a>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow"
+      >
+        <div
+          class="w-14 h-14 bg-green-100 text-green-600 rounded-xl flex items-center justify-center p-3 mb-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-full h-full"
+          >
+            <path
+              d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"
+            ></path>
+            <path
+              d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"
+            ></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">{t('nav.contact')}</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-6 min-h-[3rem]">
+          {t('support.hero.subtitle')}
+        </p>
+        <a
+          href={`/${lang === 'en' ? '' : lang + '/'}contact`}
+          class="inline-block px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors w-full text-center"
+        >
+          {t('nav.contact')}
+        </a>
+      </div>
+    </div>
+
+    {/* Troubleshooting Guide */}
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold mb-8 text-gray-900 dark:text-white text-center">
+        {t('support.troubleshooting.title')}
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        {
+          troubleshootingSteps.map((step) => (
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+              <div class="w-12 h-12 mb-4" set:html={step.icon} />
+              <h3 class="text-lg font-bold mb-2 text-gray-900 dark:text-white">{step.title}</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">{step.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Official Resources (Star Links) */}
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold mb-8 text-gray-900 dark:text-white text-center">
+        {t('support.official.title')}
+      </h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        {
+          officialLinks.map((link) => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-3 px-6 py-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary-500 transition-colors"
+            >
+              <div class="w-6 h-6" set:html={link.icon} />
+              <span class="font-medium text-gray-900 dark:text-white">{link.name}</span>
+              <span class="text-gray-400 text-sm">↗</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Safety Guarantee */}
+    <div
+      class="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-8 text-center border border-blue-100 dark:border-blue-800"
+    >
+      <div
+        class="w-16 h-16 bg-blue-100 dark:bg-blue-800 text-blue-600 dark:text-blue-200 rounded-full flex items-center justify-center p-4 mx-auto mb-4"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-full h-full"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.352-.272-2.652-.767-3.845a.75.75 0 00-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+        {t('support.safety.title')}
+      </h2>
+      <p class="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
+        {t('support.safety.desc')}
+      </p>
+    </div>
+  </main>
+</BaseLayout>

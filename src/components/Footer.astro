@@ -95,6 +95,19 @@ const currentYear = new Date().getFullYear();
           </li>
           <li>
             <a
+              href={`/${lang === 'en' ? '' : lang + '/'}support`}
+              class="hover:text-primary-600 transition-colors">{t('nav.support')}</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-gray-900 mb-4">
+          {t('footer.legal')}
+        </h4>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>
+            <a
               href={`/${lang === 'en' ? '' : lang + '/'}about`}
               class="hover:text-primary-600 transition-colors">{t('nav.about')}</a
             >
@@ -105,13 +118,6 @@ const currentYear = new Date().getFullYear();
               class="hover:text-primary-600 transition-colors">{t('nav.contact')}</a
             >
           </li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold text-gray-900 mb-4">
-          {t('footer.legal')}
-        </h4>
-        <ul class="space-y-2 text-sm text-gray-600">
           <li>
             <a
               href={`/${lang === 'en' ? '' : lang + '/'}privacy`}
