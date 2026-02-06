@@ -121,9 +121,12 @@ const structuredData = [
 
         const applyConsent = (value) => {
           setDefaultConsent();
+          // Advanced Consent Mode: Load GA4 immediately with denied storage
+          // This allows "pings" for basic pageview counts without cookies
+          loadGtag();
+
           if (value === CONSENT_ACCEPTED) {
             grantConsent();
-            loadGtag();
             loadAdSense();
           }
         };
