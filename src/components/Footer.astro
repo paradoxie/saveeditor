@@ -89,6 +89,12 @@ const currentYear = new Date().getFullYear();
           </li>
           <li>
             <a
+              href={`/${lang === 'en' ? '' : lang + '/'}compatibility`}
+              class="hover:text-primary-600 transition-colors">{t('footer.compatibilityMatrix')}</a
+            >
+          </li>
+          <li>
+            <a
               href={`/${lang === 'en' ? '' : lang + '/'}faq`}
               class="hover:text-primary-600 transition-colors">{t('footer.faq')}</a
             >

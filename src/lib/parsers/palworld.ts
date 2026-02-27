@@ -1,4 +1,5 @@
-import type { UnrealParseResult } from './unreal';
+import { makeOutcome, type ParseOutcome } from './types';
+import type { UnrealParseOutcome, UnrealParseResult } from './unreal';
 import { buildUnreal, parseUnreal } from './unreal';
 
 export type PalworldFileRole = 'player' | 'world' | 'unknown';
@@ -8,13 +9,16 @@ export type PalworldInsightNote =
     | 'no_stable_quick_fields'
     | 'quick_scan_limited'
     | 'world_file_limited'
-    | 'heuristic_quick_fields';
+    | 'heuristic_quick_fields'
+    | 'quick_fields_ambiguous';
 
 export interface PalworldQuickField {
     id: PalworldFieldId;
     path: Array<string | number>;
     value: number;
     confidence: 'high' | 'medium';
+    score: number;
+    evidence: string[];
 }
 
 export interface PalworldInsights {
@@ -27,6 +31,8 @@ export interface PalworldParseResult extends UnrealParseResult {
     game: 'palworld';
     _palworld: PalworldInsights;
 }
+
+export type PalworldParseOutcome = ParseOutcome<PalworldParseResult>;
 
 interface Candidate {
     key: string;
@@ -42,6 +48,14 @@ interface FieldRule {
     exact?: string[];
     context?: string[];
     exclude?: string[];
+}
+
+interface QuickFieldStats {
+    detected: number;
+    high: number;
+    medium: number;
+    ambiguous: number;
+    scanLimited: boolean;
 }
 
 const MAX_ROLE_SCAN_NODES = 20_000;
@@ -86,6 +100,11 @@ const FIELD_RULES: FieldRule[] = [
 
 function normalizeKey(input: string): string {
     return input.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function getRuleThreshold(ruleId: PalworldFieldId): number {
+    if (ruleId === 'hp' || ruleId === 'stamina') return 65;
+    return 70;
 }
 
 function includesToken(text: string, tokens: readonly string[]): boolean {
@@ -144,7 +163,6 @@ function detectFileRole(fileName: string, json: unknown): PalworldFileRole {
     const normalizedName = fileName.toLowerCase();
     const normalizedBaseName = normalizedName.split(/[\\/]/).pop() ?? normalizedName;
 
-    // Prefer player heuristics first to avoid false world matches like "player-level-*.sav".
     if (normalizedBaseName.includes('player') || normalizedBaseName.includes('localdata')) return 'player';
     if (normalizedBaseName === 'level.sav' || normalizedBaseName.startsWith('level')) return 'world';
 
@@ -229,92 +247,186 @@ function collectNumericCandidates(root: unknown): CandidateScanResult {
     return { candidates, truncated };
 }
 
-function scoreCandidate(candidate: Candidate, rule: FieldRule): number {
+interface CandidateScore {
+    score: number;
+    evidence: string[];
+}
+
+function scoreCandidate(candidate: Candidate, rule: FieldRule): CandidateScore | null {
     if (rule.exclude?.some((token) => candidate.normalizedPath.some((seg) => seg.includes(token)))) {
-        return 0;
+        return null;
     }
 
-    const contextMatched = rule.context?.some(
-        (ctx) => candidate.normalizedPath.some((seg) => seg.includes(ctx))
-    ) ?? false;
+    const contextMatched =
+        rule.context?.some((ctx) => candidate.normalizedPath.some((seg) => seg.includes(ctx))) ??
+        false;
     if (rule.context && !contextMatched) {
-        return 0;
+        return null;
     }
 
     let score = 0;
+    const evidence: string[] = [];
 
-    if (rule.exact?.includes(candidate.normalizedKey)) score += 60;
-    if (rule.includes.some((token) => candidate.normalizedKey.includes(token))) score += 40;
+    if (rule.exact?.includes(candidate.normalizedKey)) {
+        score += 60;
+        evidence.push('exact-key-match');
+    }
+    if (rule.includes.some((token) => candidate.normalizedKey.includes(token))) {
+        score += 40;
+        evidence.push('token-key-match');
+    }
 
     score += 20;
-    if (candidate.normalizedPath.some((seg) => seg.includes('player'))) score += 5;
-    if (candidate.path.length < 8) score += 5;
+    evidence.push('numeric-leaf');
+    if (candidate.normalizedPath.some((seg) => seg.includes('player'))) {
+        score += 5;
+        evidence.push('player-context');
+    }
+    if (candidate.path.length < 8) {
+        score += 5;
+        evidence.push('short-path');
+    }
 
-    if (rule.id === 'playerLevel' && candidate.value >= 1 && candidate.value <= 200) score += 10;
-    if ((rule.id === 'hp' || rule.id === 'stamina') && candidate.value >= 1 && candidate.value <= 100000) score += 5;
-    if (rule.id === 'techPoints' && candidate.value >= 0 && candidate.value <= 100000) score += 5;
+    if (rule.id === 'playerLevel' && candidate.value >= 1 && candidate.value <= 200) {
+        score += 10;
+        evidence.push('level-range');
+    }
+    if ((rule.id === 'hp' || rule.id === 'stamina') && candidate.value >= 1 && candidate.value <= 100000) {
+        score += 5;
+        evidence.push('attribute-range');
+    }
+    if (rule.id === 'techPoints' && candidate.value >= 0 && candidate.value <= 100000) {
+        score += 5;
+        evidence.push('tech-range');
+    }
 
-    return score;
+    return { score, evidence };
 }
 
 interface QuickFieldAnalysis {
     quickFields: PalworldQuickField[];
     scanLimited: boolean;
+    stats: QuickFieldStats;
 }
 
-function analyzePalworldQuickFields(jsonView: unknown): QuickFieldAnalysis {
+export function analyzePalworldQuickFields(jsonView: unknown): QuickFieldAnalysis {
     const { candidates, truncated } = collectNumericCandidates(jsonView);
-    if (candidates.length === 0) return { quickFields: [], scanLimited: truncated };
+    if (candidates.length === 0) {
+        return {
+            quickFields: [],
+            scanLimited: truncated,
+            stats: {
+                detected: 0,
+                high: 0,
+                medium: 0,
+                ambiguous: 0,
+                scanLimited: truncated,
+            },
+        };
+    }
 
     const fields: PalworldQuickField[] = [];
     const usedPaths = new Set<string>();
+    const stats: QuickFieldStats = {
+        detected: 0,
+        high: 0,
+        medium: 0,
+        ambiguous: 0,
+        scanLimited: truncated,
+    };
 
     FIELD_RULES.forEach((rule) => {
-        let best: { candidate: Candidate; score: number } | null = null;
+        const scored = candidates
+            .map((candidate) => {
+                const scoredCandidate = scoreCandidate(candidate, rule);
+                if (!scoredCandidate) return null;
+                return {
+                    candidate,
+                    score: scoredCandidate.score,
+                    evidence: scoredCandidate.evidence,
+                };
+            })
+            .filter(
+                (
+                    item
+                ): item is {
+                    candidate: Candidate;
+                    score: number;
+                    evidence: string[];
+                } => !!item
+            )
+            .filter((item) => item.score >= getRuleThreshold(rule.id))
+            .sort((a, b) => b.score - a.score);
 
-        for (const candidate of candidates) {
-            const score = scoreCandidate(candidate, rule);
-            if (score < 55) continue;
-
-            if (!best || score > best.score) {
-                best = { candidate, score };
-            }
-        }
-
+        const best = scored[0];
         if (!best) return;
+
+        const secondBestDifferentPath = scored.find(
+            (item) => item.candidate.path.join('.') !== best.candidate.path.join('.')
+        );
+        const scoreGap = secondBestDifferentPath ? best.score - secondBestDifferentPath.score : Number.POSITIVE_INFINITY;
+        const isAmbiguous = scoreGap < 8;
 
         const pathKey = best.candidate.path.join('.');
         if (usedPaths.has(pathKey)) return;
         usedPaths.add(pathKey);
 
+        const confidence: PalworldQuickField['confidence'] =
+            best.score >= 90 && !isAmbiguous ? 'high' : 'medium';
+
+        if (isAmbiguous) {
+            stats.ambiguous += 1;
+        }
+        if (confidence === 'high') {
+            stats.high += 1;
+        } else {
+            stats.medium += 1;
+        }
+
         fields.push({
             id: rule.id,
             path: best.candidate.path,
             value: best.candidate.value,
-            confidence: best.score >= 90 ? 'high' : 'medium',
+            confidence,
+            score: best.score,
+            evidence: [
+                ...best.evidence,
+                `threshold>=${getRuleThreshold(rule.id)}`,
+                isAmbiguous ? `ambiguous-gap=${Math.max(0, scoreGap)}` : 'clear-gap',
+            ],
         });
     });
 
-    return { quickFields: fields, scanLimited: truncated };
+    stats.detected = fields.length;
+    return { quickFields: fields, scanLimited: truncated, stats };
 }
 
 export function extractPalworldQuickFields(jsonView: unknown): PalworldQuickField[] {
     return analyzePalworldQuickFields(jsonView).quickFields;
 }
 
-export async function parsePalworld(file: File): Promise<PalworldParseResult> {
-    const unreal = await parseUnreal(file);
+export async function parsePalworld(file: File): Promise<PalworldParseOutcome> {
+    const unrealOutcome: UnrealParseOutcome = await parseUnreal(file);
+    const unreal = unrealOutcome.data;
+
     const fileRole = detectFileRole(file.name, unreal.jsonView);
     const shouldRunQuickFieldDetection = fileRole !== 'world';
-    const {
-        quickFields,
-        scanLimited,
-    } = shouldRunQuickFieldDetection
+    const { quickFields, scanLimited, stats } = shouldRunQuickFieldDetection
         ? analyzePalworldQuickFields(unreal.jsonView)
-        : { quickFields: [] as PalworldQuickField[], scanLimited: false };
+        : {
+              quickFields: [] as PalworldQuickField[],
+              scanLimited: false,
+              stats: {
+                  detected: 0,
+                  high: 0,
+                  medium: 0,
+                  ambiguous: 0,
+                  scanLimited: false,
+              } as QuickFieldStats,
+          };
 
     const notes: PalworldInsightNote[] = [];
-    if (unreal.mode !== 'full') {
+    if (!unrealOutcome.capabilities.canSave) {
         notes.push('read_only');
     }
     if (fileRole === 'world') {
@@ -328,6 +440,9 @@ export async function parsePalworld(file: File): Promise<PalworldParseResult> {
     if (scanLimited) {
         notes.push('quick_scan_limited');
     }
+    if (stats.ambiguous > 0) {
+        notes.push('quick_fields_ambiguous');
+    }
 
     const enriched = unreal as PalworldParseResult;
     enriched.game = 'palworld';
@@ -337,9 +452,38 @@ export async function parsePalworld(file: File): Promise<PalworldParseResult> {
         notes,
     };
 
-    return enriched;
+    const worldLimited = fileRole === 'world';
+
+    return makeOutcome({
+        engine: 'palworld',
+        format: 'sav',
+        mode: unrealOutcome.mode,
+        reasonCode: unrealOutcome.reasonCode,
+        reason: worldLimited
+            ? 'World-level Palworld saves are inspection-first. Editing and saving are disabled until safe world mapping is available.'
+            : unrealOutcome.reason,
+        capabilities: {
+            canView: unrealOutcome.capabilities.canView,
+            canEdit: worldLimited ? false : unrealOutcome.capabilities.canEdit,
+            canSave: worldLimited ? false : unrealOutcome.capabilities.canSave,
+            requiresExperimental: worldLimited ? false : unrealOutcome.capabilities.requiresExperimental,
+            roundTripSupport: worldLimited ? 'none' : unrealOutcome.capabilities.roundTripSupport,
+        },
+        data: enriched,
+        warnings: worldLimited
+            ? ['World save detected: quick edit and save export are disabled for safety.']
+            : unrealOutcome.warnings,
+        diagnostics: {
+            ...unrealOutcome.diagnostics,
+            fileRole,
+            quickFieldCount: quickFields.length,
+            scanLimited,
+            quickFieldStats: stats,
+        },
+    });
 }
 
 export async function buildPalworld(originalFile: File, data: PalworldParseResult | any): Promise<Blob> {
-    return buildUnreal(originalFile, data);
+    const payload = data?.engine ? data?.data : data;
+    return buildUnreal(originalFile, payload);
 }

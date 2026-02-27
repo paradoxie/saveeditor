@@ -8,18 +8,12 @@ import type {
     PalworldQuickField
 } from '../lib/parsers/palworld';
 import type { UnrealParseResult } from '../lib/parsers/unreal';
+import type { ParseOutcome, ParserCapability } from '../lib/parsers/types';
 
 interface SaveEditorProps {
     file: File;
     onBack: () => void;
     editorSlug?: string;
-}
-
-interface UnrealCapabilityState {
-    canView: boolean;
-    canEdit: boolean;
-    canSave: boolean;
-    requiresExperimental: boolean;
 }
 
 type UnrealFamilyResult = UnrealParseResult | PalworldParseResult;
@@ -33,17 +27,19 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
     const [error, setError] = useState<string | null>(null);
     const [data, setData] = useState<any>(null);
     const [format, setFormat] = useState<string>('unknown');
+    const [capabilities, setCapabilities] = useState<ParserCapability | null>(null);
     const [activeTab, setActiveTab] = useState<'quick' | 'advanced'>('quick');
     const [isAdvancedLoading, setIsAdvancedLoading] = useState(false);
     const [experimentalEnabled, setExperimentalEnabled] = useState(false);
     const [errorAdvice, setErrorAdvice] = useState<string[]>([]);
 
-    // Simulate parsing (in real app, this would call the API or use client-side parser directly)
     React.useEffect(() => {
         const parseFile = async () => {
             try {
                 setLoading(true);
+                setError(null);
                 setErrorAdvice([]);
+                setCapabilities(null);
 
                 // File size validation (50MB limit)
                 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
@@ -55,57 +51,60 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
 
                 const ext = file.name.split('.').pop()?.toLowerCase();
 
-                let parsed;
+                let outcome: ParseOutcome<any>;
                 if (ext === 'save') {
                     const { parseRenpy } = await import('../lib/parsers/renpy');
-                    parsed = await parseRenpy(file);
+                    outcome = await parseRenpy(file);
                     setFormat('renpy');
                 } else if (['xml', 'plist', 'prefs'].includes(ext || '')) {
                     const { parseUnity } = await import('../lib/parsers/unity');
-                    parsed = await parseUnity(file);
+                    outcome = await parseUnity(file);
                     setFormat('unity');
                 } else if (ext === 'sav') {
                     if (editorSlug === 'palworld') {
                         const { parsePalworld } = await import('../lib/parsers/palworld');
-                        const palworldResult = await parsePalworld(file);
-                        if (palworldResult.mode === 'not_gvas') {
-                            throw new Error(t('editor.unrealNotGvasBody'));
-                        }
-                        parsed = palworldResult;
+                        outcome = await parsePalworld(file);
                         setFormat('palworld');
                     } else {
                         const { parseUnreal } = await import('../lib/parsers/unreal');
-                        const unrealResult = await parseUnreal(file);
-                        if (unrealResult.mode === 'not_gvas') {
-                            throw new Error(t('editor.unrealNotGvasBody'));
-                        }
-                        parsed = unrealResult;
+                        outcome = await parseUnreal(file);
                         setFormat('unreal');
                     }
                 } else if (ext === 'nson') {
                     const { parseNaniNovel } = await import('../lib/parsers/naninovel');
-                    const result = await parseNaniNovel(file);
-                    parsed = result.data;
-                    setFormat(result.type);
+                    outcome = await parseNaniNovel(file);
+                    setFormat(outcome.format);
                 } else if (ext === 'rpgsave' || ext === 'rvdata2' || ext === 'rmmzsave') {
                     const { parseRPGMakerMV } = await import('../lib/parsers/rpgmaker');
-                    parsed = await parseRPGMakerMV(file);
+                    outcome = await parseRPGMakerMV(file);
                     setFormat('rpgmaker');
                 } else {
                     // Fallback to Gamemaker / Generic
                     const { parseGamemaker } = await import('../lib/parsers/gamemaker');
-                    const result = await parseGamemaker(file);
-                    parsed = result.data;
-                    setFormat(result.type); // 'json', 'ini', or 'raw'
+                    outcome = await parseGamemaker(file);
+                    setFormat(outcome.format);
                 }
 
-                setData(parsed);
+                setCapabilities(outcome.capabilities);
+
+                if (!outcome.capabilities.canView) {
+                    const reasonMessage =
+                        outcome.reason ||
+                        t('editor.parseError');
+                    setError(`${t('editor.parseError')}: ${reasonMessage}`);
+                    setErrorAdvice(buildErrorAdvice(ext, reasonMessage, t, outcome.reasonCode));
+                    setData(null);
+                    setLoading(false);
+                    return;
+                }
+
+                setData(outcome.data);
                 setLoading(false);
             } catch (err: any) {
                 console.error(err);
                 const ext = file.name.split('.').pop()?.toLowerCase();
                 setError(`${t('editor.parseError')}: ${err.message}`);
-                setErrorAdvice(buildErrorAdvice(ext, err?.message || '', t));
+                setErrorAdvice(buildErrorAdvice(ext, err?.message || '', t, 'parse_failed'));
                 setLoading(false);
             }
         };
@@ -115,20 +114,25 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
 
     const handleDownload = async () => {
         if (!data) return;
-
-        if (format === 'renpy' && !experimentalEnabled) {
-            alert(t('editor.renpyExperimentalAlert'));
+        if (!capabilities?.canSave) {
+            alert('Saving is disabled for this file mode.');
             return;
         }
 
-        const isUnrealFamily = format === 'unreal' || format === 'palworld';
-        const unrealData = data as UnrealFamilyResult | null;
-        const unrealCapabilities = isUnrealFamily
-            ? ((unrealData?._capabilities as UnrealCapabilityState | undefined) ?? null)
-            : null;
-        if (isUnrealFamily && unrealCapabilities?.requiresExperimental && !experimentalEnabled) {
-            alert(t('editor.unrealExperimentalAlert'));
+        if (capabilities.requiresExperimental && !experimentalEnabled) {
+            if (format === 'renpy') {
+                alert(t('editor.renpyExperimentalAlert'));
+            } else {
+                alert(t('editor.unrealExperimentalAlert'));
+            }
             return;
+        }
+
+        if (capabilities.requiresExperimental) {
+            const confirmed = window.confirm(
+                "Experimental save export may corrupt files. Please confirm you've created a backup before continuing."
+            );
+            if (!confirmed) return;
         }
 
         try {
@@ -154,7 +158,7 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
             } else {
                 // Gamemaker / Raw
                 const { buildGamemaker } = await import('../lib/parsers/gamemaker');
-                blob = await buildGamemaker(file, { type: format, data: data });
+                blob = await buildGamemaker(file, { type: format, data });
             }
 
             const url = URL.createObjectURL(blob);
@@ -254,19 +258,20 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
     const unrealData = (isUnrealFamily ? data : null) as UnrealFamilyResult | null;
     const palworldData = (format === 'palworld' ? data : null) as PalworldParseResult | null;
     const unrealMode = unrealData?.mode;
-    const unrealCapabilities = (unrealData?._capabilities as UnrealCapabilityState | undefined) ?? null;
     const isUnrealPartial = isUnrealFamily && unrealMode === 'partial';
     const isUnrealCompressedUnsupported = isUnrealFamily && unrealMode === 'unsupported_compressed';
-    const isUnrealSaveSupported = isUnrealFamily && !!unrealCapabilities?.canSave;
-    const isUnrealExperimentalRequired = isUnrealFamily && !!unrealCapabilities?.requiresExperimental;
+    const isUnrealSaveSupported = isUnrealFamily && !!capabilities?.canSave;
+    const isUnrealExperimentalRequired = isUnrealFamily && !!capabilities?.requiresExperimental;
+    const showUnrealLimitedSupport =
+        isUnrealFamily && (isUnrealPartial || isUnrealCompressedUnsupported || !isUnrealSaveSupported);
     const palworldQuickFields = palworldData?._palworld?.quickFields ?? [];
     const palworldRole = palworldData?._palworld?.fileRole ?? 'unknown';
     const palworldNotes = palworldData?._palworld?.notes ?? [];
     const unrealReason = isUnrealFamily ? getUnrealReasonText(unrealData, t) : '';
     const isSaveDisabled =
-        (isRenpy && !experimentalEnabled) ||
-        (isUnrealFamily && (!isUnrealSaveSupported || (isUnrealExperimentalRequired && !experimentalEnabled)));
-    const isReadOnly = isUnrealFamily ? !unrealCapabilities?.canEdit : false;
+        !capabilities?.canSave ||
+        (!!capabilities?.requiresExperimental && !experimentalEnabled);
+    const isReadOnly = !capabilities?.canEdit;
     const editorData = isUnrealFamily ? unrealData?.jsonView : data;
     const showQuickEdit =
         isPalworld ||
@@ -348,7 +353,7 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
                         </div>
                     </div>
                 )}
-                {isUnrealFamily && (
+                {showUnrealLimitedSupport && (
                     <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded-lg text-sm flex items-start gap-3">
                         <svg className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -630,6 +635,7 @@ function getPalworldNoteText(note: PalworldInsightNote, t: (key: string) => stri
     if (note === 'read_only') return t('editor.palworldNoteReadOnly');
     if (note === 'world_file_limited') return t('editor.palworldNoteWorldLimited');
     if (note === 'heuristic_quick_fields') return t('editor.palworldNoteHeuristic');
+    if (note === 'quick_fields_ambiguous') return t('editor.palworldNoteAmbiguous');
     if (note === 'quick_scan_limited') return t('editor.palworldNoteScanLimited');
     return t('editor.palworldNoteNoQuickFields');
 }
@@ -657,6 +663,8 @@ function getUnrealReasonText(
             return '';
         case 'compressed_readonly':
             return replaceTokens(t('editor.unrealReasonCompressedReadonly'), { compression });
+        case 'compressed_repackable':
+            return replaceTokens(t('editor.unrealReasonCompressedRepackable'), { compression });
         case 'gvas_parse_failed': {
             const base = t('editor.unrealReasonGvasParseFailed');
             return parseError ? `${base} (${parseError})` : base;
@@ -715,9 +723,31 @@ function setValueAtPath(root: unknown, path: Array<string | number>, nextValue: 
 function buildErrorAdvice(
     ext: string | undefined,
     message: string,
-    t: (key: string) => string
+    t: (key: string) => string,
+    reasonCode?: string
 ): string[] {
     const advice: string[] = [t('editor.advice.generic1'), t('editor.advice.generic2')];
+
+    if (reasonCode === 'unsupported_binary_plist') {
+        advice.unshift(t('editor.unityReasonBinaryPlist'));
+    }
+
+    if (reasonCode === 'unsupported_binary_playerprefs') {
+        advice.unshift(t('editor.unityReasonBinaryPlayerPrefs'));
+    }
+
+    if (reasonCode === 'likely_encrypted_container') {
+        advice.unshift(t('editor.naninovelReasonLikelyEncrypted'));
+    }
+
+    if (reasonCode === 'unsupported_naninovel_wrapper') {
+        advice.unshift(t('editor.naninovelReasonUnsupportedWrapper'));
+    }
+
+    if (reasonCode === 'unsupported_ruby_marshal' || ext === 'rvdata2') {
+        advice.unshift('RPG Maker VX Ace (.rvdata2) uses Ruby Marshal and is currently read-only/unsupported here.');
+        advice.unshift('Use an RPG Maker VX Ace dedicated desktop tool for .rvdata2 files.');
+    }
 
     if (ext === 'sav') {
         advice.unshift(t('editor.advice.unreal1'));

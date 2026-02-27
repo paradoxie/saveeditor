@@ -1,0 +1,28 @@
+{
+  "base": {
+    "state": {
+      "scene": "intro",
+      "gold": 10,
+      "flags": [
+        "seen_prologue"
+      ]
+    }
+  },
+  "failures": [
+    {
+      "id": "encrypted-salted",
+      "base64": "U2FsdGVkX18AAQIDBAUG",
+      "expectedReason": "likely_encrypted_container"
+    },
+    {
+      "id": "encrypted-prefix",
+      "text": "ENC:ABCD1234",
+      "expectedReason": "likely_encrypted_container"
+    },
+    {
+      "id": "unknown-wrapper",
+      "base64": "QmFkV3JhcHBlcg==",
+      "expectedReason": "unsupported_naninovel_wrapper"
+    }
+  ]
+}

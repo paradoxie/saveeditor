@@ -1,0 +1,40 @@
+{
+  "rpgmaker": {
+    "base": {
+      "party": { "_gold": 1234, "_items": { "1": 2 } },
+      "actors": { "_data": [null, { "_level": 5 }] },
+      "variables": {},
+      "switches": []
+    }
+  },
+  "unity": {
+    "xml": "<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\\n<map>\\n    <int name=\"gold\" value=\"100\" />\\n    <boolean name=\"debug\" value=\"false\" />\\n</map>"
+  },
+  "renpy": {
+    "base": {
+      "persistent": {
+        "coins": 100,
+        "player_name": "Hero"
+      },
+      "session": {
+        "chapter": 2
+      }
+    }
+  },
+  "gamemaker": {
+    "json": {
+      "gold": 88,
+      "player": {
+        "hp": 10
+      }
+    }
+  },
+  "naninovel": {
+    "base": {
+      "state": {
+        "scene": "intro",
+        "gold": 10
+      }
+    }
+  }
+}

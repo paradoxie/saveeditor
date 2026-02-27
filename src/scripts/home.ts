@@ -57,8 +57,6 @@ const initFileUpload = () => {
     const extensionMap: Record<string, string> = {
         '.rpgsave': `${langPrefix}/editor/rpg-maker-mv`,
         '.rmmzsave': `${langPrefix}/editor/rpg-maker-mv`,
-        '.rvdata2': `${langPrefix}/editor/rpg-maker-mv`,
-        '.rvdata': `${langPrefix}/editor/rpg-maker-mv`,
         '.sav': `${langPrefix}/editor/unreal`,
         '.save': `${langPrefix}/editor/renpy`,
         '.xml': `${langPrefix}/editor/unity`,

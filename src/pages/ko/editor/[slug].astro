@@ -73,13 +73,13 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Unreal Engine 세이브 에디터 | .sav 파일 편집',
       description:
-        '표준 GVAS 기반 Unreal `.sav` 파일용 브라우저 도구입니다. 기본 파싱, 압축 감지, 호환 파일의 실험 저장을 지원합니다.',
+        '표준 GVAS 기반 Unreal `.sav` 파일용 브라우저 도구입니다. 기본 파싱, 압축 감지, 호환 래퍼에 대한 안전한 재빌드를 지원합니다.',
       keywords: 'Unreal Engine 세이브 에디터, uesave 에디터, .sav 파일 편집, GVAS 에디터',
       features: [
         '표준 GVAS (.sav) 파싱',
         'zlib/gzip/raw-deflate 압축 감지',
         '미지원 구조는 자동 읽기 전용',
-        '호환 파일에서만 실험 저장 허용',
+        '표준/호환 래퍼 GVAS 안전 재빌드',
       ],
       instructions: [
         '게임의 세이브 디렉토리에서 `.sav` 파일을 찾으세요',

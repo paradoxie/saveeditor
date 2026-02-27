@@ -75,14 +75,14 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Editor de Partidas Unreal Engine - Editar .sav Gratis | Palworld',
       description:
-        'Editor web para `.sav` de Unreal basado en GVAS estándar. Incluye análisis, detección de compresión y guardado experimental para variantes compatibles.',
+        'Editor web para `.sav` de Unreal basado en GVAS estándar. Incluye análisis, detección de compresión y reconstrucción segura para envoltorios compatibles.',
       keywords:
         'unreal engine save editor, palworld save editor, editor .sav, editor archivos sav, gvas editor online, uesave editor',
       features: [
         'Parsear GVAS estándar (.sav)',
         'Detectar compresión zlib/gzip/raw-deflate',
         'Modo solo lectura para estructuras no compatibles',
-        'Reconstrucción experimental para archivos compatibles',
+        'Reconstrucción segura para GVAS estándar y wrappers compatibles',
       ],
       instructions: [
         'Localiza tu archivo `.sav` en el directorio de guardado del juego',

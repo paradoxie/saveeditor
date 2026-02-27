@@ -84,7 +84,7 @@ const blogPosts = (await getCollection('blog'))
               type="file"
               id="smart-file-input"
               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-              accept=".rpgsave,.rmmzsave,.rvdata2,.sav,.save,.xml,.plist,.ini,.json,.nson"
+              accept=".rpgsave,.rmmzsave,.sav,.save,.xml,.plist,.ini,.json,.nson"
             />
             <div class="text-center">
               <div
@@ -438,7 +438,8 @@ const blogPosts = (await getCollection('blog'))
             <p class="text-xs text-gray-400 mt-1">.sav</p>
           </a>
 
-          <div
+          <a
+            href={getPath('editor/gamemaker')}
             class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-green-300 hover:shadow-md transition-all group text-center"
           >
             <div
@@ -460,9 +461,10 @@ const blogPosts = (await getCollection('blog'))
             </div>
             <h3 class="font-bold text-gray-900 text-sm">GameMaker</h3>
             <p class="text-xs text-gray-400 mt-1">ini / json</p>
-          </div>
+          </a>
 
-          <div
+          <a
+            href={getPath('editor/naninovel')}
             class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-purple-300 hover:shadow-md transition-all group text-center"
           >
             <div
@@ -479,7 +481,7 @@ const blogPosts = (await getCollection('blog'))
             </div>
             <h3 class="font-bold text-gray-900 text-sm">NaniNovel</h3>
             <p class="text-xs text-gray-400 mt-1">.nson</p>
-          </div>
+          </a>
         </div>
 
         {/* Game Chips */}

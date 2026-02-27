@@ -1,0 +1,33 @@
+{
+  "unity": {
+    "xml": "<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\n<map>\n    <int name=\"gold\" value=\"100\" />\n    <long name=\"highScore\" value=\"9000000000\" />\n    <float name=\"ratio\" value=\"1.25\" />\n    <boolean name=\"isPremium\" value=\"true\" />\n    <string name=\"playerName\" value=\"Hero\" />\n    <string name=\"quote\" value=\"A &amp; B &lt; C &quot;D&quot; &apos;E&apos;\" />\n</map>",
+    "expectedOrder": ["gold", "highScore", "ratio", "isPremium", "playerName", "quote"],
+    "expectedTypes": {
+      "gold": "int",
+      "highScore": "long",
+      "ratio": "float",
+      "isPremium": "boolean",
+      "playerName": "string",
+      "quote": "string"
+    }
+  },
+  "rpgmaker": {
+    "base": {
+      "party": {
+        "_gold": 1234,
+        "_items": {
+          "1": 2,
+          "2": 9
+        }
+      },
+      "actors": {
+        "_data": [null, { "_level": 7 }]
+      },
+      "variables": {
+        "1": 99
+      },
+      "switches": [true, false]
+    },
+    "variants": ["lzstring", "zlib-binary", "zlib-mojibake"]
+  }
+}

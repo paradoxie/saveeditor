@@ -1,7 +1,7 @@
 {
   "file": "gzip-gvas.sav",
   "parser": "unreal",
-  "expectMode": "unsupported_compressed",
-  "expectCanSave": false,
-  "expectReasonCode": "compressed_readonly"
+  "expectMode": "full_wrapped",
+  "expectCanSave": true,
+  "expectReasonCode": "compressed_repackable"
 }

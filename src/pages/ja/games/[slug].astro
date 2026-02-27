@@ -249,8 +249,8 @@ export async function getStaticPaths() {
       slug: 'rpg-maker',
       name: 'RPGツクールゲーム',
       nameLocal: 'RPGツクール',
-      engine: 'RPG Maker (MV/MZ/VX Ace/XP)',
-      format: '.rpgsave, .rvdata2',
+      engine: 'RPG Maker (MV/MZ)',
+      format: '.rpgsave, .rmmzsave',
       editorPath: '/ja/editor/rpg-maker-mv',
       emoji: '⚔️',
       description: 'RPGツクールシリーズで作られた何千ものゲーム。',
@@ -276,7 +276,7 @@ export async function getStaticPaths() {
         {
           question: 'すべてのRPGツクールゲームを編集できる？',
           answer:
-            'MV (.rpgsave)、MZ (.rmmzsave)、VX Ace (.rvdata2)、VX (.rvdata)、XP (.rxdata)形式をサポートしています。',
+            'このWebエディタでは MV (.rpgsave) と MZ (.rmmzsave) を優先サポートしています。旧Ruby Marshal形式 (.rvdata2/.rvdata/.rxdata) は現在未対応です。',
         },
       ],
       relatedGuides: [

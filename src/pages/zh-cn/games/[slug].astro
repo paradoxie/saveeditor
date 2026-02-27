@@ -252,8 +252,8 @@ export async function getStaticPaths() {
       slug: 'rpg-maker',
       name: 'RPG Maker 游戏',
       nameLocal: 'RPG Maker',
-      engine: 'RPG Maker (MV/MZ/VX Ace/XP)',
-      format: '.rpgsave, .rvdata2',
+      engine: 'RPG Maker (MV/MZ)',
+      format: '.rpgsave, .rmmzsave',
       editorPath: '/zh-cn/editor/rpg-maker-mv',
       emoji: '⚔️',
       description: '使用 RPG Maker 系列引擎制作的数千款游戏。',
@@ -279,7 +279,7 @@ export async function getStaticPaths() {
         {
           question: '可以编辑所有 RPG Maker 游戏吗？',
           answer:
-            '我们支持 MV (.rpgsave)、MZ (.rmmzsave)、VX Ace (.rvdata2)、VX (.rvdata) 和 XP (.rxdata) 格式。',
+            '本网页编辑器当前优先支持 MV (.rpgsave) 与 MZ (.rmmzsave)。旧版 Ruby Marshal 格式 (.rvdata2/.rvdata/.rxdata) 暂不支持编辑。',
         },
         {
           question: '开关是什么？',

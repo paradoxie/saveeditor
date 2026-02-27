@@ -1,0 +1,8 @@
+{
+  "source": "; top comment\n[meta]\nname=\"Hero\"\nnotes=\"line1\\\nline2\\\nline3\" ; keep note\npath=\"C:\\\\Users\\\\Player\" # windows path\n\n[progress]\nlevel=3\nlevel=4 ; duplicate winner\nflag=true\n",
+  "expected": {
+    "notes": "line1\nline2\nline3",
+    "path": "C:\\Users\\Player",
+    "level": 4
+  }
+}

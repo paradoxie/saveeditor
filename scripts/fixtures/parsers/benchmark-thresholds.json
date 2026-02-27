@@ -1,0 +1,8 @@
+{
+  "thresholds": {
+    "tier1Parse": 0.95,
+    "tier2Parse": 0.85,
+    "tier1RoundTrip": 0.95,
+    "tier2RoundTrip": 0.85
+  }
+}

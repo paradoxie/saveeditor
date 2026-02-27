@@ -1,0 +1,7 @@
+{
+  "file": "zlib-gvas.sav",
+  "parser": "unreal",
+  "expectMode": "full_wrapped",
+  "expectCanSave": true,
+  "expectReasonCode": "compressed_repackable"
+}

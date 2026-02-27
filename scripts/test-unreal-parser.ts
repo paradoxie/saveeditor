@@ -24,10 +24,11 @@ function header(bytes: Uint8Array): string {
 interface FixtureExpect {
     file: string;
     parser?: 'unreal' | 'palworld';
-    expectMode: 'full' | 'partial' | 'unsupported_compressed' | 'not_gvas';
+    expectMode: 'full' | 'full_wrapped' | 'partial' | 'unsupported_compressed' | 'not_gvas';
     expectCanSave?: boolean;
     expectReasonCode?:
         | 'standard_gvas'
+        | 'compressed_repackable'
         | 'compressed_readonly'
         | 'gvas_parse_failed'
         | 'decompression_limit'
@@ -69,7 +70,7 @@ async function runOptionalFixtures() {
 
         assert.equal(parsed.mode, spec.expectMode, `Fixture ${specName} mode mismatch`);
         if (typeof spec.expectCanSave === 'boolean') {
-            assert.equal(parsed._capabilities.canSave, spec.expectCanSave, `Fixture ${specName} canSave mismatch`);
+            assert.equal(parsed.capabilities.canSave, spec.expectCanSave, `Fixture ${specName} canSave mismatch`);
         }
         if (spec.expectReasonCode) {
             assert.equal(parsed.reasonCode, spec.expectReasonCode, `Fixture ${specName} reasonCode mismatch`);
@@ -88,24 +89,44 @@ async function main() {
     const full = await parseUnreal(makeFile('full.sav', rawGvasBytes));
     assert.equal(full.mode, 'full');
     assert.equal(full.reasonCode, 'standard_gvas');
-    assert.equal(full._capabilities.canSave, true);
+    assert.equal(full.capabilities.canSave, true);
 
     const rebuiltFromState = await buildUnreal(makeFile('full.sav', rawGvasBytes), full);
     assert.equal(header(new Uint8Array(await rebuiltFromState.arrayBuffer())), 'GVAS');
 
     const rebuiltFromJson = await buildUnreal(makeFile('full.sav', rawGvasBytes), {
         mode: 'full',
-        jsonView: full.jsonView,
+        jsonView: full.data.jsonView,
     });
     assert.equal(header(new Uint8Array(await rebuiltFromJson.arrayBuffer())), 'GVAS');
 
     const gzipWrapped = new Uint8Array(pako.gzip(rawGvasBytes));
     const compressed = await parseUnreal(makeFile('compressed.sav', gzipWrapped));
-    assert.equal(compressed.mode, 'unsupported_compressed');
-    assert.equal(compressed.reasonCode, 'compressed_readonly');
-    assert.equal(compressed._capabilities.canSave, false);
+    assert.equal(compressed.mode, 'full_wrapped');
+    assert.equal(compressed.reasonCode, 'compressed_repackable');
+    assert.equal(compressed.capabilities.canSave, true);
+    const compressedRebuilt = await buildUnreal(makeFile('compressed.sav', gzipWrapped), compressed);
+    const compressedReparsed = await parseUnreal(makeFile('compressed.sav', new Uint8Array(await compressedRebuilt.arrayBuffer())));
+    assert.equal(compressedReparsed.mode, 'full_wrapped');
+    assert.equal(compressedReparsed.reasonCode, 'compressed_repackable');
+
+    const zlibWrapped = new Uint8Array(pako.deflate(rawGvasBytes));
+    const zlibParsed = await parseUnreal(makeFile('zlib.sav', zlibWrapped));
+    assert.equal(zlibParsed.mode, 'full_wrapped');
+    assert.equal(zlibParsed.reasonCode, 'compressed_repackable');
+    assert.equal(zlibParsed.capabilities.canSave, true);
+    const zlibRebuilt = await buildUnreal(makeFile('zlib.sav', zlibWrapped), zlibParsed);
+    const zlibReparsed = await parseUnreal(makeFile('zlib.sav', new Uint8Array(await zlibRebuilt.arrayBuffer())));
+    assert.equal(zlibReparsed.mode, 'full_wrapped');
+    assert.equal(zlibReparsed.reasonCode, 'compressed_repackable');
+
+    const rawDeflateWrapped = new Uint8Array(pako.deflateRaw(rawGvasBytes));
+    const rawDeflateParsed = await parseUnreal(makeFile('raw-deflate.sav', rawDeflateWrapped));
+    assert.equal(rawDeflateParsed.mode, 'unsupported_compressed');
+    assert.equal(rawDeflateParsed.reasonCode, 'compressed_readonly');
+    assert.equal(rawDeflateParsed.capabilities.canSave, false);
     await assert.rejects(() =>
-        buildUnreal(makeFile('compressed.sav', gzipWrapped), compressed)
+        buildUnreal(makeFile('raw-deflate.sav', rawDeflateWrapped), rawDeflateParsed)
     );
 
     const fakeWrapped = new Uint8Array(pako.gzip(new TextEncoder().encode('not-gvas-payload')));
@@ -122,9 +143,10 @@ async function main() {
     assert.match(bombResult.reason ?? '', /safety limit/i);
 
     const palworldParsed = await parsePalworld(makeFile('Level.sav', rawGvasBytes));
-    assert.equal(palworldParsed.game, 'palworld');
-    assert.equal(palworldParsed._palworld.fileRole, 'world');
-    assert.ok(palworldParsed._palworld.notes.includes('world_file_limited'));
+    assert.equal(palworldParsed.data.game, 'palworld');
+    assert.equal(palworldParsed.data._palworld.fileRole, 'world');
+    assert.ok(palworldParsed.data._palworld.notes.includes('world_file_limited'));
+    assert.equal(palworldParsed.capabilities.canSave, false);
 
     const quickFields = extractPalworldQuickFields({
         SaveData: {
@@ -148,8 +170,8 @@ async function main() {
     const plain = await parseUnreal(makeFile('plain.sav', new Uint8Array([1, 2, 3, 4, 5])));
     assert.equal(plain.mode, 'not_gvas');
     assert.equal(plain.reasonCode, 'not_gvas');
-    assert.equal(plain._capabilities.canView, false);
-    assert.equal(plain._capabilities.canSave, false);
+    assert.equal(plain.capabilities.canView, false);
+    assert.equal(plain.capabilities.canSave, false);
 
     await runOptionalFixtures();
 

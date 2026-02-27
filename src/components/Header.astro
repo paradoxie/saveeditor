@@ -134,6 +134,12 @@ const getBlogUrl = (targetLang: string): string => {
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.saves')}</a
       >
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}compatibility/`}
+        aria-current={isCurrentPath('/compatibility/') ? 'page' : undefined}
+        class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
+        >{t('nav.compatibility')}</a
+      >
     </nav>
 
     <div class="flex items-center gap-4 ml-auto md:ml-8">
@@ -299,6 +305,12 @@ const getBlogUrl = (targetLang: string): string => {
         aria-current={isCurrentPath('/saves/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.saves')}</a
+      >
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}compatibility/`}
+        aria-current={isCurrentPath('/compatibility/') ? 'page' : undefined}
+        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+        >{t('nav.compatibility')}</a
       >
 
       <!-- Language Picker (Mobile) -->

@@ -7,10 +7,11 @@ Add real-world save samples here to run parser regression checks.
 These files are versioned in repo and run on every `npm run test:unreal`:
 
 - `01-standard-unreal.json` -> `standard-gvas.sav` (`full`, savable)
-- `02-standard-palworld.json` -> `Level.sav` (`full`, savable via palworld parser path)
-- `03-gzip-readonly.json` -> `gzip-gvas.sav` (`unsupported_compressed`, read-only)
+- `02-standard-palworld.json` -> `Level.sav` (`full`, read-only world policy in palworld parser path)
+- `03-gzip-readonly.json` -> `gzip-gvas.sav` (`full_wrapped`, savable)
 - `04-fake-container.json` -> `fake-compressed.sav` (`unsupported_compressed`, read-only)
 - `05-not-gvas.json` -> `plain.sav` (`not_gvas`, not savable)
+- `06-zlib-wrapped.json` -> `zlib-gvas.sav` (`full_wrapped`, savable)
 
 ## Files
 
@@ -32,10 +33,11 @@ Example spec:
 
 - `file`: save filename in this folder
 - `parser`: `"unreal"` (default) or `"palworld"`
-- `expectMode`: one of `full`, `partial`, `unsupported_compressed`, `not_gvas`
+- `expectMode`: one of `full`, `full_wrapped`, `partial`, `unsupported_compressed`, `not_gvas`
 - `expectCanSave`: optional boolean assertion
 - `expectReasonCode`: optional assertion:
   - `standard_gvas`
+  - `compressed_repackable`
   - `compressed_readonly`
   - `gvas_parse_failed`
   - `decompression_limit`

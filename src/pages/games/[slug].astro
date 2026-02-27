@@ -340,8 +340,8 @@ export async function getStaticPaths() {
     {
       slug: 'rpg-maker',
       name: 'RPG Maker Games',
-      engine: 'RPG Maker (MV/MZ/VX Ace/XP)',
-      format: '.rpgsave, .rvdata2',
+      engine: 'RPG Maker (MV/MZ)',
+      format: '.rpgsave, .rmmzsave',
       editorPath: '/editor/rpg-maker-mv',
       emoji: '🕯️',
       image: '/images/games/hollow-knight.webp',
@@ -373,7 +373,7 @@ export async function getStaticPaths() {
         {
           question: 'Can I edit all RPG Maker games?',
           answer:
-            'We support MV (.rpgsave), MZ (.rmmzsave), VX Ace (.rvdata2), VX (.rvdata), and XP (.rxdata) formats.',
+            'We support MV (.rpgsave) and MZ (.rmmzsave) formats in this web editor. Older Ruby Marshal formats (.rvdata2/.rvdata/.rxdata) are not editable here yet.',
         },
         {
           question: 'How do switches work?',

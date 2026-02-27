@@ -17,8 +17,15 @@ export const POST: APIRoute = async ({ request }) => {
         const ext = file.name.split('.').pop()?.toLowerCase();
 
         let data;
-        if (ext === 'rpgsave' || ext === 'rvdata2') {
-            data = await parseRPGMakerMV(file);
+        if (ext === 'rpgsave' || ext === 'rmmzsave' || ext === 'rvdata2') {
+            const outcome = await parseRPGMakerMV(file);
+            if (!outcome.capabilities.canView || !outcome.data) {
+                return new Response(JSON.stringify({ error: outcome.reason || 'Unsupported file type' }), {
+                    status: 400,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            }
+            data = outcome.data;
         } else {
             return new Response(JSON.stringify({ error: 'Unsupported file type' }), {
                 status: 400,

@@ -1,14 +1,21 @@
 import { Buffer } from 'buffer';
 import pako from 'pako';
+import { makeOutcome, type ParseOutcome, type RoundTripSupportLevel } from './types';
 
-export type UnrealParseMode = 'full' | 'partial' | 'unsupported_compressed' | 'not_gvas';
+export type UnrealParseMode =
+    | 'full'
+    | 'full_wrapped'
+    | 'partial'
+    | 'unsupported_compressed'
+    | 'not_gvas';
 
-type CompressionKind = 'none' | 'zlib' | 'gzip' | 'raw-deflate' | 'unknown';
+export type CompressionKind = 'none' | 'zlib' | 'gzip' | 'raw-deflate' | 'unknown';
 
-const MAX_DECOMPRESSED_BYTES = 64 * 1024 * 1024; // 64 MB hard safety cap.
+const MAX_DECOMPRESSED_BYTES = 64 * 1024 * 1024;
 
 export type UnrealParseReasonCode =
     | 'standard_gvas'
+    | 'compressed_repackable'
     | 'compressed_readonly'
     | 'gvas_parse_failed'
     | 'decompression_limit'
@@ -47,6 +54,8 @@ export interface UnrealParseResult {
     _unrealGvas?: GvasLike;
 }
 
+export type UnrealParseOutcome = ParseOutcome<UnrealParseResult>;
+
 interface InflateResult {
     kind: CompressionKind;
     bytes: Uint8Array;
@@ -59,20 +68,25 @@ interface InflateOutcome {
 }
 
 class DecompressionLimitError extends Error {
-    constructor(public readonly kind: CompressionKind, public readonly maxBytes: number) {
+    constructor(
+        public readonly kind: CompressionKind,
+        public readonly maxBytes: number
+    ) {
         super(`Decompression for ${kind} exceeded safety limit (${maxBytes} bytes).`);
         this.name = 'DecompressionLimitError';
     }
 }
 
-const GVAS_MAGIC = [0x47, 0x56, 0x41, 0x53]; // 'GVAS'
+const GVAS_MAGIC = [0x47, 0x56, 0x41, 0x53];
 
 function hasGvasHeader(bytes: Uint8Array): boolean {
-    return bytes.length >= 4 &&
+    return (
+        bytes.length >= 4 &&
         bytes[0] === GVAS_MAGIC[0] &&
         bytes[1] === GVAS_MAGIC[1] &&
         bytes[2] === GVAS_MAGIC[2] &&
-        bytes[3] === GVAS_MAGIC[3];
+        bytes[3] === GVAS_MAGIC[3]
+    );
 }
 
 function isLikelyZlib(bytes: Uint8Array): boolean {
@@ -172,28 +186,27 @@ function tryDecompress(
 
     for (const attempt of attempts) {
         try {
-                const result = attempt();
-                if (result.bytes.length > 0) {
-                    return { result, limitExceeded: false, limitKind: null };
-                }
-            } catch (error) {
-                if (error instanceof DecompressionLimitError) {
-                    return { result: null, limitExceeded: true, limitKind: error.kind };
-                }
-                // try next strategy
+            const result = attempt();
+            if (result.bytes.length > 0) {
+                return { result, limitExceeded: false, limitKind: null };
+            }
+        } catch (error) {
+            if (error instanceof DecompressionLimitError) {
+                return { result: null, limitExceeded: true, limitKind: error.kind };
             }
         }
+    }
 
     return { result: null, limitExceeded: false, limitKind: null };
 }
 
 function getCapabilities(mode: UnrealParseMode): UnrealCapabilities {
-    if (mode === 'full') {
+    if (mode === 'full' || mode === 'full_wrapped') {
         return {
             canView: true,
             canEdit: true,
             canSave: true,
-            requiresExperimental: true,
+            requiresExperimental: false,
         };
     }
 
@@ -214,6 +227,34 @@ function attachGvas(result: UnrealParseResult, gvas: GvasLike) {
     });
 }
 
+function toRoundTripSupport(capabilities: UnrealCapabilities): RoundTripSupportLevel {
+    if (!capabilities.canSave) return 'none';
+    if (capabilities.requiresExperimental) return 'experimental';
+    return 'stable';
+}
+
+function toOutcome(result: UnrealParseResult): UnrealParseOutcome {
+    return makeOutcome({
+        engine: 'unreal',
+        format: 'sav',
+        mode: result.mode,
+        reasonCode: result.reasonCode,
+        reason: result.reason,
+        capabilities: {
+            canView: result._capabilities.canView,
+            canEdit: result._capabilities.canEdit,
+            canSave: result._capabilities.canSave,
+            requiresExperimental: result._capabilities.requiresExperimental,
+            roundTripSupport: toRoundTripSupport(result._capabilities),
+        },
+        data: result,
+        diagnostics: {
+            compression: result.compression,
+            fileSize: result.fileSize,
+        },
+    });
+}
+
 async function parseGvasPayload(
     file: File,
     payload: Uint8Array,
@@ -226,19 +267,32 @@ async function parseGvasPayload(
         gvas.deserialize(serializer);
 
         const jsonView = JSON.parse(JSON.stringify(gvas));
-        const mode: UnrealParseMode = compression === 'none' ? 'full' : 'unsupported_compressed';
-        const reasonCode: UnrealParseReasonCode = compression === 'none' ? 'standard_gvas' : 'compressed_readonly';
+        const isStandard = compression === 'none';
+        const isSafelyWrapped = compression === 'gzip' || compression === 'zlib';
+        const mode: UnrealParseMode = isStandard
+            ? 'full'
+            : isSafelyWrapped
+              ? 'full_wrapped'
+              : 'unsupported_compressed';
+        const reasonCode: UnrealParseReasonCode = isStandard
+            ? 'standard_gvas'
+            : isSafelyWrapped
+              ? 'compressed_repackable'
+              : 'compressed_readonly';
+
         const result: UnrealParseResult = {
             mode,
             reasonCode,
             compression,
             fileSize: file.size,
             header: 'GVAS',
-            reason: compression === 'none'
+            reason: isStandard
                 ? 'Standard GVAS file parsed successfully.'
-                : `Parsed after ${compression} decompression, but safe recompression/recontainerization is not implemented. This variant is read-only.`,
+                : isSafelyWrapped
+                  ? `Parsed after ${compression} decompression. This wrapped GVAS variant supports safe recompression on export.`
+                  : `Parsed after ${compression} decompression, but this wrapper is not supported for safe recompression. This variant is read-only.`,
             reasonMeta: { compression },
-            _unrealParseStatus: compression === 'none' ? 'ok' : 'partial',
+            _unrealParseStatus: mode === 'unsupported_compressed' ? 'partial' : 'ok',
             _capabilities: getCapabilities(mode),
             jsonView,
         };
@@ -270,21 +324,22 @@ async function parseGvasPayload(
     }
 }
 
-export async function parseUnreal(file: File): Promise<UnrealParseResult> {
+export async function parseUnreal(file: File): Promise<UnrealParseOutcome> {
     const rawBytes = new Uint8Array(await file.arrayBuffer());
     const hasWrappedCompressionHint = looksCompressed(rawBytes);
 
     if (hasGvasHeader(rawBytes)) {
-        return parseGvasPayload(file, rawBytes, 'none');
+        return toOutcome(await parseGvasPayload(file, rawBytes, 'none'));
     }
 
     const { result: decompressed, limitExceeded, limitKind } = tryDecompress(rawBytes, {
         maxOutputBytes: MAX_DECOMPRESSED_BYTES,
         allowRawDeflate: true,
     });
+
     if (limitExceeded) {
         const compression = limitKind ?? (hasWrappedCompressionHint ? 'unknown' : 'raw-deflate');
-        return {
+        return toOutcome({
             mode: 'unsupported_compressed',
             reasonCode: 'decompression_limit',
             compression,
@@ -305,21 +360,22 @@ export async function parseUnreal(file: File): Promise<UnrealParseResult> {
                 parserStatus: 'unsupported_compressed',
                 note: 'Decompression stopped to avoid memory exhaustion in the browser.',
             },
-        };
+        });
     }
 
     if (decompressed && hasGvasHeader(decompressed.bytes)) {
-        return parseGvasPayload(file, decompressed.bytes, decompressed.kind);
+        return toOutcome(await parseGvasPayload(file, decompressed.bytes, decompressed.kind));
     }
 
     if (decompressed && (hasWrappedCompressionHint || decompressed.kind !== 'raw-deflate')) {
-        return {
+        return toOutcome({
             mode: 'unsupported_compressed',
             reasonCode: 'unsupported_container',
             compression: decompressed.kind,
             fileSize: file.size,
             header: Buffer.from(decompressed.bytes.slice(0, 4)).toString('utf8'),
-            reason: 'Compressed .sav detected, but payload is not standard GVAS. This game likely uses a custom container or encryption.',
+            reason:
+                'Compressed .sav detected, but payload is not standard GVAS. This game likely uses a custom container or encryption.',
             reasonMeta: {
                 compression: decompressed.kind,
             },
@@ -333,17 +389,18 @@ export async function parseUnreal(file: File): Promise<UnrealParseResult> {
                 parserStatus: 'unsupported_compressed',
                 note: 'The file decompresses, but the payload is not a plain GVAS structure.',
             },
-        };
+        });
     }
 
     if (hasWrappedCompressionHint) {
-        return {
+        return toOutcome({
             mode: 'unsupported_compressed',
             reasonCode: 'decompression_failed',
             compression: 'unknown',
             fileSize: file.size,
             header: Buffer.from(rawBytes.slice(0, 4)).toString('utf8'),
-            reason: 'The file appears compressed, but decompression failed in-browser. It may use a custom compression or encrypted container.',
+            reason:
+                'The file appears compressed, but decompression failed in-browser. It may use a custom compression or encrypted container.',
             reasonMeta: {
                 compression: 'unknown',
             },
@@ -356,10 +413,10 @@ export async function parseUnreal(file: File): Promise<UnrealParseResult> {
                 compression: 'unknown',
                 parserStatus: 'unsupported_compressed',
             },
-        };
+        });
     }
 
-    return {
+    return toOutcome({
         mode: 'not_gvas',
         reasonCode: 'not_gvas',
         compression: 'none',
@@ -377,17 +434,20 @@ export async function parseUnreal(file: File): Promise<UnrealParseResult> {
             fileSize: file.size,
             parserStatus: 'not_gvas',
         },
-    };
+    });
 }
 
-export async function buildUnreal(_originalFile: File, data: any): Promise<Blob> {
-    const mode = data?.mode as UnrealParseMode | undefined;
-    if (mode && mode !== 'full') {
-        throw new Error(data?.reason || 'Saving is only supported for fully parsed standard GVAS files.');
+export async function buildUnreal(_originalFile: File, input: any): Promise<Blob> {
+    const payload = input?.engine ? input?.data : input?.data ?? input;
+    const mode = payload?.mode as UnrealParseMode | undefined;
+
+    if (mode && mode !== 'full' && mode !== 'full_wrapped') {
+        throw new Error(
+            payload?.reason || 'Saving is only supported for fully parsed standard/wrapped GVAS files.'
+        );
     }
 
-    const source = data?.jsonView ?? data;
-
+    const source = payload?.jsonView ?? payload;
     if (!source) {
         throw new Error('No Unreal save payload found.');
     }
@@ -401,8 +461,8 @@ export async function buildUnreal(_originalFile: File, data: any): Promise<Blob>
     } else if (source.Header && source.Properties) {
         const gvas = Gvas.from(source);
         serializedBytes = gvas.serialize();
-    } else if (data?._unrealGvas && typeof data._unrealGvas.serialize === 'function') {
-        serializedBytes = data._unrealGvas.serialize();
+    } else if (payload?._unrealGvas && typeof payload._unrealGvas.serialize === 'function') {
+        serializedBytes = payload._unrealGvas.serialize();
     } else {
         throw new Error('Saving Unreal Engine files requires a valid GVAS structure (Header + Properties).');
     }
@@ -410,5 +470,26 @@ export async function buildUnreal(_originalFile: File, data: any): Promise<Blob>
     const output = new Uint8Array(serializedBytes.byteLength);
     output.set(serializedBytes);
 
-    return new Blob([output.buffer], { type: 'application/octet-stream' });
+    const compression =
+        (payload?.compression as CompressionKind | undefined) ||
+        (payload?.reasonMeta?.compression as CompressionKind | undefined) ||
+        'none';
+
+    if (compression === 'none') {
+        return new Blob([output.buffer], { type: 'application/octet-stream' });
+    }
+
+    if (compression === 'gzip') {
+        const wrapped = pako.gzip(output);
+        return new Blob([wrapped.buffer], { type: 'application/octet-stream' });
+    }
+
+    if (compression === 'zlib') {
+        const wrapped = pako.deflate(output);
+        return new Blob([wrapped.buffer], { type: 'application/octet-stream' });
+    }
+
+    throw new Error(
+        `Saving for compression "${compression}" is not supported. Only none/gzip/zlib wrappers can be rebuilt safely.`
+    );
 }

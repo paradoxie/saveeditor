@@ -12,4 +12,6 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const compatibility = defineCollection({});
+
+export const collections = { blog, compatibility };

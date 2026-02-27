@@ -7,7 +7,16 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test:unreal": "tsx scripts/test-unreal-parser.ts"
+    "test:unreal": "tsx scripts/test-unreal-parser.ts",
+    "test:parsers:smoke": "tsx scripts/tests/parsers/smoke.ts",
+    "test:parsers:fidelity": "tsx scripts/tests/parsers/fidelity-rpgmaker-unity.ts",
+    "test:parsers:quickfields": "tsx scripts/tests/parsers/palworld-quickfields.ts",
+    "test:parsers:unity-binary": "tsx scripts/tests/parsers/unity-binary-strategy.ts",
+    "test:parsers:gamemaker-ini": "tsx scripts/tests/parsers/gamemaker-ini-fidelity.ts",
+    "test:parsers:naninovel": "tsx scripts/tests/parsers/naninovel-variants.ts",
+    "test:parsers:benchmark": "tsx scripts/tests/parsers/benchmark-report.ts",
+    "test:i18n:parser-keys": "tsx scripts/tests/i18n/new-parser-keys.ts",
+    "test:parsers": "npm run test:parsers:smoke && npm run test:parsers:fidelity && npm run test:parsers:quickfields && npm run test:parsers:unity-binary && npm run test:parsers:gamemaker-ini && npm run test:parsers:naninovel && npm run test:parsers:benchmark && npm run test:i18n:parser-keys"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

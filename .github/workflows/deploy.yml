@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run parser suites
+        run: npm run test:parsers && npm run test:unreal
+
       - name: Build
         run: npm run build
 

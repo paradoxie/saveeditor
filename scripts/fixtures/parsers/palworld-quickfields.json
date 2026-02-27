@@ -1,0 +1,272 @@
+{
+  "cases": [
+    {
+      "id": "pos-player-core-1",
+      "expectedFields": ["gold", "techPoints", "playerLevel", "hp", "stamina"],
+      "expectAmbiguous": false,
+      "input": {
+        "SaveData": {
+          "PlayerSaveParameter": {
+            "Gold": 4500,
+            "TechnologyPoint": 12,
+            "Status": {
+              "Level": 21,
+              "HP": 388,
+              "Stamina": 240
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-player-core-2",
+      "expectedFields": ["gold", "playerLevel"],
+      "expectAmbiguous": false,
+      "input": {
+        "state": {
+          "player": {
+            "wallet": {
+              "money": 999
+            },
+            "status": {
+              "level": 35
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-tech-only",
+      "expectedFields": ["techPoints"],
+      "expectAmbiguous": false,
+      "input": {
+        "character": {
+          "saveparameter": {
+            "technologyPoints": 77
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-hp-stamina",
+      "expectedFields": ["hp", "stamina"],
+      "expectAmbiguous": false,
+      "input": {
+        "player": {
+          "status": {
+            "currentHP": 800,
+            "maxStamina": 250
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-level-exact",
+      "expectedFields": ["playerLevel"],
+      "expectAmbiguous": false,
+      "input": {
+        "saveparameter": {
+          "player": {
+            "playerLevel": 42
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-gold-currency",
+      "expectedFields": ["gold"],
+      "expectAmbiguous": false,
+      "input": {
+        "inventory": {
+          "player": {
+            "currency": 20000
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-tech-tree",
+      "expectedFields": ["techPoints"],
+      "expectAmbiguous": false,
+      "input": {
+        "player": {
+          "technology": {
+            "techTreePoint": 55
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-combined-sparse",
+      "expectedFields": ["gold", "hp"],
+      "expectAmbiguous": false,
+      "input": {
+        "character": {
+          "state": {
+            "gold": 180,
+            "parameter": {
+              "health": 1200
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-alt-tech-key",
+      "expectedFields": ["techPoints"],
+      "expectAmbiguous": false,
+      "input": {
+        "player": {
+          "saveparameter": {
+            "techPoint": 15
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-stamina-sp",
+      "expectedFields": ["stamina"],
+      "expectAmbiguous": false,
+      "input": {
+        "player": {
+          "parameter": {
+            "sp": 320
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-gold-ambiguous-wallet",
+      "expectedFields": ["gold"],
+      "expectAmbiguous": true,
+      "input": {
+        "player": {
+          "inventory": {
+            "gold": 1500
+          },
+          "wallet": {
+            "money": 1500
+          }
+        }
+      }
+    },
+    {
+      "id": "pos-level-ambiguous",
+      "expectedFields": ["playerLevel"],
+      "expectAmbiguous": true,
+      "input": {
+        "player": {
+          "status": {
+            "level": 25
+          },
+          "saveparameter": {
+            "playerLevel": 25
+          }
+        }
+      }
+    },
+    {
+      "id": "neg-enemy-only",
+      "expectedFields": [],
+      "expectAmbiguous": false,
+      "input": {
+        "enemy": {
+          "gold": 9999,
+          "hp": 5000
+        },
+        "monster": {
+          "techPoint": 88
+        }
+      }
+    },
+    {
+      "id": "neg-pal-context",
+      "expectedFields": [],
+      "expectAmbiguous": false,
+      "input": {
+        "pal": {
+          "status": {
+            "level": 50,
+            "stamina": 200
+          }
+        }
+      }
+    },
+    {
+      "id": "neg-boss-context",
+      "expectedFields": [],
+      "expectAmbiguous": false,
+      "input": {
+        "boss": {
+          "currency": 12000,
+          "health": 80000
+        }
+      }
+    },
+    {
+      "id": "neg-no-context",
+      "expectedFields": [],
+      "expectAmbiguous": false,
+      "input": {
+        "misc": {
+          "gold": 100,
+          "level": 2,
+          "hp": 20
+        }
+      }
+    },
+    {
+      "id": "neg-random-numbers",
+      "expectedFields": [],
+      "expectAmbiguous": false,
+      "input": {
+        "data": {
+          "a": 1,
+          "b": 2,
+          "c": 3
+        }
+      }
+    },
+    {
+      "id": "neg-player-but-wrong-key",
+      "expectedFields": [],
+      "expectAmbiguous": false,
+      "input": {
+        "player": {
+          "status": {
+            "rank": 7,
+            "energy": 100
+          }
+        }
+      }
+    },
+    {
+      "id": "neg-string-values",
+      "expectedFields": [],
+      "expectAmbiguous": false,
+      "input": {
+        "player": {
+          "status": {
+            "gold": "1000",
+            "level": "10"
+          }
+        }
+      }
+    },
+    {
+      "id": "neg-deep-out-of-scope",
+      "expectedFields": [],
+      "expectAmbiguous": false,
+      "input": {
+        "enemy": {
+          "character": {
+            "saveparameter": {
+              "gold": 10,
+              "technologyPoints": 5
+            }
+          }
+        }
+      }
+    }
+  ]
+}

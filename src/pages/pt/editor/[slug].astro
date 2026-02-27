@@ -75,14 +75,14 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Editor de Save Unreal Engine | Editar Arquivos .sav',
       description:
-        'Ferramenta web para arquivos Unreal `.sav` em formato GVAS padrão. Inclui análise básica, detecção de compressão e salvamento experimental para arquivos compatíveis.',
+        'Ferramenta web para arquivos Unreal `.sav` em formato GVAS padrão. Inclui análise básica, detecção de compressão e reconstrução segura para wrappers compatíveis.',
       keywords:
         'editor de save unreal engine, editor uesave, editar arquivo .sav, editor gvas online',
       features: [
         'Analisar GVAS padrão (.sav)',
         'Detectar wrappers zlib/gzip/raw-deflate',
         'Modo somente leitura para variantes não suportadas',
-        'Reconstrução experimental para arquivos compatíveis',
+        'Reconstrução segura para GVAS padrão e wrappers compatíveis',
       ],
       instructions: [
         'Localize seu arquivo `.sav` no diretório de save do jogo',

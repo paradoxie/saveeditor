@@ -73,19 +73,19 @@ export async function getStaticPaths() {
       fileType: '.sav',
       title: 'Unreal Engine 存档编辑器 | 编辑 .sav 文件',
       description:
-        '面向标准 GVAS 的 Unreal `.sav` 在线查看与谨慎编辑工具。支持基础解析、压缩识别与受限保存。',
+        '面向标准 GVAS 的 Unreal `.sav` 在线查看与谨慎编辑工具。支持基础解析、压缩识别与兼容封装的安全重构。',
       keywords: 'Unreal Engine 存档编辑器, uesave 编辑器, .sav 文件编辑, GVAS 编辑器',
       features: [
         '解析标准 GVAS (.sav) 结构',
         '识别 zlib/gzip/raw-deflate 压缩',
         '不支持结构自动切换只读模式',
-        '兼容文件可启用实验性保存',
+        '标准/兼容封装 GVAS 支持安全重构',
       ],
       instructions: [
         '在游戏存档目录中找到 `.sav` 文件',
         '将文件上传到编辑器',
         '若解析成功，可在 JSON 视图中修改支持字段',
-        '仅对标准 GVAS 启用实验性保存；复杂游戏专用格式建议使用社区工具。',
+        '若进入只读模式或结构不兼容，请改用对应游戏的专用工具。',
       ],
     },
     {
