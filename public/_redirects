@@ -2,3 +2,5 @@
 /blog/ko/* /ko/blog/:splat/ 301
 /blog/pt/* /pt/blog/:splat/ 301
 /blog/zh-cn/* /zh-cn/blog/:splat/ 301
+/blog/es/* /es/blog/:splat/ 301
+/blog/ru/* /ru/blog/:splat/ 301

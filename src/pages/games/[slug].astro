@@ -340,12 +340,27 @@ export async function getStaticPaths() {
     {
       slug: 'rpg-maker',
       name: 'RPG Maker Games',
+      seoDescription:
+        'Free RPG Maker MV/MZ Save Editor Online. Edit .rpgsave and .rmmzsave files. Modify gold, items, stats, switches & variables in any RPG Maker game.',
+      seoContent: `
+        <h2>RPG Maker MV/MZ Save Editor</h2>
+        <p>RPG Maker MV and MZ games store save data in <code>.rpgsave</code> and <code>.rmmzsave</code> files, which are Base64-encoded JSON. Our editor automatically decodes these files, providing a clean tree view of all game data.</p>
+        <h3>What You Can Edit</h3>
+        <ul>
+            <li><strong>Gold & Party Data:</strong> Instantly change party gold, steps, and playtime values.</li>
+            <li><strong>Actor Stats:</strong> Modify HP, MP, Level, EXP, attack, defense, and all other parameters for every party member.</li>
+            <li><strong>Switches & Variables:</strong> Toggle game switches and edit variables that control story progression, side quests, and unlocks.</li>
+            <li><strong>Inventory:</strong> Add or remove items, weapons, and armor by editing the items/weapons/armors arrays.</li>
+        </ul>
+        <h3>Privacy First</h3>
+        <p>Your save files are processed entirely in your browser. <strong>No data is ever uploaded</strong>. We use Google Analytics and AdSense for site analytics and ads; see our Privacy and Cookie policies.</p>
+      `,
       engine: 'RPG Maker (MV/MZ)',
       format: '.rpgsave, .rmmzsave',
       editorPath: '/editor/rpg-maker-mv',
       emoji: '🕯️',
-      image: '/images/games/hollow-knight.webp',
-      description: 'The award-winning action-adventure through a fallen bug kingdom.',
+      image: '/images/games/stardew-valley.webp',
+      description: 'Thousands of indie RPGs built with RPG Maker MV and MZ.',
       saveLocations: {
         windows: 'Game folder/www/save or Game folder/save',
         mac: 'Game.app/Contents/Resources/app.nw/save',
@@ -471,7 +486,7 @@ const absUrl = (path: string) =>
     </div>
   </section>
 
-  <main class="container mx-auto px-4 py-16">
+  <section class="container mx-auto px-4 py-16">
     <div class="max-w-6xl mx-auto">
       <!-- What Can You Edit Section -->
       <section class="mb-16">
@@ -762,7 +777,7 @@ const absUrl = (path: string) =>
         </section>
       )
     }
-  </main>
+  </section>
 
   <!-- SoftwareApplication Schema -->
   <script

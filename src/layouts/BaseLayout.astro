@@ -208,16 +208,24 @@ const structuredData = [
       {
         lang === 'ja'
           ? 'メインコンテンツへスキップ'
-          : lang === 'pt'
-            ? 'Pular para o conteúdo principal'
-            : 'Skip to main content'
+          : lang === 'ko'
+            ? '본문으로 건너뛰기'
+            : lang === 'zh-cn'
+              ? '跳转到主要内容'
+              : lang === 'es'
+                ? 'Saltar al contenido principal'
+                : lang === 'ru'
+                  ? 'Перейти к основному содержанию'
+                  : lang === 'pt'
+                    ? 'Pular para o conteúdo principal'
+                    : 'Skip to main content'
       }
     </a>
 
     <Header />
-    <div id="main-content">
+    <main id="main-content">
       <slot />
-    </div>
+    </main>
     <Footer />
     <CookieConsent />
   </body>

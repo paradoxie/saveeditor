@@ -1,0 +1,135 @@
+# SaveEditor.top — Full Documentation for LLMs
+
+> Free, browser-based, privacy-first save file editor for games.
+> All file processing happens client-side via JavaScript/WebAssembly — nothing is uploaded.
+
+## Site Identity
+
+- **Name**: SaveEditor.top (also referenced as SaveEditor.Online)
+- **URL**: https://saveeditor.top
+- **Type**: Free web application (SoftwareApplication)
+- **Category**: UtilitiesApplication
+- **Operating System**: Web Browser (Chrome, Firefox, Safari, Edge)
+- **Pricing**: Free, no registration required
+- **File size limit**: 50 MB per file
+- **Privacy**: All file processing happens locally in the user's browser
+
+## Supported Game Engines & Formats
+
+### RPG Maker MV/MZ
+- **File extensions**: `.rpgsave`, `.rmmzsave`
+- **Format**: Base64-encoded JSON
+- **Editor URL**: /editor/rpg-maker-mv/
+- **Capabilities**: Full read/write. Edit gold, items, stats, switches, variables, party data.
+- **Save location (Windows)**: `Game folder/www/save` or `Game folder/save`
+- **Save location (Mac)**: `Game.app/Contents/Resources/app.nw/save`
+- **Popular games**: Stardew Valley (modded RPG Maker), Omori, OneShot, To the Moon
+
+### Unity PlayerPrefs
+- **File extensions**: `.xml`, `.plist`
+- **Format**: XML (Windows), Property List (macOS)
+- **Editor URL**: /editor/unity/
+- **Capabilities**: Full read/write for XML/plist PlayerPrefs. Binary PlayerPrefs are read-only.
+- **Save location (Windows)**: `%APPDATA%/../LocalLow/[CompanyName]/[GameName]/`
+- **Save location (Mac)**: `~/Library/Preferences/unity.[CompanyName].[GameName].plist`
+- **Popular games**: Hollow Knight, Vampire Survivors, Cult of the Lamb, Cuphead
+
+### Ren'Py
+- **File extensions**: `.save`, `persistent`
+- **Format**: Python pickle (serialized)
+- **Editor URL**: /editor/renpy/
+- **Capabilities**: View all data. Editing is experimental — simple fields can be modified.
+- **Save location (Windows)**: `%APPDATA%/RenPy/[GameName]/`
+- **Save location (Mac)**: `~/Library/RenPy/[GameName]/`
+- **Popular games**: Doki Doki Literature Club, Katawa Shoujo, The Arcana
+
+### Unreal Engine
+- **File extensions**: `.sav`
+- **Format**: Binary GVAS (Generic Versioned Arbitrary Serialization)
+- **Editor URL**: /editor/unreal/
+- **Capabilities**: Standard GVAS: full read/write. Compressed (gzip/zlib) GVAS: read/write with safe recompression. Custom containers/encrypted: read-only.
+- **Save location**: Varies by game, typically `%LOCALAPPDATA%/[GameName]/Saved/SaveGames/`
+- **Popular games**: Palworld, Satisfactory, Deep Rock Galactic, Astroneer
+
+### GameMaker
+- **File extensions**: `.ini`, `.json`
+- **Format**: INI key-value or JSON
+- **Editor URL**: /editor/gamemaker/
+- **Capabilities**: Full read/write.
+- **Save location**: Varies, often `%LOCALAPPDATA%/[GameName]/`
+- **Popular games**: Undertale, Deltarune, Hyper Light Drifter, Nuclear Throne
+
+### NaniNovel
+- **File extensions**: `.nson`
+- **Format**: Custom JSON-like (NSON)
+- **Editor URL**: /editor/naninovel/
+- **Capabilities**: Full read/write (unencrypted saves). Encrypted saves are detected but unsupported.
+- **Popular games**: Various visual novels built on NaniNovel Unity framework
+
+## Content Sections
+
+### Pages
+| Path | Description |
+|------|-------------|
+| `/` | Home — upload any save file, auto-detect engine |
+| `/editor/rpg-maker-mv/` | RPG Maker MV/MZ editor |
+| `/editor/unity/` | Unity PlayerPrefs editor |
+| `/editor/renpy/` | Ren'Py save viewer/editor |
+| `/editor/unreal/` | Unreal Engine .sav editor |
+| `/editor/gamemaker/` | GameMaker INI/JSON editor |
+| `/editor/naninovel/` | NaniNovel .nson editor |
+| `/games/` | Browse 80+ supported games |
+| `/blog/` | Tutorials and guides |
+| `/faq/` | Frequently asked questions |
+| `/saves/` | Pre-made save file downloads |
+| `/compatibility/` | Engine compatibility matrix |
+| `/formats/` | Save file format reference |
+| `/about/` | About the team |
+| `/contact/` | Contact form |
+| `/support/` | Help center |
+| `/privacy/` | Privacy policy |
+| `/terms/` | Terms of service |
+| `/cookie-policy/` | Cookie policy |
+
+### Blog Topics
+- How to edit RPG Maker save files
+- Stardew Valley save editing guides
+- Palworld save editing (Unreal GVAS)
+- Unity PlayerPrefs editing tutorials
+- Ren'Py save file modification
+- Save file download compilations
+
+## Supported Languages
+
+| Language | URL Prefix | Coverage |
+|----------|-----------|----------|
+| English (default) | `/` | Full |
+| 日本語 (Japanese) | `/ja/` | Full |
+| 한국어 (Korean) | `/ko/` | Full |
+| Português (Portuguese) | `/pt/` | Full |
+| 简体中文 (Simplified Chinese) | `/zh-cn/` | Full |
+| Español (Spanish) | `/es/` | Full |
+| Русский (Russian) | `/ru/` | Full |
+
+## Technical Architecture
+
+- **Framework**: Astro (SSG with Cloudflare adapter)
+- **Frontend**: React components, Tailwind CSS
+- **Parsing**: Client-side JavaScript/WebAssembly
+- **Hosting**: Cloudflare Pages
+- **Analytics**: Google Analytics (consent-gated)
+- **Ads**: Google AdSense (consent-gated)
+- **Security**: Content Security Policy (CSP), all processing client-side
+
+## How It Works
+
+1. **Upload**: User drags & drops or selects a save file
+2. **Auto-Detect**: Engine/format is auto-detected from file content
+3. **Parse**: File is parsed client-side (no server upload)
+4. **Edit**: Visual tree editor for modifying values (gold, stats, items, switches, etc.)
+5. **Download**: Modified save is downloaded and replaces the original
+
+## Contact
+
+- Contact form: https://saveeditor.top/contact/
+- Support center: https://saveeditor.top/support/

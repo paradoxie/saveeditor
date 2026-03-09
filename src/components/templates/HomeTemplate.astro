@@ -183,7 +183,7 @@ const blogPosts = (await getCollection('blog'))
     </div>
   </section>
 
-  <main class="flex-grow container mx-auto px-4 py-16">
+  <section class="flex-grow container mx-auto px-4 py-16">
     <div class="max-w-6xl mx-auto">
       <!-- Social Proof Stats -->
       <div class="mb-16 grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -700,11 +700,6 @@ const blogPosts = (await getCollection('blog'))
             priceCurrency: 'USD',
           },
           description: t('footer.desc'),
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: '4.8',
-            ratingCount: '1250',
-          },
           featureList: [
             'RPG Maker MV/MZ Save Editing',
             'Unity PlayerPrefs Editing',
@@ -731,5 +726,5 @@ const blogPosts = (await getCollection('blog'))
       </script>
       <script src="../../scripts/home.ts"></script>
     </div>
-  </main>
+  </section>
 </BaseLayout>
