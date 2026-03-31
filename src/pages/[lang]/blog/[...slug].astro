@@ -66,7 +66,7 @@ const articleSlug = stripLangFromSlug(post.slug);
   keywords={post.data.tags.join(', ')}
   ogImage={post.data.image}
 >
-  <main class="container mx-auto px-4 py-12">
+  <section class="container mx-auto px-4 py-12">
     <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
       <ol class="inline-flex items-center space-x-1 md:space-x-3">
         <li class="inline-flex items-center">
@@ -217,7 +217,7 @@ const articleSlug = stripLangFromSlug(post.slug);
         </a>
       </div>
     </article>
-  </main>
+  </section>
 
   <!-- BreadcrumbList Schema -->
   <script

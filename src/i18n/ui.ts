@@ -1526,7 +1526,7 @@ export const ui = {
         'gamesPage.ctaDesc': "Nuestro editor JSON genérico funciona con la mayoría de formatos. ¡Pruébalo!",
         'gamesPage.ctaButton': 'Probar Editor Universal',
         'gamesPage.seoTitle': 'Lista de Juegos Soportados - 80+ Juegos | Save Editor Online',
-        'gamesPage.seoDesc': "Explora todos los juegos soportados. RPG Maker, Unity, Unreal, Ren'Py y más.",
+        'gamesPage.seoDesc': "Explora todos los juegos soportados por nuestro editor de guardados. RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker y más. Incluye títulos populares como Stardew Valley y Undertale. ¡Encuentra tu juego y empieza a editar gratis!",
 
         // Formats Page
         'formatsPage.title': 'Formatos de Archivo',
@@ -1537,7 +1537,7 @@ export const ui = {
         'formatsPage.ctaDesc': 'Sube tu archivo y detectaremos el formato automáticamente.',
         'formatsPage.ctaButton': 'Subir y Detectar',
         'formatsPage.seoTitle': 'Formatos de Partidas Explicados | Save Editor Online',
-        'formatsPage.seoDesc': 'Guía completa sobre formatos como .rpgsave, .sav, PlayerPrefs y cómo editarlos.',
+        'formatsPage.seoDesc': 'Guía completa sobre formatos de guardado de juegos como .rpgsave, .sav, PlayerPrefs, GVAS y más. Aprende qué formato usa tu juego, cómo funciona y cómo editarlo de forma segura en tu navegador.',
         'formatsPage.contentTitle': 'Entendiendo los Formatos',
         'formatsPage.contentP1': 'Los desarrolladores eligen formatos según seguridad y complejidad. Algunos como JSON son legibles, otros binarios.',
         'formatsPage.contentP2': "Nuestra herramienta soporta los principales formatos y detecta automáticamente el correcto.",
@@ -1784,7 +1784,7 @@ export const ui = {
         'gamesPage.ctaDesc': "Попробуйте наш универсальный JSON редактор.",
         'gamesPage.ctaButton': 'Универсальный редактор',
         'gamesPage.seoTitle': 'Список поддерживаемых игр | Save Editor Online',
-        'gamesPage.seoDesc': "Все игры, поддерживаемые нашим редактором: RPG Maker, Unity, Unreal Engine и др.",
+        'gamesPage.seoDesc': "Все игры, поддерживаемые нашим онлайн-редактором сохранений. RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker и др. Поддержка более 80 игр, включая Stardew Valley и Undertale. Найдите свою игру и начните!",
 
         // Formats Page
         'formatsPage.title': 'Форматы файлов',
@@ -1795,7 +1795,7 @@ export const ui = {
         'formatsPage.ctaDesc': 'Загрузите файл, и мы определим его автоматически.',
         'formatsPage.ctaButton': 'Загрузить и определить',
         'formatsPage.seoTitle': 'Форматы сохранений | Save Editor Online',
-        'formatsPage.seoDesc': 'Гайд по форматам .rpgsave, .sav, PlayerPrefs и другим.',
+        'formatsPage.seoDesc': 'Полный гайд по форматам сохранений: .rpgsave, .sav, PlayerPrefs, GVAS и другие. Узнайте, какой формат использует ваша игра и как безопасно его редактировать в браузере.',
         'formatsPage.contentTitle': 'О форматах сохранений',
         'formatsPage.contentP1': 'Разработчики выбирают форматы исходя из защиты и сложности. JSON и INI читаемы, другие - нет.',
         'formatsPage.contentP2': "Мы поддерживаем все основные форматы.",

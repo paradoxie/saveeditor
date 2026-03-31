@@ -1,0 +1,43 @@
+# SaveEditor.top
+
+> Free, browser-based save file editor for games. All file processing happens client-side — nothing is uploaded.
+
+For full documentation, see: https://saveeditor.top/llms-full.txt
+
+## Supported Engines
+
+- RPG Maker MV/MZ (.rpgsave, .rmmzsave)
+- Unity PlayerPrefs (.xml, .plist)
+- Ren'Py (.save, persistent)
+- Unreal Engine (.sav — standard GVAS)
+- GameMaker (.ini, .json)
+- NaniNovel (.nson)
+
+## Main Sections
+
+- /: Home — upload any save file, auto-detect engine
+- /editor/rpg-maker-mv/: RPG Maker MV/MZ editor
+- /editor/unity/: Unity PlayerPrefs editor
+- /editor/renpy/: Ren'Py save viewer/editor
+- /editor/unreal/: Unreal Engine .sav editor
+- /editor/gamemaker/: GameMaker INI/JSON editor
+- /editor/naninovel/: NaniNovel .nson editor
+- /games/: Browse 80+ supported games
+- /blog/: Tutorials and guides
+- /faq/: Frequently asked questions
+- /saves/: Pre-made save file downloads
+- /compatibility/: Engine compatibility matrix
+
+## Supported Languages
+
+- English (default)
+- 日本語 (/ja/)
+- 한국어 (/ko/)
+- Português (/pt/)
+- 简体中文 (/zh-cn/)
+- Español (/es/)
+- Русский (/ru/)
+
+## Privacy
+
+All file parsing and editing happens in the browser via JavaScript/WebAssembly. Save files never leave the user's device.

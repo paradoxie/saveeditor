@@ -4,14 +4,19 @@ Allow: /
 # Sitemaps
 Sitemap: https://saveeditor.top/sitemap-index.xml
 
-# Disallow admin/API routes if any
+# Disallow admin/API routes
 Disallow: /api/
 Disallow: /_astro/
 
-# Allow all supported languages
-Allow: /ja/
-Allow: /pt/
-Allow: /ko/
-Allow: /zh-cn/
-Allow: /es/
-Allow: /ru/
+# AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /

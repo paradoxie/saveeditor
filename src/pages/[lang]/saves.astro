@@ -50,8 +50,8 @@ const posts = allPosts
 // So links should be fine.
 ---
 
-<BaseLayout title={`${t('nav.saves')} | SaveEditor.Online`} description={t('hero.subtitle')}>
-  <main class="container mx-auto px-4 py-12">
+<BaseLayout title={`${t('nav.saves')} | SaveEditor.Online`} description={`${t('nav.saves')} - SaveEditor.Online`}>
+  <section class="container mx-auto px-4 py-12">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold text-gray-900 mb-4 dark:text-white">{t('nav.saves')}</h1>
       <p class="text-xl text-gray-600 dark:text-gray-400">
@@ -108,5 +108,5 @@ const posts = allPosts
         </div>
       )
     }
-  </main>
+  </section>
 </BaseLayout>

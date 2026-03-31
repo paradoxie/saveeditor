@@ -3,9 +3,13 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
+const getPath = (path: string) => {
+  const prefix = lang === 'en' ? '' : `${lang}/`;
+  return `/${prefix}${path}/`;
+};
 ---
 
-<footer class="bg-white border-t border-gray-100 pt-16 pb-8 mt-auto">
+<footer class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 pt-16 pb-8 mt-auto">
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
       <div class="col-span-1 md:col-span-1">
@@ -15,130 +19,130 @@ const currentYear = new Date().getFullYear();
           >
             S
           </div>
-          <span class="font-bold text-xl text-gray-900"
+          <span class="font-bold text-xl text-gray-900 dark:text-white"
             >SaveEditor<span class="text-primary-600">.Online</span></span
           >
         </div>
-        <p class="text-gray-500 text-sm leading-relaxed max-w-sm">
+        <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-sm">
           {t('footer.desc')}
         </p>
       </div>
       <div>
-        <h4 class="font-bold text-gray-900 mb-4">
+        <h4 class="font-bold text-gray-900 dark:text-white mb-4">
           {t('footer.editors')}
         </h4>
-        <ul class="space-y-2 text-sm text-gray-600">
+        <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv`}
+              href={getPath('editor/rpg-maker-mv')}
               class="hover:text-primary-600 transition-colors">RPG Maker</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}editor/unity`}
+              href={getPath('editor/unity')}
               class="hover:text-primary-600 transition-colors">Unity</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy`}
+              href={getPath('editor/renpy')}
               class="hover:text-primary-600 transition-colors">Ren'Py</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal`}
+              href={getPath('editor/unreal')}
               class="hover:text-primary-600 transition-colors">Unreal Engine</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker`}
+              href={getPath('editor/gamemaker')}
               class="hover:text-primary-600 transition-colors">GameMaker</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel`}
+              href={getPath('editor/naninovel')}
               class="hover:text-primary-600 transition-colors">NaniNovel</a
             >
           </li>
         </ul>
       </div>
       <div>
-        <h4 class="font-bold text-gray-900 mb-4">{t('footer.resources')}</h4>
-        <ul class="space-y-2 text-sm text-gray-600">
+        <h4 class="font-bold text-gray-900 dark:text-white mb-4">{t('footer.resources')}</h4>
+        <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}games`}
+              href={getPath('games')}
               class="hover:text-primary-600 transition-colors">{t('footer.allGames')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}blog`}
+              href={getPath('blog')}
               class="hover:text-primary-600 transition-colors">{t('nav.blog')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}saves`}
+              href={getPath('saves')}
               class="hover:text-primary-600 transition-colors">{t('footer.saves')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}compatibility`}
+              href={getPath('compatibility')}
               class="hover:text-primary-600 transition-colors">{t('footer.compatibilityMatrix')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}faq`}
+              href={getPath('faq')}
               class="hover:text-primary-600 transition-colors">{t('footer.faq')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}support`}
+              href={getPath('support')}
               class="hover:text-primary-600 transition-colors">{t('nav.support')}</a
             >
           </li>
         </ul>
       </div>
       <div>
-        <h4 class="font-bold text-gray-900 mb-4">
+        <h4 class="font-bold text-gray-900 dark:text-white mb-4">
           {t('footer.legal')}
         </h4>
-        <ul class="space-y-2 text-sm text-gray-600">
+        <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}about`}
+              href={getPath('about')}
               class="hover:text-primary-600 transition-colors">{t('nav.about')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}contact`}
+              href={getPath('contact')}
               class="hover:text-primary-600 transition-colors">{t('nav.contact')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}privacy`}
+              href={getPath('privacy')}
               class="hover:text-primary-600 transition-colors">{t('footer.privacy')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}terms`}
+              href={getPath('terms')}
               class="hover:text-primary-600 transition-colors">{t('footer.terms')}</a
             >
           </li>
           <li>
             <a
-              href={`/${lang === 'en' ? '' : lang + '/'}cookie-policy`}
+              href={getPath('cookie-policy')}
               class="hover:text-primary-600 transition-colors">{t('footer.cookie')}</a
             >
           </li>
@@ -146,10 +150,9 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
     <div
-      class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between
-items-center gap-4"
+      class="border-t border-gray-100 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
     >
-      <p class="text-sm text-gray-500">
+      <p class="text-sm text-gray-500 dark:text-gray-400">
         © {currentYear}
         SaveEditor.Online. All rights reserved.
       </p>
