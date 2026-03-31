@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="お問い合わせ | Save Editor Online"
-  description="Save Editor Onlineへのお問い合わせ。ご質問、サポート、フィードバックはこちらから。"
+  description="Save Editor Onlineチームへのお問い合わせ。バグの報告、機能の提案、またはゲームセーブ編集ツールに関するビジネス要件のご連絡はこちらから。"
 >
   <main class="container mx-auto px-4 py-12 max-w-6xl">
     <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">お問い合わせ</h1>
@@ -12,19 +12,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <div class="grid md:grid-cols-2 gap-12">
       <div>
         <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          ご質問、ご提案、またはご挨拶だけでも大歓迎です。以下のフォームにご記入いただければ、できるだけ早くご連絡いたします。
+          ご質問やご提案、または単に挨拶してみませんか？皆様からのご連絡をお待ちしております。以下のフォームに記入していただければ、できるだけ早く返信いたします。
         </p>
 
         <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mb-8">
-          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">応答時間</h3>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">返信時間</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm mb-4">
-            私たちは少人数のチームですが、すべてのお問い合わせに対して**24〜48時間以内**に返信するよう最善を尽くしています。
+            私たちは少人数のチームですが、すべてのお問い合わせに対して <strong
+              >24〜48時間以内</strong
+            > に返信するよう最善を尽くしています。
           </p>
-          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">
-            ビジネスに関するお問い合わせ
-          </h3>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">ビジネス・パートナーシップ</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm">
-            パートナーシップ、プレス、またはビジネスに関する件については、フォームで「ビジネスパートナーシップ」を選択するか、直接メールでお問い合わせください。
+            パートナーシップ、メディア関連、またはビジネスに関しましては、フォームの「ビジネスパートナーシップ」を選択するか、直接メールでお問い合わせください。
           </p>
         </div>
 
@@ -36,12 +36,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               📧
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">メール</div>
+              <div class="font-bold text-gray-900 dark:text-white">メールサポート</div>
               <a href="mailto:support@saveeditor.top" class="text-primary-600 hover:underline"
                 >support@saveeditor.top</a
               >
             </div>
           </div>
+
           <div class="flex items-center gap-4">
             <div
               class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
@@ -49,12 +50,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               🐛
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">バグ報告</div>
+              <div class="font-bold text-gray-900 dark:text-white">バグ・不具合の報告</div>
               <a
                 href="https://github.com/paradoxie/saveeditor/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-primary-600 hover:underline">GitHubでIssueを開く</a
+                class="text-primary-600 hover:underline">GitHubのIssueを開く</a
               >
             </div>
           </div>
@@ -69,7 +70,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           class="hidden mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          <strong class="font-bold">メッセージ送信完了！</strong>
+          <strong class="font-bold">送信完了！</strong>
           <span class="block sm:inline"
             >お問い合わせありがとうございます。間もなくご連絡いたします。</span
           >
@@ -86,14 +87,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               name="name"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="お名前"
+              placeholder="あなたのお名前"
             />
           </div>
           <div>
             <label
               for="email"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >メールアドレス</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">メールアドレス</label
             >
             <input
               type="email"
@@ -107,7 +107,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <div>
             <label
               for="subject"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">件名</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ご用件・件名</label
             >
             <select
               id="subject"
@@ -118,14 +118,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               <option value="support">テクニカルサポート</option>
               <option value="feature">機能リクエスト</option>
               <option value="bug">バグ報告</option>
-              <option value="business">ビジネスパートナーシップ</option>
+              <option value="business">ビジネス・パートナーシップ</option>
             </select>
           </div>
           <div>
             <label
               for="message"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >メッセージ</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">メッセージ</label
             >
             <textarea
               id="message"
@@ -157,32 +156,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </main>
 
   <script>
-    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const form = document.getElementById('contact-form');
 
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-        const formData = new FormData(form);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const subject = formData.get('subject');
-        const message = formData.get('message');
+      const formData = new FormData(form as HTMLFormElement);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
 
-        const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
-        const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
+      const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
 
-        window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
-      });
-    }
+      window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+    });
   </script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      "name": "Save Editor Online お問い合わせ",
+      "name": "お問い合わせ Save Editor Online",
       "url": "https://saveeditor.top/ja/contact",
-      "description": "Save Editor Online お問い合わせページ。"
+      "description": "Save Editor Onlineカスタマーサポートのお問い合わせページです。"
     }
   </script>
 </BaseLayout>

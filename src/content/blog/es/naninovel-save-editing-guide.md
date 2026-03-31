@@ -3,7 +3,7 @@ title: "Edición de Guardados de NaniNovel: Guía Completa de Archivos .nson"
 description: "Aprende a editar archivos de guardado de novelas visuales NaniNovel (.nson). Guía completa que cubre la estructura del formato NSON, algoritmos de compresión, modificación de variables y consejos de solución de problemas."
 pubDate: 2026-01-06
 tags: ["naninovel", "novela-visual", "guía", "nson"]
-author: "Equipo SaveEditor"
+author: "Paradox"
 image: "/images/blog/naninovel-cover.webp"
 ---
 

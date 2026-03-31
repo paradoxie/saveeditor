@@ -8,138 +8,188 @@ const faqCategories = [
     icon: 'rocket',
     questions: [
       {
-        question: 'SaveEditor.top이 무엇인가요?',
+        question: 'SaveEditor.top이란 무엇인가요?',
         answer:
-          "SaveEditor.top은 게임 세이브 파일을 편집하는 무료 브라우저 기반 도구입니다. 완전히 브라우저에서 실행되므로 파일이 기기를 떠나지 않습니다. RPG Maker, Unity, Ren'Py, Unreal Engine 등 인기 엔진을 지원합니다. Unreal `.sav` 는 호환성 우선으로 동작하며, 표준 비암호화 GVAS를 우선 지원하고 게임별 컨테이너/압축 변형은 읽기 전용일 수 있습니다.",
+          "SaveEditor.top은 게임 세이브 파일을 편집하는 무료 브라우저 기반 도구입니다. 모든 작업이 브라우저에서 실행되므로 귀하의 개인 파일은 기기 외부로 유출되지 않습니다. RPG Maker, Unity, Ren'Py, Unreal Engine 등 인기 게임 엔진을 지원합니다. 특히 Unreal의 `.sav` 파일 형식에 대해선 호환성을 우선시하며, 표준화된 암호화 미적용 GVAS를 최우선 지원하되 게임별 특수 컨테이너/압축 변형 데이터의 경우 읽기 전용 상태로 파싱될 수 있습니다.",
       },
       {
-        question: '사용해도 안전한가요?',
+        question: '이 도구를 사용하는 것은 안전한가요?',
         answer:
-          '네. SaveEditor.top은 웹 브라우저에서 완전히 실행됩니다(클라이언트 측 JavaScript). 세이브 파일이 서버에 업로드되지 않습니다. 사이트 개선과 광고 제공을 위해 Google Analytics와 AdSense를 사용합니다. 자세한 내용은 개인정보/쿠키 정책을 확인하세요.',
+          '네, 매우 안전합니다. SaveEditor.top은 100% 웹 브라우저 로컬(클라이언트 측 JavaScript)에서만 작동합니다. 세이브 파일이 절대 외부 서버에 업로드되거나 보관되지 않습니다. 다만 페이지 성능 분석과 광고 게재를 목적으로 Google Analytics와 AdSense를 이용하고 있습니다. 상세한 내용은 개인정보 취급방침 및 쿠키 정책을 참조해 주십시오.',
       },
       {
-        question: '계정을 만들어야 하나요?',
+        question: '웹사이트를 이용하려면 계정을 만들어야 하나요?',
         answer:
-          '아니요. SaveEditor.top은 등록, 로그인 또는 개인 정보가 필요하지 않습니다. 세이브 파일을 업로드하고 바로 편집을 시작하세요.',
+          '아니요. SaveEditor.top은 회원가입, 로그인, 개인정보 등록을 일절 요구하지 않습니다. 단순히 세이브 파일을 드래그 앤 드롭해서 업로드하면 언제든 즉시 수정을 시작할 수 있습니다.',
       },
       {
-        question: '정말 무료인가요?',
+        question: '정말로 완전 무료인가요?',
         answer:
-          '네, 완전히 무료입니다. 파일당 최대 50MB이며 편집 횟수 제한은 없습니다. 선택적 기부와 비침습적 광고로 운영됩니다.',
+          '네, 숨겨진 비용이나 구독형 프리미엄 등급, 기능 제한 없이 완전히 무료입니다. 저희 서비스는 유저들의 자발적 기부금과 사용에 방해되지 않는 최소한의 디스플레이 광고를 통해서만 운영되고 있습니다.',
       },
     ],
   },
   {
-    title: '지원 게임 및 형식',
+    title: '지원 게임 및 호환 엔진',
     icon: 'game',
     questions: [
       {
-        question: '어떤 게임을 편집할 수 있나요?',
+        question: '어떤 게임들을 에디트할 수 있나요?',
         answer:
-          "여러 엔진에서 수천 개의 게임을 지원합니다. 인기 게임으로는 스타듀 밸리, 언더테일, 할로우 나이트, 도키도키 문예부, Celeste, Omori 등 RPG Maker, Ren'Py, Unity, GameMaker로 만든 게임이 있습니다.",
+          "여러 엔진으로 제작된 수천 가지의 게임을 통용하여 지원합니다. 지원이 비교적 완벽하여 많은 사람들이 수정하는 인기 게임으로는 《스타듀 밸리(Stardew Valley)》, 《언더테일(Undertale)》, 《할로우 나이트(Hollow Knight)》, 《두근두근 문예부(DDLC)》, 《셀레스테(Celeste)》, 《오모리(Omori)》 등이 있으며, RPG Maker, Ren'Py, Unity, GameMaker 엔진으로 제작된 전 세계의 무수한 쯔꾸르, 인디 게임들이 지원 대상에 등재돼 있습니다.",
       },
       {
-        question: '어떤 파일 형식이 지원되나요?',
+        question: '어떤 파일 확장자(형식)가 지원되나요?',
         answer:
-          "RPG Maker MV/MZ (.rpgsave, .rmmzsave), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav; 표준 비암호화 GVAS 우선, 컨테이너/압축 변형은 읽기 전용 가능), GameMaker (.ini, .json), NaniNovel (.nson) 및 일반 JSON/XML 형식을 지원합니다.",
+          "지원하는 포맷: RPG Maker MV/MZ (.rpgsave, .rmmzsave), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav; 표준 비암호화 GVAS 우선, 컨테이너화/압축된 변형 데이터는 읽기 전용일 수 있음), GameMaker (.ini, .json), NaniNovel (.nson) 및 일반 JSON/XML 형식을 지원합니다.",
       },
       {
-        question: '콘솔 게임(PlayStation, Xbox, Switch) 세이브도 편집할 수 있나요?',
+        question: '콘솔 기기(PlayStation, Xbox, Switch) 게임의 세이브 데이터도 수정할 수 있나요?',
         answer:
-          '안타깝게도 콘솔 세이브는 플랫폼별 DRM으로 암호화되어 편집할 수 없습니다. 저희 편집기는 PC/Mac/Linux 세이브 파일만 지원합니다.',
+          '안타깝게도 콘솔 게임의 세이브 데이터는 해당 플랫폼의 독점적이고 강력한 DRM 정책에 의해 암호화되어 있어 임의로 편집할 수 없습니다. 따라서 이 웹 에디터는 원칙적으로 PC, Mac, Linux 게임의 파일에만 사용할 수 있습니다. (스타듀 밸리 같은 특정 크로스-세이브 지원 게임의 경우는 PC판과의 연동을 통해 우회 적용이 가능합니다.)',
+      },
+      {
+        question: '제가 즐겨 하는 게임이 지원 목록에 없는데 혹시 에디터를 쓸 수 있나요?',
+        answer:
+          '네, 가능할 수도 있습니다! 해당 게임이 표준 JSON, XML, INI 파일 규칙을 준수하여 세이브 데이터를 기록하고 있는 경우라면, 당사의 범용 파서 아키텍처가 이를 해석해 낼 가능성이 큽니다. 일단 파일을 한번 업로드해서 화면에 파싱이 성공되는지 테스트를 시도해 보세요.',
       },
     ],
   },
   {
-    title: '세이브 파일 찾기',
+    title: '세이브 경로 찾기 가이드',
     icon: 'folder',
     questions: [
       {
-        question: 'Windows에서 세이브 파일은 어디에 있나요?',
+        question: 'Windows (윈도우PC) 환경에서 주로 세이브 파일은 어느 위치에 생성되나요?',
         answer:
-          '일반적인 위치: %AppData%(Win+R을 누르고 %appdata% 입력), %LocalAppData%, Documents/My Games, 또는 게임 설치 폴더. Steam 게임의 경우 Steam/userdata/[ID]/[GameID]/도 확인하세요.',
+          '대표적으로 가장 흔한 세이브 발생 위치: %AppData% (키보드의 Win+R 키를 누르고 %appdata%라고 입력 후 엔터), %LocalAppData%, "내 문서/My Games" 폴더 또는 게임이 설치된 바로 그 폴더. 스팀(Steam) 플랫폼 게임의 경우 `C:/Program Files (x86)/Steam/userdata/[유저 고유 숫자 ID]/[게임 상점 ID]/` 경로 내부를 뒤져 보기를 권장합니다.',
       },
       {
-        question: 'Mac에서 세이브 파일은 어디에 있나요?',
+        question: 'Mac (맥OS) 환경에서 세이브 파일은 어디에 존재하나요?',
         answer:
-          "대부분의 게임은 ~/Library/Application Support/를 확인하세요. Unity 게임은 ~/Library/Application Support/unity.[회사명].[게임명]. Ren'Py는 ~/Library/RenPy/[게임명].",
+          "일반적인 다수 게임의 경우 `~/Library/Application Support/` 디렉토리를 열어보세요. Unity 게임의 경우는 해당 경로 아래의 `unity.[게임회사명].[게임이름]` 폴더를, Ren'Py 기반 게임은 `~/Library/RenPy/[게임이름]` 폴더를 점검 바랍니다.",
       },
       {
-        question: 'Linux에서 세이브 파일은 어디에 있나요?',
+        question: 'Linux 환경에서 세이브 파일은 어디에 있나요?',
         answer:
-          '대부분의 게임은 ~/.config/[게임명] 또는 ~/.local/share/[게임명]에 세이브를 저장합니다. Proton을 통해 실행되는 Steam 게임은 ~/.steam/steam/steamapps/compatdata/[GameID]/pfx/ 확인.',
+          '대다수 리눅스 네이티브 구동 게임들은 `~/.config/[게임이름]` 또는 `~/.local/share/[게임이름]` 쪽에 저장소를 구성합니다. 스팀의 Proton 호환 레이어를 거쳐 실행되는 윈도우용 게임의 경우 `~/.steam/steam/steamapps/compatdata/[GameID]/pfx/` 하위 항목을 찾아보세요.',
+      },
+      {
+        question: '특정 게임의 정확한 세이브 파일 위치를 찾아내려면 어떻게 해야 하나요?',
+        answer:
+          'SaveEditor.top에 마련된 [게임별 전용 안내 페이지(예: /ko/games/stardew-valley)]를 방문하시면 매우 정확하고 직관적인 절대 경로를 복사하실 수 있습니다. 혹시라도 전용 페이지가 제공되지 않는 마이너한 게임이라면 구글에 "[게임이름] 세이브 위치 / save file location" 이라고 검색하시거나 당해 게임 엔진의 인게임 설정 메뉴를 관찰하십시오.',
       },
     ],
   },
   {
-    title: '세이브 편집',
+    title: '데이터 수정 실전 가이드',
     icon: 'pencil',
     questions: [
       {
-        question: '골드/돈을 편집하려면 어떻게 해야 하나요?',
+        question: '골드(Gold), 소지금, 통화 화폐 수치는 어떻게 수정하나요?',
         answer:
-          "세이브를 업로드한 다음 'gold', 'money', 'currency', 'coins' 같은 필드를 검색하세요. 원하는 금액으로 값을 변경합니다. RPG Maker 게임의 경우 파티 데이터에서 '_gold'를 찾으세요.",
+          "업로드 후 트리 구조가 나오면 검색창에 'gold', 'money', 'currency', 'coins' 또는 'funds' 같은 핵심 영어 단어를 찾으세요. 그리고 발견된 값을 자신이 원하는 수치로 수정하십시오. 단, RPG Maker 구동 기반 게임에서는 Party Array(파티 정보) 하위에 위치한 `_gold` 라는 특정 태그를 주의 깊게 찾아보셔야 합니다. 또한, 수치를 너무 높이는 오류 억제를 위해 적정 수준만 올려 게임 내 화폐 오버플로우로 인한 세이브 파일 붕괴를 예방하십시오.",
       },
       {
-        question: '인벤토리에 아이템을 추가하려면 어떻게 해야 하나요?',
+        question: '인벤토리(가방) 배열에 어떤 식으로 새 아이템들을 획득해 넣을 수 있나요?',
         answer:
-          '세이브에서 인벤토리/아이템 배열을 찾습니다. RPG Maker의 경우 아이템은 [아이템ID, 수량] 쌍으로 저장됩니다. 기존 형식에 따라 새 항목을 추가하세요.',
+          "세이브 항목 속에서 인벤토리 정보가 담긴 list나 array(배열)를 찾습니다. 예를 들어 RPG Maker 환경에서의 아이템 코딩 규칙은 `[품목 고유 ID, 갯수]` 로 매핑되어 기록됩니다. Unity제작물은 별도의 `inventory`나 `items` Object 노드가 따로 존재합니다. 완전히 새로운 아이템 코드를 삽입할 때에는 항상 직전의 괄호 닫기 문법 형식을 그대로 준수해야 파싱 에러가 나타나지 않습니다.",
       },
       {
-        question: '편집이 게임이나 세이브 파일을 손상시키나요?',
+        question: '캐릭터 개인의 고유 스탯과 능력치(HP 체력, 현재 레벨 등)를 조작할 수 있습니까?',
         answer:
-          '저희 편집기는 명백한 오류를 방지하기 위해 변경 사항을 검증하지만, 극단적인 수정은 문제를 일으킬 수 있습니다. 항상 먼저 백업하세요!',
+          "네 당연히 가능합니다! 'hp', 'maxHp', 'level', 'exp', 'str', 'def' 와 같이 스탯의 이름을 뜻하는 약자들을 검색 엔진에 입력하세요. RPG Maker에서는 주로 `actors` 배열이 캐릭터의 정보를 총괄하며, Unity에서는 플레이어 데이터 매니저와 관련된 텍스트 속성을 들여다보시면 됩니다.",
+      },
+      {
+        question: '특정 히든 업적과 스토리 진행 여부(플래그)를 어떻게 일괄 해금하나요?',
+        answer:
+          "스토리 업적 요소는 전산상 대개 `True/False` 같은 부울 밸류(Boolean flag)나 시간 기록 오브젝트(Timestamp) 형태로 저장됩니다. 'achievement', 'unlock', 'completed', 'flag' 같은 단어를 중심으로 조회해 보세요. 특히 RPG Maker는 사건 진행 여부를 일컫어 보통 '스위치 배열(Array of Switches)'을 애용합니다.",
+      },
+      {
+        question: '값을 수정했다가 게임이나 세이브 파일이 완전히 파손될 염려가 있나요?',
+        answer:
+          '저희 에디터는 무리한 데이터 입력을 방지하기 위하여 입력 시 검증 처리를 담당하는 메커니즘이 내장되어 있지만, 극단적이고 광범위한 임의 변경들은 게임 구조의 논리적 충돌을 일으킬 가능성이 다분합니다. 절대 세이브 수정 행위에 100% 안전따윈 없으므로 "수정 작업 전 백업 데이터를 필히 USB나 바탕화면 폴더에 옮겨둘 것" 이것을 절대 지켜주십시오. 잦은 충돌 원인 1순위: 최대치 한도초과 버그, 없는 아이디 억지 호출 에러, 게임 엔진이 꼭 요구하는 시스템 노드를 실수로 날려먹음.',
       },
     ],
   },
   {
-    title: '문제 해결',
+    title: 'Steam 이슈 및 클라우드 동기화 팁',
+    icon: 'cloud',
+    questions: [
+      {
+        question: 'Steam 클라우드가 계속 자기가 백업해둔 예전 세이브 데이터를 덮어씌워서 복구해버립니다!',
+        answer:
+          "이는 Steam 기능의 정상적인 개입입니다. 이 강제 복구를 차단하기 위해 해당 게임 클라이언트에서 Steam 클라우드 동기화를 완전히 일시 비활성화해야 합니다: 라이브러리 목록에서 [게임 우클릭] → [속성] → [일반] 탭 → 'Steam 클라우드에 게임 세이브 보관 기능' 체크 무효화. 먼저 에디트로 변경된 파일을 즐기고 오류가 없는 것을 확정지은 뒤에, 게임에 진입한 그 시점에 다시 동기화를 활성화해주면 클라우드 측이 이제 방금 수정 완료된 세이브본을 신본으로 덮어쓸 것입니다.",
+      },
+      {
+        question: '세이브 에디터를 사용하면 VAC (Valve Anti-Cheat) 감시 시스템에 의해 계정 밴(정지)을 당하나요?',
+        answer:
+          '전혀 그렇지 않습니다. VAC는 타인과 직접 경쟁하는 멀티플레이어 환경에서 클라이언트 불법 패킹을 잡아내는 것에 국한됩니다. 애초에 이러한 싱글 플레이어 게임에서의 개인 파일 수정 행위는 VAC 관여 대상이 아니며, 이 웹사이트의 어떠한 에디터 사용 이력으로도 Steam 약관 위반 처분이나 제한을 유발하지 않습니다.',
+      },
+      {
+        question: '세이브 수치를 터무니없이 조정한 상태로 플레이해도 스팀 상점의 공식 업적이 클리어 되나요?',
+        answer:
+          '싱글 플레이 게임에서는 네, 그렇습니다. 스팀(Steam) 플랫폼 서버 측은 사용자가 로컬 기기 내부에서 txt나 sav 파일을 수정하는 과정을 들여다보고 판단할 권한이 없습니다. 게임 프로세스가 켜지며 수정된 `수치값이 게임 내부 알고리즘에 도달`하는 순간 자체 로직이 업적 해금 조건을 만족했다고 판별해버리므로 원래 방식과 동일하게 달성 알람이 울립니다.',
+      },
+    ],
+  },
+  {
+    title: '문제 해결 및 트러블 슈팅',
     icon: 'wrench',
     questions: [
       {
-        question: "편집기가 '잘못된 파일'을 표시하는 이유는?",
+        question: "에디터가 제 파일을 먹고 '잘못된 파일(Invalid file)' 또는 '구문 분석 오류(Parse error)' 안내문을 반환합니다. 무슨 상황인가요?",
         answer:
-          '게임이 지원되지 않는 형식, 암호화 또는 압축을 사용할 수 있습니다. 시도해 보세요: 1) 다른 편집기 유형 선택, 2) 파일이 실제 세이브인지 확인, 3) 게임이 독점 인코딩을 사용할 수 있음.',
+          '게임사가 데이터를 저장할 때 오픈소스 형식이 아닌 독자 규격 포맷, 암호화, 또는 인코딩 압축 기술을 접목했음을 시사합니다. 아래의 대응을 따르십시오: 1) 다른 호환 분석기(엔진 타입)를 드롭박스에서 수동 지정해 볼 것, 2) 올리려는 파일의 속성이 정말로 게임 엔진의 진행 데이터가 담긴 본체인가 체크할 것, 3) 게임사 고유 규격이라 이 웹에서는 수정이 불가능할 수 있음.',
       },
       {
-        question: '게임이 편집된 세이브를 로드하지 않습니다!',
+        question: '에디팅을 잘 마치고 정확하게 경로에 덮어씌웠는데, 정작 게임 내 "불러오기(Load)" 버튼을 누르면 인식을 전혀 못해요!',
         answer:
-          '일반적인 해결책: 1) 올바른 파일을 교체했는지 확인, 2) Steam Cloud가 원본을 복원했는지 확인, 3) 일부 게임에는 체크섬 검증이 있음 - 더 작은 편집 시도, 4) 백업 복원 후 다시 시도.',
+          '가장 빈번하게 발생되는 실패 사유들: 1) 정확한 경로 위치의 엉뚱한 파일을 덧씌웠음 2) Steam 클라우드가 몰래 옛 원본 파일을 덮어썼는지 다시 확인할 것 3) 게임 로딩 시 무결성 검증, 체크섬(Checksum) 방어 코드가 동작함 → 너무 터무니없는 숫자를 넣지 말고 낮은 수치만 소폭 올려서 시험해 볼 것, 4) 최후의 수단: 망가진 파일을 부수고 최초 백업본을 다시 올린 채 처음부터 신중히 입력할 것.',
       },
       {
-        question: '편집을 취소할 수 있나요?',
+        question: 'MAX_HP 수치를 수정하고 게임을 켰더니, 조금 뛰었더니 다시 원래 HP 수치로 돌아가버립니다!',
         answer:
-          '다운로드하면 편집이 영구적입니다. 항상 백업을 유지하세요! 백업이 없다면: 1) Steam Cloud에 원본이 있는지, 2) 게임이 .bak 파일을 생성하는지 확인하세요.',
+          '일부 RPG 게임 로직과 수식상, 특정 능력치는 고정 수치로 저장하는 것이 아니라 로드되는 순간 ‘파생 속성 계산 알고리즘’을 통해 실시간 연산하여 덮어쓰기 합니다. 가령 지금 플레이어의 "현재 레벨" 과 현재 보유 중인 "장비 스탯", "직업 계수"를 곱산해 체력 수치를 억지로 오버라이트 하도록 설계된 것입니다. 이 경우 체력값 수정 자체는 무의미하며 기초 기반값인 "레벨"이나 "장비"의 힘을 수정해 내야 합니다.',
+      },
+      {
+        question: '수정했던 파일 정보를 원래 상태로 되돌리기(Undo 백업)를 이 웹사이트 내에서 버튼 클릭으로 지원합니까?',
+        answer:
+          '아니오. 다운로드 버튼을 눌렀다면 해당 1회차 에디트 행위는 귀속되며 영구적입니다. "백업의 백업은 생명이다"라는 원칙을 사수하십시오. 만약에 실수로 소중한 세이브 파일을 통째로 잃었다면 1) 스팀 클라우드 데이터 캐시에 무결점 버젼이 잔존해 있기를 기대하기, 2) 게임사의 자비로움에 따른 .bak 형태의 찌꺼기 부산 백업 파일이 게임 폴더 어딘가 남아있는지 뒤져보기, 3) 윈도우 OS의 이전 버전 복원(시스템 지점 타임머신) 시스템을 긴급하게 의존하십시오.',
       },
     ],
   },
 ];
 
+// Flatten all questions for schema
 const allQuestions = faqCategories.flatMap((cat) => cat.questions);
 ---
 
 <BaseLayout
-  title="자주 묻는 질문 - 세이브 편집 FAQ"
-  description="SaveEditor.top 사용에 관한 자주 묻는 질문에 대한 답변을 얻으세요. 세이브 파일 찾기, 게임 데이터 편집, 문제 해결 방법 등을 알아보세요."
-  keywords="세이브 에디터 FAQ, 세이브 파일 편집 방법, 게임 세이브 위치, 세이브 파일 도움말"
+  title="자주 묻는 질문 (FAQ) - 세이브 파일 편집 완벽 가이드"
+  description="SaveEditor.top 서비스 사용에 관하여 유저들이 자주 제기하는 질문과 문제 해결 답안을 정리했습니다. 세이브 파일 설치 위치, 에디트 트러블 슈팅 팁을 제공받으십시오."
+  keywords="세이브 에디터 관련 질문, 게임 세이브 수정하는 방법, 스팀 게임 세이브 파일 경로, 세이브 백업 가이드"
 >
+  <!-- Hero Section -->
   <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
     <div class="container mx-auto px-4 text-center">
       <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
-          >자주 묻는 질문</span
+        자주 묻는 <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >질문 (FAQ)</span
         >
       </h1>
       <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-        SaveEditor.top으로 게임 세이브 편집에 대해 알아야 할 모든 것
+        SaveEditor.top 사용 방법부터 안전한 오류 수정 노하우까지 한 곳에 담아두었습니다.
       </p>
     </div>
   </section>
 
   <main class="container mx-auto px-4 py-16">
     <div class="max-w-4xl mx-auto">
+      <!-- Quick Navigation -->
       <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
-        <h2 class="text-lg font-bold text-gray-900 mb-4">섹션으로 이동</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-4">원하는 섹션 바로가기 이동</h2>
         <div class="flex flex-wrap gap-3">
           {
             faqCategories.map((category, index) => (
@@ -155,6 +205,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         </div>
       </nav>
 
+      <!-- FAQ Categories -->
       {
         faqCategories.map((category, catIndex) => (
           <section id={`section-${catIndex}`} class="mb-12">
@@ -189,27 +240,31 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         ))
       }
 
+      <!-- Still Have Questions CTA -->
       <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
-        <h2 class="text-2xl font-bold mb-4">아직 질문이 있으신가요?</h2>
+        <h2 class="text-2xl font-bold mb-4">여전히 해결되지 않은 문제가 있나요?</h2>
         <p class="text-gray-300 mb-6">
-          찾고 계신 내용을 찾을 수 없나요? 게임별 가이드를 확인하거나 문의해 주세요.
+          궁금했던 내용을 이곳에서도 찾을 수 없으셨나요? 저희 사이트상에 마련된 게임별 독점 데이터베이스 가이드를 확인해 보시거나, 직접 문의를 제출해 보세요.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
-            href="/games"
+            href="/ko/games"
             class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
-            >게임 보기</a
           >
+            지원 게임 종류 둘러보기
+          </a>
           <a
             href="/ko/contact"
             class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
-            >문의하기</a
           >
+            1:1 고객지원 문의하기
+          </a>
         </div>
       </section>
     </div>
   </main>
 
+  <!-- FAQ Schema -->
   <script
     type="application/ld+json"
     set:html={JSON.stringify({
@@ -218,18 +273,22 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
       mainEntity: allQuestions.map((faq) => ({
         '@type': 'Question',
         name: faq.question,
-        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
       })),
     })}
   />
 
+  <!-- BreadcrumbList Schema -->
   <script
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '홈', item: 'https://saveeditor.top/ko/' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://saveeditor.top/ko/' },
         { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/ko/faq/' },
       ],
     })}

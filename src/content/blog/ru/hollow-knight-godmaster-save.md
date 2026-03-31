@@ -2,7 +2,7 @@
 title: "Сейв Hollow Knight 112% Godmaster + Пак для Спидрана [Путь Боли]"
 description: "Скачайте лучший ресурс для Hollow Knight. Включает: 1. Сейв 112% Godmaster (для Пантеонов); 2. Спидран-пак (39 сохранений от Грязьмута до Пути Боли). Идеально для тренировки боссов."
 pubDate: 2026-02-06
-author: "Команда SaveEditor"
+author: "Paradox"
 tags: ["hollow-knight", "save-file", "download", "unity"]
 image: "/images/blog/hollow-knight-cover.webp"
 ---

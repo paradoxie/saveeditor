@@ -10,22 +10,22 @@ const faqCategories = [
       {
         question: 'SaveEditor.topとは何ですか？',
         answer:
-          "SaveEditor.topは、ゲームのセーブファイルを編集するための無料のブラウザベースツールです。完全にブラウザ内で動作するため、ファイルがデバイスから離れることはありません。RPG Maker、Unity、Ren'Py、Unreal Engineなどの人気エンジンをサポートしています。Unreal `.sav` は互換性優先で、標準の非暗号化GVASを優先対応し、ゲーム固有のコンテナ/圧縮は読み取り専用になる場合があります。",
+          "SaveEditor.topは、ゲームのセーブデータを編集するための無料のブラウザベースツールです。完全にブラウザ内で動作するため、ファイルがお使いのデバイスから離れることはありません。RPG Maker、Unity、Ren'Py、Unreal Engineなどの人気エンジンをサポートしています。Unrealの `.sav` に関しては互換性を優先しており、標準的な非暗号化GVASの対応が最も優れていますが、ゲーム固有のコンテナ化・圧縮された変種モデルについては読み取り専用になる場合があります。",
       },
       {
-        question: 'これは安全ですか？',
+        question: 'このツールは安全ですか？',
         answer:
-          'はい。SaveEditor.topはWebブラウザ内で完全に動作します（クライアントサイドJavaScript）。セーブファイルがサーバーにアップロードされることはありません。サイト改善と広告表示のためにGoogle AnalyticsとAdSenseを使用しています。詳細はプライバシー/クッキーポリシーをご覧ください。',
+          'はい。SaveEditor.topはWebブラウザ内で完全にローカルに動作します（クライアントサイドJavaScriptに依存しています）。お使いのセーブファイルが当社や外部のサーバーにアップロードされることは決してありません。サイトのパフォーマンス測定や広告表示のためにGoogle AnalyticsとAdSenseを使用しています。詳細についてはプライバシーポリシーおよびCookieポリシーのページをご覧ください。',
       },
       {
-        question: 'アカウント登録は必要ですか？',
+        question: 'アカウントを作成する必要はありますか？',
         answer:
-          'いいえ。SaveEditor.topは登録、ログイン、個人情報を必要としません。セーブファイルをアップロードするだけで、すぐに編集を開始できます。',
+          'いいえ。SaveEditor.topは一切の登録、ログイン、または個人情報を必要としません。セーブデータをアップロードするだけで、すぐに編集を開始できます。',
       },
       {
         question: '本当に無料ですか？',
         answer:
-          'はい、完全に無料です。1ファイル最大50MBで、編集回数の制限はありません。任意の寄付と控えめな広告でサポートしています。',
+          'はい、隠されたコストやプレミアム枠、機能制限などは一切なく、完全に無料です。任意の寄付とユーザーの邪魔にならない配置の広告によって運営・サポートされています。',
       },
     ],
   },
@@ -36,17 +36,22 @@ const faqCategories = [
       {
         question: 'どのゲームを編集できますか？',
         answer:
-          "複数のエンジンにわたる何千ものゲームをサポートしています。人気のあるゲームには、スターデューバレー、アンダーテール、ホロウナイト、ドキドキ文芸部、Celeste、Omoriなど、RPG Maker、Ren'Py、Unity、GameMakerで作られたゲームが含まれます。",
+          "複数のエンジンにまたがる数千タイトルものゲームをサポートしています。当サイトでよく編集されているサポート対象ゲームには、『Stardew Valley(スターデューバレー)』『Undertale(アンダーテール)』『Hollow Knight(ホロウナイト)』『Doki Doki Literature Club(ドキドキ文芸部)』『Celeste(セレステ)』『Omori』などがあり、またRPG Maker、Ren'Py、Unity、GameMakerで作られたほぼすべてのゲームに対応しています。",
       },
       {
-        question: 'どのファイル形式がサポートされていますか？',
+        question: 'どのファイル形式（フォーマット）に対応していますか？',
         answer:
-          "RPG Maker MV/MZ (.rpgsave, .rmmzsave)、Ren'Py (.save, persistent)、Unity (PlayerPrefs .xml/.plist, JSON)、Unreal Engine (.sav：標準・非暗号化GVASを優先、コンテナ化/圧縮変種は読み取り専用の場合あり)、GameMaker (.ini, .json)、NaniNovel (.nson)、汎用JSON/XML形式をサポートしています。",
+          "私たちは以下の形式をサポートしています：RPG Maker MV/MZ (.rpgsave, .rmmzsave)、Ren'Py (.save, persistent)、Unity (PlayerPrefsの .xml/.plist, またはJSON)、Unreal Engine (.sav; 標準の非暗号化GVASを優先対応、コンテナ化/圧縮された変種は読み取り専用となる可能性あり)、GameMaker (.ini, .json)、NaniNovel (.nson)、そして一般的なJSON/XML形式。",
       },
       {
-        question: 'コンソールゲーム（PlayStation、Xbox、Switch）のセーブは編集できますか？',
+        question: 'コンソール機（PlayStation、Xbox、Switch）のセーブデータは編集できますか？',
         answer:
-          '残念ながら、コンソールセーブはプラットフォーム固有のDRMで暗号化されており、編集できません。当エディタはPC/Mac/Linuxのセーブファイルのみ対応しています。',
+          '残念ながら、コンソール機のセーブデータはそのプラットフォーム固有の強固なDRMによって暗号化されているため、編集することができません。当エディタはPC/Mac/Linux環境のセーブファイル専用です（ただし、Stardew Valleyなど一部クロスセーブ対応のゲームはPC経由で可能です）。',
+      },
+      {
+        question: '遊びたいゲームが一覧に載っていません。それでもエディタは使えますか？',
+        answer:
+          '使えるかもしれません！もしそのゲームが標準的なJSON、XML、あるいはINI形式で保存されている場合、私たちの汎用パーサーが機能する可能性があります。セーブファイルを一旦アップロードしてみて、解析できるかどうか試してみてください。',
       },
     ],
   },
@@ -55,40 +60,76 @@ const faqCategories = [
     icon: 'folder',
     questions: [
       {
-        question: 'Windowsでセーブファイルはどこにありますか？',
+        question: 'Windowsでセーブファイルはどこに保存されていますか？',
         answer:
-          '一般的な場所：%AppData%（Win+Rを押して%appdata%と入力）、%LocalAppData%、Documents/My Games、またはゲームのインストールフォルダ。Steamゲームの場合は、Steam/userdata/[ID]/[GameID]/も確認してください。',
+          '一般的な保存場所としては：%AppData% (Win+Rを押して `%appdata%` と入力してEnter)、%LocalAppData%、Documents/My Games フォルダ、または直接ゲームのインストールフォルダ内です。Steamゲームの場合、Steam/userdata/[あなたのID]/[GameID]/ も確認してください。',
       },
       {
-        question: 'Macでセーブファイルはどこにありますか？',
+        question: 'Macでセーブファイルはどこに保存されていますか？',
         answer:
-          "ほとんどのゲームは~/Library/Application Support/を確認してください。Unityゲームの場合は~/Library/Application Support/unity.[会社名].[ゲーム名]。Ren'Pyの場合は~/Library/RenPy/[ゲーム名]。",
+          "ほとんどのゲームでは ~/Library/Application Support/ を確認してください。Unity製ゲームの場合は ~/Library/Application Support/unity.[会社名].[ゲーム名] を見てください。Ren'Py製ゲームの場合は ~/Library/RenPy/[ゲーム名] を確認してください。",
       },
       {
-        question: 'Linuxでセーブファイルはどこにありますか？',
+        question: 'Linuxでセーブファイルはどこに保存されていますか？',
         answer:
-          'ほとんどのゲームは~/.config/[ゲーム名]または~/.local/share/[ゲーム名]にセーブを保存します。Proton経由のSteamゲームの場合は~/.steam/steam/steamapps/compatdata/[GameID]/pfx/を確認。',
+          '多くのネイティブLinuxゲームは ~/.config/[ゲーム名] もしくは ~/.local/share/[ゲーム名] にセーブを保存します。Protonを介してプレイしているSteamゲームの場合は、~/.steam/steam/steamapps/compatdata/[ゲームID]/pfx/ を確認してください。',
+      },
+      {
+        question: '特定のゲームのセーブデータの正確な場所を見つけるにはどうすればよいですか？',
+        answer:
+          '当サイトの各ゲーム専用ページ（例：/ja/games/stardew-valley）にアクセスして正確なパスを確認してください。またはインターネットで「[ゲーム名] save file location」と検索するか、ゲーム内設定のオプションメニューを確認してください。',
       },
     ],
   },
   {
-    title: 'セーブの編集',
+    title: 'セーブデータの編集方法',
     icon: 'pencil',
     questions: [
       {
-        question: 'ゴールド/お金を編集するには？',
+        question: 'ゴールド / お金 / 通貨 を編集するにはどうすればいいですか？',
         answer:
-          "セーブをアップロードし、'gold'、'money'、'currency'、'coins'などのフィールドを検索します。値を希望の金額に変更します。RPG Makerゲームの場合、パーティデータの'_gold'を探してください。",
+          "セーブデータをアップロードしたら、「gold」「money」「currency」「coins」「funds」などのフィールド名を検索してください。そしてその数値を希望する額に変更します。RPG Makerゲームの場合は、パーティデータ配下にある「_gold」を探してください。バグにならないよう、常識的な範囲内の数値に留めることを忘れないでください。",
       },
       {
-        question: 'インベントリにアイテムを追加するには？',
+        question: 'インベントリ（持ち物枠）にアイテムを追加するにはどうすればいいですか？',
         answer:
-          'セーブ内のインベントリ/アイテム配列を見つけます。RPG Makerの場合、アイテムは[アイテムID, 数量]のペアとして保存されています。既存の形式に従って新しいエントリを追加します。',
+          "セーブデータ内の inventory（インベントリ）または items 配列を見つけてください。RPG Makerの場合、アイテムは [アイテムID, 個数] というペアで保存されています。Unity製ゲームの場合は「inventory」や「items」といったオブジェクトを探してください。すでに記述されている形式（フォーマット）を真似て新しいエントリを追加してください。",
       },
       {
-        question: '編集でゲームやセーブファイルが壊れますか？',
+        question: 'キャラクターのステータス（HP、レベルなど）を変更できますか？',
         answer:
-          '当エディタは明らかなエラーを防ぐために変更を検証しますが、極端な変更は問題を引き起こす可能性があります。必ず最初にバックアップを取ってください！',
+          "はい、可能です！「hp」「maxHp」「level」「exp」「str」「def」などのフィールドを探してください。RPG Maker製ゲームの場合、これらは基本的に actors 配列内に存在します。Unity製ゲームの場合は、player data（プレイヤーデータ）などのオブジェクトをチェックしてください。",
+      },
+      {
+        question: '実績やストーリーの進行状況（フラグ）を解放するにはどうすればよいですか？',
+        answer:
+          "実績は一般的に真偽値のフラグ (boolean flags) またはタイムスタンプオブジェクトとして保存されています。「achievement」「unlock」「flag」「completed」といった単語で検索してみてください。ストーリーの進行状況は、大抵の場合スイッチの配列 (RPG Maker特有) や進行度オブジェクトを使用しています。",
+      },
+      {
+        question: '編集することでゲームやセーブデータが壊れたりしませんか？',
+        answer:
+          '当エディタは明白なエラーを防ぐために変更値の検証を行いますが、極端な編集操作は依然として問題を引き起こす可能性があります。作業前に必ずバックアップを取ってください！一般的な問題の例としては：数値が大きすぎるためのオーバーフロー発生、無効なアイテムIDの指定、あるいは必須項目の誤削除などが挙げられます。',
+      },
+    ],
+  },
+  {
+    title: 'Steam とクラウドセーブ',
+    icon: 'cloud',
+    questions: [
+      {
+        question: 'Steamクラウドが常に編集したデータを元の状態に復元してしまいます！',
+        answer:
+          "対象ゲームのSteamクラウド同期機能を無効化する必要があります：ライブラリからゲームを右クリック → [プロパティ] → [一般]タブ → [Steamクラウドにゲームのセーブを保存する]のチェックを外す。編集作業を行い、ゲーム内で問題なく動作することを確認してから、必要に応じて再度クラウド同期を有効にしてください。",
+      },
+      {
+        question: 'セーブデータを編集するとVAC（Valve Anti-Cheat）でBANされますか？',
+        answer:
+          'いいえ、されません。VACはマルチプレイヤー/オンラインゲーム環境のみを監視しています。シングルプレイヤーゲーム向けのローカルセーブデータの編集操作は完全に安全であり、Steamでのアカウント停止や制限を受けることは絶対にありません。',
+      },
+      {
+        question: 'セーブデータを変更した後でもSteamの実績は正常に解除されますか？',
+        answer:
+          'シングルプレイヤーゲームであれば問題なく解除されます。Steam側からローカルセーブデータのファイル変更を検知することはできません。そのため、あなたの実績はゲーム内部自身の判断基準に基づいて通常通り解除されます。',
       },
     ],
   },
@@ -97,47 +138,56 @@ const faqCategories = [
     icon: 'wrench',
     questions: [
       {
-        question: 'エディタが「無効なファイル」と表示するのはなぜ？',
+        question: 'エディタが「Invalid file（無効なファイル）」や「Parse error（解析エラー）」と表示するのはなぜですか？',
         answer:
-          'ゲームがサポートされていない形式、暗号化、または圧縮を使用している可能性があります。試してください：1）別のエディタタイプを選択、2）ファイルが実際のセーブかどうか確認、3）ゲームが独自のエンコーディングを使用している可能性。',
+          'そのゲームが現在私たちが対応していない非標準な形式、高度な暗号化、または圧縮方式を用いている可能性が高いです。以下の事をお試しください：1) UIから手動で別のエディタ種別（パーサー）を選んでみる, 2) アップロードしたファイルが本当に本物のセーブデータかどうかを確認する（一時ファイルやバックアップファイルではない事を確認）, 3) ゲーム自体が完全に独自のエンコーディングを採用している。',
       },
       {
-        question: 'ゲームが編集したセーブを読み込めません！',
+        question: '編集したセーブデータを戻したのに、ゲームでロードできません！',
         answer:
-          '一般的な修正：1）正しいファイルを置き換えたか確認、2）Steamクラウドが元のファイルを復元していないか確認、3）一部のゲームにはチェックサム検証があります - より小さな編集を試す、4）バックアップを復元して再試行。',
+          'よくある解決策：1) 正しいディレクトリの正確なファイルを置き換えたか再確認する。2) Steamクラウド機能が背後で元のファイルに上書き復元していないか確認する。3) 特定のゲームはチェックサム(Checksum)検証を設けているため、より小さな数値の編集に留めて再試行してみる。4) 最初に確保しておいたバックアップファイルを復元して、始めからやり直す。',
       },
       {
-        question: '編集を元に戻せますか？',
+        question: 'ゲームをロードしたら編集したパラメーターの数値が元に戻ってしまいました！',
         answer:
-          'ダウンロードすると、編集は永続的になります。常にバックアップを保存してください！バックアップがない場合は、Steamクラウドに元のファイルがあるか、ゲームが.bakファイルを作成するか確認してください。',
+          '一部のゲームは、ロードの瞬間に特定の値を再計算するように設計されています。例えばレベルに基づいて求められる最大HPのような「派生ステータス」は再計算されます。その計算の元となる「基本ステータス値」の項目のほうを編集するようにしてください。',
+      },
+      {
+        question: '変更を元に戻す(Undo)ことはできますか？',
+        answer:
+          '一度ダウンロードして上書きしてしまった編集は永続的です。常に元のファイルを別の安全な場所にバックアップするようにしてください！もしバックアップを取り忘れた場合は次の場所を当たってみてください：1) Steamクラウド上にクリーンな元データが残っていないか？, 2) ゲームが自動的に .bak 形式のバックアップファイルを作っていないか？, 3) パソコンのシステム復元ポイントを使って、フォルダの以前のバージョンを取り戻せないか？。',
       },
     ],
   },
 ];
 
+// Flatten all questions for schema
 const allQuestions = faqCategories.flatMap((cat) => cat.questions);
 ---
 
 <BaseLayout
-  title="よくある質問 - セーブ編集FAQ"
-  description="SaveEditor.topの使用に関するよくある質問への回答。セーブファイルの場所、ゲームデータの編集、問題のトラブルシューティングなど。"
-  keywords="セーブエディタ FAQ, セーブファイル編集方法, ゲームセーブ場所, セーブファイルヘルプ"
+  title="よくある質問 (FAQ) - セーブ編集ツールに関するFAQ"
+  description="SaveEditor.topの使用に関するよくあるご質問にお答えします。セーブデータの場所の探し方、ゲームデータの編集方法、トラブルの解決方法などをご案内します。"
+  keywords="セーブデータエディタ FAQ, セーブファイルの編集方法, ゲームセーブデータの場所, セーブファイル変更のヘルプ, RPGツクールセーブエディターのトラブルシューティング"
 >
+  <!-- Hero Section -->
   <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
     <div class="container mx-auto px-4 text-center">
       <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
-          >よくある質問</span
+        よくある<span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >質問</span
         >
       </h1>
       <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-        SaveEditor.topでのゲームセーブ編集について知っておくべきこと
+        SaveEditor.topを利用してゲームのセーブデータを編集する際に必要な知識をご紹介
       </p>
     </div>
   </section>
 
   <main class="container mx-auto px-4 py-16">
     <div class="max-w-4xl mx-auto">
+      <!-- Quick Navigation -->
       <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
         <h2 class="text-lg font-bold text-gray-900 mb-4">セクションへジャンプ</h2>
         <div class="flex flex-wrap gap-3">
@@ -155,6 +205,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         </div>
       </nav>
 
+      <!-- FAQ Categories -->
       {
         faqCategories.map((category, catIndex) => (
           <section id={`section-${catIndex}`} class="mb-12">
@@ -189,27 +240,31 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         ))
       }
 
+      <!-- Still Have Questions CTA -->
       <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
-        <h2 class="text-2xl font-bold mb-4">まだ質問がありますか？</h2>
+        <h2 class="text-2xl font-bold mb-4">知りたいが見つからないですか？</h2>
         <p class="text-gray-300 mb-6">
-          お探しのものが見つかりませんか？ゲーム別ガイドを確認するか、お問い合わせください。
+          お探しの内容はリストにありましたか？特定のゲーム別の専用ガイドを確認するか、お気軽にお問い合わせください。
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
-            href="/games"
+            href="/ja/games"
             class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
-            >ゲームを見る</a
           >
+            対応ゲーム一覧を見る
+          </a>
           <a
             href="/ja/contact"
             class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
-            >お問い合わせ</a
           >
+            お問い合わせ
+          </a>
         </div>
       </section>
     </div>
   </main>
 
+  <!-- FAQ Schema -->
   <script
     type="application/ld+json"
     set:html={JSON.stringify({
@@ -218,18 +273,22 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
       mainEntity: allQuestions.map((faq) => ({
         '@type': 'Question',
         name: faq.question,
-        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
       })),
     })}
   />
 
+  <!-- BreadcrumbList Schema -->
   <script
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://saveeditor.top/ja/' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://saveeditor.top/ja/' },
         { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/ja/faq/' },
       ],
     })}

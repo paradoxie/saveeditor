@@ -2,7 +2,7 @@
 title: "星露谷物语 (Stardew Valley) 完美存档包：3个神级进度 + 100% 全收集 [v1.6 最新]"
 description: "下载最强的星露谷物语“神级”存档包。内含3个满级存档位：3000万金币、全技能满级、社区中心/姜岛全解锁、配偶分别为 Leah/Haley/Abigail。支持 PC Steam 及手机版。直接体验富豪人生。"
 pubDate: 2026-02-06
-author: "SaveEditor 评测组"
+author: "Paradox"
 tags: ["stardew-valley", "save-file", "download", "rpg-maker"]
 image: "/images/blog/stardew-valley-cover.webp"
 ---

@@ -3,7 +3,7 @@ title: "Cómo Editar Guardados de Unity (PlayerPrefs y XML) - Guía Completa"
 description: "Una guía completa para modificar archivos de guardado de juegos de Unity en Android, iOS y PC. Aprende cómo editar archivos PlayerPrefs, XML, JSON y Plist para cualquier juego de Unity."
 pubDate: 2026-01-04
 tags: ["unity", "guía", "tutorial", "playerprefs"]
-author: "Equipo SaveEditor"
+author: "Paradox"
 image: "/images/blog/unity-cover.webp"
 ---
 

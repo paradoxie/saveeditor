@@ -3,7 +3,7 @@ title: "Как редактировать файлы сохранений Unreal
 description: "Практическое руководство по `.sav` Unreal Engine 4/5 с упором на совместимость. Разберем безопасный анализ GVAS и моменты, когда нужен профильный инструмент."
 pubDate: 2026-01-05
 tags: ["unreal-engine", "gvas", "руководство", "palworld", "hogwarts-legacy"]
-author: "Команда SaveEditor"
+author: "Paradox"
 image: "/images/blog/unreal-cover.webp"
 ---
 

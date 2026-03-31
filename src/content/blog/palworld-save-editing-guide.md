@@ -3,7 +3,7 @@ title: "How to Edit Palworld Save Files - Complete Guide (2026)"
 description: "Compatibility-first Palworld save editing guide for PC and Steam Deck. Learn where `.sav` files live, how to inspect standard GVAS safely, and when to switch to dedicated tools."
 pubDate: 2026-01-07
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]
-author: "SaveEditor Team"
+author: "Paradox"
 image: "/images/blog/palworld-guide-cover-v2.webp"
 ---
 

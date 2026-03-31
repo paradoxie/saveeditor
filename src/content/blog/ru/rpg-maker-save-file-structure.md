@@ -3,7 +3,7 @@ title: "Структура файла сохранения RPG Maker - Техн�
 description: "Глубокий технический анализ структуры файлов сохранений RPG Maker MV (.rpgsave) и MZ (.rmmzsave). Узнайте, как работают кодировка JSON, сжатие LZString и шифрование игры."
 pubDate: 2026-01-09
 tags: ["rpg-maker", "техническое", "json", "структура-данных"]
-author: "Команда SaveEditor"
+author: "Paradox"
 image: "/images/blog/rpg-maker-structure-cover-v2.webp"
 ---
 

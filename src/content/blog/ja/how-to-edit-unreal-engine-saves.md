@@ -3,7 +3,7 @@ title: "Unreal Engineのセーブファイル(.sav)を編集する方法 - 完�
 description: "Unreal Engine 4/5 の `.sav` 向け互換性重視ガイド。GVAS 解析の安全な進め方と、専用ツールへ切り替える判断基準を解説します。"
 pubDate: 2026-01-05
 tags: ["Unreal Engine", "GVAS", "ガイド", "Palworld", "Hogwarts Legacy"]
-author: "SaveEditor Team"
+author: "Paradox"
 lang: "ja"
 image: "/images/blog/unreal-cover.webp"
 ---

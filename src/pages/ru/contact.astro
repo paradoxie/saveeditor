@@ -3,28 +3,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Контакты | Save Editor Online"
-  description="Свяжитесь с командой Save Editor Online. Мы ждем ваших вопросов, предложений, сообщений об ошибках и деловых запросов. Поддержка пользователей."
+  title="Связаться с нами | Save Editor Online"
+  description="Свяжитесь с командой разработчиков Save Editor Online напрямую. Вы можете отправить нам сообщение об ошибке (багрепорт), предложение по улучшению или обсудить коммерческие вопросы."
 >
   <main class="container mx-auto px-4 py-12 max-w-6xl">
-    <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">Контакты</h1>
+    <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">Связаться с нами</h1>
 
     <div class="grid md:grid-cols-2 gap-12">
       <div>
         <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          Вопросы, предложения или просто приветствия. Заполните форму, и мы ответим как можно
-          скорее.
+          У вас возник вопрос, интересное предложение или вы просто хотите сказать нам «Привет»? Мы всегда рады обратной связи! Пожалуйста, заполните форму ниже, и мы сделаем всё возможное, чтобы оперативно вам ответить.
         </p>
 
         <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mb-8">
-          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Время ответа</h3>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Стандартное время ответа</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm mb-4">
-            Мы небольшая команда, но стараемся отвечать на все запросы в течение **24-48 часов**.
+            Мы — небольшая и независимая команда, однако мы прилагаем максимальные усилия для того, чтобы изучать все адекватные обращения и предоставлять конструктивный ответ в течение <strong>24–48 часов</strong> после получения письма.
           </p>
-          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Деловое сотрудничество</h3>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Деловое партнерство и сотрудничество</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm">
-            По вопросам партнерства, прессы или бизнеса выберите "Деловое сотрудничество" в форме
-            или напишите нам напрямую.
+            Для связи с прессой, деловых предложений или партнерских запросов выберите пункт «Коммерческое предложение / Партнерство» в форме ниже, либо напишите нам напрямую на наш официальный почтовый ящик.
           </p>
         </div>
 
@@ -36,12 +34,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               📧
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">Email</div>
+              <div class="font-bold text-gray-900 dark:text-white">Центральный E-Mail поддержки</div>
               <a href="mailto:support@saveeditor.top" class="text-primary-600 hover:underline"
                 >support@saveeditor.top</a
               >
             </div>
           </div>
+
           <div class="flex items-center gap-4">
             <div
               class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
@@ -49,12 +48,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               🐛
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">Сообщить о баге</div>
+              <div class="font-bold text-gray-900 dark:text-white">Сообщить об ошибке (Bug Report) / Уязвимости</div>
               <a
                 href="https://github.com/paradoxie/saveeditor/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-primary-600 hover:underline">Открыть Issue на GitHub</a
+                class="text-primary-600 hover:underline">Создать новую задачу (Issue) напрямую в нашем репозитории GitHub</a
               >
             </div>
           </div>
@@ -69,14 +68,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           class="hidden mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          <strong class="font-bold">Сообщение отправлено!</strong>
-          <span class="block sm:inline">Спасибо, что связались с нами. Мы скоро ответим.</span>
+          <strong class="font-bold">Сообщение было успешно доставлено!</strong>
+          <span class="block sm:inline"
+            >Мы сердечно благодарим вас за то, что уделили нам время и написали. Вскоре вы получите от нас подробный ответ.</span
+          >
         </div>
         <form class="space-y-6" id="contact-form">
           <div>
             <label
               for="name"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Имя</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ваше имя или псевдоним (Никнейм)</label
             >
             <input
               type="text"
@@ -84,13 +85,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               name="name"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="Ваше имя"
+              placeholder="Например: Иван Иванов"
             />
           </div>
           <div>
             <label
               for="email"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ваш рабочий адрес электронной почты (E-mail)</label
             >
             <input
               type="email"
@@ -98,31 +99,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               name="email"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="vash@email.com"
+              placeholder="vashe.imya@email.com"
             />
           </div>
           <div>
             <label
               for="subject"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Тема</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Тема / Основная причина обращения</label
             >
             <select
               id="subject"
               name="subject"
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
-              <option value="general">Общий вопрос</option>
-              <option value="support">Техподдержка</option>
-              <option value="feature">Запрос функции</option>
-              <option value="bug">Отчет о баге</option>
-              <option value="business">Деловое сотрудничество</option>
+              <option value="general">Общие вопросы или отзывы</option>
+              <option value="support">Служба технической поддержки / Просьба о помощи</option>
+              <option value="feature">Запрос на добавление поддержки новой игры или функции</option>
+              <option value="bug">Сообщение о системной ошибке парсера / Баг-репорт</option>
+              <option value="business">Деловое предложение (Коммерческое партнерство)</option>
             </select>
           </div>
           <div>
             <label
               for="message"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >Сообщение</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Текст вашего подробного сообщения</label
             >
             <textarea
               id="message"
@@ -130,13 +130,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               rows="5"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="Чем мы можем помочь?"></textarea>
+              placeholder="Опишите ситуацию нашему аналитическому отделу... Чем конкретно мы можем оказать вам содействие сегодня? Расскажите все важные детали."></textarea>
           </div>
           <button
             type="submit"
             class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
           >
-            <span>Отправить</span>
+            <span>Отправить письмо</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
@@ -154,32 +154,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </main>
 
   <script>
-    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const form = document.getElementById('contact-form');
 
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-        const formData = new FormData(form);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const subject = formData.get('subject');
-        const message = formData.get('message');
+      const formData = new FormData(form as HTMLFormElement);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
 
-        const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
-        const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
+      const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
 
-        window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
-      });
-    }
+      window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+    });
   </script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      "name": "Save Editor Online Контакты",
+      "name": "Связь со службой поддержки - Save Editor Online",
       "url": "https://saveeditor.top/ru/contact",
-      "description": "Страница контактов Save Editor Online."
+      "description": "Центральный портал для обработки пользовательских запросов, с помощью которого ваши обращения без посредников отправляются нашей команде аналитиков и разработчиков."
     }
   </script>
 </BaseLayout>

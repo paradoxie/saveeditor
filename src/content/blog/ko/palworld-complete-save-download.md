@@ -2,7 +2,7 @@
 title: "Palworld 100% 완벽 세이브 파일 다운로드: 레벨 50 + 모든 팰 + 전설 4특성 [2026 검증됨]"
 description: "Palworld 완벽 세이브 파일을 다운로드하세요. 레벨 50, 팰 도감 100% 완성, 4가지 전설 패시브를 가진 전설 팰, 레벨 20 거점, 무제한 자원 포함. Steam 및 Game Pass 호환. GUID 수정 가이드 포함."
 pubDate: 2026-02-06
-author: "SaveEditor 팀"
+author: "Paradox"
 tags: ["palworld", "save-file", "download", "unreal-engine"]
 image: "/images/blog/palworld-cover.webp"
 ---

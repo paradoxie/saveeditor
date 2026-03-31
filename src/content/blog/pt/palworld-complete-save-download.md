@@ -2,7 +2,7 @@
 title: "Palworld - Download Save Perfeito Nível 50: Todos Lendários e Pals [Verificado 2026]"
 description: "Baixe save verificado de Palworld 100% completo. Nível 50, Paldeck completo, todos lendários com passivas douradas, base nível 20 e recursos ilimitados. Compatível com Steam e Game Pass. Guia de instalação e correção de GUID incluso."
 pubDate: 2026-02-06
-author: "Equipe SaveEditor"
+author: "Paradox"
 tags: ["palworld", "save-file", "download", "unreal-engine"]
 image: "/images/blog/palworld-cover.webp"
 ---

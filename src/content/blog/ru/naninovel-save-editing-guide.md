@@ -3,7 +3,7 @@ title: "Редактирование сохранений NaniNovel: Полно�
 description: "Узнайте, как редактировать файлы сохранений визуальных новелл NaniNovel (.nson). Подробное руководство по структуре формата NSON, алгоритмам сжатия, модификации переменных и устранению неполадок."
 pubDate: 2026-01-06
 tags: ["naninovel", "визуальная-новелла", "руководство", "учебник", "nson"]
-author: "Команда SaveEditor"
+author: "Paradox"
 image: "/images/blog/naninovel-cover.webp"
 ---
 

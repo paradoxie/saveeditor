@@ -2,7 +2,7 @@
 title: "Скачать идеальное сохранение Palworld: Уровень 50 + Все Палы + Легендарные свойства [Проверено 2026]"
 description: "Скачать проверенное сохранение для Palworld (100% прохождение). Уровень 50, полный Палдек, все легендарные Палы с 4 золотыми навыками, база 20 уровня, бесконечные ресурсы. Для Steam и Game Pass."
 pubDate: 2026-02-06
-author: "Команда SaveEditor"
+author: "Paradox"
 tags: ["palworld", "save-file", "download", "unreal-engine"]
 image: "/images/blog/palworld-cover.webp"
 ---

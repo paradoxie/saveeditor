@@ -3,7 +3,7 @@ title: "Common Game Save File Extensions Explained - Complete Reference"
 description: "A comprehensive guide to understanding .json, .xml, .sav, .rpgsave, .save, .dat, and other common game save file formats and how to edit them."
 pubDate: 2026-01-01
 tags: ["guide", "file-formats", "education", "reference"]
-author: "SaveEditor Team"
+author: "Paradox"
 image: "/images/blog/extensions-cover.webp"
 ---
 

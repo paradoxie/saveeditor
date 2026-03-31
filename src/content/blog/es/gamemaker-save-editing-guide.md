@@ -3,7 +3,7 @@ title: "Edición de Guardados de GameMaker: Guía Completa de Archivos INI y JSO
 description: "Domina el arte de editar archivos de guardado de GameMaker Studio. Aprende a modificar configuraciones INI, guardados JSON y formatos binarios para juegos como Undertale, Deltarune y más."
 pubDate: 2026-01-02
 tags: ["gamemaker", "undertale", "guía", "tutorial", "ini", "json"]
-author: "Equipo SaveEditor"
+author: "Paradox"
 image: "/images/blog/gamemaker-cover.webp"
 ---
 

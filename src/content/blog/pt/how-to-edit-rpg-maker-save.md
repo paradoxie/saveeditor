@@ -2,7 +2,7 @@
 title: "Como Editar Arquivos de Save do RPG Maker MV (.rpgsave) - Guia Completo"
 description: "Um guia completo sobre como editar arquivos de save do RPG Maker MV usando nossa ferramenta online gratuita. Modifique ouro, status, itens e variáveis facilmente. Funciona para MV e MZ."
 pubDate: 2026-01-03
-author: "Save Editor Team"
+author: "Paradox"
 tags: ["RPG Maker", "tutorial", "rpgsave", "guia"]
 lang: "pt"
 image: "/images/blog/rpg-maker-guide-cover-v2.webp"

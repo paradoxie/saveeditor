@@ -3,7 +3,7 @@ title: "Explicación de las Extensiones Comunes de Archivos de Guardado - Guía 
 description: "Una guía completa para entender .json, .xml, .sav, .rpgsave, .save, .dat y otros formatos populares de archivos de guardado y cómo editarlos."
 pubDate: 2026-01-01
 tags: ["guía", "formatos-archivo", "educación", "referencia"]
-author: "Equipo SaveEditor"
+author: "Paradox"
 image: "/images/blog/extensions-cover.webp"
 ---
 

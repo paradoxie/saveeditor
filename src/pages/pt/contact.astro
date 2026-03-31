@@ -3,31 +3,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Contato | Save Editor Online"
-  description="Entre em contato com a equipe do Save Editor Online. Envie dúvidas, sugestões, relatórios de bugs ou propostas comerciais. Estamos à disposição para ajudar."
+  title="Fale Conosco | Save Editor Online"
+  description="Entre em contato com a equipe do Save Editor Online. Recebemos relatos de erros, sugestões de novos recursos ou consultas de negócios para nosso editor de jogos de salvar."
 >
   <main class="container mx-auto px-4 py-12 max-w-6xl">
-    <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">
-      Entre em Contato
-    </h1>
+    <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">Fale Conosco</h1>
 
     <div class="grid md:grid-cols-2 gap-12">
       <div>
         <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          Tem uma pergunta, sugestão ou apenas quer dizer olá? Adoraríamos ouvir de você. Preencha o
-          formulário abaixo e entraremos em contato o mais breve possível.
+          Você tem alguma dúvida, sugestão ou quer apenas dizer um "olá"? Adoraríamos ouvir de você. Por favor, preencha o formulário abaixo e faremos o possível para entrar em contato o mais breve possível.
         </p>
 
         <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mb-8">
-          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Tempo de Resposta</h3>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Tempo de Resposta Padrão</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm mb-4">
-            Somos uma equipe pequena, mas tentamos o nosso melhor para responder a todas as
-            perguntas dentro de **24-48 horas**.
+            Somos uma equipe orgânica e de pequeno porte, logo, tentamos ativamente o nosso melhor para ler e responder a todas as consultas válidas dentro de <strong>24 a 48 horas</strong> úteis após o envio.
           </p>
-          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Consultas de Negócios</h3>
+          <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">Pautas / Parcerias de Negócios</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm">
-            Para parcerias, imprensa ou assuntos comerciais, selecione "Parceria Comercial" no
-            formulário ou envie-nos um e-mail diretamente.
+            Para dúvidas em termos amplos para canais midiáticos, e afins envolvendo imprensa corporativa ou propostas de parcerias de empresas, selecione por gentileza a opção "Parceria de Negócios" no formulário ao lado; ou se preferir contate as nossas vias de endereço eletrônica formal diretamente.
           </p>
         </div>
 
@@ -39,12 +34,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               📧
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">E-mail</div>
+              <div class="font-bold text-gray-900 dark:text-white">E-mail Integrado de Suporte</div>
               <a href="mailto:support@saveeditor.top" class="text-primary-600 hover:underline"
                 >support@saveeditor.top</a
               >
             </div>
           </div>
+
           <div class="flex items-center gap-4">
             <div
               class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
@@ -52,12 +48,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               🐛
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">Informar um erro</div>
+              <div class="font-bold text-gray-900 dark:text-white">Relatar um Erro Técnico Ocorrido (Bug)</div>
               <a
                 href="https://github.com/paradoxie/saveeditor/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-primary-600 hover:underline">Abrir Issue no GitHub</a
+                class="text-primary-600 hover:underline">Abrir diretamente uma Issue (Problema) no repositório GitHub</a
               >
             </div>
           </div>
@@ -72,16 +68,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           class="hidden mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          <strong class="font-bold">Mensagem Enviada!</strong>
+          <strong class="font-bold">Mensagem Exitosamente Enviada ao Destinatário!</strong>
           <span class="block sm:inline"
-            >Obrigado por entrar em contato. Entraremos em contato em breve.</span
+            >Extremamente gratos em recebemos o seu contato. Entraremos em comunicação contigo em pouco tempo.</span
           >
         </div>
         <form class="space-y-6" id="contact-form">
           <div>
             <label
               for="name"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Seu Nome ou Apelido</label
             >
             <input
               type="text"
@@ -89,13 +85,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               name="name"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="Seu nome"
+              placeholder="Ex: João Silva"
             />
           </div>
           <div>
             <label
               for="email"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">E-mail</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Apenas o seu Endereço de E-mail Útil</label
             >
             <input
               type="email"
@@ -103,31 +99,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               name="email"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="seu@email.com"
+              placeholder="voce@email.com"
             />
           </div>
           <div>
             <label
               for="subject"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assunto</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Qual é o Assunto / Motivo principal?</label
             >
             <select
               id="subject"
               name="subject"
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
-              <option value="general">Consulta Geral</option>
+              <option value="general">Consulta Geral Simples</option>
               <option value="support">Suporte Técnico</option>
-              <option value="feature">Solicitação de Recurso</option>
-              <option value="bug">Relatório de Bug</option>
-              <option value="business">Parceria Comercial</option>
+              <option value="feature">Requisição para Acrescentar Novos Jogos/Funções</option>
+              <option value="bug">Reportar Defeito Ocorrido/Inconsistência Analítica</option>
+              <option value="business">Proposta de Negócio em Relações (Parcerias Corporativas)</option>
             </select>
           </div>
           <div>
             <label
               for="message"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >Mensagem</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição Exata da Mensagem Transmitida</label
             >
             <textarea
               id="message"
@@ -135,13 +130,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               rows="5"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="Como podemos ajudar?"></textarea>
+              placeholder="Forneça aos analistas detalhes claros sobre quais modos você está tentando recorrer... Como nós, verdadeiramente a equipe, poderemos te servir ? O que faria seu cotidiano conosco muito mais rápido hoje?"></textarea>
           </div>
           <button
             type="submit"
             class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
           >
-            <span>Enviar Mensagem</span>
+            <span>Emitir a Mensagem</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
@@ -159,32 +154,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </main>
 
   <script>
-    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const form = document.getElementById('contact-form');
 
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-        const formData = new FormData(form);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const subject = formData.get('subject');
-        const message = formData.get('message');
+      const formData = new FormData(form as HTMLFormElement);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
 
-        const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
-        const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
+      const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
 
-        window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
-      });
-    }
+      window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+    });
   </script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      "name": "Contato Save Editor Online",
+      "name": "Contato da Equipe - Save Editor Online",
       "url": "https://saveeditor.top/pt/contact",
-      "description": "Página de contato para suporte ao cliente Save Editor Online."
+      "description": "Portais e Painel principal de Atendimento dos Assistentes, onde repassamos toda assistência humana do App a nossa base mundialmente disposta atendedora."
     }
   </script>
 </BaseLayout>

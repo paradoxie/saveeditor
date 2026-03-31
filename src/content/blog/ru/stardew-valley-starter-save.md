@@ -2,7 +2,7 @@
 title: "Пак сохранений Stardew Valley: 3 Слота по 30 млн + 100% Прохождение"
 description: "Скачайте ультимативный пак сохранений. Включает 3 слота: до 30 миллионов золота, все навыки 10 уровня, Клуб восстановлен, браки с Лией/Хейли/Абигейл. Идеально для эндгейма."
 pubDate: 2026-02-06
-author: "Команда SaveEditor"
+author: "Paradox"
 tags: ["stardew-valley", "save-file", "download", "rpg-maker"]
 image: "/images/blog/stardew-valley-cover.webp"
 ---

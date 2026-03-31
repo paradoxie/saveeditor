@@ -3,7 +3,7 @@ title: "一般的なゲームセーブファイルの拡張子解説 - 完全リ
 description: ".json、.xml、.sav、.rpgsave、.save、.datなど、一般的なゲームセーブファイル形式とその編集方法を理解するための包括的なガイド。"
 pubDate: 2026-01-01
 tags: ["ガイド", "ファイル形式", "教育", "リファレンス"]
-author: "SaveEditor Team"
+author: "Paradox"
 lang: "ja"
 image: "/images/blog/extensions-cover.webp"
 ---

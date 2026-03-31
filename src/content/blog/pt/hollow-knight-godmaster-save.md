@@ -2,7 +2,7 @@
 title: "Hollow Knight Save 112% Godmaster + Pack de Treino Speedrun"
 description: "Baixe o recurso definitivo de Hollow Knight. Inclui: 1. Save 112% Godmaster (Pronto para Panteões); 2. Pack de Treino Speedrun (39 saves de Dirtmouth até Caminho da Dor). Perfeito para praticar chefes."
 pubDate: 2026-02-06
-author: "Equipe SaveEditor"
+author: "Paradox"
 tags: ["hollow-knight", "save-file", "download", "unity"]
 image: "/images/blog/hollow-knight-cover.webp"
 ---

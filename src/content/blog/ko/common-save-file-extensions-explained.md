@@ -3,7 +3,7 @@ title: "게임 세이브 파일 확장자 설명 - 완벽 참조 가이드"
 description: ".json, .xml, .sav, .rpgsave, .save, .dat 등 일반적인 게임 세이브 파일 형식과 편집 방법에 대한 종합 가이드입니다."
 pubDate: 2026-01-01
 tags: ["guide", "file-formats", "education", "reference"]
-author: "SaveEditor Team"
+author: "Paradox"
 image: "/images/blog/extensions-cover.webp"
 ---
 

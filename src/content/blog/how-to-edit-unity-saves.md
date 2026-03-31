@@ -3,7 +3,7 @@ title: "How to Edit Unity PlayerPrefs and XML Saves - Complete Guide"
 description: "A complete guide to modifying Unity game save files on Android, iOS, and PC. Learn how to edit PlayerPrefs, XML, JSON, and Plist files for any Unity game."
 pubDate: 2026-01-04
 tags: ["unity", "guide", "tutorial", "playerprefs"]
-author: "SaveEditor Team"
+author: "Paradox"
 image: "/images/blog/unity-cover.webp"
 ---
 

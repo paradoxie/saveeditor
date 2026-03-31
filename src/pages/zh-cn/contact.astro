@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="联系我们 | Save Editor Online"
-  description="联系 Save Editor Online 团队。无论是反馈 Bug、功能建议、商务合作还是寻求技术支持，我们都随时欢迎您的来信与反馈。"
+  description="联系 Save Editor Online 团队。反馈 Bug、提出功能建议或与我们进行有关存档编辑工具的商务合作沟通。"
 >
   <main class="container mx-auto px-4 py-12 max-w-6xl">
     <h1 class="text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white">联系我们</h1>
@@ -12,17 +12,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <div class="grid md:grid-cols-2 gap-12">
       <div>
         <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          有问题、建议，或者只是想打个招呼？我们很乐意听取您的意见。填写下面的表格，我们会尽快回复您。
+          有问题、有建议，或者只是想打个招呼？我们非常乐意听取您的声音。请填写下方的表单，我们会尽快回复您。
         </p>
 
         <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mb-8">
           <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">响应时间</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm mb-4">
-            我们是一个小团队，但我们会尽最大努力在 **24-48 小时**内回复所有询问。
+            我们是一个小团队，但我们会尽最大努力在 <strong
+              >24-48 小时</strong
+            > 内回复所有咨询。
           </p>
           <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-2">商务咨询</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm">
-            有关合作伙伴关系、媒体或商务事宜，请在表单中选择“商务合作”或直接给我们发送电子邮件。
+            关于合作伙伴关系、媒体或其他商业事务，请在表单中选择“商务合作”或直接给我们发送电子邮件。
           </p>
         </div>
 
@@ -34,12 +36,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               📧
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">电子邮件</div>
+              <div class="font-bold text-gray-900 dark:text-white">邮件支持</div>
               <a href="mailto:support@saveeditor.top" class="text-primary-600 hover:underline"
                 >support@saveeditor.top</a
               >
             </div>
           </div>
+
           <div class="flex items-center gap-4">
             <div
               class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-xl"
@@ -47,12 +50,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               🐛
             </div>
             <div>
-              <div class="font-bold text-gray-900 dark:text-white">报告 Bug</div>
+              <div class="font-bold text-gray-900 dark:text-white">报告漏洞 (Bug)</div>
               <a
                 href="https://github.com/paradoxie/saveeditor/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-primary-600 hover:underline">在 GitHub 提交 Issue</a
+                class="text-primary-600 hover:underline">开启 GitHub Issue</a
               >
             </div>
           </div>
@@ -68,7 +71,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           role="alert"
         >
           <strong class="font-bold">消息已发送！</strong>
-          <span class="block sm:inline">感谢您联系我们。我们会尽快回复您。</span>
+          <span class="block sm:inline"
+            >感谢您与我们联系。我们会很快给您回复。</span
+          >
         </div>
         <form class="space-y-6" id="contact-form">
           <div>
@@ -82,14 +87,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               name="name"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="您的姓名"
+              placeholder="您的名字"
             />
           </div>
           <div>
             <label
               for="email"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >电子邮件</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">电子邮箱</label
             >
             <input
               type="email"
@@ -112,15 +116,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             >
               <option value="general">一般咨询</option>
               <option value="support">技术支持</option>
-              <option value="feature">功能请求</option>
-              <option value="bug">Bug 报告</option>
+              <option value="feature">建议或新功能请求</option>
+              <option value="bug">Bug 报错</option>
               <option value="business">商务合作</option>
             </select>
           </div>
           <div>
             <label
               for="message"
-              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">消息</label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">留言内容</label
             >
             <textarea
               id="message"
@@ -128,7 +132,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               rows="5"
               required
               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="我们能为您做什么？"></textarea>
+              placeholder="我们能如何帮助您？"></textarea>
           </div>
           <button
             type="submit"
@@ -152,24 +156,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </main>
 
   <script>
-    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const form = document.getElementById('contact-form');
 
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-        const formData = new FormData(form);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const subject = formData.get('subject');
-        const message = formData.get('message');
+      const formData = new FormData(form as HTMLFormElement);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
 
-        const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
-        const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      const mailSubject = `[SaveEditor Contact] ${subject?.toString().toUpperCase()}: ${name}`;
+      const mailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
 
-        window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
-      });
-    }
+      window.location.href = `mailto:support@saveeditor.top?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+    });
   </script>
   <script type="application/ld+json">
     {
@@ -177,7 +179,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       "@type": "ContactPage",
       "name": "联系 Save Editor Online",
       "url": "https://saveeditor.top/zh-cn/contact",
-      "description": "Save Editor Online 联系页面。"
+      "description": "Save Editor Online 的客服联系页面。"
     }
   </script>
 </BaseLayout>

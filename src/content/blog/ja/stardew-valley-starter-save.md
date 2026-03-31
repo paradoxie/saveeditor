@@ -2,7 +2,7 @@
 title: "Stardew Valley 完璧なセーブデータパック：3,000万G + 全スキルLv10 + 100%達成 [v1.6対応]"
 description: "究極のスターデューバレーセーブデータをダウンロード。3つのセーブスロット同梱：所持金3,000万G、全スキルMAX、公民館＆ジンジャーアイランド解放済み。Leah/Haley/Abigailと結婚済み。エンドコンテンツを即座に楽しめます。"
 pubDate: 2026-02-06
-author: "SaveEditor チーム"
+author: "Paradox"
 tags: ["stardew-valley", "save-file", "download", "rpg-maker"]
 image: "/images/blog/stardew-valley-cover.webp"
 ---

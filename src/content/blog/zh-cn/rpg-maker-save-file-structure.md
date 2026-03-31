@@ -3,7 +3,7 @@ title: "RPG Maker 存档文件结构详解 - MV、MZ、VX Ace 完全指南"
 description: "全面了解 RPG Maker 存档文件结构。学习 .rpgsave、.rmmzsave、.rvdata2 格式及其数据存储方式。适合存档编辑和游戏开发。"
 pubDate: 2026-01-05
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]
-author: "SaveEditor Team"
+author: "Paradox"
 image: "/images/blog/rpg-maker-structure-cover-v2.webp"
 ---
 

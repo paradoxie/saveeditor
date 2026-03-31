@@ -2,7 +2,7 @@
 title: "Как редактировать файлы сохранений RPG Maker MV/MZ (.rpgsave) - Полное руководство"
 description: "Полное руководство по редактированию файлов сохранений RPG Maker MV с использованием нашего бесплатного онлайн-инструмента. Легко изменяйте золото, статистику, предметы и переменные. Работает для MV и MZ."
 pubDate: 2026-01-03
-author: "Команда SaveEditor"
+author: "Paradox"
 tags: ["rpg maker", "руководство", "rpgsave", "гайд"]
 image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 ---

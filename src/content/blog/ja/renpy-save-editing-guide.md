@@ -3,7 +3,7 @@ title: "Ren'Pyセーブ編集：完全技術ガイド"
 description: "Ren'Pyのセーブファイルがどのように機能するか、なぜ編集が難しいのか、そして安全にゲーム進行を変更する回避策について学びます。"
 pubDate: 2026-01-08
 tags: ["Ren'Py", "ビジュアルノベル", "技術解説", "ガイド"]
-author: "SaveEditor Team"
+author: "Paradox"
 lang: "ja"
 image: "/images/blog/renpy-cover.webp"
 ---

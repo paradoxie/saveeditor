@@ -3,7 +3,7 @@ title: "Unreal Engine 세이브 파일 (.sav) 편집 방법 - GVAS 완벽 가이
 description: "Unreal Engine 4/5 `.sav`를 위한 호환성 중심 가이드입니다. GVAS를 안전하게 분석하는 방법과 전용 도구로 전환해야 하는 시점을 설명합니다."
 pubDate: 2026-01-05
 tags: ["unreal-engine", "gvas", "guide", "palworld", "hogwarts-legacy"]
-author: "SaveEditor Team"
+author: "Paradox"
 image: "/images/blog/unreal-cover.webp"
 ---
 

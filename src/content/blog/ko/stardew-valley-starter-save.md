@@ -2,7 +2,7 @@
 title: "스타듀 밸리(Stardew Valley) 신계(God-Tier) 세이브 팩: 3000만 골드 + 올스킬 만렙 [v1.6]"
 description: "궁극의 스타듀 밸리 세이브 파일을 다운로드하세요. 3개의 세이브 슬롯 포함: 3000만 골드, 모든 스킬 레벨 10, 마을 회관/진저 섬 100% 완료, Leah/Haley/Abigail과 결혼. 엔드게임 콘텐츠용."
 pubDate: 2026-02-06
-author: "SaveEditor 팀"
+author: "Paradox"
 tags: ["stardew-valley", "save-file", "download", "rpg-maker"]
 image: "/images/blog/stardew-valley-cover.webp"
 ---

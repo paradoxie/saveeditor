@@ -3,7 +3,7 @@ title: "Cómo Editar Archivos de Guardado de RPG Maker (.rpgsave & .rvdata2) Onl
 description: "Aprende a modificar oro, estadísticas y objetos en juegos de RPG Maker MV, MZ, VX Ace y XP usando nuestro editor de guardado online gratuito."
 pubDate: 2026-01-05
 tags: ["rpg-maker", "guía", "tutorial"]
-author: "Equipo SaveEditor"
+author: "Paradox"
 image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 ---
 

@@ -12,6 +12,12 @@ const blog = defineCollection({
     }),
 });
 
-const compatibility = defineCollection({});
+const compatibility = defineCollection({
+    type: 'content',
+});
 
-export const collections = { blog, compatibility };
+const matrix = defineCollection({
+    type: 'content',
+});
+
+export const collections = { blog, compatibility, matrix };

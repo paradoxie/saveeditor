@@ -10,22 +10,22 @@ const faqCategories = [
       {
         question: 'SaveEditor.top 是什么？',
         answer:
-          "SaveEditor.top 是一个免费的浏览器端游戏存档编辑工具。它完全在您的浏览器中运行，意味着您的文件永远不会离开您的设备。我们支持 RPG Maker、Unity、Ren'Py、Unreal Engine 等流行引擎。对于 Unreal `.sav`，我们采用兼容性优先：标准未加密 GVAS 支持最好，游戏特定容器/压缩变体可能仅支持只读。",
+          "SaveEditor.top 是一个免费的、基于浏览器的游戏存档文件编辑工具。它完全在您的浏览器中运行，这意味着您的文件永远不会离开您的设备。我们支持多种流行的游戏引擎，例如 RPG Maker、Unity、Ren'Py、Unreal Engine 等等。对于 Unreal 的 `.sav` 格式，我们采用兼容性优先策略：标准的未加密 GVAS 格式支持度最好，而针对游戏特定容器或压缩的变体版本则可能只支持读取。",
       },
       {
         question: '这个工具安全吗？',
         answer:
-          '是的。SaveEditor.top 完全在您的网络浏览器中运行（客户端 JavaScript）。您的存档文件永远不会上传到任何服务器。我们会使用 Google Analytics 和 AdSense 进行站点分析与广告展示，详情请查看隐私与 Cookie 政策。',
+          '是的。SaveEditor.top 完全在您的网络浏览器中运行（依赖客户端 JavaScript）。您的存档文件永远不会被上传到任何服务器。我们确实使用 Google Analytics 和 AdSense 来了解网站性能和展示广告；具体详情请查看我们的隐私政策和 Cookie 政策。',
       },
       {
         question: '需要创建账户吗？',
         answer:
-          '不需要。SaveEditor.top 无需注册、登录或个人信息。只需上传您的存档文件即可立即开始编辑。',
+          '不需要。SaveEditor.top 不需要注册、登录，也不收集个人信息。只需上传您的存档文件即可立即开始编辑。',
       },
       {
         question: '这真的免费吗？',
         answer:
-          '是的，完全免费。每个文件最大 50MB，且编辑次数不受限制。我们通过可选捐赠和非侵入性广告来支持运营。',
+          '是的，完全免费，没有隐藏费用、高级付费层级或功能限制。我们通过自愿捐赠和非侵入式的广告来维持运营。',
       },
     ],
   },
@@ -34,24 +34,24 @@ const faqCategories = [
     icon: 'game',
     questions: [
       {
-        question: '可以编辑哪些游戏？',
+        question: '我可以编辑哪些游戏？',
         answer:
-          "我们支持多个引擎的数千款游戏。热门支持的游戏包括星露谷物语、传说之下、空洞骑士、心跳文学部、Celeste、Omori，以及几乎所有用 RPG Maker、Ren'Py、Unity 或 GameMaker 制作的游戏。",
+          "我们支持横跨多个引擎的数千款游戏。热门且支持良好的游戏包括《星露谷物语》(Stardew Valley)、《传说之下》(Undertale)、《空洞骑士》(Hollow Knight)、《心跳文学部》(Doki Doki Literature Club)、《蔚蓝》(Celeste)、《Omori》、《OneShot》、《去月球》(To The Moon)，以及几乎所有使用 RPG Maker、Ren'Py、Unity 或 GameMaker 制作的游戏。",
       },
       {
         question: '支持哪些文件格式？',
         answer:
-          "我们支持：RPG Maker MV/MZ (.rpgsave, .rmmzsave)、Ren'Py (.save, persistent)、Unity (PlayerPrefs .xml/.plist, JSON)、Unreal Engine (.sav；优先支持标准未加密 GVAS，容器化/压缩变体可能只读)、GameMaker (.ini, .json)、NaniNovel (.nson)，以及通用 JSON/XML 格式。",
+          "我们支持：RPG Maker MV/MZ (.rpgsave, .rmmzsave)、Ren'Py (.save, persistent)、Unity (PlayerPrefs 的 .xml/.plist, 或 JSON)、Unreal Engine (.sav；优先处理标准未加密的 GVAS，容器化/压缩后的变种格式可能只读)、GameMaker (.ini, .json)、NaniNovel (.nson)，以及一些通用的 JSON/XML 格式文件。",
       },
       {
-        question: '可以编辑主机游戏（PlayStation、Xbox、Switch）的存档吗？',
+        question: '我可以编辑主机游戏（PlayStation, Xbox, Switch）的存档吗？',
         answer:
-          '很遗憾，主机存档使用平台特定的 DRM 加密，无法编辑。我们的编辑器只支持 PC/Mac/Linux 存档文件。',
+          '很抱歉，主机游戏的存档通常使用各平台特定的 DRM 加密保护，因此无法直接编辑。我们的编辑器仅适用于 PC/Mac/Linux 平台的存档文件。不过某些类似《星露谷物语》这样支持跨平台存档 (Cross-save) 的游戏，您可以通过 PC 端中转来间接实现。',
       },
       {
-        question: '我的游戏没有列出，还能使用编辑器吗？',
+        question: "我的游戏没在列表中，还能使用编辑器吗？",
         answer:
-          '也许可以！如果您的游戏使用标准 JSON、XML 或 INI 格式，我们的通用编辑器可以工作。尝试上传您的存档文件看看是否可以解析。',
+          "也许可以！如果您的游戏使用了标准的 JSON、XML 或 INI 格式，我们的通用型解析器就有可能处理它。您不妨尝试上传存档文件，看看是否能被解析。如果不行，您可以联系我们，我们可能会在未来加入对该游戏格式的支持。",
       },
     ],
   },
@@ -60,24 +60,24 @@ const faqCategories = [
     icon: 'folder',
     questions: [
       {
-        question: 'Windows 上存档文件在哪里？',
+        question: '在 Windows 上存档文件位于哪里？',
         answer:
-          '常见位置：%AppData%（按 Win+R，输入 %appdata%）、%LocalAppData%、Documents/My Games，或游戏安装文件夹。Steam 游戏还可以检查 Steam/userdata/[ID]/[GameID]/。',
+          "常见的位置包括：%AppData%（按下 Win+R 键，输入 %appdata% 然后回车）、%LocalAppData%、Documents/My Games 文件夹，或者是游戏的安装目录。对于 Steam 游戏，还可以检查 Steam/userdata/[您的ID]/[游戏ID]/ 目录。",
       },
       {
-        question: 'Mac 上存档文件在哪里？',
+        question: '在 Mac 上存档文件位于哪里？',
         answer:
-          "大多数游戏请检查 ~/Library/Application Support/。Unity 游戏查看 ~/Library/Application Support/unity.[公司名].[游戏名]。Ren'Py 请检查 ~/Library/RenPy/[游戏名]。",
+          "对于大多数游戏，请检查 ~/Library/Application Support/ 目录。对于 Unity 开发的游戏，请寻找 ~/Library/Application Support/unity.[开发商名].[游戏名]。对于 Ren'Py 游戏，请检查 ~/Library/RenPy/[游戏名称]。",
       },
       {
-        question: 'Linux 上存档文件在哪里？',
+        question: '在 Linux 上存档文件位于哪里？',
         answer:
-          '大多数游戏将存档保存在 ~/.config/[游戏名] 或 ~/.local/share/[游戏名]。通过 Proton 运行的 Steam 游戏，请检查 ~/.steam/steam/steamapps/compatdata/[GameID]/pfx/。',
+          '大部分原生 Linux 游戏会将存档保存在 ~/.config/[游戏名称] 或 ~/.local/share/[游戏名称] 目录下。对于通过 Proton 兼容层运行的 Steam 游戏，请检查 ~/.steam/steam/steamapps/compatdata/[游戏ID]/pfx/ 目录。',
       },
       {
-        question: '如何找到特定游戏的存档位置？',
+        question: "我如何准确找到某一款特定游戏的存档位置？",
         answer:
-          "访问我们的游戏专题页面（如 /games/stardew-valley）获取确切路径。或者在线搜索'[游戏名] 存档位置'或查看游戏的设置/选项菜单。",
+          "您可以访问我们为您准备的特定游戏页面（例如 /zh-cn/games/stardew-valley）以获取确切路径。或者在搜索引擎上搜索“[游戏名称] save file location / 存档位置”，或者在游戏的设置与选项菜单里找找看。",
       },
     ],
   },
@@ -86,94 +86,97 @@ const faqCategories = [
     icon: 'pencil',
     questions: [
       {
-        question: '如何编辑金币/货币？',
+        question: '我如何修改金币/金钱/货币？',
         answer:
-          "上传您的存档，然后搜索 'gold'、'money'、'currency'、'coins' 或 'funds' 等字段。将值更改为您想要的金额。对于 RPG Maker 游戏，在队伍数据中查找 '_gold'。记得保持合理的值以避免 bug。",
+          "上传您的存档文件后，请搜索诸如 'gold', 'money', 'currency', 'coins', 或者 'funds' 这样的关键词字段。并将对应的值修改为您想要的数额。对于 RPG Maker 游戏，您可以在队伍 (party) 的数据中寻找 '_gold' 字段。请记得保持所填数值的合理性，以避免在游戏中引发 bug。",
       },
       {
-        question: '如何向物品栏添加物品？',
+        question: '我如何在物品栏中添加物品？',
         answer:
-          "在存档中找到物品栏/物品数组。对于 RPG Maker，物品存储为 [物品ID, 数量] 对。对于 Unity 游戏，查找 'inventory' 或 'items' 对象。按照现有格式添加新条目。",
+          "在您的存档中找到 inventory（物品栏）或 items 数组。如果是 RPG Maker，物品一般以 [物品ID, 数量] 成对的形式存储。如果是 Unity 游戏，请查找 'inventory' 或 'items' 对象。请严格参照存档已有的格式结构来添加新的内容条目。",
       },
       {
-        question: '可以修改角色属性（HP、等级等）吗？',
+        question: "我可以修改角色的属性（HP、等级等）吗？",
         answer:
-          "可以！查找 'hp'、'maxHp'、'level'、'exp'、'str'、'def' 等字段。对于 RPG Maker 游戏，这些在 actors 数组中。对于 Unity 游戏，检查 player data 对象。",
+          "可以！请查找像 'hp', 'maxHp', 'level', 'exp', 'str', 'def' 等字段。对于 RPG Maker 游戏，这些常存在于 actors（角色）数组中。对于 Unity 游戏，您可以检查 player data（玩家数据）对象。",
       },
       {
         question: '如何解锁成就或剧情进度？',
         answer:
-          "成就通常存储为布尔标志或时间戳对象。搜索 'achievement'、'unlock'、'flag' 或 'completed'。剧情进度通常使用开关数组（RPG Maker）或进度对象。",
+          "成就通常是以布尔值标志 (boolean flags) 或时间戳对象的形式保存的。请尝试搜索 'achievement', 'unlock', 'flag', 或是 'completed'。剧情故事的进度通常使用开关数组（在 RPG Maker 中比较常见）直接记录，或者使用进度对象来控制。",
       },
       {
-        question: '编辑会损坏游戏或存档文件吗？',
+        question: '编辑存档会损坏我的游戏或存档文件吗？',
         answer:
-          '我们的编辑器会验证更改以防止明显错误，但极端修改可能会导致问题。请务必先备份！常见问题：值过大导致溢出、无效的物品 ID 或缺少必需字段。',
+          '我们的编辑器会对修改的内容进行验证以避免那些明显的错误，但是极端或大幅度的修改依然有可能引起问题。请务必在修改前做好备份！经常出现的问题包括：数值改得过大导致溢出报错，填写了无效的物品 ID，或者不小心删除了某个必要的字段。',
       },
     ],
   },
   {
-    title: 'Steam 和云存档',
-    icon: '☁️',
+    title: 'Steam & 云存档',
+    icon: 'cloud',
     questions: [
       {
-        question: 'Steam 云一直恢复我的原始存档！',
+        question: 'Steam 云存档一直覆盖还原我刚改好的存档！',
         answer:
-          "为该游戏禁用 Steam 云同步：右键点击游戏 → 属性 → 常规 → 取消勾选'Steam 云'。进行编辑，验证它们有效，然后根据需要重新启用云同步。",
+          "您需要在这个游戏上禁用 Steam 云同步：右键单击游戏 → 属性 → 通用 → 取消勾选“将游戏存档保存于 Steam 云”。完成编辑后，先进入游戏验证修改是否成功，随后的任何时候如果您有需要，可以再重新启用云同步功能。",
       },
       {
-        question: '编辑存档会被 VAC 封禁吗？',
+        question: '编辑存档会导致我收到 VAC 封禁吗？',
         answer:
-          '不会。VAC（Valve 反作弊）只监控多人/在线游戏。单人游戏存档编辑是完全安全的，不会导致任何 Steam 封禁或限制。',
+          '不会。VAC（Valve 官方反作弊系统）只对多人 / 在线竞技类游戏进行监控。对单机游戏的本地存档进行修改是完全安全的，绝对不会导致您的 Steam 账户受到任何封禁或限制。',
       },
       {
-        question: '编辑后 Steam 成就还能正常解锁吗？',
+        question: '修改存档后，我的 Steam 成就还能正常解锁吗？',
         answer:
-          '是的，对于单人游戏。Steam 无法检测存档文件修改。您的成就将根据游戏的内部检查正常解锁。',
+          "对于单机游戏来说，可以的。Steam 是检测不到你本地存档的内部数据修改过程的。因此，你的成就只受限于游戏自身的内部检测逻辑而会照常解锁。",
       },
     ],
   },
   {
-    title: '故障排除',
+    title: '疑难解答与故障排除',
     icon: 'wrench',
     questions: [
       {
-        question: "为什么编辑器显示'无效文件'或'解析错误'？",
+        question: "为什么编辑器提示 'Invalid file'（无效文件）或 'Parse error'（解析错误）？",
         answer:
-          '游戏可能使用不支持的格式、加密或压缩。尝试：1）选择不同的编辑器类型，2）检查文件是否是实际存档（不是备份或临时文件），3）游戏可能使用专有编码。',
+          '这意味着该游戏可能使用了我们当前不支持的特殊格式、专属加密或压缩。您可以尝试：1) 在编辑器界面手动选择一个不同的解析类型再试，2) 检查您上传的文件究竟是不是该存档的本体（不要传备份档或是临时文件），3) 该游戏非常可能使用了私有的格式编码。',
       },
       {
-        question: '游戏无法加载编辑后的存档！',
+        question: "修改后把文件放回去，但是游戏无法读取了！",
         answer:
-          '常见修复方法：1）确保您替换了正确的文件，2）检查 Steam 云是否恢复了原始文件，3）某些游戏有校验和验证 - 尝试较小的编辑，4）恢复备份并重试。',
+          '常见解决手段：1) 请确认您准确无误地替换了原路径的正确文件，2) 检查是否被 Steam 云同步又覆盖还原了，3) 有些游戏内置有校验和检测 (checksum validation) —— 您可以尝试缩小修改的数值幅度再试，4) 将您一开始留存的备份文件还原，重头再来一次。',
       },
       {
-        question: '我编辑的值在加载游戏时重置了！',
+        question: '我刚刚把数值编辑好了，但在我重新加载游戏的时候又全都被重置了！',
         answer:
-          '某些游戏在加载时重新计算值。例如，派生属性（如基于等级的最大 HP）会被重新计算。尝试编辑输入计算的基础值。',
+          '有些游戏会在每次加载时动态重新计算部分数值。比如那些衍生属性（即根据当前等级计算得出的最大生命值等）这类的数值就必定会被重新计算。与其直接修改最大生命值，建议您去直接修改那些决定这些属性的“基础值”。',
       },
       {
-        question: '可以撤销编辑吗？',
+        question: '修改可以撤销操作吗？',
         answer:
-          '一旦下载，编辑就是永久的。请始终保留备份！如果您没有备份，请检查：1）Steam 云是否有原始文件，2）游戏是否创建 .bak 文件，3）您是否有系统还原点。',
+          "一旦您将文件下载到本地，这些修改就被固化了。对于存档，请保持随时备份的好习惯！如果您没有留下备份，您可以尝试：1) 去检查 Steam 云同步中是否还有未被污染的原始版本，2) 去检查游戏文件夹里有没有自动生成的 .bak 备份文件，3) 您是否有开启电脑系统的还原点功能。",
       },
     ],
   },
 ];
 
+// Flatten all questions for schema
 const allQuestions = faqCategories.flatMap((cat) => cat.questions);
 ---
 
 <BaseLayout
-  title="常见问题 - 存档编辑 FAQ"
-  description="获取有关使用 SaveEditor.top 的常见问题解答。了解如何查找存档文件、编辑游戏数据、解决问题等。"
-  keywords="存档编辑器 FAQ, 如何编辑存档文件, 游戏存档位置, 存档文件帮助, rpg maker 存档编辑器帮助"
+  title="常见问题 (FAQ) - 关于存档编辑的常见问题"
+  description="获取有关 SaveEditor.top 的常见问题与解答。了解如何查找存放路径、编辑游戏本地数据、如何解决遇到的困难以及更多功能。"
+  keywords="存档编辑器 FAQ, 如何编辑游戏存档, 存档存放位置, 存档修改帮助, rpg maker 存档编辑器疑难解答"
 >
+  <!-- Hero Section -->
   <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
     <div class="container mx-auto px-4 text-center">
       <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
-          >常见问题</span
+        常见<span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
+          >问题</span
         >
       </h1>
       <p class="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -184,6 +187,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
 
   <main class="container mx-auto px-4 py-16">
     <div class="max-w-4xl mx-auto">
+      <!-- Quick Navigation -->
       <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
         <h2 class="text-lg font-bold text-gray-900 mb-4">跳转到章节</h2>
         <div class="flex flex-wrap gap-3">
@@ -201,6 +205,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         </div>
       </nav>
 
+      <!-- FAQ Categories -->
       {
         faqCategories.map((category, catIndex) => (
           <section id={`section-${catIndex}`} class="mb-12">
@@ -235,25 +240,31 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         ))
       }
 
+      <!-- Still Have Questions CTA -->
       <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
-        <h2 class="text-2xl font-bold mb-4">还有其他问题？</h2>
-        <p class="text-gray-300 mb-6">找不到您需要的内容？查看我们的游戏专题指南或联系我们。</p>
+        <h2 class="text-2xl font-bold mb-4">还有其他问题没有解决吗？</h2>
+        <p class="text-gray-300 mb-6">
+          如果没有找到您想要寻找的答案？欢迎查看我们特制的特定游戏指南页面，或是直接联系我们解决。
+        </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
-            href="/games"
+            href="/zh-cn/games"
             class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
-            >浏览游戏</a
           >
+            浏览游戏支持列表
+          </a>
           <a
             href="/zh-cn/contact"
             class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
-            >联系我们</a
           >
+            联系我们
+          </a>
         </div>
       </section>
     </div>
   </main>
 
+  <!-- FAQ Schema -->
   <script
     type="application/ld+json"
     set:html={JSON.stringify({
@@ -262,24 +273,23 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
       mainEntity: allQuestions.map((faq) => ({
         '@type': 'Question',
         name: faq.question,
-        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
       })),
     })}
   />
 
+  <!-- BreadcrumbList Schema -->
   <script
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '首页', item: 'https://saveeditor.top/zh-cn/' },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: '常见问题',
-          item: 'https://saveeditor.top/zh-cn/faq/',
-        },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://saveeditor.top/zh-cn/' },
+        { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://saveeditor.top/zh-cn/faq/' },
       ],
     })}
   />
