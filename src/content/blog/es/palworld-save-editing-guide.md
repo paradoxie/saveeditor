@@ -2,6 +2,7 @@
 title: "Cómo Editar Archivos de Guardado de Palworld - Guía Completa (2026)"
 description: "Guía de edición de guardados de Palworld enfocada en compatibilidad. Incluye ubicaciones en PC/Steam Deck, inspección segura de GVAS estándar y cuándo cambiar a herramientas dedicadas."
 pubDate: 2026-01-07
+updatedDate: 2026-04-02
 tags: ["palworld", "unreal-engine", "guía", "editor-sav"]
 author: "Paradox"
 image: "/images/blog/palworld-guide-cover-v2.webp"

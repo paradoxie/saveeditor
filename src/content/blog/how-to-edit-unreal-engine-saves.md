@@ -2,6 +2,7 @@
 title: "How to Edit Unreal Engine Save Files (.sav) - Complete GVAS Guide"
 description: "Compatibility-first guide for Unreal Engine 4/5 `.sav` workflows. Learn GVAS parsing, safe browser limits, and when to switch to dedicated game-specific tools."
 pubDate: 2026-01-05
+updatedDate: 2026-03-12
 tags: ["unreal-engine", "gvas", "guide", "palworld", "hogwarts-legacy"]
 author: "Paradox"
 image: "/images/blog/unreal-cover.webp"

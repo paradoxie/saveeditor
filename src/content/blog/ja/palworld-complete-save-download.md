@@ -2,6 +2,7 @@
 title: "パルワールド (Palworld) 100% 完璧セーブデータ配布：Lv50 + 全パル + 伝説4種 [2026年検証済]"
 description: "検証済みのパルワールド完全セーブデータを無料ダウンロード。レベル50、パル図鑑コンプリート、全伝説パル（4金スキル）、拠点レベル20、資源無限。Steam版とGame Pass版に対応。GUID修正と導入ガイド付き。"
 pubDate: 2026-02-06
+updatedDate: 2026-03-30
 author: "Paradox"
 tags: ["palworld", "save-file", "download", "unreal-engine"]
 image: "/images/blog/palworld-cover.webp"
@@ -19,7 +20,7 @@ image: "/images/blog/palworld-cover.webp"
 
 ## 🛡️ 安全性と検証レポート
 
-SaveEditor.top チームは、公開前に徹底的なテストを行っています：
+SaveEditor.Online チームは、公開前に徹底的なテストを行っています：
 
 *   **動作確認バージョン**：Palworld v0.3.x (Steam) & v0.1.x (Game Pass)
 *   **ウイルススキャン**：クリア (VirusTotal 0/60)

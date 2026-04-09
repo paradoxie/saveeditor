@@ -2,6 +2,7 @@
 title: "Hollow Knight 112% 神の家セーブ + スピードラン練習パック [苦痛の道]"
 description: "究極のホロウナイトセーブデータ。1. 112% 完璧な神の家セーブ（パンテオン5対応）、2. RTA練習用パック（ダートマウスから苦痛の道まで39のセーブポイント）。ボス戦練習や特定エリアの攻略に最適。"
 pubDate: 2026-02-06
+updatedDate: 2026-02-20
 author: "Paradox"
 tags: ["hollow-knight", "save-file", "download", "unity"]
 image: "/images/blog/hollow-knight-cover.webp"

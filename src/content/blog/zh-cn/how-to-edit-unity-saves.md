@@ -2,6 +2,7 @@
 title: "Unity PlayerPrefs 和 XML 存档编辑指南 - 完整教程"
 description: "完整的 Unity 游戏存档修改指南，适用于 Android、iOS 和 PC。学习如何编辑任何 Unity 游戏的 PlayerPrefs、XML、JSON 和 Plist 文件。"
 pubDate: 2026-01-04
+updatedDate: 2026-03-15
 tags: ["unity", "guide", "tutorial", "playerprefs"]
 author: "Paradox"
 image: "/images/blog/unity-cover.webp"
@@ -20,7 +21,7 @@ Unity 是世界上最流行的游戏引擎，为超过 50% 的移动游戏和大
 *   **JSON 文件**：人类可读的数据格式。
 *   **二进制文件**：自定义序列化数据（较难编辑）。
 
-我们的 **Save Editor Online** 直接在您的浏览器中支持 PlayerPrefs（XML/Plist）、XML 和 JSON 格式。
+我们的 **SaveEditor.Online** 直接在您的浏览器中支持 PlayerPrefs（XML/Plist）、XML 和 JSON 格式。
 
 ## 了解 Unity 存档位置
 

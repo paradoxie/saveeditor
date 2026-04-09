@@ -2,6 +2,7 @@
 title: "NaniNovel セーブデータ編集ガイド：NSONファイル完全解説"
 description: "NaniNovelビジュアルノベルのセーブファイル（.nson）を編集する方法を解説。NSON形式の構造、圧縮アルゴリズム、変数の変更方法、トラブルシューティングまで網羅。"
 pubDate: 2026-01-06
+updatedDate: 2026-03-05
 tags: ["naninovel", "visual-novel", "guide", "tutorial", "nson"]
 author: "Paradox"
 image: "/images/blog/naninovel-cover.webp"

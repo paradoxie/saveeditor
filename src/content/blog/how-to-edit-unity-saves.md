@@ -2,6 +2,7 @@
 title: "How to Edit Unity PlayerPrefs and XML Saves - Complete Guide"
 description: "A complete guide to modifying Unity game save files on Android, iOS, and PC. Learn how to edit PlayerPrefs, XML, JSON, and Plist files for any Unity game."
 pubDate: 2026-01-04
+updatedDate: 2026-03-15
 tags: ["unity", "guide", "tutorial", "playerprefs"]
 author: "Paradox"
 image: "/images/blog/unity-cover.webp"
@@ -20,7 +21,7 @@ Unlike some engines that use a single save format, Unity games can store data in
 *   **JSON files**: Human-readable data format.
 *   **Binary files**: Custom serialized data (harder to edit).
 
-Our **Save Editor Online** supports PlayerPrefs (XML/Plist), XML, and JSON formats directly in your browser.
+Our **SaveEditor.Online** supports PlayerPrefs (XML/Plist), XML, and JSON formats directly in your browser.
 
 ## Understanding Unity Save Locations
 

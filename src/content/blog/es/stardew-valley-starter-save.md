@@ -2,6 +2,7 @@
 title: "Stardew Valley Pack de Partidas Dios: 3 Slots con 30M Oro + 100% Completado"
 description: "Descarga el pack definitivo. Incluye 3 partidas guardadas: hasta 30 millones de oro, habilidades al máximo, Centro Comunitario completo y matrimonios con Leah/Haley/Abigail. Ideal para explorar el endgame"
 pubDate: 2026-02-06
+updatedDate: 2026-02-15
 author: "Paradox"
 tags: ["stardew-valley", "save-file", "download", "rpg-maker"]
 image: "/images/blog/stardew-valley-cover.webp"

@@ -2,6 +2,7 @@
 title: "Ren'Py Save Editing: Complete Technical Guide"
 description: "Understand how Ren'Py save files work, why they are difficult to edit, and learn workarounds to modify your visual novel game progress safely."
 pubDate: 2026-01-08
+updatedDate: 2026-03-08
 tags: ["renpy", "visual-novel", "technical", "guide"]
 author: "Paradox"
 image: "/images/blog/renpy-cover.webp"

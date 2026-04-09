@@ -2,6 +2,7 @@
 title: "Como Editar Unity PlayerPrefs e Saves XML - Guia Completo"
 description: "Um guia completo para modificar arquivos de save de jogos Unity no Android, iOS e PC. Aprenda a editar arquivos PlayerPrefs, XML, JSON e Plist para qualquer jogo Unity."
 pubDate: 2026-01-04
+updatedDate: 2026-03-15
 tags: ["Unity", "guia", "tutorial", "PlayerPrefs"]
 author: "Paradox"
 lang: "pt"
@@ -21,7 +22,7 @@ Diferente de alguns motores que usam um único formato de save, jogos Unity pode
 *   **Arquivos JSON**: Formato de dados legível por humanos.
 *   **Arquivos Binários**: Dados serializados personalizados (mais difíceis de editar).
 
-Nosso **Save Editor Online** suporta PlayerPrefs (XML/Plist), XML e formatos JSON diretamente no seu navegador.
+Nosso **SaveEditor.Online** suporta PlayerPrefs (XML/Plist), XML e formatos JSON diretamente no seu navegador.
 
 ## Entendendo as Localizações de Save do Unity
 

@@ -2,6 +2,7 @@
 title: "Как редактировать файлы сохранений Palworld - Полное руководство (2026)"
 description: "Руководство по редактированию сохранений Palworld с упором на совместимость: где лежат файлы на ПК/Steam Deck, как безопасно проверять стандартный GVAS и когда переходить на профильные инструменты."
 pubDate: 2026-01-07
+updatedDate: 2026-04-02
 tags: ["palworld", "unreal-engine", "руководство", "editor-sav"]
 author: "Paradox"
 image: "/images/blog/palworld-guide-cover-v2.webp"

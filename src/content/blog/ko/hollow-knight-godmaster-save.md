@@ -2,6 +2,7 @@
 title: "할로우 나이트(Hollow Knight) 112% 신들의 고향 세이브 + 스피드런 연습 팩"
 description: "궁극의 할로우 나이트 자료를 다운로드하세요. 포함: 1. 112% 신들의 고향 세이브 (5문 도전용), 2. 독점 스피드런 연습 팩 (흙의 마을부터 고통의 길까지 39개 세이브 포인트). 보스 연습에 최적."
 pubDate: 2026-02-06
+updatedDate: 2026-02-20
 author: "Paradox"
 tags: ["hollow-knight", "save-file", "download", "unity"]
 image: "/images/blog/hollow-knight-cover.webp"

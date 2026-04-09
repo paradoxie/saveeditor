@@ -2,6 +2,7 @@
 title: "Extensões Comuns de Arquivos de Save de Jogos Explicadas - Referência Completa"
 description: "Um guia abrangente para entender .json, .xml, .sav, .rpgsave, .save, .dat e outros formatos comuns de arquivos de save de jogos e como editá-los."
 pubDate: 2026-01-01
+updatedDate: 2026-03-22
 tags: ["guia", "formatos-de-arquivo", "educação", "referência"]
 author: "Paradox"
 lang: "pt"
@@ -221,7 +222,7 @@ R: Para jogos single-player em arquivos que você possui, sim. Modificar jogos o
 
 Entender seu formato de arquivo de save é metade da batalha. Uma vez que você sabe se está lidando com JSON simples, dados RPG Maker comprimidos ou arquivos GVAS complexos do Unreal, você pode escolher a ferramenta e abordagem certas.
 
-Nosso Save Editor Online suporta a maioria dos formatos comuns automaticamente - apenas faça upload do seu arquivo e deixe-nos cuidar do resto!
+Nosso SaveEditor.Online suporta a maioria dos formatos comuns automaticamente - apenas faça upload do seu arquivo e deixe-nos cuidar do resto!
 
 ## Leitura Adicional
 

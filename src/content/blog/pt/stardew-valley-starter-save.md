@@ -2,6 +2,7 @@
 title: "Stardew Valley Pack Deus: 3 Saves com 30 Milhões de Ouro + 100% Completo"
 description: "Baixe o pacote definitivo. Inclui 3 slots de save: até 30 milhões de ouro, todas as habilidades no máximo, Centro Comunitário completo e casamentos com Leah/Haley/Abigail. Perfeito para o endgame."
 pubDate: 2026-02-06
+updatedDate: 2026-02-15
 author: "Paradox"
 tags: ["stardew-valley", "save-file", "download", "rpg-maker"]
 image: "/images/blog/stardew-valley-cover.webp"

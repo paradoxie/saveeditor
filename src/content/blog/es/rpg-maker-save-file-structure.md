@@ -2,6 +2,7 @@
 title: "Explicación de la Estructura del Archivo de Guardado de RPG Maker - Análisis Técnico"
 description: "Análisis técnico profundo de la estructura de archivos de guardado de RPG Maker MV (.rpgsave) y MZ (.rmmzsave). Aprende cómo funcionan la codificación JSON, la compresión LZString y el cifrado del juego."
 pubDate: 2026-01-09
+updatedDate: 2026-03-28
 tags: ["rpg-maker", "técnico", "json", "estructura-de-datos"]
 author: "Paradox"
 image: "/images/blog/rpg-maker-structure-cover-v2.webp"

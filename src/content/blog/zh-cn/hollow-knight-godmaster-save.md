@@ -2,6 +2,7 @@
 title: "空洞骑士 (Hollow Knight) 112% 完美存档 + 速通练习包 [神居/苦痛之路]"
 description: "下载最全的空洞骑士存档资源。包含：1. 112% 寻神者完美存档（神居全开）；2. 独家速通练习包（39个分段存档，从十字路口到愚人斗兽场，随时练习任意关卡）。无论你是想直接打Boss Rush还是练习速通，这里都有。"
 pubDate: 2026-02-06
+updatedDate: 2026-02-20
 author: "Paradox"
 tags: ["hollow-knight", "save-file", "download", "unity"]
 image: "/images/blog/hollow-knight-cover.webp"

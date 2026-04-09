@@ -2,6 +2,7 @@
 title: "Como Editar Arquivos de Save do RPG Maker MV (.rpgsave) - Guia Completo"
 description: "Um guia completo sobre como editar arquivos de save do RPG Maker MV usando nossa ferramenta online gratuita. Modifique ouro, status, itens e variáveis facilmente. Funciona para MV e MZ."
 pubDate: 2026-01-03
+updatedDate: 2026-04-05
 author: "Paradox"
 tags: ["RPG Maker", "tutorial", "rpgsave", "guia"]
 lang: "pt"
@@ -14,7 +15,7 @@ image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 
 RPG Maker MV e MZ são dois dos motores de jogos mais populares para criar JRPGs e jogos de aventura. Eles alimentam milhares de jogos indie no Steam, itch.io e outras plataformas. Se você já quis modificar seu arquivo de save para contornar um chefe difícil, dar a si mesmo mais ouro ou experimentar diferentes builds, este guia mostrará exatamente como fazer isso.
 
-Jogos do RPG Maker MV usam a extensão de arquivo `.rpgsave`, enquanto jogos MZ normalmente usam o mesmo formato. Esses arquivos são frequentemente compactados usando LZString e não são legíveis por humanos em um editor de texto padrão. É aí que nosso **Save Editor Online** entra - ele lida com toda a descompressão e análise para você, inteiramente no seu navegador.
+Jogos do RPG Maker MV usam a extensão de arquivo `.rpgsave`, enquanto jogos MZ normalmente usam o mesmo formato. Esses arquivos são frequentemente compactados usando LZString e não são legíveis por humanos em um editor de texto padrão. É aí que nosso **SaveEditor.Online** entra - ele lida com toda a descompressão e análise para você, inteiramente no seu navegador.
 
 ## Entendendo o Formato de Save do RPG Maker
 

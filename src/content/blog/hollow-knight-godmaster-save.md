@@ -2,6 +2,7 @@
 title: "Hollow Knight 112% Godmaster Save + Speedrun Practice Pack"
 description: "Download the ultimate Hollow Knight resource. Includes: 1. 112% Godmaster Save (Pantheon 5 ready); 2. Exclusive Speedrun Practice Pack (39 save states from Dirtmouth to Path of Pain). Perfect for practicing specific bosses or segments."
 pubDate: 2026-02-06
+updatedDate: 2026-02-20
 author: "Paradox"
 tags: ["hollow-knight", "save-file", "download", "unity"]
 image: "/images/blog/hollow-knight-cover.webp"

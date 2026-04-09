@@ -2,6 +2,7 @@
 title: "幻兽帕鲁 (Palworld) 完美存档下载：Level 50 + 全图鉴 + 全传说词条 [2026验证版]"
 description: "下载经过人工验证的幻兽帕鲁 (Palworld) 完美存档。包含50级角色、全帕鲁图鉴解锁、所有传说帕鲁（4词条）、20级据点及无限资源。支持 Steam 和 Game Pass 版本。附带详细的存档替换与 GUID 修复教程。"
 pubDate: 2026-02-06
+updatedDate: 2026-03-30
 author: "Paradox"
 tags: ["palworld", "save-file", "download", "unreal-engine"]
 image: "/images/blog/palworld-cover.webp"
@@ -19,7 +20,7 @@ image: "/images/blog/palworld-cover.webp"
 
 ## 🛡️ 存档安全性与验证报告
 
-为了确保您的电脑和账号安全，SaveEditor.top 团队对该存档进行了严格的测试：
+为了确保您的电脑和账号安全，SaveEditor.Online 团队对该存档进行了严格的测试：
 
 *   **测试版本**：Palworld v0.3.x (Steam版) & v0.1.x (Game Pass版)
 *   **杀毒扫描**：Pass (VirusTotal 0/60)

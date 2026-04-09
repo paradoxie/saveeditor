@@ -2,6 +2,7 @@
 title: "Unreal Engine 存档编辑指南 (.sav) - GVAS 格式完整教程"
 description: "面向 Unreal Engine 4/5 `.sav` 的兼容性指南。重点讲解 GVAS 的安全解析流程，以及何时应切换到游戏专用工具。"
 pubDate: 2026-01-05
+updatedDate: 2026-03-12
 tags: ["unreal-engine", "gvas", "guide", "palworld", "hogwarts-legacy"]
 author: "Paradox"
 image: "/images/blog/unreal-cover.webp"

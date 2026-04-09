@@ -2,6 +2,7 @@
 title: "RPG Maker MV 세이브 파일 (.rpgsave) 편집 방법 - 완벽 가이드"
 description: "RPG Maker MV 세이브 파일 편집에 대한 완벽한 가이드입니다. 무료 온라인 도구를 사용하여 골드, 스탯, 아이템, 변수를 쉽게 수정하세요. MV와 MZ 모두 지원합니다."
 pubDate: 2026-01-03
+updatedDate: 2026-04-05
 author: "Paradox"
 tags: ["rpg maker", "tutorial", "rpgsave", "guide"]
 image: "/images/blog/rpg-maker-guide-cover-v2.webp"
@@ -13,7 +14,7 @@ image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 
 RPG Maker MV와 MZ는 JRPG와 어드벤처 게임을 만드는 데 가장 인기 있는 게임 엔진입니다. Steam, itch.io 및 기타 플랫폼에서 수천 개의 인디 게임을 지원합니다. 어려운 보스를 우회하거나, 더 많은 골드를 얻거나, 다른 빌드를 실험하기 위해 세이브 파일을 수정하고 싶으셨다면, 이 가이드가 정확히 어떻게 하는지 보여드립니다.
 
-RPG Maker MV 게임은 `.rpgsave` 파일 확장자를 사용하며, MZ 게임도 일반적으로 동일한 형식을 사용합니다. 이 파일들은 보통 LZString으로 압축되어 있어 일반 텍스트 편집기에서는 읽을 수 없습니다. 여기서 우리의 **Save Editor Online**이 필요합니다 – 모든 압축 해제와 파싱을 브라우저에서 처리합니다.
+RPG Maker MV 게임은 `.rpgsave` 파일 확장자를 사용하며, MZ 게임도 일반적으로 동일한 형식을 사용합니다. 이 파일들은 보통 LZString으로 압축되어 있어 일반 텍스트 편집기에서는 읽을 수 없습니다. 여기서 우리의 **SaveEditor.Online**이 필요합니다 – 모든 압축 해제와 파싱을 브라우저에서 처리합니다.
 
 ## RPG Maker 세이브 형식 이해하기
 

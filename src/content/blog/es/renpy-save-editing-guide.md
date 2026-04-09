@@ -2,6 +2,7 @@
 title: "Edición de Guardados de Ren'Py: Guía Técnica Completa"
 description: "Entiende cómo funcionan los archivos de guardado de Ren'Py, por qué son difíciles de editar y aprende alternativas para modificar tu progreso en novelas visuales de forma segura."
 pubDate: 2026-01-08
+updatedDate: 2026-03-08
 tags: ["renpy", "novela-visual", "técnico", "guía"]
 author: "Paradox"
 image: "/images/blog/renpy-cover.webp"

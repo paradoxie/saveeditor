@@ -23,18 +23,18 @@ const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'SaveEditor.top',
+    name: 'SaveEditor.Online',
     url: siteUrl,
     logo: new URL('/favicon.svg', siteUrl).toString(),
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'SaveEditor.top',
+    name: 'SaveEditor.Online',
     url: siteUrl,
     publisher: {
       '@type': 'Organization',
-      name: 'SaveEditor.top',
+      name: 'SaveEditor.Online',
       url: siteUrl,
     },
   },
@@ -170,8 +170,8 @@ const structuredData = [
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:site_name" content="Save Editor Online" />
-    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta property="og:site_name" content="SaveEditor.Online" />
+    <meta property="og:image" content={ogImageUrl} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />

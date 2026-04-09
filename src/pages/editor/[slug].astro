@@ -1,165 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EditorApp from '../../components/EditorApp';
+import { editors } from '../../data/editors';
 
 export async function getStaticPaths() {
-  const engines = [
-    {
-      slug: 'rpg-maker-mv',
-      name: 'RPG Maker MV/MZ',
-      fileType: '.rpgsave, .rmmzsave',
-      title: 'RPG Maker Save Editor Online - Free .rpgsave & .rmmzsave Editor',
-      description:
-        'Free RPG Maker save editor. Edit .rpgsave (MV) and .rmmzsave (MZ) files online. Modify gold, stats, items, switches & variables. No download, 100% browser-based rpg save editor.',
-      keywords:
-        'rpg maker save editor, rpg save editor, rpgsave editor, .rpgsave editor online, rpg maker mv save editor, rpg maker mz save editor, rmmzsave editor, edit rpgsave file',
-      features: [
-        'Edit Gold / Money',
-        'Modify Character Stats (Level, EXP, HP, MP)',
-        'Unlock Items and Weapons',
-        'Edit Game Variables and Switches',
-      ],
-      instructions: [
-        'Locate your save file (usually in the game folder under `www/save/`)',
-        'Upload the `file1.rpgsave` file above',
-        'Edit your gold, stats, and variables',
-        'Download the modified file and replace the original',
-      ],
-    },
-    {
-      slug: 'unity',
-      name: 'Unity',
-      fileType: '.xml, .plist',
-      title: 'Unity Save Editor | Edit PlayerPrefs Online',
-      description:
-        'Free online Unity save editor. Modify Unity PlayerPrefs (.xml, .plist) for Android, iOS and PC games. Edit game settings and unlock levels directly in your browser.',
-      keywords:
-        'unity save editor, unity playerprefs editor, edit unity xml save, unity plist editor',
-      features: [
-        'Edit PlayerPrefs Data',
-        'Modify Game Settings',
-        'Unlock Levels and Achievements',
-        'Cross-platform Support (Android XML, iOS Plist)',
-      ],
-      instructions: [
-        'Locate your Unity save file (often in `AppData` or game folder)',
-        'Upload the `.xml` or `.plist` file',
-        'Modify the values in the editor',
-        'Download and replace the original file',
-      ],
-    },
-    {
-      slug: 'renpy',
-      name: "Ren'Py",
-      fileType: '.save',
-      title: "Ren'Py Save Editor Online - Free .save File Editor & Viewer",
-      description:
-        "Free Ren'Py save editor. Edit and view .save files online. Modify game variables, flags, and story progress. Works with DDLC, visual novels & more. The #1 renpy save editor.",
-      keywords:
-        "renpy save editor, ren'py save editor, .save editor, .save file editor, renpy save modifier, edit renpy save file, ddlc save editor, visual novel save editor",
-      features: [
-        "View & Edit Ren'Py Save Data",
-        'Modify Game Variables and Flags',
-        'Inspect History and Playtime',
-        'Experimental save export (persistent primitive fields only)',
-      ],
-      instructions: [
-        "Find your Ren'Py save files (usually in `game/saves/`)",
-        'Upload the `.save` file',
-        'Edit the game state and variables',
-        '⚠️ Note: Saving is experimental and may corrupt files. Enable it only if you understand the risk.',
-      ],
-    },
-    {
-      slug: 'unreal',
-      name: 'Unreal Engine',
-      fileType: '.sav',
-      title: 'Unreal Engine Save Editor - Free .sav Editor | Palworld, GVAS',
-      description:
-        'Browser-based Unreal .sav inspector for standard GVAS files. View data safely, edit supported structures, and export with safe rebuild for supported wrappers.',
-      keywords:
-        'unreal engine save editor, palworld save editor, .sav editor, sav file editor, gvas editor online, uesave editor, edit unreal save file',
-      features: [
-        'Parse Standard GVAS (.sav)',
-        'Detect zlib/gzip/raw-deflate wrappers',
-        'Read-only fallback for unsupported containers',
-        'Safe rebuild for standard and supported wrapped GVAS files',
-      ],
-      instructions: [
-        "Locate your `.sav` file in the game's save directory",
-        'Upload the file to the editor',
-        'If parsing succeeds, edit supported fields in JSON view',
-        'For complex game-specific containers or encrypted saves, use dedicated tools when read-only mode is shown.',
-      ],
-    },
-    {
-      slug: 'palworld',
-      name: 'Palworld',
-      fileType: '.sav',
-      title: 'Palworld Save Editor | Safe GVAS Viewer for .sav',
-      description:
-        'Palworld-focused save workflow for `.sav` files. Best for inspecting standard GVAS data and applying cautious, backup-first edits.',
-      keywords:
-        'palworld save editor, palworld .sav, palworld gvas, palworld save tools',
-      features: [
-        'Steam `.sav` upload with format checks',
-        'Structured GVAS JSON inspection',
-        'Read-only fallback for unsupported variants',
-        'Links to dedicated Palworld community tooling',
-      ],
-      instructions: [
-        'Backup your entire SaveGames folder before editing',
-        'Upload your player `.sav` (or `Level.sav`) file',
-        'Check the mode banner (editable vs read-only)',
-        'Use dedicated Palworld tools when this editor reports unsupported structure',
-      ],
-    },
-    {
-      slug: 'gamemaker',
-      name: 'GameMaker',
-      fileType: '.ini, .json',
-      title: 'GameMaker Save Editor | Edit INI & JSON Saves',
-      description:
-        'Universal GameMaker save editor online. Modify .ini and .json save files for GameMaker Studio 1 & 2 games. Edit health, inventory, and stats easily. 100% free.',
-      keywords:
-        'gamemaker save editor, edit gamemaker save, undertale save editor, gamemaker ini editor',
-      features: [
-        'Edit INI Configuration Files',
-        'Modify JSON Save Data',
-        'Raw Text Fallback for Custom Formats',
-        'Compatible with GameMaker Studio 1 & 2',
-      ],
-      instructions: [
-        'Find your save file (often `save.ini` or `save.json`)',
-        'Upload it to the editor',
-        'Change values like money, health, or unlocked items',
-        'Save and replace the original file',
-      ],
-    },
-    {
-      slug: 'naninovel',
-      name: 'NaniNovel',
-      fileType: '.nson',
-      title: 'NaniNovel Save Editor | Edit .nson Files',
-      description:
-        'Free NaniNovel save editor. Edit .nson visual novel files online. Modify game state, script flags, variables, and player choices instantly in your browser.',
-      keywords: 'naninovel save editor, edit .nson file, visual novel save editor',
-      features: [
-        'Parse .nson Files',
-        'Edit Game State JSON',
-        'Modify Global Variables',
-        'Support for Compressed Saves',
-      ],
-      instructions: [
-        'Locate your `.nson` save file',
-        'Upload it to the editor',
-        'Modify the JSON data',
-        'Download the updated file',
-      ],
-    },
-  ];
-
-  return engines.map((engine) => ({
+  return editors.map((engine) => ({
     params: { slug: engine.slug },
     props: { engine },
   }));
@@ -295,7 +140,7 @@ const absUrl = (path: string) =>
       url: absUrl(`/editor/${engine.slug}`),
       author: {
         '@type': 'Organization',
-        name: 'Save Editor Online',
+        name: 'SaveEditor.Online',
         url: absUrl('/'),
       },
     })}

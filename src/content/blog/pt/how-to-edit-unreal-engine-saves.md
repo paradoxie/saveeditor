@@ -2,6 +2,7 @@
 title: "Como Editar Arquivos de Save do Unreal Engine (.sav) - Guia Completo GVAS"
 description: "Guia com foco em compatibilidade para `.sav` do Unreal Engine 4/5. Aprenda a analisar GVAS com segurança e quando migrar para ferramentas específicas de cada jogo."
 pubDate: 2026-01-05
+updatedDate: 2026-03-12
 tags: ["Unreal Engine", "GVAS", "guia", "Palworld", "Hogwarts Legacy"]
 author: "Paradox"
 lang: "pt"

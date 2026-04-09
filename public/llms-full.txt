@@ -1,11 +1,11 @@
-# SaveEditor.top — Full Documentation for LLMs
+# SaveEditor.Online — Full Documentation for LLMs
 
 > Free, browser-based, privacy-first save file editor for games.
 > All file processing happens client-side via JavaScript/WebAssembly — nothing is uploaded.
 
 ## Site Identity
 
-- **Name**: SaveEditor.top (also referenced as SaveEditor.Online)
+- **Name**: SaveEditor.Online (also referenced as SaveEditor.Online)
 - **URL**: https://saveeditor.top
 - **Type**: Free web application (SoftwareApplication)
 - **Category**: UtilitiesApplication

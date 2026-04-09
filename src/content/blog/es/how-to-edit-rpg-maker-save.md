@@ -2,6 +2,7 @@
 title: "Cómo Editar Archivos de Guardado de RPG Maker (.rpgsave & .rvdata2) Online"
 description: "Aprende a modificar oro, estadísticas y objetos en juegos de RPG Maker MV, MZ, VX Ace y XP usando nuestro editor de guardado online gratuito."
 pubDate: 2026-01-05
+updatedDate: 2026-04-05
 tags: ["rpg-maker", "guía", "tutorial"]
 author: "Paradox"
 image: "/images/blog/rpg-maker-guide-cover-v2.webp"
@@ -47,7 +48,7 @@ Estos son usados por versiones antiguas.
 
 ### Paso 2: Sube al Editor
 
-1.  Ve a [Save Editor Online](/es/).
+1.  Ve a [SaveEditor.Online](/es/).
 2.  Arrastra y suelta tu archivo `file1.rpgsave` (o similar).
 3.  La herramienta detectará automáticamente el motor.
 

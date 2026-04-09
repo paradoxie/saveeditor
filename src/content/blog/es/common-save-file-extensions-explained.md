@@ -2,6 +2,7 @@
 title: "Explicación de las Extensiones Comunes de Archivos de Guardado - Guía Completa"
 description: "Una guía completa para entender .json, .xml, .sav, .rpgsave, .save, .dat y otros formatos populares de archivos de guardado y cómo editarlos."
 pubDate: 2026-01-01
+updatedDate: 2026-03-22
 tags: ["guía", "formatos-archivo", "educación", "referencia"]
 author: "Paradox"
 image: "/images/blog/extensions-cover.webp"
@@ -237,7 +238,7 @@ R: No todos los archivos `.sav` son de Unreal Engine. Muchos desarrolladores usa
 
 Entender el formato de tu archivo de guardado es la mitad de la batalla para convertirte en un experto en edición de partidas. Una vez que sepas si estás tratando con JSON simple, datos comprimidos de RPG Maker o archivos complejos GVAS de Unreal, puedes elegir la herramienta y el enfoque correctos.
 
-Nuestro Save Editor Online soporta la mayoría de los formatos comunes automáticamente: ¡simplemente sube tu archivo y déjanos encargarnos de la detección y análisis por ti!
+Nuestro SaveEditor.Online soporta la mayoría de los formatos comunes automáticamente: ¡simplemente sube tu archivo y déjanos encargarnos de la detección y análisis por ti!
 
 ## Lectura Adicional
 

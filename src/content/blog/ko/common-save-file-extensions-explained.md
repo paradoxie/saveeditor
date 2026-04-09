@@ -2,6 +2,7 @@
 title: "게임 세이브 파일 확장자 설명 - 완벽 참조 가이드"
 description: ".json, .xml, .sav, .rpgsave, .save, .dat 등 일반적인 게임 세이브 파일 형식과 편집 방법에 대한 종합 가이드입니다."
 pubDate: 2026-01-01
+updatedDate: 2026-03-22
 tags: ["guide", "file-formats", "education", "reference"]
 author: "Paradox"
 image: "/images/blog/extensions-cover.webp"
@@ -220,7 +221,7 @@ A: 본인 소유의 싱글 플레이어 게임 파일의 경우, 네. 온라인/
 
 세이브 파일 형식을 이해하는 것이 절반의 싸움입니다. 간단한 JSON, 압축된 RPG Maker 데이터, 또는 복잡한 Unreal GVAS 파일 중 무엇을 다루고 있는지 알게 되면, 올바른 도구와 접근 방식을 선택할 수 있습니다.
 
-우리의 Save Editor Online은 대부분의 일반 형식을 자동으로 지원합니다 – 파일을 업로드하기만 하면 나머지는 저희가 처리합니다!
+우리의 SaveEditor.Online은 대부분의 일반 형식을 자동으로 지원합니다 – 파일을 업로드하기만 하면 나머지는 저희가 처리합니다!
 
 ## 관련 리소스
 

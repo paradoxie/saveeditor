@@ -2,6 +2,7 @@
 title: "NaniNovel Save Editing: Complete Guide to .nson Files"
 description: "Learn how to edit NaniNovel visual novel save files (.nson). Comprehensive guide covering NSON format structure, compression algorithms, variable modification, and troubleshooting tips."
 pubDate: 2026-01-06
+updatedDate: 2026-03-05
 tags: ["naninovel", "visual-novel", "guide", "tutorial", "nson"]
 author: "Paradox"
 image: "/images/blog/naninovel-cover.webp"

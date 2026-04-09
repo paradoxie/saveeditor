@@ -2,6 +2,7 @@
 title: "Stardew Valley God-Tier Save Pack: 3 Slots with 30M Gold & 100% Completion"
 description: "Download the ultimate Stardew Valley save pack. Includes 3 save slots: up to 30 million gold, all skills maxed (Level 10), Community Center complete, and spouses Leah/Haley/Abigail. Perfect for exploring endgame content immediately."
 pubDate: 2026-02-06
+updatedDate: 2026-02-15
 author: "Paradox"
 tags: ["stardew-valley", "save-file", "download", "rpg-maker"]
 image: "/images/blog/stardew-valley-cover.webp"

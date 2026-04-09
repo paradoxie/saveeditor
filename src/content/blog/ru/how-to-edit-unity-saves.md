@@ -2,6 +2,7 @@
 title: "Как редактировать сохранения Unity (PlayerPrefs и XML) - Полное руководство"
 description: "Полное руководство по изменению файлов сохранений игр Unity на Android, iOS и ПК. Узнайте, как редактировать файлы PlayerPrefs, XML, JSON и Plist для любой игры Unity."
 pubDate: 2026-01-04
+updatedDate: 2026-03-15
 tags: ["unity", "руководство", "учебник", "playerprefs"]
 author: "Paradox"
 image: "/images/blog/unity-cover.webp"

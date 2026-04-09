@@ -2,6 +2,7 @@
 title: "Ren'Py 存档编辑：完整技术指南"
 description: "了解 Ren'Py 存档文件的工作原理，为什么它们难以编辑，以及学习安全修改视觉小说游戏进度的变通方法。"
 pubDate: 2026-01-08
+updatedDate: 2026-03-08
 tags: ["renpy", "visual-novel", "technical", "guide"]
 author: "Paradox"
 image: "/images/blog/renpy-cover.webp"

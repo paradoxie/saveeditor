@@ -2,6 +2,7 @@
 title: "Common Game Save File Extensions Explained - Complete Reference"
 description: "A comprehensive guide to understanding .json, .xml, .sav, .rpgsave, .save, .dat, and other common game save file formats and how to edit them."
 pubDate: 2026-01-01
+updatedDate: 2026-03-22
 tags: ["guide", "file-formats", "education", "reference"]
 author: "Paradox"
 image: "/images/blog/extensions-cover.webp"
@@ -220,7 +221,7 @@ A: For single-player games on files you own, yes. Modifying online/competitive g
 
 Understanding your save file format is half the battle. Once you know whether you're dealing with simple JSON, compressed RPG Maker data, or complex Unreal GVAS files, you can choose the right tool and approach.
 
-Our Save Editor Online supports most common formats automatically – just upload your file and let us handle the rest!
+Our SaveEditor.Online supports most common formats automatically – just upload your file and let us handle the rest!
 
 ## Further Reading
 

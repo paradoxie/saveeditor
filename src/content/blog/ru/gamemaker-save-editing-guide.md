@@ -2,6 +2,7 @@
 title: "Редактирование сохранений GameMaker: Полное руководство по INI и JSON"
 description: "Освойте искусство редактирования файлов сохранений GameMaker Studio. Узнайте, как изменять конфигурации INI, сохранения JSON и бинарные форматы для таких игр, как Undertale, Deltarune и других."
 pubDate: 2026-01-02
+updatedDate: 2026-03-18
 tags: ["gamemaker", "undertale", "руководство", "учебник", "ini", "json"]
 author: "Paradox"
 image: "/images/blog/gamemaker-cover.webp"

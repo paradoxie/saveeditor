@@ -2,6 +2,7 @@
 title: "Unity PlayerPrefsとXMLセーブの編集方法 - 完全ガイド"
 description: "Android、iOS、PCのUnityゲームのセーブファイルを編集する完全ガイド。PlayerPrefs、XML、JSON、Plistファイルの編集方法を詳しく解説。"
 pubDate: 2026-01-04
+updatedDate: 2026-03-15
 tags: ["Unity", "ガイド", "チュートリアル", "PlayerPrefs"]
 author: "Paradox"
 lang: "ja"
@@ -21,7 +22,7 @@ Unityは世界で最も人気のあるゲームエンジンで、全モバイル
 *   **JSONファイル**: 人間が読めるデータ形式。
 *   **バイナリファイル**: カスタムシリアライズされたデータ（編集が難しい）。
 
-私たちの**Save Editor Online**は、PlayerPrefs（XML/Plist）、XML、JSON形式をブラウザ内で直接サポートしています。
+私たちの**SaveEditor.Online**は、PlayerPrefs（XML/Plist）、XML、JSON形式をブラウザ内で直接サポートしています。
 
 ## Unityセーブの保存場所を理解する
 

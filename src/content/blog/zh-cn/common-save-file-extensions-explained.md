@@ -2,6 +2,7 @@
 title: "游戏存档文件扩展名详解 - 完整参考指南"
 description: "全面了解 .json、.xml、.sav、.rpgsave、.save、.dat 等常见游戏存档文件格式及其编辑方法。"
 pubDate: 2026-01-01
+updatedDate: 2026-03-22
 tags: ["guide", "file-formats", "education", "reference"]
 author: "Paradox"
 image: "/images/blog/extensions-cover.webp"
@@ -220,7 +221,7 @@ Apple 平台使用的属性列表文件。可以是 XML 或二进制格式。
 
 了解您的存档文件格式是成功的一半。一旦您知道您是在处理简单的 JSON、压缩的 RPG Maker 数据还是复杂的 Unreal GVAS 文件，您就可以选择正确的工具和方法。
 
-我们的 Save Editor Online 自动支持大多数常见格式——只需上传您的文件，让我们处理其余的事情！
+我们的 SaveEditor.Online 自动支持大多数常见格式——只需上传您的文件，让我们处理其余的事情！
 
 ## 延伸阅读
 

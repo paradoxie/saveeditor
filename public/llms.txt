@@ -1,4 +1,4 @@
-# SaveEditor.top
+# SaveEditor.Online
 
 > Free, browser-based save file editor for games. All file processing happens client-side — nothing is uploaded.
 
