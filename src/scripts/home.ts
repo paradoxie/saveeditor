@@ -1,3 +1,5 @@
+import { beginIngestFlow } from '../lib/ingest';
+
 // Animated counter for stats
 const initCounters = () => {
     const counters = document.querySelectorAll('.counter');
@@ -48,64 +50,37 @@ const initFileUpload = () => {
 
     if (!fileInput || !uploadZone) return;
 
-    // Get current language prefix, default to empty (English)
-    // Note: window.currentLang is set in the page template
     const currentLang = (window as any).currentLang;
-    const langPrefix = currentLang && currentLang !== 'en' ? `/${currentLang}` : '';
 
-    // File extension to editor mapping with localized paths
-    const extensionMap: Record<string, string> = {
-        '.rpgsave': `${langPrefix}/editor/rpg-maker-mv`,
-        '.rmmzsave': `${langPrefix}/editor/rpg-maker-mv`,
-        '.sav': `${langPrefix}/editor/unreal`,
-        '.save': `${langPrefix}/editor/renpy`,
-        '.xml': `${langPrefix}/editor/unity`,
-        '.plist': `${langPrefix}/editor/unity`,
-        '.ini': `${langPrefix}/editor/gamemaker`,
-        '.json': `${langPrefix}/editor/gamemaker`,
-        '.nson': `${langPrefix}/editor/naninovel`,
+    const setBusyState = (busy: boolean) => {
+        uploadZone.classList.toggle('pointer-events-none', busy);
+        uploadZone.classList.toggle('opacity-75', busy);
     };
 
-    // Get file extension
-    const getExtension = (filename: string): string => {
-        const lastDot = filename.lastIndexOf('.');
-        return lastDot !== -1 ? filename.slice(lastDot).toLowerCase() : '';
-    };
-
-    // Handle file selection
-    const handleFile = (file: File) => {
-        const ext = getExtension(file.name);
-        // Normalize extension to lowercase for lookup
-        const editorPath = extensionMap[ext];
-
-        if (editorPath) {
-            // Store file in sessionStorage for the editor to pick up
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const fileData = {
-                    name: file.name,
-                    content: e.target?.result,
-                    type: file.type,
-                };
-                sessionStorage.setItem('pendingFile', JSON.stringify(fileData));
-                window.location.href = editorPath;
-            };
-            reader.readAsDataURL(file);
-        } else {
-            // Unknown extension - go to generic editor or show message
+    const handleFile = async (file: File) => {
+        try {
+            setBusyState(true);
+            const { url } = await beginIngestFlow(file, {
+                locale: currentLang,
+                source: 'home',
+            });
+            window.location.assign(url);
+        } catch (error) {
+            console.error(error);
             const i18n = (window as any).i18n;
-            const message = i18n?.unknownFile || `File type "${ext}" is not recognized. Please choose an editor manually.`;
-            // Simple string replacement if the localized string contains {ext}
-            // Be safe with replace
-            alert(message.replace('{ext}', ext));
+            const message =
+                i18n?.unknownFile || 'We could not open this file right now. Please try choosing an editor manually.';
+            alert(message);
+        } finally {
+            setBusyState(false);
         }
     };
 
     // File input change handler
-    fileInput.addEventListener('change', (e) => {
+    fileInput.addEventListener('change', async (e) => {
         const target = e.target as HTMLInputElement;
         if (target.files && target.files[0]) {
-            handleFile(target.files[0]);
+            await handleFile(target.files[0]);
         }
     });
 
@@ -120,12 +95,12 @@ const initFileUpload = () => {
         uploadZone.classList.remove('border-primary-400', 'bg-white/10');
     });
 
-    uploadZone.addEventListener('drop', (e) => {
+    uploadZone.addEventListener('drop', async (e) => {
         e.preventDefault();
         uploadZone.classList.remove('border-primary-400', 'bg-white/10');
         const files = (e as DragEvent).dataTransfer?.files;
         if (files && files[0]) {
-            handleFile(files[0]);
+            await handleFile(files[0]);
         }
     });
 };

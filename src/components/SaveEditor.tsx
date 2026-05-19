@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { appendUploadToken } from '../lib/ingest';
 import { ui } from '../i18n/ui';
+import { localizePath } from '../i18n/utils';
 import JsonEditor from './JsonEditor';
 import RpgMakerEditor from './editors/RpgMakerEditor';
 import type {
@@ -14,11 +16,12 @@ interface SaveEditorProps {
     file: File;
     onBack: () => void;
     editorSlug?: string;
+    uploadToken?: string;
 }
 
 type UnrealFamilyResult = UnrealParseResult | PalworldParseResult;
 
-export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps) {
+export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: SaveEditorProps) {
     const lang = typeof window !== 'undefined'
         ? (document.documentElement.getAttribute('lang') as keyof typeof ui) || 'en'
         : 'en';
@@ -236,7 +239,7 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
                             <h4 className="font-bold text-blue-900 mb-1">{t('editor.feedbackTitle')}</h4>
                             <p className="text-blue-700 text-sm mb-3">{t('editor.feedbackDesc')}</p>
                             <a
-                                href="/contact"
+                                href={contactHref}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -277,6 +280,20 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
         isPalworld ||
         format === 'rpgmaker' ||
         (format === 'json' && editorData?.gold !== undefined);
+    const contactHref = localizePath('/contact', lang);
+    const savWorkflowCopy = getSavWorkflowCopy(lang);
+    const savAlternate =
+        file.name.toLowerCase().endsWith('.sav') && editorSlug === 'palworld'
+            ? {
+                  href: appendUploadToken(localizePath('/editor/unreal', lang), uploadToken),
+                  label: savWorkflowCopy.generic,
+              }
+            : file.name.toLowerCase().endsWith('.sav') && editorSlug === 'unreal'
+              ? {
+                    href: appendUploadToken(localizePath('/editor/palworld', lang), uploadToken),
+                    label: savWorkflowCopy.palworld,
+                }
+              : null;
 
     return (
         <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
@@ -384,6 +401,19 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
                 {isUnrealFamily && unrealReason && (
                     <div className="bg-slate-50 border border-slate-200 text-slate-800 p-4 rounded-lg text-sm">
                         <strong>{t('editor.unrealParseDetailTitle')}:</strong> {unrealReason}
+                    </div>
+                )}
+                {savAlternate && (
+                    <div className="bg-cyan-50 border border-cyan-200 text-cyan-900 p-4 rounded-lg text-sm flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <strong>{savWorkflowCopy.title}</strong> {savWorkflowCopy.body}
+                        </div>
+                        <a
+                            href={savAlternate.href}
+                            className="inline-flex items-center justify-center rounded-lg border border-cyan-300 bg-white px-4 py-2 text-sm font-medium text-cyan-800 hover:bg-cyan-100 transition-colors"
+                        >
+                            {savAlternate.label}
+                        </a>
                     </div>
                 )}
                 {(format === 'renpy' || (isUnrealFamily && isUnrealSaveSupported && isUnrealExperimentalRequired)) && (
@@ -564,7 +594,7 @@ export default function SaveEditor({ file, onBack, editorSlug }: SaveEditorProps
                         </span>
                     </div>
                     <a
-                        href="/contact"
+                        href={contactHref}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-all text-sm font-medium shadow-sm"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -607,6 +637,55 @@ function canEditRenpy(path: Array<string | number>, value: any, action: 'edit' |
         typeof value === 'boolean';
 
     return isPrimitive;
+}
+
+function getSavWorkflowCopy(lang: string) {
+    const copy = {
+        en: {
+            title: 'Need another .sav workflow?',
+            body: 'This file can also be opened in the alternate `.sav` editor.',
+            palworld: 'Try the Palworld workflow',
+            generic: 'Try the generic Unreal workflow',
+        },
+        ja: {
+            title: '別の .sav ワークフローを試しますか？',
+            body: 'このファイルはもう一方の `.sav` エディタでも開けます。',
+            palworld: 'Palworld ワークフローを試す',
+            generic: '汎用 Unreal ワークフローを試す',
+        },
+        pt: {
+            title: 'Precisa de outro fluxo para .sav?',
+            body: 'Este arquivo também pode ser aberto no editor `.sav` alternativo.',
+            palworld: 'Abrir no fluxo Palworld',
+            generic: 'Abrir no fluxo Unreal genérico',
+        },
+        ko: {
+            title: '다른 .sav 워크플로우가 필요하신가요?',
+            body: '이 파일은 다른 `.sav` 에디터에서도 열 수 있습니다.',
+            palworld: 'Palworld 워크플로우로 열기',
+            generic: '일반 Unreal 워크플로우로 열기',
+        },
+        'zh-cn': {
+            title: '需要切换其他 .sav 工作流吗？',
+            body: '这个文件也可以在另一个 `.sav` 编辑器中打开。',
+            palworld: '切换到 Palworld 工作流',
+            generic: '切换到通用 Unreal 工作流',
+        },
+        es: {
+            title: '¿Necesitas otro flujo para .sav?',
+            body: 'Este archivo también puede abrirse en el editor `.sav` alternativo.',
+            palworld: 'Probar el flujo de Palworld',
+            generic: 'Probar el flujo genérico de Unreal',
+        },
+        ru: {
+            title: 'Нужен другой сценарий для .sav?',
+            body: 'Этот файл можно открыть и в альтернативном редакторе `.sav`.',
+            palworld: 'Открыть сценарий Palworld',
+            generic: 'Открыть общий сценарий Unreal',
+        },
+    } as const;
+
+    return copy[(lang in copy ? lang : 'en') as keyof typeof copy];
 }
 
 function getPalworldRoleLabel(role: string, t: (key: string) => string): string {

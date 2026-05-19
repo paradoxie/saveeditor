@@ -16,6 +16,9 @@
     "test:parsers:naninovel": "tsx scripts/tests/parsers/naninovel-variants.ts",
     "test:parsers:benchmark": "tsx scripts/tests/parsers/benchmark-report.ts",
     "test:i18n:parser-keys": "tsx scripts/tests/i18n/new-parser-keys.ts",
+    "test:i18n:routes": "tsx scripts/tests/i18n/localized-paths.ts",
+    "test:app:ingest": "tsx scripts/tests/app/ingest-detection.ts",
+    "test:app": "npm run test:app:ingest && npm run test:i18n:routes",
     "test:parsers": "npm run test:parsers:smoke && npm run test:parsers:fidelity && npm run test:parsers:quickfields && npm run test:parsers:unity-binary && npm run test:parsers:gamemaker-ini && npm run test:parsers:naninovel && npm run test:parsers:benchmark && npm run test:i18n:parser-keys"
   },
   "dependencies": {

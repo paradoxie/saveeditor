@@ -47,8 +47,8 @@ export const ui = {
 
         // Upload Section
         'upload.drop': 'Drop your save file here',
-        'upload.browse': 'or click to browse · We\'ll auto-detect the game engine',
-        'upload.orChoose': 'Or choose your game engine directly',
+        'upload.browse': 'or click to browse · We\'ll detect the save format and recommend the best editor',
+        'upload.orChoose': 'Or choose an editor directly',
 
         // Stats Section
         'stats.gamesSupported': 'Games Supported',
@@ -217,7 +217,7 @@ export const ui = {
         'faq.q8': 'Can I unlock all items or achievements?',
         'faq.a8': 'Yes, for most games you can edit inventory arrays to add items and modify achievement flags. The exact method varies by game engine. Check our game-specific guides for detailed instructions.',
         'faq.q9': 'What file formats are supported?',
-        'faq.a9': "We support: RPG Maker MV/MZ (.rpgsave, .rmmzsave), Ren'Py (.save), Unity (PlayerPrefs, .xml, .plist), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson), and generic JSON/XML files. Older Ruby Marshal formats (.rvdata2/.rvdata/.rxdata) are currently not editable in the web editor.",
+        'faq.a9': "We support: RPG Maker MV/MZ (.rpgsave, .rmmzsave), Ren'Py (.save), Unity (PlayerPrefs, .xml, .plist, .prefs), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson), and generic JSON/XML files. Older Ruby Marshal formats (.rvdata2/.rvdata/.rxdata) are currently not editable in the web editor.",
         'faq.q10': "Why can't I open my save file?",
         'faq.a10': "Some games use encrypted or proprietary formats. Try selecting a different editor type, or the file may be compressed. If you see 'Invalid file' error, the game might use a format we don't yet support.",
         'faq.q11': 'Is this free? Are there any limits?',
@@ -305,8 +305,8 @@ export const ui = {
 
         // Upload Section
         'upload.drop': 'セーブファイルをここにドロップ',
-        'upload.browse': 'またはクリックして選択 · ゲームエンジンを自動検出します',
-        'upload.orChoose': 'または直接ゲームエンジンを選択',
+        'upload.browse': 'またはクリックして選択 · セーブ形式を検出して最適なエディタを案内します',
+        'upload.orChoose': 'またはエディタを直接選択',
 
         // Stats Section
         'stats.gamesSupported': '対応ゲーム数',
@@ -475,7 +475,7 @@ export const ui = {
         'faq.q8': 'すべてのアイテムや実績をアンロックできますか？',
         'faq.a8': 'はい、ほとんどのゲームでインベントリ配列を編集してアイテムを追加したり、実績フラグを変更したりできます。具体的な方法はゲームエンジンによって異なります。詳細な手順については各ゲーム専用ガイドをご覧ください。',
         'faq.q9': 'どのファイル形式がサポートされていますか？',
-        'faq.a9': 'サポート形式：RPGツクールMV/MZ (.rpgsave, .rmmzsave)、Ren\'Py (.save)、Unity (PlayerPrefs, .xml, .plist)、Unreal (.sav)、GameMaker (.ini, .json)、NaniNovel (.nson)、汎用JSON/XMLファイル。旧Ruby Marshal形式 (.rvdata2/.rvdata/.rxdata) は現在Web版では未対応です。',
+        'faq.a9': 'サポート形式：RPGツクールMV/MZ (.rpgsave, .rmmzsave)、Ren\'Py (.save)、Unity (PlayerPrefs, .xml, .plist, .prefs)、Unreal (.sav)、GameMaker (.ini, .json)、NaniNovel (.nson)、汎用JSON/XMLファイル。旧Ruby Marshal形式 (.rvdata2/.rvdata/.rxdata) は現在Web版では未対応です。',
         'faq.q10': 'セーブファイルを開けないのはなぜですか？',
         'faq.a10': '一部のゲームは暗号化または独自形式を使用しています。別のエディタタイプを選択するか、ファイルが圧縮されている可能性があります。「無効なファイル」エラーが表示される場合、まだサポートされていない形式の可能性があります。',
         'faq.q11': 'これは無料ですか？制限はありますか？',
@@ -563,8 +563,8 @@ export const ui = {
 
         // Upload Section
         'upload.drop': 'Solte seu arquivo de save aqui',
-        'upload.browse': 'ou clique para selecionar · Detectamos automaticamente o engine',
-        'upload.orChoose': 'Ou escolha diretamente o engine do jogo',
+        'upload.browse': 'ou clique para selecionar · Detectaremos o formato do save e recomendaremos o melhor editor',
+        'upload.orChoose': 'Ou escolha um editor diretamente',
 
         // Stats Section
         'stats.gamesSupported': 'Jogos Suportados',
@@ -733,7 +733,7 @@ export const ui = {
         'faq.q8': 'Posso desbloquear todos os itens ou conquistas?',
         'faq.a8': 'Sim, para a maioria dos jogos você pode editar arrays de inventário para adicionar itens e modificar flags de conquistas. O método exato varia por engine de jogo. Consulte nossos guias específicos de jogos para instruções detalhadas.',
         'faq.q9': 'Quais formatos de arquivo são suportados?',
-        'faq.a9': 'Suportamos: RPG Maker MV/MZ (.rpgsave, .rmmzsave), Ren\'Py (.save), Unity (PlayerPrefs, .xml, .plist), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson) e arquivos JSON/XML genéricos. Formatos Ruby Marshal antigos (.rvdata2/.rvdata/.rxdata) ainda não são editáveis na versão web.',
+        'faq.a9': 'Suportamos: RPG Maker MV/MZ (.rpgsave, .rmmzsave), Ren\'Py (.save), Unity (PlayerPrefs, .xml, .plist, .prefs), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson) e arquivos JSON/XML genéricos. Formatos Ruby Marshal antigos (.rvdata2/.rvdata/.rxdata) ainda não são editáveis na versão web.',
         'faq.q10': 'Por que não consigo abrir meu arquivo de save?',
         'faq.a10': 'Alguns jogos usam formatos criptografados ou proprietários. Tente selecionar um tipo de editor diferente, ou o arquivo pode estar comprimido. Se você vir erro \'Arquivo inválido\', o jogo pode usar um formato que ainda não suportamos.',
         'faq.q11': 'Isso é gratuito? Há algum limite?',
@@ -821,8 +821,8 @@ export const ui = {
 
         // Upload Section
         'upload.drop': '세이브 파일을 여기에 드롭하세요',
-        'upload.browse': '또는 클릭하여 선택 · 게임 엔진을 자동으로 감지합니다',
-        'upload.orChoose': '또는 게임 엔진을 직접 선택하세요',
+        'upload.browse': '또는 클릭하여 선택 · 세이브 형식을 감지해 가장 알맞은 에디터를 추천합니다',
+        'upload.orChoose': '또는 에디터를 직접 선택하세요',
 
         // Stats Section
         'stats.gamesSupported': '지원 게임',
@@ -991,7 +991,7 @@ export const ui = {
         'faq.q8': '모든 아이템이나 업적을 해제할 수 있나요?',
         'faq.a8': '네, 대부분의 게임에서 인벤토리 배열을 편집하여 아이템을 추가하고 업적 플래그를 수정할 수 있습니다. 정확한 방법은 게임 엔진에 따라 다릅니다。자세한 지침은 각 게임 전용 가이드를 참조하세요.',
         'faq.q9': '어떤 파일 형식이 지원되나요?',
-        'faq.a9': '지원 형식: RPG 만들기 MV/MZ (.rpgsave, .rmmzsave), Ren\'Py (.save), Unity (PlayerPrefs, .xml, .plist), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson), 일반 JSON/XML 파일. 구형 Ruby Marshal 형식 (.rvdata2/.rvdata/.rxdata)은 현재 웹 편집에서 지원되지 않습니다.',
+        'faq.a9': '지원 형식: RPG 만들기 MV/MZ (.rpgsave, .rmmzsave), Ren\'Py (.save), Unity (PlayerPrefs, .xml, .plist, .prefs), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson), 일반 JSON/XML 파일. 구형 Ruby Marshal 형식 (.rvdata2/.rvdata/.rxdata)은 현재 웹 편집에서 지원되지 않습니다.',
         'faq.q10': '왜 세이브 파일을 열 수 없나요?',
         'faq.a10': '일부 게임은 암호화되거나 독점 형식을 사용합니다. 다른 에디터 유형을 선택하거나 파일이 압축되어 있을 수 있습니다. \'잘못된 파일\' 오류가 표시되면 아직 지원하지 않는 형식일 수 있습니다.',
         'faq.q11': '이것은 무료인가요? 제한이 있나요?',
@@ -1079,8 +1079,8 @@ export const ui = {
 
         // Upload Section
         'upload.drop': '拖放存档文件到此处',
-        'upload.browse': '或点击选择 · 自动检测游戏引擎',
-        'upload.orChoose': '或直接选择游戏引擎',
+        'upload.browse': '或点击选择 · 自动检测存档格式并推荐最合适的编辑器',
+        'upload.orChoose': '或直接选择编辑器',
 
         // Stats Section
         'stats.gamesSupported': '支持游戏',
@@ -1250,7 +1250,7 @@ export const ui = {
         'faq.q8': '可以解锁所有物品或成就吗？',
         'faq.a8': '是的，对于大多数游戏，您可以编辑物品数组来添加物品并修改成就标志。具体方法因游戏引擎而异。查看我们的游戏专用指南以获取详细说明。',
         'faq.q9': '支持哪些文件格式？',
-        'faq.a9': '支持的格式：RPG Maker MV/MZ (.rpgsave, .rmmzsave)、Ren\'Py (.save)、Unity (PlayerPrefs, .xml, .plist)、Unreal (.sav)、GameMaker (.ini, .json)、NaniNovel (.nson)，以及通用 JSON/XML 文件。旧版 Ruby Marshal 格式 (.rvdata2/.rvdata/.rxdata) 目前在网页编辑器中暂不支持。',
+        'faq.a9': '支持的格式：RPG Maker MV/MZ (.rpgsave, .rmmzsave)、Ren\'Py (.save)、Unity (PlayerPrefs, .xml, .plist, .prefs)、Unreal (.sav)、GameMaker (.ini, .json)、NaniNovel (.nson)，以及通用 JSON/XML 文件。旧版 Ruby Marshal 格式 (.rvdata2/.rvdata/.rxdata) 目前在网页编辑器中暂不支持。',
         'faq.q10': '为什么我无法打开存档文件？',
         'faq.a10': '某些游戏使用加密或专有格式。尝试选择不同的编辑器类型，或者文件可能被压缩。如果您看到"无效文件"错误，该游戏可能使用了我们尚未支持的格式。',
         'faq.q11': '这是免费的吗？有限制吗？',
@@ -1338,8 +1338,8 @@ export const ui = {
 
         // Upload Section
         'upload.drop': 'Arrastra tu archivo aquí',
-        'upload.browse': 'o clic para buscar · Detectamos el motor automáticamente',
-        'upload.orChoose': 'O elige tu motor de juego directamente',
+        'upload.browse': 'o clic para buscar · Detectaremos el formato del guardado y recomendaremos el mejor editor',
+        'upload.orChoose': 'O elige un editor directamente',
 
         // Stats Section
         'stats.gamesSupported': 'Juegos Soportados',
@@ -1508,7 +1508,7 @@ export const ui = {
         'faq.q8': '¿Puedo desbloquear todos los logros?',
         'faq.a8': 'Sí, en la mayoría de juegos puedes editar inventarios y flags de logros. Consulta nuestras guías.',
         'faq.q9': '¿Qué formatos soportan?',
-        'faq.a9': "RPG Maker (.rpgsave), Ren'Py (.save), Unity (PlayerPrefs), Unreal (.sav), GameMaker (.ini), JSON genérico.",
+        'faq.a9': "RPG Maker (.rpgsave, .rmmzsave), Ren'Py (.save), Unity (PlayerPrefs, .xml, .plist, .prefs), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson), JSON genérico.",
         'faq.q10': '¿Por qué no puedo abrir mi archivo?',
         'faq.a10': "Algunos juegos usan formatos encriptados o propietarios. Si ves 'Archivo inválido', es posible que no esté soportado.",
         'faq.q11': '¿Es gratis?',
@@ -1596,8 +1596,8 @@ export const ui = {
 
         // Upload Section
         'upload.drop': 'Перетащите файл сохранения сюда',
-        'upload.browse': 'или нажмите для выбора · Автоопределение движка',
-        'upload.orChoose': 'Или выберите движок вручную',
+        'upload.browse': 'или нажмите для выбора · Мы определим формат сохранения и подберём лучший редактор',
+        'upload.orChoose': 'Или выберите редактор вручную',
 
         // Stats Section
         'stats.gamesSupported': 'Поддерживаемые игры',
@@ -1766,7 +1766,7 @@ export const ui = {
         'faq.q8': 'Можно открыть все достижения?',
         'faq.a8': 'Да, часто можно менять флаги достижений.',
         'faq.q9': 'Какие форматы?',
-        'faq.a9': "RPG Maker (.rpgsave), Ren'Py (.save), Unity (PlayerPrefs), Unreal (.sav), GameMaker (.ini), JSON.",
+        'faq.a9': "RPG Maker (.rpgsave, .rmmzsave), Ren'Py (.save), Unity (PlayerPrefs, .xml, .plist, .prefs), Unreal (.sav), GameMaker (.ini, .json), NaniNovel (.nson), JSON.",
         'faq.q10': 'Почему файл не открывается?',
         'faq.a10': 'Возможно, формат зашифрован или не поддерживается.',
         'faq.q11': 'Это бесплатно?',

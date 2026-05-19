@@ -73,9 +73,11 @@ export default function FileUpload({ onFileSelect, accept }: FileUploadProps) {
         <div className="flex flex-wrap justify-center gap-2 text-xs text-gray-400 max-w-md">
           <span className="bg-gray-100 px-2 py-1 rounded">.rpgsave</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.rmmzsave</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.rvdata2</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.save</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.sav</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.xml</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.prefs</span>
           <span className="bg-gray-100 px-2 py-1 rounded">and more...</span>
         </div>
       </label>

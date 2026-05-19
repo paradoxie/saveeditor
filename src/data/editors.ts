@@ -20,10 +20,10 @@ export const editors: EditorData[] = [
   {
     slug: 'rpg-maker-mv',
     name: 'RPG Maker MV/MZ',
-    fileType: '.rpgsave, .rmmzsave',
+    fileType: '.rpgsave, .rmmzsave, .rvdata2',
     title: 'RPG Maker SaveEditor.Online - Free .rpgsave & .rmmzsave Editor',
     description:
-      'Free RPG Maker save editor. Edit .rpgsave (MV) and .rmmzsave (MZ) files online. Modify gold, stats, items, switches & variables. No download, 100% browser-based rpg save editor.',
+      'Free RPG Maker save editor. Edit .rpgsave (MV) and .rmmzsave (MZ) files online. Upload older .rvdata2 files for compatibility checks and read-only guidance. No download, 100% browser-based rpg save editor.',
     keywords:
       'rpg maker save editor, rpg save editor, rpgsave editor, .rpgsave editor online, rpg maker mv save editor, rpg maker mz save editor, rmmzsave editor, edit rpgsave file',
     features: [
@@ -34,18 +34,18 @@ export const editors: EditorData[] = [
     ],
     instructions: [
       'Locate your save file (usually in the game folder under `www/save/`)',
-      'Upload the `file1.rpgsave` file above',
+      'Upload the `.rpgsave`, `.rmmzsave`, or `.rvdata2` file above',
       'Edit your gold, stats, and variables',
-      'Download the modified file and replace the original',
+      'If you uploaded `.rvdata2`, the editor will keep it read-only and explain the compatibility limit',
     ],
   },
   {
     slug: 'unity',
     name: 'Unity',
-    fileType: '.xml, .plist',
+    fileType: '.xml, .plist, .prefs',
     title: 'Unity Save Editor | Edit PlayerPrefs Online',
     description:
-      'Free online Unity save editor. Modify Unity PlayerPrefs (.xml, .plist) for Android, iOS and PC games. Edit game settings and unlock levels directly in your browser.',
+      'Free online Unity save editor. Modify Unity PlayerPrefs (.xml, .plist, .prefs) for Android, iOS and PC games. Edit game settings and unlock levels directly in your browser.',
     keywords:
       'unity save editor, unity playerprefs editor, edit unity xml save, unity plist editor',
     features: [
@@ -56,7 +56,7 @@ export const editors: EditorData[] = [
     ],
     instructions: [
       'Locate your Unity save file (often in `AppData` or game folder)',
-      'Upload the `.xml` or `.plist` file',
+      'Upload the `.xml`, `.plist`, or `.prefs` file',
       'Modify the values in the editor',
       'Download and replace the original file',
     ],

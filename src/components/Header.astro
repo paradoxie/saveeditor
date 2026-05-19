@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, localizePath, useTranslations } from '../i18n/utils';
 import { languages } from '../i18n/ui';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -91,51 +91,51 @@ const getBlogUrl = (targetLang: string): string => {
           class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-lg border border-gray-100 py-2 hidden group-hover:block dark:bg-gray-800 dark:border-gray-700"
         >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv/`}
+            href={localizePath('/editor/rpg-maker-mv', lang)}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >RPG Maker</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/unity/`}
+            href={localizePath('/editor/unity', lang)}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >Unity</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy/`}
+            href={localizePath('/editor/renpy', lang)}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >Ren'Py</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal/`}
+            href={localizePath('/editor/unreal', lang)}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >Unreal Engine</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker/`}
+            href={localizePath('/editor/gamemaker', lang)}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >GameMaker</a
           >
           <a
-            href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel/`}
+            href={localizePath('/editor/naninovel', lang)}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >NaniNovel</a
           >
         </div>
       </div>
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}blog/`}
+        href={localizePath('/blog', lang)}
         aria-current={isCurrentPath('/blog/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.blog')}</a
       >
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}saves/`}
+        href={localizePath('/saves', lang)}
         aria-current={isCurrentPath('/saves/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.saves')}</a
       >
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}compatibility/`}
+        href={localizePath('/compatibility', lang)}
         aria-current={isCurrentPath('/compatibility/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.compatibility')}</a
@@ -263,51 +263,51 @@ const getBlogUrl = (targetLang: string): string => {
       <div class="border-t border-b border-gray-100 py-2 my-2 dark:border-gray-800">
         <p class="px-4 py-2 text-xs uppercase text-gray-500 font-semibold">{t('nav.editors')}</p>
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/rpg-maker-mv/`}
+          href={localizePath('/editor/rpg-maker-mv', lang)}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >RPG Maker</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/unity/`}
+          href={localizePath('/editor/unity', lang)}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >Unity</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/renpy/`}
+          href={localizePath('/editor/renpy', lang)}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >Ren'Py</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/unreal/`}
+          href={localizePath('/editor/unreal', lang)}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >Unreal Engine</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/gamemaker/`}
+          href={localizePath('/editor/gamemaker', lang)}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >GameMaker</a
         >
         <a
-          href={`/${lang === 'en' ? '' : lang + '/'}editor/naninovel/`}
+          href={localizePath('/editor/naninovel', lang)}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >NaniNovel</a
         >
       </div>
 
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}blog/`}
+        href={localizePath('/blog', lang)}
         aria-current={isCurrentPath('/blog/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.blog')}</a
       >
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}saves/`}
+        href={localizePath('/saves', lang)}
         aria-current={isCurrentPath('/saves/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.saves')}</a
       >
       <a
-        href={`/${lang === 'en' ? '' : lang + '/'}compatibility/`}
+        href={localizePath('/compatibility', lang)}
         aria-current={isCurrentPath('/compatibility/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.compatibility')}</a

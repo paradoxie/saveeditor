@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import FileUpload from './FileUpload';
 import SaveEditor from './SaveEditor';
+import { localizePath } from '../i18n/utils';
+import { readUploadToken } from '../lib/ingest';
+import { peekUploadFile } from '../lib/upload-vault';
 
 interface EditorAppProps {
     acceptedFileTypes?: string;
@@ -16,11 +19,21 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
     const [file, setFile] = useState<File | null>(null);
     const [errorModalOpen, setErrorModalOpen] = useState(false);
     const [unsupportedFile, setUnsupportedFile] = useState<File | null>(null);
+    const [restoreError, setRestoreError] = useState<string | null>(null);
+    const currentLang =
+        typeof document !== 'undefined' ? document.documentElement.getAttribute('lang') || 'en' : 'en';
+    const [uploadToken, setUploadToken] = useState<string | null>(null);
+    const [isRestoringUpload, setIsRestoringUpload] = useState(() =>
+        typeof window !== 'undefined' ? Boolean(readUploadToken(window.location.search)) : false
+    );
+    const requestSupportMailto = unsupportedFile
+        ? buildSupportRequestMailto(currentLang, unsupportedFile)
+        : 'mailto:support@saveeditor.top';
+    const homeHref = localizePath('/', currentLang);
 
-    const handleFileSelect = (selectedFile: File) => {
+    const validateFile = (selectedFile: File): boolean => {
         if (!acceptedFileTypes) {
-            setFile(selectedFile);
-            return;
+            return true;
         }
 
         const allowedExtensions = acceptedFileTypes
@@ -31,12 +44,70 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
         const fileExtension = extensionPart ? `.${extensionPart}` : '';
 
         if (fileExtension && allowedExtensions.includes(fileExtension)) {
-            setFile(selectedFile);
+            return true;
         } else {
             setUnsupportedFile(selectedFile);
             setErrorModalOpen(true);
+            return false;
         }
     };
+
+    const handleFileSelect = (selectedFile: File) => {
+        setRestoreError(null);
+        setUploadToken(null);
+        if (validateFile(selectedFile)) {
+            setFile(selectedFile);
+        }
+    };
+
+    React.useEffect(() => {
+        const nextUploadToken =
+            typeof window !== 'undefined' ? readUploadToken(window.location.search) : null;
+
+        if (!nextUploadToken) {
+            setUploadToken(null);
+            setIsRestoringUpload(false);
+            return;
+        }
+
+        let cancelled = false;
+
+        const restoreUpload = async () => {
+            try {
+                setIsRestoringUpload(true);
+                setRestoreError(null);
+                const restored = await peekUploadFile(nextUploadToken);
+
+                if (!restored) {
+                    throw new Error('The uploaded file is no longer available. Please upload it again.');
+                }
+
+                if (cancelled) return;
+
+                if (validateFile(restored.file)) {
+                    setFile(restored.file);
+                    setUploadToken(nextUploadToken);
+                } else {
+                    setUploadToken(null);
+                }
+            } catch (error: any) {
+                if (!cancelled) {
+                    setRestoreError(error?.message || 'Failed to restore the uploaded file.');
+                    setUploadToken(null);
+                }
+            } finally {
+                if (!cancelled) {
+                    setIsRestoringUpload(false);
+                }
+            }
+        };
+
+        restoreUpload();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [acceptedFileTypes]);
 
     // Prevent browser from opening files when dropped outside the drop zone
     React.useEffect(() => {
@@ -81,28 +152,51 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
 
         const blob = new Blob([JSON.stringify(sampleData, null, 2)], { type: 'application/json' });
         const demoFile = new File([blob], "demo_save.json", { type: 'application/json' });
+        setRestoreError(null);
+        setUploadToken(null);
         setFile(demoFile);
     };
 
     if (!file) {
         return (
             <div className="space-y-8">
-                {/* No accept attribute - allow all files for manual validation */}
-                <FileUpload onFileSelect={handleFileSelect} />
+                {isRestoringUpload && (
+                    <div className="rounded-xl border border-primary-100 bg-primary-50 p-6 text-center">
+                        <div className="animate-spin rounded-full h-10 w-10 border-4 border-primary-200 border-t-primary-600 mx-auto mb-4"></div>
+                        <p className="text-sm font-medium text-primary-800">Restoring your uploaded save…</p>
+                    </div>
+                )}
 
-                <div className="text-center">
-                    <p className="text-gray-500 mb-4 text-sm">Don't have a file handy?</p>
-                    <button
-                        onClick={handleDemo}
-                        className="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
-                    >
-                        <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Try Demo Save
-                    </button>
-                </div>
+                {restoreError && (
+                    <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 space-y-3">
+                        <p>{restoreError}</p>
+                        <a
+                            href={homeHref}
+                            className="inline-flex items-center justify-center rounded-lg bg-white px-4 py-2 text-sm font-medium text-red-700 border border-red-200 hover:bg-red-100 transition-colors"
+                        >
+                            Back to home
+                        </a>
+                    </div>
+                )}
+
+                {/* No accept attribute - allow all files for manual validation */}
+                {!isRestoringUpload && <FileUpload onFileSelect={handleFileSelect} accept={acceptedFileTypes} />}
+
+                {!isRestoringUpload && (
+                    <div className="text-center">
+                        <p className="text-gray-500 mb-4 text-sm">Don't have a file handy?</p>
+                        <button
+                            onClick={handleDemo}
+                            className="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+                        >
+                            <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Try Demo Save
+                        </button>
+                    </div>
+                )}
 
                 {/* Error Modal */}
                 {errorModalOpen && (
@@ -136,7 +230,7 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
                                 </div>
                                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                                     <a
-                                        href={`mailto:support@saveeditor.top?subject=Request Support for ${unsupportedFile?.name}&body=I would like to request support for the file type: ${unsupportedFile?.name.split('.').pop()}.%0D%0A%0D%0AAttached is a sample file (please attach your file manually).`}
+                                        href={requestSupportMailto}
                                         className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ml-3 sm:w-auto sm:text-sm"
                                         onClick={() => setErrorModalOpen(false)}
                                     >
@@ -158,5 +252,53 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
         );
     }
 
-    return <SaveEditor file={file} onBack={() => setFile(null)} editorSlug={editorSlug} />;
+    return (
+        <SaveEditor
+            file={file}
+            onBack={() => {
+                setUploadToken(null);
+                setFile(null);
+            }}
+            editorSlug={editorSlug}
+            uploadToken={uploadToken || undefined}
+        />
+    );
+}
+
+function buildSupportRequestMailto(lang: string, file: File): string {
+    const extension = file.name.split('.').pop() || 'unknown';
+    const copy = {
+        en: {
+            subject: `Request Support for ${file.name}`,
+            body: `I would like to request support for the file type: ${extension}.\n\nPlease attach a sample file manually when sending this email.`,
+        },
+        ja: {
+            subject: `サポート対応の依頼: ${file.name}`,
+            body: `次のファイル形式に対応してほしいです: ${extension}\n\nこのメールを送る際に、サンプルファイルを手動で添付してください。`,
+        },
+        pt: {
+            subject: `Solicitação de suporte: ${file.name}`,
+            body: `Gostaria de solicitar suporte para o tipo de arquivo: ${extension}.\n\nAnexe manualmente um arquivo de exemplo ao enviar este email.`,
+        },
+        ko: {
+            subject: `지원 요청: ${file.name}`,
+            body: `다음 파일 형식 지원을 요청합니다: ${extension}\n\n이 이메일을 보낼 때 샘플 파일을 직접 첨부해 주세요.`,
+        },
+        'zh-cn': {
+            subject: `请求支持该格式: ${file.name}`,
+            body: `我想请求支持以下文件类型：${extension}\n\n发送此邮件时，请手动附上一个示例文件。`,
+        },
+        es: {
+            subject: `Solicitud de soporte: ${file.name}`,
+            body: `Quiero solicitar soporte para el tipo de archivo: ${extension}.\n\nAdjunta manualmente un archivo de ejemplo al enviar este correo.`,
+        },
+        ru: {
+            subject: `Запрос поддержки: ${file.name}`,
+            body: `Я хочу запросить поддержку для типа файла: ${extension}.\n\nПри отправке письма приложите образец файла вручную.`,
+        },
+    } as const;
+
+    const normalized = (lang in copy ? lang : 'en') as keyof typeof copy;
+    const { subject, body } = copy[normalized];
+    return `mailto:support@saveeditor.top?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import IngestClient from '../../components/IngestClient';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ja' } },
+    { params: { lang: 'pt' } },
+    { params: { lang: 'ko' } },
+    { params: { lang: 'zh-cn' } },
+    { params: { lang: 'ru' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const { lang } = Astro.params;
+---
+
+<BaseLayout
+  title="Restoring Upload | SaveEditor.Online"
+  description="Restoring your uploaded save and opening the recommended editor."
+>
+  <section class="container mx-auto px-4 py-12">
+    <IngestClient client:only="react" lang={lang} />
+  </section>
+</BaseLayout>

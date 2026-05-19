@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FaqIcon from '../../components/FaqIcon.astro';
+import { localizePath } from '../../i18n/utils';
 
 const faqCategories = [
   {
@@ -248,13 +249,13 @@ const allQuestions = faqCategories.flatMap((cat) => cat.questions);
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
-            href="/ko/games"
+            href={localizePath('/games', 'ko')}
             class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
           >
             지원 게임 종류 둘러보기
           </a>
           <a
-            href="/ko/contact"
+            href={localizePath('/contact', 'ko')}
             class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
           >
             1:1 고객지원 문의하기
