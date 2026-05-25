@@ -137,9 +137,9 @@ N4IgLgpgJg5hBOBnEAuGAnGAzA9mKABMQBoRsA...
 
 代表游戏：心跳文学部、片轮少女。
 
-**编辑方法**：只读查看是安全的。修改需要仔细重新序列化或使用游戏内控制台。
+**编辑方法**：可有限编辑 `persistent` 下的基础类型字段；完整游戏状态 pickle 仍会被保护拦截。
 
-**工具**：[Ren'Py 查看器](/zh-cn/editor/renpy)（只读）
+**工具**：[Ren'Py 编辑器](/zh-cn/editor/renpy)（有限 persistent 编辑）
 
 ---
 
@@ -241,7 +241,6 @@ Apple 平台使用的属性列表文件。可以是 XML 或二进制格式。
 - [RPG Maker 编辑器](/zh-cn/editor/rpg-maker-mv)
 - [Unity 编辑器](/zh-cn/editor/unity)
 - [Unreal Engine 编辑器](/zh-cn/editor/unreal)
-- [Ren'Py 查看器](/zh-cn/editor/renpy)
+- [Ren'Py 编辑器](/zh-cn/editor/renpy)
 - [GameMaker 编辑器](/zh-cn/editor/gamemaker)
 - [NaniNovel 编辑器](/zh-cn/editor/naninovel)
-

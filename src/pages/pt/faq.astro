@@ -1,292 +1,57 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import FaqIcon from '../../components/FaqIcon.astro';
-import { localizePath } from '../../i18n/utils';
 
-const faqCategories = [
+const faqs = [
   {
-    title: 'Introdução e Primeiros Passos',
-    icon: 'rocket',
-    questions: [
-      {
-        question: 'O que diabos é o SaveEditor.Online?',
-        answer:
-          "SaveEditor.Online é uma ferramenta simples construída e rolando livremente dentro de um Navegador da Web, cujo uso primário foca puramente em decodificar seus arquivos enigmáticos provenientes dos saves (progressos) do próprio jogos sem custos escondidos. O que rola na máquina morre na máquina, os arquivos jamais tentarão cruzar a fronteira para os servidores externos. Atendemos com alta priorização os Motores de Games consabidos populares, a listar: RPG Maker, Uniti, Ren’Py e sem faltar a Epic's Unreal Engine. Um aviso extra rápido caso encare um .SAV da Unreal Engine: O sistema operante lerá preferencial e primordialmente as variáveis em cru, desencriptografada no modelo matriz (G.V.A.S). Casos em que o jogo embute lógicas isoladas da Unreal possuindo compressores de blocos binários ou caixas contentora isolantes do game na hora de salvar, as mesmas só suportam o modelo Leitura e Observação.",
-      },
-      {
-        question: 'Tem garantia de que posso usar seguramente?',
-        answer:
-          'Completamente, e sim. SaveEditor.Online foi talhado rodando sua imensa maioria 100% nas malhas do interpretador navegador do usuário (Usando da técnica Javascript lado-Cliente). Nem a poeira cibernética dos bits do seu jogo precioso levanta voo pra nossas nuvens. No entanto, utilizamos o clássico Analytics das Metas da Web em dupla ao Google AdSense nas finalidades em obtermos recursos para podermos expandir as luzes ligadas ao serviço. Visite as informações da aba Políticas.',
-      },
-      {
-        question: 'Acordarei devendo os dados do meu perfil caso necessite realizar cadastro?',
-        answer:
-          'Nada disso. Jamais exigiremos nada que chegue próximo de uma aba ou verificação pedindo registros. Você simplesmente chega, atira um arquivo misterioso na lixeira mágica dele, assiste ser decodificado a sua vontade própria e o usa.',
-      },
-      {
-        question: 'O aplicativo não possui versão Trial (teste grátis com fim imposto)? É eternamente grátis?',
-        answer:
-          'Sem enrolações corporativas: Completamente o uso grátis, isento de tiers secretos premium pra pagar assinaturas VIP das Funcionalidades Escondidas de ferramentas. Sustentamo-nos baseando puramente pela graça de generosas moedas de adoção expontâneas daqueles de fora e suportado pelas propangadas da AdSense limitadas no exterior da formatação da sua navegação sem estragá-la.',
-      },
-    ],
+    question: 'O SaveEditor.Online envia meu save para um servidor?',
+    answer:
+      'O editor processa o arquivo no navegador. Serviços de analytics e anúncios podem carregar recursos externos, mas o arquivo de save não é enviado para edição.',
   },
   {
-    title: 'Motores Básicos e Jogos Suportados',
-    icon: 'game',
-    questions: [
-      {
-        question: 'Que tipos de jogatinas ou títulos de jogos são alvejados pela base matriz da editora para abrirem decodificações?',
-        answer:
-          "A nossa rede aglutina ao montante de dezenas e centenas listadas construída em muitas engrenagens e lógicas sistêmantes da teia do desenvolvimento interativo digital dos jogos eletrônicos. Uns poucos gigantes a destacar dos queridinhos contam os nomes: Stardew Valley, Undertale, o obscuro e difícil Hollow Knight, Clube Doki Doki de Literatura, a escalar e montanhosa Celeste, Omori e incontáveis outros moldados nestes mundos pela batuta mestra da Unity, da fabricante RPG Maker, do estúdio Ren'Py para as visual Novels, e do GameMaker estúdios.",
-      },
-      {
-        question: 'No que concerne o formato isolado final (ex:.doc, .pdf) da folha digital do meu salvamento do game, quais os sufixos suportados?',
-        answer:
-          "Mirem esta documentada hierarquia e listas aceitas por nós até data do presente instante: RPG Maker nas versões MV e nas subsequente nova MZ utilizadores da sigla (.rpgsave e sua prima a .rmmzsave); Logo seguem os Visual Novels sob os chassis orgulhos de Ren'Py (.save e os blocos de leitura longavida persistent); Os gigantes indies sob a abóboda estrutural arquitetata Unity 3D (No qual disfarça seus saves ocultando-os em XML / .plist no banco de Registro de PlayerPrefs da Máquina, além dos usuais dados soltos em cru no padrão .JSON da Web); Logo em frente as malhas e tijolos de sustentação colossais pesados em megabytes do Titânio em aço bruto Epic MegaGames - e seu Unreal Engine 4 e os super novos motores Versão número 5 (utilizadores nativos padronizados primordiais da termologia estendida .sav; nós aplicamos como base primária analítica descodificativa visando alçar e engolir desmascarado do seu formato interno as malhas cruas estrutural não codificadas - Padrão Universal GVAS; entretanto jogos específicos do estúdio Unreal cujas estruturas isolam sob empacotamento proprietário ou efetuem encriptação de Compressão ZLIB em níveis isolados, as variáveis resultam puramente exibitivas em 'Ler, porém as canetas desabilitadas'); Dos estúdios e estufas do GameMaker (Arquivamentos leves primitivos com a terminologia de finalizações como sendo .ini ou em .json); Os estúdios e livros visuais criadores da plataforma japonesa específica do NaniNovel Engine (com sua peculiar derivação de .nson) e por final, englobador de demais projetos cujas veias sangrem cru e sem vergonhas perante os arquivos nus aos universos de meros papéis com textos sob escopos básicos como de marcações JSON legíveis ou na semântica padrão webística a do formato extenso XML.",
-      },
-      {
-        question: 'Os blocos compactos de jogos gravados em meu video-game da marca Playstation, XBOX Microsoft e os Nintendinhos Switches poderem ser interceptados ou recheados aqui também nesta base central ?',
-        answer:
-          'Esta tarefa em suma e resumidamente foge do aspecto lógico irreal, infelizmente sendo não atendida, vetado e cortado diretamente nas veias. Fabricantes protetoras dos consoles caseiros físicos encriptografam com ferrolhos inquebráveis de algoritmos corporativos as raízes geradas. Logo concluímos como senso fundamental da internet as regras normativas; somente jogos originárias no ambiente orgânico selvagem aberto das máquinas arquitetônicas pessoais comuns rodam como compatibilizadas plenas: PC, Computadores Pessoais Macbook e a base Linus do mundo pinguim. Exceção e gambiarras aos donos do Game Stardew V. ou games com sistema base de Cópia Dupla Interligada com salvamento Cruzado a sua Máquina Central no Computador e transferir o resultado por um pen drive depois.',
-      },
-      {
-        question: 'Meu amado jogo de dezenas e suadas horas de jogo em frente às madrugadas escuras na frente da tela monitor me deixam um vazio interior gigante caso ele inexista nas listagens compatíveis dessa plataforma da web.',
-        answer:
-          'Sem medos à toa ou pressas ou falsos temores alarmistas infundados com terror sem necessidade. As compatibilizações globais operacionais dependentes aos bancos construtores ou linguajar em código adotado primário puro do formato JSON bruto e xml nativo de texto corrido ou configurações isoladas padrões ".ini" funcionarão automaticamente aos motores mastigadores nossos analíticos com exímias perfeição aos deslumbrantes códigos matemáticos. Portanto, vá direto botando o dito cujo nos quadros azuis no centro na aba primária base (HOME). Só observando de fora veremos se voará!',
-      },
-    ],
+    question: 'Quais formatos são suportados?',
+    answer:
+      'RPG Maker MV/MZ, suporte limitado para RPG Maker XP/VX/VX Ace, Ren\'Py com escrita restrita em persistent, Unity PlayerPrefs, GameMaker, NaniNovel, JSON/XML e algumas variantes Unreal GVAS.',
   },
   {
-    title: 'Guia Básicos sobre Localizações das Pastas Invisíveis no PC',
-    icon: 'folder',
-    questions: [
-      {
-        question: 'Aonde as empresas do Universo Windows C:\ deixam escondidos aos nossos olhos as localizadas pastas ?',
-        answer:
-          'Acompanhe essa dica milenar e misteriosamente não dita pelos antigos e de boca nas viela das webs. O truque mestre ao botão secreto no teclado das teclas com janelinhas (Win + R), logo em seguida atire impiedosamente esta frase entre porcentagem %appdata% aos olhos nas janelas; caso fuja as escondidas e não ache lá corra o rastro farejando nas vielas vizinhas as Localizadas Pastas Locais dos AppData (geralmente sob c:/users/NOME/AppData/Local) ; Ou busque conforto nos clássicos berços quentes primitivos documentais conhecidas vulgarmente em Pastinhas (Meus Documentos ou Os Meus Jogos). Pros caçadores da STEAM, espreitem nas tocas dos arquivos oficiais originais da produtora na C:/Program files/STEAM/ - desça na User Data de Registros e ache o código numérico maluco do Jogo entre as id da contas.',
-      },
-      {
-        question: 'Na Apple nos MacOS X (mac OS)?',
-        answer:
-          "Procure pelo símbolo infinito de Mestre Chaveiro de comando (Bandeirinha Command + Shift + Botão G) - atirando implacavelmente este alvo certeiro do baú místico universal nas pesquisas : ~/Library/Application Support/ e lá terá seu universo esparramado! Se procurou nas vielas da construtora Unity os becos conterão vestígios nominados com as insígnias e logo do Desenvolvedor antecedido com terminologias tais 'Unity.[NOME_MALTÊNDIDO].[TÍTULO_DA_OBRA]'. Aos aventureiros literatos baseadas com a fábrica Ren'Py procure no beco ~/Library/RenPy/[O_GAME_PESQUISADO].",
-      },
-      {
-        question: 'Nós guerreiros escassos do clã Pinguim Linus ?',
-        answer:
-          'Nossas preciosas informações resguardam-se silenciosas em maioria atrás das fortalezas obscuras dos diretórios nas pastinhas ocultas nas casas virtuais padrões: `~/.config/[Título-Bruto]` a variar a face sob `~/.local/share/[TÍtulo_cru]`. E se estás usufruindo a carona maravilhosa impulsionada pelos jatos simuladores de gravidades PROTON da Steam emulado - então enfiem a cabeça em mergulhos rasantes nos mares e lagoas da : `~/.steam/steam/steamapps/compatdata/[O_SEU_GAME_AQUI_ID_COM_DEZENA]/pfx/`.',
-      },
-      {
-        question: 'A caçada me deu grande exaustão no cérebro a pesquisar pastas de um maldito jogo que joguei e nunca acharei seu baú mágico contendedor de arquivo salvamento bruto... Como procedo de imediato agora, antes que quebre as pernas de meu próprio computador de cólera e estresse total?',
-        answer:
-          'Em virtudes às dificuldades inerentes ao universo complexos mundiais, nós elaboramos em detalhes exaustivos centenas a excentricidades no catálogo interno oficial nosso! Busque pelo Menu de [Games Suportados Listas de Biblioteca] com lupa gigante logo na parte Norte e ao Alto desta Abóbada central Web, a maioria da população famosa reside nesta biblioteca e de como os desvencilhar. A falta disto, apegue ao Google: "[NOME do DESEJADO e AMADO JOGO_BOM_DE_MAIOR_OU_MENOR_FAMAR] followed by save file location"',
-      },
-    ],
+    question: 'Posso editar dinheiro, nível, itens e flags?',
+    answer:
+      'Quando o formato expõe esses campos de forma segura, o painel Quick Edit tenta mostrar dinheiro, nível/EXP, atributos, inventário e flags. Para estruturas desconhecidas, use o modo avançado com cuidado.',
   },
   {
-    title: 'Edição Passo-a-Passo Segura',
-    icon: 'pencil',
-    questions: [
-      {
-        question: 'Quero ostentar e virar em minutos um milionários dono de trilhões em fortunas relativas a Ouro ou dinheiro em papel, dinheiros de jogo em moedas douradas ou de madeiras - sem sofrimento na colheita ?',
-        answer:
-          "Utilize o filtro buscador implacável acima ou ao alto no meio a teia principal. Mirando sem tremer e disparando setas ou buscando aos olhos com termos clássicos 'gold', ou as famosas variações primitivas do sistema capitalista no dialeto britânicos 'money', 'currency', as moedas 'coins' a depender infinitamente da criativa língua nativa ou peculiar criadores (exemplificando o game os THE SIMS que chamam do ficticioso simoleon). Uma pitada de sal extra saliente e exatos cuidados de detalhes: os RPG Makers tendem por costume a alocar na estrutura corporativa organizacional chamada 'party' nos campos nomeáveis aos seus dados das bolsas '_gold' . Escreva um número a gosto que exala riqueza ou o infinito.",
-      },
-      {
-        question: 'Inventários - Bolsa Virtual do Personagem da vida sem sofrimentos (Itens, Maçãs, Armas Sagradas do dragão Ancestral). Adicionar o nada a possuir do absoluto Tudo e Mais um Bom Bocado Sem Ter Zerado ou Acumulando centenas das maldades dos sofrimentos horas incontáveis desnecessários?',
-        answer:
-          "Geralmente englobado perante e aglomerado aos ninhos do sistema nomeados Arrays (Sendo em português de fácil compreensão: 'Correntes de Ligações, as Listas Encadeadas, Malhas Ordenadas, os Vetores Dimensionais Sequenciáveis Lineares' e etc). Na visão bruta o caçador depara-se as coleções nas sacolas denominados pelos Devs de Game por 'items' no linguajar matriz, ou as mochilas em si de forma literal como 'inventory'. Especificamente na cultura base formatizada aos criadores do RPG Maker a formatação crua a se duplicar e reproduzir será expressamente de algo com aparência dupla de 'IDs Numéricas Base do Dado Isolada Fática no Mundo e Banco, Total Quantiativa Presente das Peças' - em visuais resumidos aos colchetes - por si sendo algo como :  `[Id, e Uma Quantia de Amount] `. Lembrete universal obrigatória as regras das formatações; ao fazer copias para novos registros sigam imperdoavelmente iguais e puritanas sem faltarem vírgulas aos colaterais antecessores originais existentes sob ameaças das punições no ato fatídico do erro perante o sistema.",
-      },
-      {
-        question: 'Quero bancar ser um Hércules e Matusalém e viver a imortalidades sem limites na Vida total da Magias Vital no mundo místico do guerreiro com Sangues ilimitados sem sofrer morrimentos frustrantes ! Posso mexer e alterar a pontuação Vitalícia básica estourada ao Nível MÁXIMOS E ABSURDOS dos Stats Globais da Vida HP Força etc (Vida - HP, Energia do Vigor Total, etc...)?',
-        answer:
-          "Os comandos buscam pelo tradicional jargões 'HP', as linhas e limites tetos de vidas como 'maxHp' , nível e força em experiências de EXP totais acumulados, como level ou 'exp' , e força de musculaturas natas no ataque cru e sem restrições ou barreiras a danos alheios em 'atk' , defesas férrea contra qualquer embate do maligno mundo ao 'def'. Na engenharia primordial enraizada profunda aos genes dos RPG Makers olhem a pastagem nos currais contidos denominados 'ACTORS'. (OS ATOR, personificações matriz dos seus companheiros guerreiros da história principal).",
-      },
-      {
-        question: 'Sou daqueles aficcionados obstinados por coleções ao ver pop-ups explodirem pipocando nas telas anunciando "A conquista 100% Destrancada" de modo veloz, ou por outro emular, falseando o falso na história em ramificações nas Arvores Narrativas pra dizer a todo MUNDO VER e ostentar das conquistas impossíveis do Mundo ao fingir já finalizadas na perfeição? Seria verídico isso do desbloquear dos progressos ocultos no meu painel ?',
-        answer:
-          "Ao vasculhar no campo profundo minucioso da caixa busque palavras associados a chaves matriz como: os Unlocks ou Flags ( as engrenagens ocultos condicionadas perante lógicas de IF e ELSE nos bancos booleanos que só respondem à dualidade fundamental das opções de zeros a uns ou em Trues , equivalentes em falso a zeros aos False ). As raízes das árvores lógicas do Ren Py abotoam todos mistérios das verdades ocultos num gigantesco pergaminho central global batizado unicamente nas pastagens primitivas de nome `persistent`. Procure-o e ligue-o das amarras mentais presas das mentiras e veja as cascatas se desvencilharem num mundo real das verdades sem bloqueios a suas frentes.",
-      },
-      {
-        question: 'O perigo mora sempre à porta. Existiria perigo extremo iminente cataclísmico e riscos destrutivos na aniquilação permanente desintegradora definitiva das minha salvações nos contos contos de horas exaustivamente jogadas ?',
-        answer:
-          "Sempre afirmamos; na linha perante a vida que cruza entre nós perante os sábios - Nuca edite nos registros em originais perante o papel, as máquinas, aos deuses ou qualquer mídias sem a bênção milagrosas inquestionável e sagradas - 'COPIAS DE SEGURANÇA IMACULADAS' (Aos cultos: Backups Seguros de Confianças, longe das edições presentes! Em nuvens virtuais onlines, PEN-DRIVES limpos) Faça antes, pois, mesmo conosco os algoritimos robustos verificadoras dos nossos sites impedindo 90 porcentos fáceis dos piores idiotices amadoras quebramentos a tortos destrancadores de desmoronamentos colapsadas no código - Uma simples letra perdida nas formatações universais puras e primarias - Faria engrenagem do JOGO base chorar a recusa no LOAD da matriz oficial. Preserve tua mente sempre salva com antecedência dos back ups intocáveis originais! E boa diversão em alterar o Universo Sem Punições e amarras divinas das corporativas regrais dos criadores !!",
-      },
-    ],
+    question: 'O arquivo pode parar de carregar no jogo?',
+    answer:
+      'Sim. Alguns jogos usam checksums, criptografia ou validações próprias. Faça backup antes de editar e teste pequenas alterações primeiro.',
   },
   {
-    title: 'Solucões dos Mistérios da Nuvem(Steam Cloud) e Anti-Cheats Ocultos',
-    icon: 'cloud',
-    questions: [
-      {
-        question: 'O Nuvem Guardião das minhas conta principal (Famosamente pela STEAM - Mas outras servem nas similares na vida EPIC GAMES) repõe os backups falsos e antigas a de apagar meus novíssimos mágicos feitos dos editor Save Online, frustra-me as cóleras sem parar e sem controle. Qual o segredo final da maldição oculta?',
-        answer:
-          'Um ritual clássica milenar na história secreta. Ao colocar o seu salva vidas milagroso alterados - A nuvem mãe original global nas corporativas STEAM veem um falso arquivo desconhecido adulterados (Na visões Deles dos algoritimos verificativos nas hash) no tamanho - apagando na crueldade do ódio na pasta do seu Computador sem pensar repousando o véio original nos mesmos instantes num loop invisível imperceptíveis antes mesmo do game dar na telas centrais de LIGAR LOAD base. Ritual das desativação cruéis a NUVENS Ocultos de Verificador base a STEAM - Desabilite (em propriedades - Nas Opções Centralizados - Cloud steam Check Marks off), Coloque O MÁGICO SALVADOR, ABRA NOS GAME NO LOAD , SALVE PELA PRIMEIRAS VEZ O GAME SEU OFICIAL AGORA. PRONTOS E LIVRES AGORA RE-VÁ NA OPÇÕES AO CONTRARIO PARA HABILITAR E DIZER PRAS NUVENS STEAM GRAVAREM POR CIMA DELES OS GRANDES ESFORÇOS A SEU PRECIOSO COMPUTADORES DO PROGRESSÃO MODIFICATIVA AOS NOVOS FEITO SUAS EM MAQUINHAS! Pronto Mágicas resolvidas eternos no jogo !',
-      },
-      {
-        question: 'O banhammer fatal (Banimentos Sumários nas Minhas Costas) no sistema V.A.C - Sistema Corporativo Matadouro de Trapeiros das STEAM e das VALVE nos Multiplayers competitivos me achará pelas Sombras nos becos da internet ao injetar nos códigos Hex nas linhas ocultas dos jogos puramente campanhas em offline ao ser processadas nos meu próprio local máquina pessoal computadorizáveis ?',
-        answer:
-          'Os julgamentos Universais corporativistas dos vigilantes Anti Cherats ou do próprio Senhor Gabe da VALVE foca restritiva puramente ao perigo social nos Multiplayers vivos ativos mundiais combatendo a trapaças letais nocivas contra inocentes orgânicas humanos limpos (HACKs Visuais Atravessador, as Aims Boots no cabeça travada). O Sistema na nuvens mundos reais se desligam ou cegas são às observações minúsculas de adulterações ou os falsificações ocorridos em pastas solitários isolados single campaign e Single-Player ofuscados limitados aos jogadores na paz do próprio PC sozinhas e nos confins ou ermos distantes longe dos servidores online centrais nos e-Sports; Logo, em suma conclusivas peritos especialistas afirmamos sem receio dos terrores e perigos mentais inativos : Vac Bens ou os Famoso Bans Mundos Real Global jamais pisarão seus pés amedrontando os pobres edita saves dos campanhas locais solotariados, pois eles não interveem em progressões offline por lógicas absolutas bases !!.',
-      },
-      {
-        question: 'Mandar na linha oculta códigos hex adicionados numa alteração das estatística ao HP 99999 dos meus guerreiro - desbloqueara de modos oficial perantes olhos de todas minhas conexões amigos o grandioso troféu de PLATINUM e Realização STEAM oficials as minhas contagem final Global aos Achievement List no Perfis Central Públicos ?',
-        answer:
-          'SIM! Eles saltaram e cintilavam nas suas orelhas auditivas sonoras do barulho feliz dos troféus na horas gloriosos nos estatais de notificações visuais ! O Motores originais centrais ou a lógicas primárias não desvendam na raiz real entre a origens limpas puras originada nas dobras lógicas na máquina e de seu "TRABALHO DURO DOS MÚSCULOS DE FATO CUMPRINDO-O"; a Engine Base (O Cerebro Local) verá puramente que "O Requisito Base X foi de 0 a 1 em True - Logicamente o Jogador Y cumpriu". E atirara pela Rede Sem Medos de Dúvidas ao central global comunicadores que - TROFÉUS DESBLOCADOS !. Concluindo, ostente à sua família e conexões online sem queixas da verdade ocultas os suas puras Conquistas !!.',
-      },
-    ],
+    question: 'Onde encontro meus saves?',
+    answer:
+      'No Windows, verifique AppData, Documents/My Games ou a pasta do jogo. No macOS, procure em ~/Library/Application Support. No Linux, veja ~/.config, ~/.local/share ou o prefixo Proton da Steam.',
   },
   {
-    title: 'Solucões dos Enigmas de Erros Inatos de Carregamentos',
-    icon: 'wrench',
-    questions: [
-      {
-        question: "Por que as leitoras engasgou , babou ou cuspios lixos na telas 'ARQUIVO INVÁLIDO ou DEFEITUOSO CRÍTICA' (Falhas Morte Erros de Parseamento Globais, Párse Error Defeituoso)? As minhas arquivos está quebrado pra todas Vidas e Morte e eu não joguei meus save no Lixos Ocultamente ? Não tem mais como salvar ?",
-        answer:
-          'Calma nas pressões corações! Respirem ao fato de constatar com análises calmos do lógicas e intelectuais. As origens centrais no motor do Studio do Estúdio ou a Construtora base, blindou os arquivos originais e encheus com pedras mágicos (Encriptador Proprietário de compressão obscuros com lógicas da chaves escondidas da vida e luz ). O Save - Pode estar empacotado puramente. Testar trocar por Força Brutas os Descompactador e leitores da lista primários Acima em vez da Detecção base Auto? Ele deve possuir lógicas limpas do "Língua Matiz Pura Textuais (o JSON Cru base)" Caso na força brutas na máquina , se mostram Lixos Binarios ilegíveis (O Hex Ininteligíveis) ; Entendem o óbito infelizes e sem retorno que o JOGOS blinda firmemente de formas proprietárias ocultando a chave dos universos nos segredos dos cofres da desenvolvedoras sem deixar a comunidade mexer ou ter prazer - Ficando estritamente impeditivas ao Editor Save. ',
-      },
-      {
-        question: 'A máquina fez os progressos maravilhosos! Modifiqueis TUDOS maravilhas, edições Salvas gloriosas no disco - Retorneis no diretórios base, o jogo Abriu majestosamente porem ao botar o Rato Cursor base e bater em [ LOAD CARREGAR AS PARTIDA ANTERIOR ]. O Jogou cospiu nas minha Face ignorou de volta sem lógicas, Ou Carregou antigo Original !?',
-        answer:
-          'Acompanha a ChekLits (Caminhos) Solutivos dos Mistérios Frequentes 1) STEAM CLOUDS na nuvem base te trollou ao ligar os motor do Steam Cliente ? As mães Steam na Nuvens substitui nas surdina silenciada no fundos telas o Modificados pra os originários limpo velhos na Base Da Proteção e integridade global - Desabilite-o de Imediatos. 2) CHEKCOSUM dos terrores das Proteções de Integridades dos Games Ativados ou Blindagens da Lógica de Proteção Central (Ele verificado pela máquina "Se a Soma Global da Linha A , De Forças de Dinheiro Mágicos subiu ao estouradas para B, do zero pra a bilhões o Algoritimos Protecões de Hack o jogo - Ele vê no Códigos Limpos como FALSA os MÁGICAS E ADULTERADOS " ! Jogo trava se recusa a Loadar em defesas !!). Baixa os Mágicos dos bilhoes ao Ponto Puxinhos Realista nas dezenas de Ouros Modificados  e Passará os Cheksum Mágico em segredos as Guardas Cegas !!.',
-      },
-      {
-        question: 'Deu os passos sem as bênçãos nas minhas salvadores - esqueci o básico fundamentais na Vida de Seguranças em Fazer Back-Ups Intocáveis - E Baixeis o Baús mágicos adulterado , jogueis o Lixo corrompidos a dentro das Vidas Originais.  Posso Clicar na Varuinha mágica Retrógrada os "DESFAZAMENTOS" (UNDO RETORNO CRIACOES) da Vida neste Sites Bases pra arrumar minhas bobices ?',
-        answer:
-          'Choras aos vales tristes. Esta vida na Internet Sites de Memórias Local temporárias. Ao baixar em "Downloads" O Destinos selados está cortados pra Universos. A Máquina não ver a Passados ( Não Retenção do Memórias Permanentes no Servidor das Nuvens  Por Puritana Resguardar da Privacidade Clientes !). Alternativas Milagrosa a Fórmulas do Tempo: Rezeis com Forças nas nuvens da MÃE ESTEAM e Busque nos Recantos Sombrias "STEAM REMOTE ARCHIVAL BROWSER" (o Buscador dos Histórico Remotos dos Nuvem Pessoal do Vapor Steam no google) para achar resquícios do Originais da Ontem no Site do STEAM antes de você cometer a morte da Suas conta PC Pessoal ! Ou O próprio Jogo Cria sem lhe avisar os Famosos terminologias ocultadas por de trás nome `.bak` como seguranças ao seus diretório base nas mesmas pasta do Morte Salvas Corrompido. Renomeiem e Revivam !!',
-      },
-    ],
+    question: 'Steam Cloud pode desfazer minhas alterações?',
+    answer:
+      'Pode acontecer. Feche o jogo antes de substituir o arquivo e, se necessário, pause a sincronização em nuvem até confirmar que o save modificado foi carregado.',
   },
 ];
-
-// Flat-mapping all questions for easy structured data JSON-LD integration
-const allQuestions = faqCategories.flatMap((cat) => cat.questions);
 ---
 
 <BaseLayout
-  title="Perguntas Frequentes (FAQ) - Guia Mestre em Decodificações de Salvamento"
-  description="Respostas às suas mais ardentes questões e dúvidas corriqueiras ligadas ao projeto popular SaveEditor.Online na Web. Aprendizados absolutos para localizar dados puros invisíveis , Editar e Salvar , bem como arrumar as catástrofes nos Bugs em carregamentos."
-  keywords="FAQ de Editor de progresso, como modificar o saves dos games, Onde as pastas de savestates localizam-se, Ajuda Geral Arquivo save"
+  title="FAQ - SaveEditor.Online"
+  description="Perguntas frequentes sobre formatos suportados, localização de saves, backups e limites de edição."
 >
-  <!-- Hero Section Introdução Majestoso -->
-  <section class="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-        As Clássicas Perguntas Mais <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
-          >Frequentes (A famosa sessão FAQ)</span
-        >
-      </h1>
-      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-        Todo o papiro essencial compilado mestre orientador necessário ao se tornar rei nas manipulações mágicas de salvamentos dos jogos a partir desta simples ferramenta. SaveEditor.Online do topo ao básico.
-      </p>
-    </div>
-  </section>
+  <main class="container mx-auto px-4 py-16 max-w-4xl">
+    <section class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Perguntas frequentes</h1>
+      <p class="text-xl text-gray-600">Respostas curtas sobre uso seguro, compatibilidade e solução de problemas.</p>
+    </section>
 
-  <section class="container mx-auto px-4 py-16">
-    <div class="max-w-4xl mx-auto">
-      <!-- Navegação A Jato (Quick Links âncoras) -->
-      <nav class="mb-12 p-6 bg-gray-50 rounded-2xl">
-        <h2 class="text-lg font-bold text-gray-900 mb-4">Menu das Âncoras Centrais de Saltos Rápido aos Assuntos</h2>
-        <div class="flex flex-wrap gap-3">
-          {
-            faqCategories.map((category, index) => (
-              <a
-                href={`#section-${index}`}
-                class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors text-sm font-medium"
-              >
-                <FaqIcon name={category.icon} class="w-4 h-4 text-primary-500" />
-                <span>{category.title}</span>
-              </a>
-            ))
-          }
-        </div>
-      </nav>
-
-      <!-- Cateóricas Disposições e Quadros Repetitivos em FOR da Data Matriz Original -->
-      {
-        faqCategories.map((category, catIndex) => (
-          <section id={`section-${catIndex}`} class="mb-12">
-            <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
-              <FaqIcon name={category.icon} class="w-8 h-8 text-primary-500" />
-              {category.title}
-            </h2>
-            <div class="space-y-4">
-              {category.questions.map((faq) => (
-                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                  <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
-                    {faq.question}
-                    <svg
-                      class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </summary>
-                  <div class="px-6 pb-6 text-gray-600 leading-relaxed">{faq.answer}</div>
-                </details>
-              ))}
-            </div>
-          </section>
-        ))
-      }
-
-      <!-- Apelo Central CTA pro Caso Crítico Restante de Indefinições mentais dos visitantes-->
-      <section class="bg-gray-900 text-white rounded-2xl p-8 text-center mt-12">
-        <h2 class="text-2xl font-bold mb-4">Os mistérios do seu cerébro e jogo não findaram na lista acima? Os defeitos ainda continuam?</h2>
-        <p class="text-gray-300 mb-6">
-          Caso os enigmas universais de suas respostas exatas restarem em mistérios perante as documentadas letras acima. Faça bom aproveito do Diretório de Banco de Dados base ou venha ter com um chamado humano!
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a
-            href={localizePath('/games', 'pt')}
-            class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
-          >
-            Navegar Pela Documentações Individuais Dedicadas às Séries Populares Específico E Catálogos de Tutoriais Únicos
-          </a>
-          <a
-            href={localizePath('/contact', 'pt')}
-            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
-          >
-            Fazer os Sinais de Fumo pelo Portal de Chamados Atendimento Pessoal (Formulário Em E-mail Direto)
-          </a>
-        </div>
-      </section>
-    </div>
-  </section>
-
-  <!-- SCHEMA JSON-LD COMPILADOR e INCRUSTADOR PARA GOOGLE RICHSNIPPETS BASE SEO DAS FAQ -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: allQuestions.map((faq) => ({
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: faq.answer,
-        },
-      })),
-    })}
-  />
-
-  <!-- SCHEMA ESTRUTURADO PARA BREADCRUMB TRAILS (PÃOZINHO DO JOÃO) DE NAVEGAÇÃO AOS BOTS DA GOOGLE SEO E-A-A-T Base AdSense Fix -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Páginas Frontais', item: 'https://saveeditor.top/pt/' },
-        { '@type': 'ListItem', position: 2, name: 'Repositório Perguntamentos/Informações Pura', item: 'https://saveeditor.top/pt/faq/' },
-      ],
-    })}
-  />
+    <section class="space-y-4">
+      {faqs.map((faq) => (
+        <details class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <summary class="cursor-pointer text-lg font-semibold text-gray-900">{faq.question}</summary>
+          <p class="mt-3 text-gray-600">{faq.answer}</p>
+        </details>
+      ))}
+    </section>
+  </main>
 </BaseLayout>

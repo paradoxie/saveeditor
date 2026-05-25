@@ -1,17 +1,16 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { games as baseGames } from '../../../data/games';
 
 export async function getStaticPaths() {
-  const games = [
-    {
-      slug: 'stardew-valley',
+  const overrides: Record<string, any> = {
+    'stardew-valley': {
       name: 'Stardew Valley',
-      nameLocal: 'Stardew Valley',
       seoDescription:
         'Editor de Save Stardew Valley Online Grátis (Sem Download). Edite ouro, itens e habilidades instantaneamente. Compatível com PC, Mac e Mobile. Seguro e local.',
       seoContent: `
         <h2>Por que usar nosso Editor de Save de Stardew Valley?</h2>
-        <p>Esta ferramenta automatizada simplifica a edição de saves analisando a complexa estrutura XML do Stardew Valley. Diferente da edição manual de texto que arrisca corromper arquivos, nosso editor valida a integridade dos dados antes de salvar.</p>
+        <p>Esta ferramenta automatizada simplifica a edição de saves analisando a complexa estrutura XML do Stardew Valley. Diferente da edição manual de texto que arrisca corromper arquivos, nosso editor valida la integridade dos dados antes de salvar.</p>
         <h3>Principais Recursos</h3>
         <ul>
             <li><strong>Recursos Infinitos:</strong> Adicione Ouro, Gemas Qi e Moedas do Cassino instantaneamente.</li>
@@ -20,18 +19,9 @@ export async function getStaticPaths() {
             <li><strong>Modificação de Relacionamento:</strong> Maximize os corações com qualquer aldeão ou candidato a casamento.</li>
         </ul>
         <h3>Processamento Seguro e Local</h3>
-        <p>Seus arquivos de save são processados inteiramente no seu navegador usando JavaScript. <strong>Nenhum dado é enviado para servidores remotos</strong>, garantindo total privacidade para seus dados. Também usamos Google Analytics e AdSense para desempenho do site e anúncios; veja as políticas de Privacidade e Cookies.</p>
+        <p>O editor processa variantes compatíveis no navegador e pode alternar para somente leitura quando a estrutura não puder ser reconstruída com confiança. Veja também as políticas de Privacidade e Cookies.</p>
       `,
-      engine: 'Unity (XML)',
-      format: '.xml',
-      editorPath: '/pt/editor/unity',
-      emoji: '🌾',
       description: 'O popular RPG de simulação de fazenda por ConcernedApe.',
-      saveLocations: {
-        windows: '%appdata%\\StardewValley\\Saves',
-        mac: '~/Library/Application Support/StardewValley/Saves',
-        linux: '~/.config/StardewValley/Saves',
-      },
       editableItems: [
         { icon: '💰', name: 'Ouro', desc: 'Edite a renda da fazenda' },
         { icon: '🎒', name: 'Itens', desc: 'Adicione qualquer item' },
@@ -50,10 +40,8 @@ export async function getStaticPaths() {
         { title: 'Guia de Edição de Saves Unity', url: '/pt/blog/how-to-edit-unity-saves' },
       ],
     },
-    {
-      slug: 'palworld',
+    'palworld': {
       name: 'Palworld',
-      nameLocal: 'Palworld',
       seoDescription:
         'Fluxo online de `.sav` para Palworld com foco em GVAS padrão. Inspeção segura primeiro, edição cautelosa em arquivos compatíveis e fallback claro para somente leitura.',
       seoContent: `
@@ -68,17 +56,7 @@ export async function getStaticPaths() {
         <h3>Steam vs Game Pass</h3>
         <p>Saves da Steam costumam entrar no fluxo padrão com mais frequência. No Game Pass/Xbox, contêineres extras podem limitar o arquivo a somente leitura.</p>
       `,
-      engine: 'Unreal Engine (GVAS)',
-      format: '.sav',
-      editorPath: '/pt/editor/palworld',
-      emoji: '🦎',
       description: 'O jogo de sobrevivência e captura de criaturas da Pocketpair.',
-      saveLocations: {
-        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
-        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
-        linux:
-          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
-      },
       editableItems: [
         { icon: '💰', name: 'Ouro', desc: 'Inspecione e ajuste moeda em saves compatíveis' },
         { icon: '🦎', name: 'Dados de Pals', desc: 'Revise estrutura dos Pals e edite com cautela quando suportado' },
@@ -113,15 +91,13 @@ export async function getStaticPaths() {
         { title: 'Como Editar Saves do Unreal Engine', url: '/pt/blog/how-to-edit-unreal-engine-saves' },
       ],
     },
-    {
-      slug: 'undertale',
+    'undertale': {
       name: 'Undertale',
-      nameLocal: 'Undertale',
       seoDescription:
         'Editor de Save Undertale Grátis Online. Edite file0 e undertale.ini. Altere HP, Ouro, EXP, valor FUN e flags de Genocídio.',
       seoContent: `
         <h2>Editor de Arquivo de Save Undertale (file0 & undertale.ini)</h2>
-        <p>Undertale usa dois arquivos principais para salvar dados: <code>file0</code> (seu slot de save ativo) e <code>undertale.ini</code> (meta-dados e flags persistentes). Nosso editor pode modificar ambos.</p>
+        <p>Undertale usa dois arquivos principais para salvar dados: <code>file0</code> (seu slot de save ativo) e <code>undertale.ini</code> (meta-dados e flags persistentes). Nosso editor puede modificar ambos.</p>
         <h3>Edições Comuns</h3>
         <ul>
             <li><strong>Rota Genocida/Pacifista:</strong> Resete ou ative flags de rotas específicas para mudar a história sem jogar tudo novamente.</li>
@@ -131,16 +107,7 @@ export async function getStaticPaths() {
         <h3>Como usar</h3>
         <p>Simplesmente faça upload do seu <code>file0</code> para editar seus stats atuais. Para mudar "meta" eventos ou resetar o check de Verdadeiro Pacifista, edite o arquivo <code>undertale.ini</code>.</p>
       `,
-      engine: 'GameMaker',
-      format: 'file0, undertale.ini',
-      editorPath: '/pt/editor/gamemaker',
-      emoji: '❤️',
       description: 'O icônico RPG indie de Toby Fox onde ninguém precisa morrer.',
-      saveLocations: {
-        windows: '%localappdata%\\UNDERTALE',
-        mac: '~/Library/Application Support/com.tobyfox.undertale/',
-        linux: '~/.config/UNDERTALE',
-      },
       editableItems: [
         { icon: '❤️', name: 'HP e LV', desc: 'Altere vida e nível LOVE' },
         { icon: '🎒', name: 'Inventário', desc: 'Edite itens' },
@@ -161,20 +128,9 @@ export async function getStaticPaths() {
         },
       ],
     },
-    {
-      slug: 'ddlc',
+    'ddlc': {
       name: 'Doki Doki Literature Club',
-      nameLocal: 'Doki Doki Literature Club',
-      engine: "Ren'Py",
-      format: '.save, persistent',
-      editorPath: '/pt/editor/renpy',
-      emoji: '📚',
       description: 'A visual novel de horror psicológico da Team Salvato.',
-      saveLocations: {
-        windows: '%appdata%\\RenPy\\DDLC-1454445547',
-        mac: '~/Library/RenPy/DDLC-1454445547',
-        linux: '~/.renpy/DDLC-1454445547',
-      },
       editableItems: [
         { icon: '📖', name: 'Progresso', desc: 'Pule para qualquer capítulo' },
         { icon: '❤️', name: 'Afinidade', desc: 'Modifique relação com personagens' },
@@ -191,20 +147,9 @@ export async function getStaticPaths() {
         { title: "Guia de Edição de Saves Ren'Py", url: '/pt/blog/renpy-save-editing-guide' },
       ],
     },
-    {
-      slug: 'hollow-knight',
+    'hollow-knight': {
       name: 'Hollow Knight',
-      nameLocal: 'Hollow Knight',
-      engine: 'Unity',
-      format: 'user#.dat',
-      editorPath: '/pt/editor/unity',
-      emoji: '🪲',
       description: 'O aclamado Metroidvania da Team Cherry.',
-      saveLocations: {
-        windows: '%appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight',
-        mac: '~/Library/Application Support/unity.Team Cherry.Hollow Knight',
-        linux: '~/.config/unity3d/Team Cherry/Hollow Knight',
-      },
       editableItems: [
         { icon: '💰', name: 'Geo', desc: 'Edite sua moeda' },
         { icon: '❤️', name: 'Máscaras', desc: 'Modifique HP máximo' },
@@ -222,20 +167,9 @@ export async function getStaticPaths() {
         { title: 'Guia de Edição de Saves Unity', url: '/pt/blog/how-to-edit-unity-saves' },
       ],
     },
-    {
-      slug: 'rpg-maker',
+    'rpg-maker': {
       name: 'Jogos RPG Maker',
-      nameLocal: 'RPG Maker',
-      engine: 'RPG Maker (MV/MZ)',
-      format: '.rpgsave, .rmmzsave',
-      editorPath: '/pt/editor/rpg-maker-mv',
-      emoji: '⚔️',
       description: 'Milhares de jogos feitos com a série RPG Maker.',
-      saveLocations: {
-        windows: 'Pasta do jogo/www/save ou Pasta do jogo/save',
-        mac: 'Game.app/Contents/Resources/app.nw/save',
-        linux: 'Pasta do jogo/save',
-      },
       editableItems: [
         { icon: '💰', name: 'Ouro', desc: 'Edite dinheiro do grupo' },
         { icon: '👥', name: 'Stats', desc: 'Altere HP, MP, Nível, EXP' },
@@ -253,22 +187,66 @@ export async function getStaticPaths() {
         { title: 'Guia de Edição de Saves RPG Maker', url: '/pt/blog/how-to-edit-rpg-maker-save' },
       ],
     },
-  ];
+  };
 
-  return games.map((game) => ({
-    params: { slug: game.slug },
-    props: { game },
-  }));
+  return baseGames.map((baseGame) => {
+    const override = overrides[baseGame.slug] || {};
+    const nameLocal = override.name || baseGame.name;
+    const format = baseGame.format;
+
+    const game = {
+      ...baseGame,
+      nameLocal,
+      seoDescription: override.seoDescription ||
+        `Consulte o caminho do save de ${nameLocal}, os campos compatíveis em ${format}, os limites de suporte e os motivos comuns de falha antes de enviar o arquivo.`,
+      seoContent: override.seoContent || `
+        <h2>Resumo do fluxo para ${nameLocal}</h2>
+        <p>Esta página resume a localização do save, os campos que costumam aparecer no editor e os limites conhecidos do formato ${format}. Faça backup antes de alterar qualquer valor e valide no jogo após cada mudança.</p>
+        <h3>O que verificar primeiro</h3>
+        <ul>
+            <li><strong>Caminho do save:</strong> confirme se escolheu o arquivo correto.</li>
+            <li><strong>Compatibilidade:</strong> algumas variantes de ${format} podem abrir somente para inspeção ou falhar na reconstrução.</li>
+            <li><strong>Validação:</strong> altere um valor pequeno e confira no jogo antes de continuar.</li>
+        </ul>
+      `,
+      description: override.description || `Guia curto de compatibilidade e localização de save para ${nameLocal}.`,
+      editorPath: baseGame.editorPath.replace('/editor/', '/pt/editor/'),
+      editableItems: override.editableItems || baseGame.editableItems.map(item => ({
+        icon: item.icon,
+        name: item.name,
+        desc: `Ver ou modificar o campo ${item.name}`
+      })),
+      faq: override.faq || [
+        {
+          question: `Onde fica o arquivo de save de ${nameLocal}?`,
+          answer: `No Windows, o caminho padrão é: ${baseGame.saveLocations.windows}. Para macOS ou Linux, verifique a seção correspondente nesta página.`
+        },
+        {
+          question: 'É seguro usar este editor?',
+          answer: 'O editor processa variantes compatíveis no navegador. Algumas estruturas ficam apenas para inspeção ou podem falhar, então verifique os limites de suporte e mantenha sempre um backup.'
+        }
+      ],
+      relatedGuides: (override.relatedGuides || baseGame.relatedGuides || []).map((guide: any) => ({
+        title: guide.title,
+        url: guide.url.replace('/blog/', '/pt/blog/').replace('/games/', '/pt/games/')
+      }))
+    };
+
+    return {
+      params: { slug: baseGame.slug },
+      props: { game },
+    };
+  });
 }
 
 const { game } = Astro.props;
+const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 6);
 ---
 
 <BaseLayout
   title={`Editor de Save ${game.nameLocal} - Edite Arquivos ${game.format} Grátis`}
-  description={game.seoDescription ||
-    `Editor de save online grátis para ${game.nameLocal}. Edite ouro, itens, stats e mais. Encontre localização do save e comece a editar no navegador.`}
-  keywords={`${game.name.toLowerCase()} save editor, ${game.name.toLowerCase()} localização save, ${game.name.toLowerCase()} editar save`}
+  description={game.seoDescription}
+  keywords={`${game.nameLocal.toLowerCase()} save editor, ${game.nameLocal.toLowerCase()} localização save, ${game.nameLocal.toLowerCase()} editar save, ${game.format} editor`}
 >
   <section
     class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16"
@@ -297,7 +275,7 @@ const { game } = Astro.props;
           <span class="px-4 py-2 bg-white/10 rounded-full text-sm">Engine: {game.engine}</span>
           <span class="px-4 py-2 bg-white/10 rounded-full text-sm">Formato: {game.format}</span>
           <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm"
-            >✓ 100% Grátis</span
+            >Fluxo no navegador</span
           >
         </div>
 
@@ -361,7 +339,7 @@ const { game } = Astro.props;
       </section>
 
       <section class="mb-16">
-        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">Perguntas Frequentes</h2>
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">Perguntas Frecuentes</h2>
         <div class="max-w-3xl mx-auto space-y-4">
           {
             game.faq.map((item: { question: string; answer: string }) => (
@@ -389,92 +367,58 @@ const { game } = Astro.props;
         </div>
       </section>
 
+      {
+        game.relatedGuides.length > 0 && (
+          <section class="mb-16 bg-primary-50 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">📖 Guias Relacionados</h2>
+            <div class="space-y-4">
+              {game.relatedGuides.map((guide: { title: string; url: string }) => (
+                <a
+                  href={guide.url}
+                  class="flex items-center justify-between p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300 transition-colors"
+                >
+                  <span class="font-medium text-gray-900">{guide.title}</span>
+                  <svg
+                    class="w-5 h-5 text-primary-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
       <!-- Related Games -->
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Outros Jogos Populares</h2>
         <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
-            game.slug !== 'stardew-valley' && (
+            otherGames.map((item) => (
               <a
-                href="/pt/games/stardew-valley"
+                href={`/pt/games/${item.slug}`}
                 class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
               >
-                <span class="text-2xl block mb-2">🌾</span>
+                <span class="text-2xl block mb-2">{item.emoji}</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Stardew Valley
+                  {item.name}
                 </span>
               </a>
-            )
-          }
-          {
-            game.slug !== 'palworld' && (
-              <a
-                href="/pt/games/palworld"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🦎</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Palworld
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'undertale' && (
-              <a
-                href="/pt/games/undertale"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">❤️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Undertale
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'ddlc' && (
-              <a
-                href="/pt/games/ddlc"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">📚</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  DDLC
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'hollow-knight' && (
-              <a
-                href="/pt/games/hollow-knight"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🪲</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Hollow Knight
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'rpg-maker' && (
-              <a
-                href="/pt/games/rpg-maker"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">⚔️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  RPG Maker
-                </span>
-              </a>
-            )
+            ))
           }
         </div>
         <div class="text-center mt-6">
           <a href="/pt/games" class="text-primary-600 hover:text-primary-700 font-medium">
-            Ver Todos os 80+ Jogos →
+            Ver Todos os Jogos →
           </a>
         </div>
       </section>
@@ -482,7 +426,7 @@ const { game } = Astro.props;
       <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
         <h2 class="text-3xl font-bold mb-4">Pronto para Editar Seu Save de {game.nameLocal}?</h2>
         <p class="text-gray-300 mb-8">
-          100% grátis, sem download. Seus arquivos nunca saem do dispositivo.
+          Revise compatibilidade, limitações e caminho do save antes de substituir o arquivo original.
         </p>
         <a
           href={game.editorPath}

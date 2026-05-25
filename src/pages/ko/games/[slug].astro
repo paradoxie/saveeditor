@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { games as baseGames } from '../../../data/games';
 
 export async function getStaticPaths() {
-  const games = [
-    {
-      slug: 'stardew-valley',
+  const overrides: Record<string, any> = {
+    'stardew-valley': {
       name: 'Stardew Valley',
       nameLocal: '스타듀 밸리',
       seoDescription:
@@ -17,21 +17,12 @@ export async function getStaticPaths() {
             <li><strong>무제한 자원:</strong> 골드, 치 젬, 카지노 코인을 즉시 추가하세요.</li>
             <li><strong>인벤토리 관리:</strong> 배낭이나 상자에 원하는 아이템(무지개 파편, 갤럭시 소드 등)을 추가하세요.</li>
             <li><strong>스킬 만렙:</strong> 농사, 채광, 채집, 낚시, 전투 스킬을 즉시 10 레벨로 올리세요.</li>
-            <li><strong>호감도 조절:</strong> 마을 사람이나 결혼 대상과의 하트를 최대로 만드세요.</li>
+            <li><strong>호감도 조절:</strong> 주민이나 결혼 대상과의 하트를 최대로 만드세요.</li>
         </ul>
         <h3>안전한 로컬 처리</h3>
-        <p>모든 세이브 파일 처리는 브라우저 내부의 JavaScript를 통해 이루어집니다. <strong>데이터가 외부 서버로 업로드되지 않으므로</strong> 개인 정보가 완벽하게 보호됩니다. 사이트 개선과 광고 제공을 위해 Google Analytics와 AdSense를 사용합니다. 자세한 내용은 개인정보/쿠키 정책을 확인하세요.</p>
+        <p>호환되는 형식은 브라우저에서 처리되며, 구조를 신뢰성 있게 다시 만들 수 없으면 읽기 전용으로 전환될 수 있습니다. 자세한 내용은 개인정보/쿠키 정책을 확인하세요.</p>
       `,
-      engine: 'Unity (XML)',
-      format: '.xml',
-      editorPath: '/ko/editor/unity',
-      emoji: '🌾',
       description: 'ConcernedApe의 인기 농장 시뮬레이션 RPG.',
-      saveLocations: {
-        windows: '%appdata%\\StardewValley\\Saves',
-        mac: '~/Library/Application Support/StardewValley/Saves',
-        linux: '~/.config/StardewValley/Saves',
-      },
       editableItems: [
         { icon: '💰', name: '골드', desc: '농장 수입 편집' },
         { icon: '🎒', name: '아이템', desc: '모든 아이템 추가' },
@@ -56,8 +47,7 @@ export async function getStaticPaths() {
         { title: 'Unity 세이브 편집 가이드', url: '/ko/blog/how-to-edit-unity-saves' },
       ],
     },
-    {
-      slug: 'palworld',
+    'palworld': {
       name: 'Palworld',
       nameLocal: '팰월드',
       seoDescription:
@@ -74,17 +64,7 @@ export async function getStaticPaths() {
         <h3>Steam vs Game Pass</h3>
         <p>Steam 저장은 표준 플로우에 들어갈 가능성이 높고, Game Pass/Xbox 저장은 추가 컨테이너로 인해 읽기 전용이 되는 경우가 많습니다.</p>
       `,
-      engine: 'Unreal Engine (GVAS)',
-      format: '.sav',
-      editorPath: '/ko/editor/palworld',
-      emoji: '🦎',
       description: 'Pocketpair가 개발한 생존형 몬스터 수집 게임.',
-      saveLocations: {
-        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
-        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
-        linux:
-          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
-      },
       editableItems: [
         { icon: '💰', name: '골드', desc: '호환 세이브에서 화폐 필드 확인/조정' },
         { icon: '🦎', name: '팰 데이터', desc: '팰 구조를 검토하고 지원 시에만 신중히 수정' },
@@ -119,8 +99,7 @@ export async function getStaticPaths() {
         { title: 'Unreal Engine 세이브 편집 가이드', url: '/ko/blog/how-to-edit-unreal-engine-saves' },
       ],
     },
-    {
-      slug: 'undertale',
+    'undertale': {
       name: 'Undertale',
       nameLocal: '언더테일',
       seoDescription:
@@ -137,16 +116,7 @@ export async function getStaticPaths() {
         <h3>사용 방법</h3>
         <p>현재 능력치를 수정하려면 <code>file0</code>을 업로드하세요. '메타' 이벤트를 변경하거나 진정한 불살 엔딩(True Pacifist) 체크를 리셋하려면 <code>undertale.ini</code> 파일을 편집하세요.</p>
       `,
-      engine: 'GameMaker',
-      format: 'file0, undertale.ini',
-      editorPath: '/ko/editor/gamemaker',
-      emoji: '❤️',
       description: 'Toby Fox의 명작 인디 RPG. 아무도 죽지 않아도 되는 세계.',
-      saveLocations: {
-        windows: '%localappdata%\\UNDERTALE',
-        mac: '~/Library/Application Support/com.tobyfox.undertale/',
-        linux: '~/.config/UNDERTALE',
-      },
       editableItems: [
         { icon: '❤️', name: 'HP & LV', desc: '체력과 LOVE 레벨 변경' },
         { icon: '🎒', name: '인벤토리', desc: '아이템 편집' },
@@ -165,20 +135,10 @@ export async function getStaticPaths() {
         { title: 'GameMaker 세이브 편집 가이드', url: '/ko/blog/gamemaker-save-editing-guide' },
       ],
     },
-    {
-      slug: 'ddlc',
+    'ddlc': {
       name: 'Doki Doki Literature Club',
       nameLocal: '도키도키 문예부',
-      engine: "Ren'Py",
-      format: '.save, persistent',
-      editorPath: '/ko/editor/renpy',
-      emoji: '📚',
       description: 'Team Salvato의 심리 호러 비주얼 노벨.',
-      saveLocations: {
-        windows: '%appdata%\\RenPy\\DDLC-1454445547',
-        mac: '~/Library/RenPy/DDLC-1454445547',
-        linux: '~/.renpy/DDLC-1454445547',
-      },
       editableItems: [
         { icon: '📖', name: '스토리 진행', desc: '원하는 챕터로 이동' },
         { icon: '❤️', name: '캐릭터 호감도', desc: '캐릭터와의 관계 변경' },
@@ -195,20 +155,10 @@ export async function getStaticPaths() {
         { title: "Ren'Py 세이브 편집 가이드", url: '/ko/blog/renpy-save-editing-guide' },
       ],
     },
-    {
-      slug: 'hollow-knight',
+    'hollow-knight': {
       name: 'Hollow Knight',
       nameLocal: '할로우 나이트',
-      engine: 'Unity',
-      format: 'user#.dat',
-      editorPath: '/ko/editor/unity',
-      emoji: '🪲',
       description: 'Team Cherry의 호평받는 메트로이드바니아.',
-      saveLocations: {
-        windows: '%appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight',
-        mac: '~/Library/Application Support/unity.Team Cherry.Hollow Knight',
-        linux: '~/.config/unity3d/Team Cherry/Hollow Knight',
-      },
       editableItems: [
         { icon: '💰', name: '지오', desc: '화폐 편집' },
         { icon: '❤️', name: '마스크', desc: '최대 HP 변경' },
@@ -226,26 +176,15 @@ export async function getStaticPaths() {
         { title: 'Unity 세이브 편집 가이드', url: '/ko/blog/how-to-edit-unity-saves' },
       ],
     },
-    {
-      slug: 'rpg-maker',
+    'rpg-maker': {
       name: 'RPG 만들기 게임',
       nameLocal: 'RPG 만들기',
-      engine: 'RPG Maker (MV/MZ)',
-      format: '.rpgsave, .rmmzsave',
-      editorPath: '/ko/editor/rpg-maker-mv',
-      emoji: '⚔️',
       description: 'RPG 만들기 시리즈로 만든 수천 개의 게임.',
-      saveLocations: {
-        windows: '게임 폴더/www/save 또는 게임 폴더/save',
-        mac: 'Game.app/Contents/Resources/app.nw/save',
-        linux: '게임 폴더/save',
-      },
       editableItems: [
         { icon: '💰', name: '골드', desc: '파티의 돈 편집' },
         { icon: '👥', name: '스탯', desc: 'HP, MP, 레벨, 경험치 변경' },
         { icon: '🎒', name: '인벤토리', desc: '아이템 추가/삭제' },
         { icon: '⚔️', name: '장비', desc: '무기와 방어구 변경' },
-        { icon: '✨', name: '스킬', desc: '모든 스킬 습득' },
       ],
       faq: [
         {
@@ -258,22 +197,66 @@ export async function getStaticPaths() {
         { title: 'RPG 만들기 세이브 편집 가이드', url: '/ko/blog/how-to-edit-rpg-maker-save' },
       ],
     },
-  ];
+  };
 
-  return games.map((game) => ({
-    params: { slug: game.slug },
-    props: { game },
-  }));
+  return baseGames.map((baseGame) => {
+    const override = overrides[baseGame.slug] || {};
+    const nameLocal = override.nameLocal || override.name || baseGame.name;
+    const format = baseGame.format;
+
+    const game = {
+      ...baseGame,
+      nameLocal,
+      seoDescription: override.seoDescription ||
+        `${nameLocal}의 세이브 위치, ${format} 호환 항목, 지원 한계, 자주 발생하는 실패 이유를 먼저 확인할 수 있는 안내 페이지입니다.`,
+      seoContent: override.seoContent || `
+        <h2>${nameLocal} 세이브 편집 개요</h2>
+        <p>이 페이지는 ${format} 저장 파일의 위치, 편집기에 자주 노출되는 항목, 알려진 제한 사항을 정리한 안내입니다. 수정 전에는 반드시 백업을 만들고, 작은 변경부터 게임 내에서 검증하세요.</p>
+        <h3>먼저 확인할 내용</h3>
+        <ul>
+            <li><strong>세이브 경로:</strong> 올바른 파일을 선택했는지 먼저 확인하세요.</li>
+            <li><strong>호환성:</strong> ${format}의 일부 변형은 조회 전용이거나 재구성이 실패할 수 있습니다.</li>
+            <li><strong>검증:</strong> 한 번에 작은 값만 바꾸고 게임에서 바로 확인하세요.</li>
+        </ul>
+      `,
+      description: override.description || `${nameLocal} 세이브 경로와 호환성 범위를 정리한 안내 페이지입니다.`,
+      editorPath: baseGame.editorPath.replace('/editor/', '/ko/editor/'),
+      editableItems: override.editableItems || baseGame.editableItems.map(item => ({
+        icon: item.icon,
+        name: item.name,
+        desc: `${item.name} 필드 상세 정보 조회 및 수정`
+      })),
+      faq: override.faq || [
+        {
+          question: `${nameLocal} 세이브 파일은 어디에 저장되나요?`,
+          answer: `Windows의 경우 기본 저장 경로는 다음과 같습니다: ${baseGame.saveLocations.windows}. macOS 또는 Linux는 본 페이지의 저장 위치 안내 탭을 확인하세요.`
+        },
+        {
+          question: '이 온라인 에디터를 사용하는 것이 안전한가요?',
+          answer: '호환되는 변형은 브라우저에서 처리되지만, 일부 구조는 조회 전용이거나 실패할 수 있습니다. 지원 한계를 먼저 확인하고 원본 백업을 유지하세요.'
+        }
+      ],
+      relatedGuides: (override.relatedGuides || baseGame.relatedGuides || []).map((guide: any) => ({
+        title: guide.title,
+        url: guide.url.replace('/blog/', '/ko/blog/').replace('/games/', '/ko/games/')
+      }))
+    };
+
+    return {
+      params: { slug: baseGame.slug },
+      props: { game },
+    };
+  });
 }
 
 const { game } = Astro.props;
+const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 6);
 ---
 
 <BaseLayout
   title={`${game.nameLocal} 세이브 에디터 - ${game.format} 파일 무료 편집`}
-  description={game.seoDescription ||
-    `${game.nameLocal}용 무료 온라인 세이브 에디터. 골드, 아이템, 스탯 편집. 세이브 파일 위치를 확인하고 브라우저에서 편집 시작.`}
-  keywords={`${game.name.toLowerCase()} 세이브 에디터, ${game.name.toLowerCase()} 세이브 위치, ${game.name.toLowerCase()} 세이브 편집`}
+  description={game.seoDescription}
+  keywords={`${game.nameLocal.toLowerCase()} 세이브 에디터, ${game.nameLocal.toLowerCase()} 세이브 위치, ${game.nameLocal.toLowerCase()} 세이브 편집, ${game.format} 에디터`}
 >
   <!-- Hero Section -->
   <section
@@ -303,7 +286,7 @@ const { game } = Astro.props;
           <span class="px-4 py-2 bg-white/10 rounded-full text-sm">엔진: {game.engine}</span>
           <span class="px-4 py-2 bg-white/10 rounded-full text-sm">형식: {game.format}</span>
           <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm"
-            >✓ 100% 무료</span
+            >브라우저 워크플로우</span
           >
         </div>
 
@@ -393,99 +376,65 @@ const { game } = Astro.props;
         </div>
       </section>
 
+      {
+        game.relatedGuides.length > 0 && (
+          <section class="mb-16 bg-primary-50 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">📖 관련 가이드</h2>
+            <div class="space-y-4">
+              {game.relatedGuides.map((guide: { title: string; url: string }) => (
+                <a
+                  href={guide.url}
+                  class="flex items-center justify-between p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300 transition-colors"
+                >
+                  <span class="font-medium text-gray-900">{guide.title}</span>
+                  <svg
+                    class="w-5 h-5 text-primary-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
       <!-- Related Games -->
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">다른 인기 게임</h2>
         <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
-            game.slug !== 'stardew-valley' && (
+            otherGames.map((item) => (
               <a
-                href="/ko/games/stardew-valley"
+                href={`/ko/games/${item.slug}`}
                 class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
               >
-                <span class="text-2xl block mb-2">🌾</span>
+                <span class="text-2xl block mb-2">{item.emoji}</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  스타듀 밸리
+                  {item.name}
                 </span>
               </a>
-            )
-          }
-          {
-            game.slug !== 'palworld' && (
-              <a
-                href="/ko/games/palworld"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🦎</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  팰월드
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'undertale' && (
-              <a
-                href="/ko/games/undertale"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">❤️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  언더테일
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'ddlc' && (
-              <a
-                href="/ko/games/ddlc"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">📚</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  도키도키 문예부
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'hollow-knight' && (
-              <a
-                href="/ko/games/hollow-knight"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🪲</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  할로우 나이트
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'rpg-maker' && (
-              <a
-                href="/ko/games/rpg-maker"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">⚔️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  RPG 만들기
-                </span>
-              </a>
-            )
+            ))
           }
         </div>
         <div class="text-center mt-6">
           <a href="/ko/games" class="text-primary-600 hover:text-primary-700 font-medium">
-            80개 이상의 게임 보기 →
+            모든 게임 보기 →
           </a>
         </div>
       </section>
 
       <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
         <h2 class="text-3xl font-bold mb-4">{game.nameLocal} 세이브를 편집할 준비가 되셨나요?</h2>
-        <p class="text-gray-300 mb-8">100% 무료, 다운로드 불필요. 파일이 기기를 떠나지 않습니다.</p>
+        <p class="text-gray-300 mb-8">원본 파일을 교체하기 전에 호환성, 제한 사항, 세이브 경로를 먼저 확인하세요.</p>
         <a
           href={game.editorPath}
           class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100 transition-colors"
@@ -494,51 +443,51 @@ const { game } = Astro.props;
         </a>
       </section>
     </div>
-
-    {/* SEO Content Section */}
-    {
-      game.seoContent && (
-        <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
-          <Fragment set:html={game.seoContent} />
-        </section>
-      )
-    }
   </section>
 
-  <!-- BreadcrumbList Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '홈', item: 'https://saveeditor.top/ko/' },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: '게임',
-          item: 'https://saveeditor.top/ko/games/',
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: game.nameLocal,
-          item: `https://saveeditor.top/ko/games/${game.slug}/`,
-        },
-      ],
-    })}
-  />
-
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: { '@type': 'Answer', text: item.answer },
-      })),
-    })}
-  />
+  {/* SEO Content Section */}
+  {
+    game.seoContent && (
+      <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+        <Fragment set:html={game.seoContent} />
+      </section>
+    )
+  }
 </BaseLayout>
+
+<!-- BreadcrumbList Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '홈', item: 'https://saveeditor.top/ko/' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: '게임',
+        item: 'https://saveeditor.top/ko/games/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: game.nameLocal,
+        item: `https://saveeditor.top/ko/games/${game.slug}/`,
+      },
+    ],
+  })}
+/>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  })}
+/>

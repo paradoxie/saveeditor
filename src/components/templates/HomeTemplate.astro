@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import FAQ from '../FAQ.astro';
 import { ui, defaultLang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
+import { getSiteOrigin } from '../../lib/site';
 
 interface Props {
   lang?: keyof typeof ui;
@@ -14,7 +15,7 @@ interface Props {
 
 const { lang = 'en', title, description, keywords } = Astro.props;
 const t = useTranslations(lang);
-const siteUrl = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
+const siteUrl = getSiteOrigin(Astro.site);
 const defaultOgImage = `${siteUrl}/images/blog/rpg-maker-cover.webp`;
 const homeUrl = lang === 'en' ? `${siteUrl}/` : `${siteUrl}/${lang}/`;
 

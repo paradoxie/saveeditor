@@ -1,135 +1,129 @@
 # SaveEditor.Online — Full Documentation for LLMs
 
-> Free, browser-based, privacy-first save file editor for games.
-> All file processing happens client-side via JavaScript/WebAssembly — nothing is uploaded.
+> Free, browser-based save file editor for compatible local game saves.
+> Selected save files are parsed in the user's browser.
 
 ## Site Identity
 
-- **Name**: SaveEditor.Online (also referenced as SaveEditor.Online)
+- **Name**: SaveEditor.Online
 - **URL**: https://saveeditor.top
-- **Type**: Free web application (SoftwareApplication)
+- **Type**: Free web application
 - **Category**: UtilitiesApplication
-- **Operating System**: Web Browser (Chrome, Firefox, Safari, Edge)
+- **Operating System**: Web Browser
 - **Pricing**: Free, no registration required
 - **File size limit**: 50 MB per file
-- **Privacy**: All file processing happens locally in the user's browser
 
-## Supported Game Engines & Formats
+## Evidence Status
 
-### RPG Maker MV/MZ
-- **File extensions**: `.rpgsave`, `.rmmzsave`
-- **Format**: Base64-encoded JSON
-- **Editor URL**: /editor/rpg-maker-mv/
-- **Capabilities**: Full read/write. Edit gold, items, stats, switches, variables, party data.
-- **Save location (Windows)**: `Game folder/www/save` or `Game folder/save`
-- **Save location (Mac)**: `Game.app/Contents/Resources/app.nw/save`
-- **Popular games**: Stardew Valley (modded RPG Maker), Omori, OneShot, To the Moon
+- **Game pages**: 26
+- **Sample records**: 8
+- **Verified presets**: 2
+- **Candidate presets**: 27
+- **Coverage proof**: https://saveeditor.top/coverage-proof/
 
-### Unity PlayerPrefs
-- **File extensions**: `.xml`, `.plist`
-- **Format**: XML (Windows), Property List (macOS)
-- **Editor URL**: /editor/unity/
-- **Capabilities**: Full read/write for XML/plist PlayerPrefs. Binary PlayerPrefs are read-only.
-- **Save location (Windows)**: `%APPDATA%/../LocalLow/[CompanyName]/[GameName]/`
-- **Save location (Mac)**: `~/Library/Preferences/unity.[CompanyName].[GameName].plist`
-- **Popular games**: Hollow Knight, Vampire Survivors, Cult of the Lamb, Cuphead
-
-### Ren'Py
-- **File extensions**: `.save`, `persistent`
-- **Format**: Python pickle (serialized)
-- **Editor URL**: /editor/renpy/
-- **Capabilities**: View all data. Editing is experimental — simple fields can be modified.
-- **Save location (Windows)**: `%APPDATA%/RenPy/[GameName]/`
-- **Save location (Mac)**: `~/Library/RenPy/[GameName]/`
-- **Popular games**: Doki Doki Literature Club, Katawa Shoujo, The Arcana
-
-### Unreal Engine
-- **File extensions**: `.sav`
-- **Format**: Binary GVAS (Generic Versioned Arbitrary Serialization)
-- **Editor URL**: /editor/unreal/
-- **Capabilities**: Standard GVAS: full read/write. Compressed (gzip/zlib) GVAS: read/write with safe recompression. Custom containers/encrypted: read-only.
-- **Save location**: Varies by game, typically `%LOCALAPPDATA%/[GameName]/Saved/SaveGames/`
-- **Popular games**: Palworld, Satisfactory, Deep Rock Galactic, Astroneer
-
-### GameMaker
-- **File extensions**: `.ini`, `.json`
-- **Format**: INI key-value or JSON
-- **Editor URL**: /editor/gamemaker/
-- **Capabilities**: Full read/write.
-- **Save location**: Varies, often `%LOCALAPPDATA%/[GameName]/`
-- **Popular games**: Undertale, Deltarune, Hyper Light Drifter, Nuclear Throne
-
-### NaniNovel
-- **File extensions**: `.nson`
-- **Format**: Custom JSON-like (NSON)
-- **Editor URL**: /editor/naninovel/
-- **Capabilities**: Full read/write (unencrypted saves). Encrypted saves are detected but unsupported.
-- **Popular games**: Various visual novels built on NaniNovel Unity framework
-
-## Content Sections
-
-### Pages
-| Path | Description |
-|------|-------------|
-| `/` | Home — upload any save file, auto-detect engine |
-| `/editor/rpg-maker-mv/` | RPG Maker MV/MZ editor |
-| `/editor/unity/` | Unity PlayerPrefs editor |
-| `/editor/renpy/` | Ren'Py save viewer/editor |
-| `/editor/unreal/` | Unreal Engine .sav editor |
-| `/editor/gamemaker/` | GameMaker INI/JSON editor |
-| `/editor/naninovel/` | NaniNovel .nson editor |
-| `/games/` | Browse 80+ supported games |
-| `/blog/` | Tutorials and guides |
-| `/faq/` | Frequently asked questions |
-| `/saves/` | Pre-made save file downloads |
-| `/compatibility/` | Engine compatibility matrix |
-| `/formats/` | Save file format reference |
-| `/about/` | About the team |
-| `/contact/` | Contact form |
-| `/support/` | Help center |
-| `/privacy/` | Privacy policy |
-| `/terms/` | Terms of service |
-| `/cookie-policy/` | Cookie policy |
-
-### Blog Topics
-- How to edit RPG Maker save files
-- Stardew Valley save editing guides
-- Palworld save editing (Unreal GVAS)
-- Unity PlayerPrefs editing tutorials
-- Ren'Py save file modification
-- Save file download compilations
-
-## Supported Languages
+## Language Coverage
 
 | Language | URL Prefix | Coverage |
-|----------|-----------|----------|
-| English (default) | `/` | Full |
-| 日本語 (Japanese) | `/ja/` | Full |
-| 한국어 (Korean) | `/ko/` | Full |
-| Português (Portuguese) | `/pt/` | Full |
-| 简体中文 (Simplified Chinese) | `/zh-cn/` | Full |
-| Español (Spanish) | `/es/` | Full |
-| Русский (Russian) | `/ru/` | Full |
+|---|---|---|
+| English | / | Full |
+| 简体中文 | /zh-cn/ | Full |
+| 日本語 | /ja/ | Full |
+| 한국어 | /ko/ | Short |
+| Português | /pt/ | Short |
+| Español | /es/ | Short |
+| Русский | /ru/ | Short |
 
-## Technical Architecture
+## Published Locale Entrypoints
 
-- **Framework**: Astro (SSG with Cloudflare adapter)
-- **Frontend**: React components, Tailwind CSS
-- **Parsing**: Client-side JavaScript/WebAssembly
-- **Hosting**: Cloudflare Pages
-- **Analytics**: Google Analytics (consent-gated)
-- **Ads**: Google AdSense (consent-gated)
-- **Security**: Content Security Policy (CSP), all processing client-side
+| Locale | Games | Formats | Compatibility | Coverage proof |
+|---|---|---|---|---|
+| English | /games/ | /formats/ | /compatibility/ | /coverage-proof/ |
+| 简体中文 | /zh-cn/games/ | /zh-cn/formats/ | /zh-cn/compatibility/ | /zh-cn/coverage-proof/ |
+| 日本語 | /ja/games/ | /ja/formats/ | /ja/compatibility/ | /ja/coverage-proof/ |
 
-## How It Works
+## Game Landing Pages
 
-1. **Upload**: User drags & drops or selects a save file
-2. **Auto-Detect**: Engine/format is auto-detected from file content
-3. **Parse**: File is parsed client-side (no server upload)
-4. **Edit**: Visual tree editor for modifying values (gold, stats, items, switches, etc.)
-5. **Download**: Modified save is downloaded and replaces the original
+| Game | Engine | Format | EN URL | ZH URL | JA URL | Preset status |
+|---|---|---|---|---|---|---|
+| Fear & Hunger | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/fear-and-hunger/ | /zh-cn/games/fear-and-hunger/ | /ja/games/fear-and-hunger/ | candidate |
+| Ib | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/ib/ | /zh-cn/games/ib/ | /ja/games/ib/ | candidate |
+| Yume Nikki | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/yume-nikki/ | /zh-cn/games/yume-nikki/ | /ja/games/yume-nikki/ | candidate |
+| The Witch's House | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/the-witchs-house/ | /zh-cn/games/the-witchs-house/ | /ja/games/the-witchs-house/ | candidate |
+| Ao Oni | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/ao-oni/ | /zh-cn/games/ao-oni/ | /ja/games/ao-oni/ | candidate |
+| Mogeko Castle | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/mogeko-castle/ | /zh-cn/games/mogeko-castle/ | /ja/games/mogeko-castle/ | candidate |
+| Misao | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/misao/ | /zh-cn/games/misao/ | /ja/games/misao/ | candidate |
+| OFF | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/off/ | /zh-cn/games/off/ | /ja/games/off/ | candidate |
+| Wadanohara and the Great Blue Sea | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/wadanohara/ | /zh-cn/games/wadanohara/ | /ja/games/wadanohara/ | candidate |
+| Pocket Mirror | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/pocket-mirror/ | /zh-cn/games/pocket-mirror/ | /ja/games/pocket-mirror/ | candidate |
+| Hello Charlotte | RPG Maker | .rpgsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/hello-charlotte/ | /zh-cn/games/hello-charlotte/ | /ja/games/hello-charlotte/ | candidate |
+| Teaching Feeling | Ren'Py | .save, persistent | /games/teaching-feeling/ | /zh-cn/games/teaching-feeling/ | /ja/games/teaching-feeling/ | candidate |
+| Being a DIK | Ren'Py | .save, persistent | /games/being-a-dik/ | /zh-cn/games/being-a-dik/ | /ja/games/being-a-dik/ | candidate |
+| Summertime Saga | Ren'Py | .save, persistent | /games/summertime-saga/ | /zh-cn/games/summertime-saga/ | /ja/games/summertime-saga/ | candidate |
+| Stardew Valley | Unity (XML) | .xml | /games/stardew-valley/ | /zh-cn/games/stardew-valley/ | /ja/games/stardew-valley/ | candidate |
+| Palworld | Unreal Engine (GVAS) | .sav | /games/palworld/ | /zh-cn/games/palworld/ | /ja/games/palworld/ | candidate |
+| Undertale | GameMaker | file0, undertale.ini | /games/undertale/ | /zh-cn/games/undertale/ | /ja/games/undertale/ | candidate |
+| Doki Doki Literature Club | Ren'Py | .save, persistent | /games/ddlc/ | /zh-cn/games/ddlc/ | /ja/games/ddlc/ | candidate |
+| Hollow Knight | Unity | user#.dat | /games/hollow-knight/ | /zh-cn/games/hollow-knight/ | /ja/games/hollow-knight/ | candidate |
+| RPG Maker Games | RPG Maker (MV/MZ) | .rpgsave, .rmmzsave, .rvdata2, .rvdata, .rxdata, .lsd | /games/rpg-maker/ | /zh-cn/games/rpg-maker/ | /ja/games/rpg-maker/ | verified |
+| OMORI | RPG Maker MV | .rpgsave | /games/omori/ | /zh-cn/games/omori/ | /ja/games/omori/ | candidate |
+| LISA: The Painful | RPG Maker VX Ace | .rvdata2 | /games/lisa-the-painful/ | /zh-cn/games/lisa-the-painful/ | /ja/games/lisa-the-painful/ | candidate |
+| To the Moon | RPG Maker XP/VX | .rxdata, .rvdata | /games/to-the-moon/ | /zh-cn/games/to-the-moon/ | /ja/games/to-the-moon/ | candidate |
+| Mad Father | RPG Maker | .rvdata2, .rpgsave | /games/mad-father/ | /zh-cn/games/mad-father/ | /ja/games/mad-father/ | candidate |
+| OneShot | RPG Maker | .rpgsave, .rvdata2 | /games/oneshot/ | /zh-cn/games/oneshot/ | /ja/games/oneshot/ | candidate |
+| Katawa Shoujo | Ren'Py | .save, persistent | /games/katawa-shoujo/ | /zh-cn/games/katawa-shoujo/ | /ja/games/katawa-shoujo/ | candidate |
 
-## Contact
+## Coverage Rows
 
-- Contact form: https://saveeditor.top/contact/
-- Support center: https://saveeditor.top/support/
+| Preset | Engine | Capability | Status | Samples | Last verified |
+|---|---|---|---|---:|---|
+| rpg-maker | rpgmaker | stable | verified | 3 | 2026-05-25 |
+| renpy-engine | renpy | stable-limited | verified | 1 | 2026-05-25 |
+| unity-engine | unity | read-only | candidate | 0 | pending |
+| gamemaker-engine | gamemaker | read-only | candidate | 0 | pending |
+| fear-and-hunger | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| ib | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| yume-nikki | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| the-witchs-house | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| ao-oni | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| mogeko-castle | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| misao | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| off | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| wadanohara | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| pocket-mirror | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| hello-charlotte | rpgmaker | stable | candidate | 3 | 2026-05-25 |
+| omori | rpgmaker | stable | candidate | 1 | 2026-05-25 |
+| lisa-the-painful | rpgmaker | stable-limited | candidate | 1 | 2026-05-25 |
+| to-the-moon | rpgmaker | stable-limited | candidate | 1 | 2026-05-25 |
+| mad-father | rpgmaker | stable-limited | candidate | 1 | 2026-05-25 |
+| oneshot | rpgmaker | stable | candidate | 2 | 2026-05-25 |
+| katawa-shoujo | renpy | read-only | candidate | 0 | pending |
+| teaching-feeling | renpy | read-only | candidate | 0 | pending |
+| being-a-dik | renpy | read-only | candidate | 0 | pending |
+| summertime-saga | renpy | read-only | candidate | 0 | pending |
+| palworld | palworld | stable | candidate | 2 | 2026-05-25 |
+| stardew-valley | unity | stable | candidate | 1 | 2026-05-25 |
+| ddlc | renpy | read-only | candidate | 0 | pending |
+| undertale | gamemaker | read-only | candidate | 0 | pending |
+| hollow-knight | unity | read-only | candidate | 0 | pending |
+
+## Core URLs
+
+- https://saveeditor.top/
+- https://saveeditor.top/formats/
+- https://saveeditor.top/compatibility/
+- https://saveeditor.top/coverage-proof/
+- https://saveeditor.top/games/
+- https://saveeditor.top/zh-cn/games/
+- https://saveeditor.top/zh-cn/coverage-proof/
+- https://saveeditor.top/ja/games/
+- https://saveeditor.top/ja/coverage-proof/
+- https://saveeditor.top/editor/rpg-maker-mv/
+- https://saveeditor.top/editor/renpy/
+- https://saveeditor.top/editor/palworld/
+- https://saveeditor.top/editor/generic/
+
+## Safety Boundary
+
+Ren'Py uses Limited stable write for primitive values under persistent. Complex Python objects and non-persistent game state remain guarded.
+
+SaveEditor.Online does not claim universal write support. Stable write, stable-limited write, read-only inspection, and blocked scopes are separated in the compatibility matrix and coverage proof page.

@@ -159,7 +159,7 @@ INIファイルの場合、階層ビューが表示されます：
 
 - [Unityセーブエディタ](/ja/editor/unity) – Unityベースのゲーム用
 - [RPG Makerエディタ](/ja/editor/rpg-maker-mv) – RPGツクールタイトル用
-- [Ren'Pyビューア](/ja/editor/renpy) – ビジュアルノベル用
+- [Ren'Pyエディタ](/ja/editor/renpy) – ビジュアルノベル用
 
 ## まとめ
 
@@ -184,4 +184,3 @@ GameMakerの柔軟性は、セーブ編集には一つの方法ですべてに�
 - [一般的なセーブファイル拡張子の解説](/ja/blog/common-save-file-extensions-explained)
 - [RPGツクール セーブ編集](/ja/blog/how-to-edit-rpg-maker-save)
 - [Undertale セーブ場所](/ja/games/undertale)
-

@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { ui } from '../i18n/ui';
 
 interface FileUploadProps {
   onFileSelect: (file: File) => void;
@@ -8,6 +9,10 @@ interface FileUploadProps {
 export default function FileUpload({ onFileSelect, accept }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const lang = typeof document !== 'undefined'
+    ? (document.documentElement.getAttribute('lang') as keyof typeof ui) || 'en'
+    : 'en';
+  const t = (key: string) => (ui as any)[lang]?.[key] || (ui as any).en[key] || key;
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -44,7 +49,7 @@ export default function FileUpload({ onFileSelect, accept }: FileUploadProps) {
       {isDragging && (
         <div className="absolute inset-0 bg-primary-50/50 backdrop-blur-[1px] rounded-xl flex items-center justify-center z-10 pointer-events-none">
           <div className="animate-bounce text-primary-600 font-bold text-xl">
-            Drop to Edit!
+            {t('upload.drop')}
           </div>
         </div>
       )}
@@ -64,18 +69,21 @@ export default function FileUpload({ onFileSelect, accept }: FileUploadProps) {
         </div>
 
         <p className="text-xl font-semibold text-gray-900 mb-2">
-          {selectedFile ? selectedFile.name : 'Drop your save file here'}
+          {selectedFile ? selectedFile.name : t('upload.drop')}
         </p>
         <p className="text-sm text-gray-500 mb-6">
-          or click to browse from your computer
+          {t('upload.browse')}
         </p>
 
         <div className="flex flex-wrap justify-center gap-2 text-xs text-gray-400 max-w-md">
           <span className="bg-gray-100 px-2 py-1 rounded">.rpgsave</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.rmmzsave</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.rvdata2</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.lsd</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.save</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.sav</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.sqlite</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.msgpack</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.xml</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.prefs</span>
           <span className="bg-gray-100 px-2 py-1 rounded">and more...</span>

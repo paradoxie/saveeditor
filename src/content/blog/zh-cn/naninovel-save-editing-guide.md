@@ -154,10 +154,10 @@ NaniNovel 根据游戏配置支持多种存档格式：
 
 | 格式 | 扩展名 | 压缩方式 | 支持情况 |
 |------|--------|----------|----------|
-| NSON（默认） | `.nson` | Raw DEFLATE | ✅ 完全支持 |
-| JSON（调试） | `.json` | 无 | ✅ 完全支持 |
-| Base64 JSON | `.json` | Base64 | ✅ 完全支持 |
-| Gzip JSON | `.json` | Gzip | ✅ 完全支持 |
+| NSON（默认） | `.nson` | Raw DEFLATE | ✅ 稳定支持 |
+| JSON（调试） | `.json` | 无 | ✅ 稳定支持 |
+| Base64 JSON | `.json` | Base64 | ✅ 稳定支持 |
+| Gzip JSON | `.json` | Gzip | ✅ 稳定支持 |
 
 我们的编辑器自动检测并处理所有四种格式。
 
@@ -223,4 +223,3 @@ NaniNovel 的 NSON 格式虽然使用压缩，但只要理解其结构，基本�
 - [Unity PlayerPrefs 编辑器](/zh-cn/editor/unity)
 - [Ren'Py 存档查看器](/zh-cn/editor/renpy)
 - [常见存档扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
-

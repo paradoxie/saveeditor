@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="About Us | SaveEditor.Online"
-  description="Learn about the team behind SaveEditor.Online - the free, secure, browser-based game save editing tool trusted by gamers worldwide."
+  description="Learn about the team behind SaveEditor.Online - a free, browser-based game save editing tool for compatible local saves."
 >
   <section class="container mx-auto px-4 py-12 max-w-6xl">
     <div class="text-center mb-16">
@@ -12,8 +12,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         About SaveEditor.Online
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        An open-source initiative empowering gamers with the freedom to play their way. The world's
-        most trusted, secure, and universal browser-based save file editor.
+        An open-source initiative empowering gamers with the freedom to play their way. A
+        browser-based save file editor focused on compatible local saves, clear limits, and backups.
       </p>
     </div>
 
@@ -46,12 +46,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             >to democratize game modification</strong
           >. We believe that single-player gaming is a personal experience. Whether you want to skip
           a tedious grind, recover a corrupted save file, or experiment with different story paths,
-          you should have the tools to do so easily and safely.
+          you should have practical tools and clear limits before changing a save.
         </p>
         <p class="leading-relaxed mt-4">
           In the past, editing save files required downloading sketchy software, hex editing, or
-          complex technical knowledge. We changed that by building a powerful, universal editor that
-          runs directly in your web browser. No downloads, no installations, no risk.
+          complex technical knowledge. We changed that by building an editor that runs directly in
+          your web browser. No downloads or installations; keep a backup before editing.
         </p>
       </section>
 
@@ -61,19 +61,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div>
             <h3 class="text-xl font-bold mb-3">🔒 Client-Side Technology</h3>
             <p class="text-gray-700 dark:text-gray-300">
-              Security is our top priority. Unlike other tools, <strong
-                >SaveEditor.Online processes everything locally on your device</strong
-              >. When you "upload" a file, it never actually leaves your computer. It is loaded into
-              your browser's memory, edited, and saved back to your disk. We never see, store, or
-              transmit your game data. We do use Google Analytics and AdSense for site performance
-              and ads; see our Privacy and Cookie policies for details.
+              File handling is designed around browser-side parsing. When you select a file, it is
+              loaded into your browser's memory, edited, and saved back to your disk. The selected
+              save file is not uploaded to our parser server. We do use Google Analytics and AdSense
+              for site performance and ads; see our Privacy and Cookie policies for details.
             </p>
           </div>
           <div>
             <h3 class="text-xl font-bold mb-3">🛡️ Transparent & Safe</h3>
             <p class="text-gray-700 dark:text-gray-300">
               We are committed to transparency. Our tool is built on modern web standards (HTML5,
-              WebAssembly) and is regularly updated to ensure compatibility and safety. We strictly
+              WebAssembly) and is regularly updated to improve compatibility. We strictly
               oppose cheating in multiplayer games and design our tools solely for single-player
               experiences.
             </p>
@@ -168,8 +166,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </span>
             </summary>
             <p class="mt-4 text-gray-600 dark:text-gray-300">
-              Yes, 100% free with no hidden costs. We are ad-supported which allows us to keep the
-              service free for everyone.
+              Yes, the editor is free to use. We are ad-supported which allows us to keep the
+              service available.
             </p>
           </details>
           <details
@@ -192,9 +190,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </span>
             </summary>
             <p class="mt-4 text-gray-600 dark:text-gray-300">
-              Absolutely. All file processing happens in your browser. Your save files are never
-              uploaded to our servers. We do use Google Analytics and AdSense for site performance
-              and ads; see our Privacy and Cookie policies.
+              Browser-side parsing is the default model. The selected save file is not uploaded to
+              our parser server. We do use Google Analytics and AdSense for site performance and ads;
+              see our Privacy and Cookie policies.
             </p>
           </details>
           <details
@@ -277,7 +275,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           "name": "Is SaveEditor.Online really free?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, 100% free with no hidden costs. We are ad-supported which allows us to keep the service free for everyone."
+            "text": "Yes, the editor is free to use. We are ad-supported which allows us to keep the service available."
           }
         },
         {
@@ -285,7 +283,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           "name": "Is my data safe?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely. All file processing happens in your browser. Your save files are never uploaded to our servers. We do use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie policies."
+            "text": "Browser-side parsing is the default model. The selected save file is not uploaded to our parser server. We do use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie policies."
           }
         },
         {

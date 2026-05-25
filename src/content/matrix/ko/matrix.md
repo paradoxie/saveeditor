@@ -16,13 +16,13 @@ subtitle: '현재 지원되는 엔진 및 형식에 대한 개요입니다.'
 | 엔진 | 안정성 | 테스트된 게임 예시 | 참고 |
 |---|---|---|---|
 | RPG Maker MV / MZ | 🟢 높음 | Omori, OneShot, Lisa | `rpgsave` 형식은 LZString으로 압축된 JSON입니다. |
-| RPG Maker XP / VX | 🔴 미지원 | To the Moon | 브라우저 측에서 안전하고 정확한 역직렬화가 어렵기 때문에 `rxdata` 및 `rvdata2` (Ruby Marshal Data)는 현재 지원되지 않습니다. |
+| RPG Maker XP / VX / VX Ace | 🟡 제한적 안정 | To the Moon, LISA: The Painful | `.rxdata`, `.rvdata`, `.rvdata2`의 골드, 아이템, 변수, 스위치, 액터 값 같은 일반 필드를 제한적으로 편집할 수 있습니다. 커스텀 Ruby 객체와 구조 변경은 차단됩니다. |
 
 ## Ren'Py
 
 | 엔진 | 안정성 | 참고 |
 |---|---|---|
-| Ren'Py | 🟡 중간 | 복잡한 Python Pickles(zlib 압축)를 파싱합니다. 변수 유형에 크게 의존하기 때문에 값의 구조를 변경하면 게임이 손상될 수 있습니다. |
+| Ren'Py | 🟡 제한적 안정 | `.save`를 볼 수 있고 `persistent` 안의 단순 문자열, 숫자, 불리언만 저장할 수 있습니다. 복잡한 객체, persistent 밖의 상태, 구조 변경은 차단됩니다. |
 
 ## Unity
 
@@ -36,7 +36,7 @@ subtitle: '현재 지원되는 엔진 및 형식에 대한 개요입니다.'
 | 엔진 / 형식 | 안정성 | 참고 |
 |---|---|---|
 | 표준 GVAS | 🟢 높음 | 압축되지 않은 표준 Unreal Save Game 속성을 지원합니다 (Hogwarts Legacy, Palworld 등의 게임). |
-| 압축된 GVAS | 🟡 중간 | zlib 압축(예: Deep Rock Galactic)을 자동으로 감지하고 압축을 풉니다. 하지만 게임 내 세이브를 위한 안전한 재구축 보장이 아직 없기 때문에 현재 "읽기 전용" 모드로 작동합니다. |
+| gzip/zlib 래핑 GVAS | 🟢 높음 | 래퍼 해제, 편집, 원래 래퍼로 재압축할 수 있습니다. 그 외 커스텀 컨테이너는 별도 읽기 전용 또는 실패 사유로 표시됩니다. |
 
 ## GameMaker
 

@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { getLangFromUrl } from '../i18n/utils';
+import { SITE_LOCALES, getCanonicalPath, getSiteOrigin, localizedUrl } from '../lib/site';
 
 interface Props {
   title: string;
@@ -14,8 +15,8 @@ interface Props {
 
 const { title, description, keywords, ogImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const siteOrigin = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
-const canonicalURL = new URL(Astro.url.pathname, siteOrigin);
+const siteOrigin = getSiteOrigin(Astro.site);
+const canonicalURL = new URL(getCanonicalPath(Astro.url.pathname), siteOrigin);
 const siteUrl = `${siteOrigin}/`;
 const defaultOgImage = new URL('/images/blog/rpg-maker-cover.webp', siteUrl).toString();
 const ogImageUrl = new URL(ogImage || defaultOgImage, siteUrl).toString();
@@ -145,24 +146,18 @@ const structuredData = [
     {keywords && <meta name="keywords" content={keywords} />}
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Hreflang Tags for all 5 languages -->
+    <!-- Hreflang Tags for all supported languages -->
     {
       (() => {
-        const locales = ['en', 'ja', 'ko', 'pt', 'zh-cn', 'es', 'ru'];
-        const basePath = Astro.url.pathname.replace(/^\/(ja|ko|pt|zh-cn|es|ru)/, '');
-        return locales.map((locale) => {
-          const href =
-            locale === 'en'
-              ? `https://saveeditor.top${basePath}`
-              : `https://saveeditor.top/${locale}${basePath}`;
-          return <link rel="alternate" hreflang={locale} href={href} />;
-        });
+        return SITE_LOCALES.map((locale) => (
+          <link rel="alternate" hreflang={locale} href={localizedUrl(Astro.url.pathname, locale, siteOrigin)} />
+        ));
       })()
     }
     <link
       rel="alternate"
       hreflang="x-default"
-      href={`https://saveeditor.top${Astro.url.pathname.replace(/^\/(ja|ko|pt|zh-cn|es|ru)/, '')}`}
+      href={localizedUrl(Astro.url.pathname, 'en', siteOrigin)}
     />
 
     <!-- Open Graph -->

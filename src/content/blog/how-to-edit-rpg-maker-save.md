@@ -53,7 +53,7 @@ If something goes wrong during editing, you can always restore from this backup.
 2.  Drag and drop your `.rpgsave` file into the upload area, or click to browse.
 3.  Wait a few seconds for the file to be parsed.
 
-All processing happens **locally in your browser**. Your save file is never uploaded to any server.
+The selected save file is parsed **in your browser** and is not uploaded to our parser server.
 
 ## Step 4: Edit Common Values
 
@@ -98,7 +98,7 @@ To find out which switch or variable controls what, you may need to consult the 
 ## Frequently Asked Questions
 
 **Q: Is this safe?**
-A: Yes. All processing happens in your browser. Your file is never uploaded to any server.
+A: The selected file is parsed in your browser and is not uploaded to our parser server.
 
 **Q: Will this work for RPG Maker MZ?**
 A: Yes! MZ uses the same `.rpgsave` format as MV.
@@ -132,4 +132,3 @@ Expand your RPG Maker knowledge with these related guides:
 - [Common Save File Extensions Explained](/blog/common-save-file-extensions-explained)
 - [RPG Maker Save File Structure](/blog/rpg-maker-save-file-structure)
 - [GameMaker Save Editing Guide](/blog/gamemaker-save-editing-guide)
-

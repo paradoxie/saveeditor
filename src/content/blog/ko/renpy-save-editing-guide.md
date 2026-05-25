@@ -129,7 +129,7 @@ Ren'Py 게임은 플랫폼별 위치에 세이브를 저장합니다:
 ## 자주 묻는 질문
 
 **Q: 온라인 에디터가 Ren'Py 세이브를 수정할 수 있나요?**
-A: 현재 우리 에디터는 Ren'Py 세이브의 **읽기 전용** 보기를 제공합니다. pickle 역직렬화의 보안 위험 때문에 전체 편집 지원은 불가능합니다.
+A: 가능합니다. 다만 `persistent` 아래의 단순 값만 안정적으로 저장할 수 있습니다. 전체 게임 상태와 복잡한 Python 객체 편집은 pickle 위험 때문에 차단됩니다.
 
 **Q: 왜 그냥 지원하지 않나요?**
 A: 웹 브라우저에서 임의의 pickle 데이터를 실행하면 악성 코드 실행이 가능합니다. 기능 완성도보다 사용자 안전을 우선시합니다.
@@ -165,4 +165,3 @@ Ren'Py의 Python pickle 사용은 직접 세이브 편집을 기술적으로 어
 
 - [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
 - [NaniNovel 세이브 편집](/ko/blog/naninovel-save-editing-guide)
-

@@ -3,11 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const formats = [
   {
-    extension: '.rpgsave',
+    extension: '.rpgsave / .rvdata2 / .lsd',
     name: 'RPG Maker Save',
-    engines: ['RPG Maker MV', 'RPG Maker MZ'],
+    engines: ['RPG Maker MV', 'RPG Maker MZ', 'RPG Maker XP/VX/VX Ace', 'RPG Maker 2000/2003'],
     description:
-      'Base64 encoded JSON files used by modern RPG Maker games. Contains all player progress including party, inventory, map position, and game variables.',
+      'Modern RPG Maker JSON saves, Ruby Marshal legacy saves, and stable-limited RPG Maker 2000/2003 .lsd editing.',
     editor: '/editor/rpg-maker-mv',
     games: ['Omori', 'OneShot', 'To the Moon', 'Corpse Party'],
   },
@@ -82,6 +82,15 @@ const formats = [
       'Apple property list format. Binary or XML structure used for macOS and iOS game saves.',
     editor: '/editor/unity',
     games: ['iOS/macOS Unity games'],
+  },
+  {
+    extension: '.sol / .sqlite / .msgpack / .cbor / .es3',
+    name: 'Generic Inspector',
+    engines: ['Flash', 'SQLite', 'Unity', 'Custom'],
+    description:
+      'Read-only inspection for broad competitor formats. Decodes structure where safe and explains why export is disabled.',
+    editor: '/editor/generic',
+    games: ['Legacy Flash games', 'Custom indie games'],
   },
 ];
 ---

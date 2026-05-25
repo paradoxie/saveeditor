@@ -27,9 +27,9 @@ const getPath = (path: string) => {
 const formats = [
   {
     id: 'rpgsave',
-    extension: '.rpgsave',
+    extension: '.rpgsave / .rvdata2 / .lsd',
     name: 'RPG Maker Save',
-    engines: ['RPG Maker MV', 'RPG Maker MZ'],
+    engines: ['RPG Maker MV', 'RPG Maker MZ', 'RPG Maker XP/VX/VX Ace', 'RPG Maker 2000/2003'],
     editor: getPath('editor/rpg-maker-mv'),
     games: ['Omori', 'OneShot', 'To the Moon', 'Corpse Party'],
   },
@@ -96,6 +96,14 @@ const formats = [
     engines: ['Unity (macOS/iOS)', 'Native macOS'],
     editor: getPath('editor/unity'),
     games: ['iOS/macOS Unity games'],
+  },
+  {
+    id: 'generic',
+    extension: '.sol / .sqlite / .msgpack / .cbor / .es3',
+    name: 'Generic Inspector',
+    engines: ['Flash', 'SQLite', 'Unity', 'Custom'],
+    editor: getPath('editor/generic'),
+    games: ['Legacy Flash games', 'Custom indie games'],
   },
 ];
 ---

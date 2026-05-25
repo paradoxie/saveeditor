@@ -1,8 +1,8 @@
 ---
-import { getEntryBySlug } from 'astro:content';
+import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const entry = await getEntryBySlug('compatibility', 'matrix');
+const entry = await getEntry('compatibility', 'matrix');
 if (!entry) {
   throw new Error('Compatibility matrix content is missing: src/content/compatibility/matrix.md');
 }
@@ -20,6 +20,9 @@ const { Content } = await entry.render();
         <p class="text-gray-600">
           The matrix below reflects current parser behavior and safety mode in the web editor.
         </p>
+        <a class="mt-4 inline-flex rounded-lg border border-primary-200 bg-primary-50 px-4 py-2 text-sm font-semibold text-primary-700 hover:bg-primary-100" href="/coverage-proof">
+          View evidence-backed coverage proof
+        </a>
       </div>
 
       <article class="prose prose-gray max-w-none bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 shadow-sm">

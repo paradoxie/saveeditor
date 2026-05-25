@@ -24,6 +24,24 @@ function isContainer(value: unknown): value is Record<string, unknown> | Array<u
     return typeof value === 'object' && value !== null;
 }
 
+function isPlainSerializable(value: unknown, seen = new WeakSet<object>()): boolean {
+    if (isPrimitive(value)) return true;
+    if (!value || typeof value !== 'object') return false;
+    if (seen.has(value)) return false;
+    seen.add(value);
+    if (Array.isArray(value)) return value.every((item) => isPlainSerializable(item, seen));
+    if (Object.getPrototypeOf(value) !== Object.prototype) return false;
+    return Object.values(value as Record<string, unknown>).every((item) => isPlainSerializable(item, seen));
+}
+
+function isStableWritableRenpyPayload(value: unknown): boolean {
+    return (
+        Boolean(value && typeof value === 'object' && !Array.isArray(value)) &&
+        Object.prototype.hasOwnProperty.call(value as Record<string, unknown>, 'persistent') &&
+        isPlainSerializable(value)
+    );
+}
+
 function validateRenpyMutationScope(
     original: unknown,
     next: unknown,
@@ -137,24 +155,25 @@ export async function parseRenpy(file: File): Promise<ParseOutcome<any>> {
         const inflated = pako.inflate(compressedData);
         const parser = new pickleparser.Parser();
         const result = parser.parse(inflated);
+        const stableWritable = isStableWritableRenpyPayload(result);
 
         parsedSnapshots.set(file.name, deepCloneForSnapshot(result));
 
         return makeOutcome({
             engine: 'renpy',
             format: 'renpy',
-            mode: 'full',
+            mode: 'limited',
             reasonCode: 'ok',
             capabilities: {
                 canView: true,
-                canEdit: true,
-                canSave: true,
-                requiresExperimental: true,
-                roundTripSupport: 'experimental',
+                canEdit: stableWritable,
+                canSave: stableWritable,
+                requiresExperimental: false,
+                roundTripSupport: 'stable-limited',
             },
             data: result,
             warnings: [
-                'Write support is constrained to primitive values under "persistent".',
+                'Stable limited write support is constrained to primitive values under "persistent".',
                 'Always back up before saving Ren\'Py files.',
             ],
         });
@@ -194,6 +213,10 @@ export async function buildRenpy(originalFile: File, input: any): Promise<Blob> 
         );
     }
 
+    if (!isStableWritableRenpyPayload(snapshot) || !isStableWritableRenpyPayload(data)) {
+        throw new Error('Ren\'Py export is enabled only for plain, JSON-like saves with a persistent object.');
+    }
+
     const validationError = validateRenpyMutationScope(snapshot, data, []);
     if (validationError) {
         throw new Error(validationError);
@@ -205,6 +228,11 @@ export async function buildRenpy(originalFile: File, input: any): Promise<Blob> 
 
         const pickledData = pickleSerialize(data);
         const compressedData = pako.deflate(pickledData);
+        const parser = new pickleparser.Parser();
+        const reparsed = parser.parse(pako.inflate(compressedData));
+        if (JSON.stringify(reparsed) !== JSON.stringify(data)) {
+            throw new Error('Ren\'Py export verification failed after rebuilding the pickle payload.');
+        }
 
         const headerBytes = new TextEncoder().encode(header);
         const fullFile = new Uint8Array(headerBytes.length + compressedData.length);

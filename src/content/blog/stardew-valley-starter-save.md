@@ -63,7 +63,7 @@ Upon loading, you will see 3 wealthy farmers ready to go:
   <a href="/saves/stardew-valley/Millionaire_123456789.zip" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
     Download Save Pack (.zip)
   </a>
-  <p class="text-xs text-gray-400 mt-4">Safe & Verified XML Files</p>
+  <p class="text-xs text-gray-400 mt-4">Tested XML files. Back up your own save first.</p>
 </div>
 
 ---

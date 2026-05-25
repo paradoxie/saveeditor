@@ -5,9 +5,18 @@ export type ParserEngine =
     | 'unreal'
     | 'palworld'
     | 'gamemaker'
-    | 'naninovel';
+    | 'naninovel'
+    | 'generic';
 
-export type RoundTripSupportLevel = 'stable' | 'experimental' | 'none';
+export type FormatFamily =
+    | 'rpgmaker'
+    | 'renpy'
+    | 'unity'
+    | 'unreal'
+    | 'generic-structured'
+    | 'generic-binary';
+
+export type RoundTripSupportLevel = 'stable' | 'stable-limited' | 'experimental' | 'none';
 
 export type FailureReasonCode =
     | 'ok'
@@ -43,13 +52,40 @@ export interface ParserCapability {
 export interface ParseOutcome<TData = unknown> {
     engine: ParserEngine;
     format: string;
+    formatFamily?: FormatFamily;
     mode: string;
     reasonCode: FailureReasonCode | string;
     reason?: string;
     capabilities: ParserCapability;
     data: TData;
     warnings?: string[];
-    diagnostics?: Record<string, unknown>;
+    diagnostics?: Record<string, unknown> & { supportPack?: SupportPackSummary };
+}
+
+export interface SupportPackSummary {
+    fileName: string;
+    extension: string;
+    sizeBucket: string;
+    parserPath: string;
+    failureStage: string;
+    reasonCode: string;
+    format: string;
+    mode: string;
+    capability: RoundTripSupportLevel;
+    canView: boolean;
+    canEdit: boolean;
+    canSave: boolean;
+    contentClass: 'structured' | 'text' | 'binary' | 'empty';
+    signature: {
+        byteHash: string;
+        schemaFingerprint: string;
+    };
+    structureSummary: {
+        rootType: string;
+        nodeCount: number;
+        primitiveCount: number;
+        maxDepth: number;
+    };
 }
 
 export function makeCapabilities(input: Partial<ParserCapability>): ParserCapability {

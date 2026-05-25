@@ -1,43 +1,49 @@
 # SaveEditor.Online
 
-> Free, browser-based save file editor for games. All file processing happens client-side — nothing is uploaded.
+> Free, browser-based save file editor for compatible local game saves.
 
 For full documentation, see: https://saveeditor.top/llms-full.txt
 
-## Supported Engines
+## Core Engines
 
-- RPG Maker MV/MZ (.rpgsave, .rmmzsave)
-- Unity PlayerPrefs (.xml, .plist)
-- Ren'Py (.save, persistent)
-- Unreal Engine (.sav — standard GVAS)
-- GameMaker (.ini, .json)
-- NaniNovel (.nson)
+- RPG Maker MV/MZ/XP/VX/VX Ace/2000/2003
+- Ren'Py persistent limited stable write
+- Unity PlayerPrefs
+- Unreal Engine standard GVAS
+- GameMaker INI/JSON
+- NaniNovel NSON
+- Generic structured inspectors
 
 ## Main Sections
 
-- /: Home — upload any save file, auto-detect engine
-- /editor/rpg-maker-mv/: RPG Maker MV/MZ editor
-- /editor/unity/: Unity PlayerPrefs editor
-- /editor/renpy/: Ren'Py save viewer/editor
-- /editor/unreal/: Unreal Engine .sav editor
-- /editor/gamemaker/: GameMaker INI/JSON editor
-- /editor/naninovel/: NaniNovel .nson editor
-- /games/: Browse 80+ supported games
-- /blog/: Tutorials and guides
-- /faq/: Frequently asked questions
-- /saves/: Pre-made save file downloads
-- /compatibility/: Engine compatibility matrix
+- /: Upload and auto-detect a save file
+- /formats/: Save format reference
+- /compatibility/: Compatibility matrix
+- /coverage-proof/: Evidence-backed sample and preset coverage proof
+- /games/: 26 game landing pages
+- /editor/rpg-maker-mv/: RPG Maker editor
+- /editor/renpy/: Ren'Py editor
+- /editor/palworld/: Palworld/Unreal workflow
+- /editor/generic/: Generic structured inspector
+- /zh-cn/: Full Simplified Chinese publishing tier
+- /ja/: Full Japanese publishing tier
 
-## Supported Languages
+## Language Coverage
 
-- English (default)
-- 日本語 (/ja/)
-- 한국어 (/ko/)
-- Português (/pt/)
-- 简体中文 (/zh-cn/)
-- Español (/es/)
-- Русский (/ru/)
+- English: Full
+- 简体中文 (/zh-cn/): Full
+- 日本語 (/ja/): Full
+- 한국어 (/ko/): Short
+- Português (/pt/): Short
+- Español (/es/): Short
+- Русский (/ru/): Short
+
+## Full Locale URLs
+
+- English: https://saveeditor.top/games/, https://saveeditor.top/formats/, https://saveeditor.top/compatibility/, https://saveeditor.top/coverage-proof/
+- 简体中文: https://saveeditor.top/zh-cn/games/, https://saveeditor.top/zh-cn/formats/, https://saveeditor.top/zh-cn/compatibility/, https://saveeditor.top/zh-cn/coverage-proof/
+- 日本語: https://saveeditor.top/ja/games/, https://saveeditor.top/ja/formats/, https://saveeditor.top/ja/compatibility/, https://saveeditor.top/ja/coverage-proof/
 
 ## Privacy
 
-All file parsing and editing happens in the browser via JavaScript/WebAssembly. Save files never leave the user's device.
+Selected save files are parsed in the browser. Failure diagnostics use anonymized support-pack summaries, not raw save bytes.

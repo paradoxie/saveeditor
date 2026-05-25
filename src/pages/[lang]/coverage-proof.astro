@@ -1,0 +1,228 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCoverageRows, sampleRecords } from '../../data/capability';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ja' } },
+    { params: { lang: 'pt' } },
+    { params: { lang: 'ko' } },
+    { params: { lang: 'zh-cn' } },
+    { params: { lang: 'ru' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const rows = getCoverageRows().filter((row) => row.sampleCount > 0);
+const verifiedRows = rows.filter((row) => row.confidence === 'verified' && row.sampleCount > 0);
+
+const copy = {
+  'zh-cn': {
+    title: '证据覆盖页 | SaveEditor.Online',
+    description: 'SaveEditor.Online 的证据覆盖页。区分真实匿名样本、合成 fixture、结构只读样本，以及 verified / candidate / read-only / blocked 状态。',
+    heading: '证据覆盖页',
+    body: '本页把真实匿名样本、工程 fixture 和结构只读样本拆开显示。real sample 为 0 时，说明它只是工程证据，不代表真实市场覆盖率。',
+    status: {
+      verified: '已验证',
+      verifiedBody: '在列出的证据范围内已有样本和测试支撑。',
+      candidate: '候选',
+      candidateBody: '界面可见，但还没有足够的游戏级证据。',
+      readonly: '只读',
+      readonlyBody: '可查看结构，但没有安全的浏览器端写回路径。',
+      blocked: '已阻止',
+      blockedBody: '存在高风险写回边界，因此故意禁用。',
+    },
+    cards: {
+      verified: '已验证 preset',
+      samples: '样本记录',
+      model: '证据模型',
+      modelValue: '类型化样本 + 测试',
+    },
+    table: {
+      preset: 'Preset',
+      engine: '引擎',
+      family: '格式族',
+      confidence: '状态',
+      scope: '证据范围',
+      samples: '样本',
+      capability: '能力等级',
+      features: '验证字段',
+      verifiedAt: '最后验证',
+      boundary: '边界',
+      sampleCell: (row: { realSampleCount: number; syntheticFixtureCount: number; structureOnlyCount: number }) =>
+        `${row.realSampleCount} real / ${row.syntheticFixtureCount} synthetic / ${row.structureOnlyCount} structure-only`,
+      featureCell: (row: { confidence: string; verifiedFeatures: string[]; candidateFeatures: string[] }) =>
+        row.confidence === 'verified' ? row.verifiedFeatures.join(', ') : `候选: ${row.candidateFeatures.join(', ')}`,
+    },
+  },
+  ja: {
+    title: '証拠ベース対応状況 | SaveEditor.Online',
+    description: 'SaveEditor.Online の証拠ベース対応状況。実サンプル、合成 fixture、構造確認専用サンプルと、verified / candidate / read-only / blocked を区別します。',
+    heading: '証拠ベース対応状況',
+    body: 'このページでは、実サンプル、エンジニアリング用 fixture、構造確認専用サンプルを分けて表示します。real sample が 0 の行は、市場実績ではなく工学的証拠です。',
+    status: {
+      verified: '確認済み',
+      verifiedBody: '記載された範囲でサンプルとテストに裏付けがあります。',
+      candidate: '候補',
+      candidateBody: 'UI には出ますが、ゲーム固有の証拠がまだ不足しています。',
+      readonly: '読み取り専用',
+      readonlyBody: '構造確認のみ可能で、安全なブラウザ書き戻し経路はありません。',
+      blocked: 'ブロック',
+      blockedBody: '高リスクな書き戻し境界なので意図的に無効化しています。',
+    },
+    cards: {
+      verified: '確認済み preset',
+      samples: 'サンプル記録',
+      model: '証拠モデル',
+      modelValue: '型付きサンプル + テスト',
+    },
+    table: {
+      preset: 'Preset',
+      engine: 'エンジン',
+      family: '形式ファミリー',
+      confidence: '状態',
+      scope: '証拠範囲',
+      samples: 'サンプル',
+      capability: '能力',
+      features: '検証項目',
+      verifiedAt: '最終検証',
+      boundary: '境界',
+      sampleCell: (row: { realSampleCount: number; syntheticFixtureCount: number; structureOnlyCount: number }) =>
+        `${row.realSampleCount} real / ${row.syntheticFixtureCount} synthetic / ${row.structureOnlyCount} structure-only`,
+      featureCell: (row: { confidence: string; verifiedFeatures: string[]; candidateFeatures: string[] }) =>
+        row.confidence === 'verified' ? row.verifiedFeatures.join(', ') : `候補: ${row.candidateFeatures.join(', ')}`,
+    },
+  },
+} as const;
+
+const currentCopy = lang === 'zh-cn' || lang === 'ja'
+  ? copy[lang]
+  : {
+      title: 'Coverage Proof | SaveEditor.Online',
+      description: 'Short coverage proof summary for SaveEditor.Online. Full release-grade localization is limited to English, Simplified Chinese, and Japanese.',
+      heading: 'Coverage Proof',
+      body: `Locale: ${lang}. This short-form locale reuses the canonical evidence model to avoid unsupported claims.`,
+      status: {
+        verified: 'Verified',
+        verifiedBody: 'Evidence-backed for the listed scope.',
+        candidate: 'Candidate',
+        candidateBody: 'Visible in UI, but not yet proven by game-specific evidence.',
+        readonly: 'Read-only',
+        readonlyBody: 'Inspectable structure with no safe browser-side write path.',
+        blocked: 'Blocked',
+        blockedBody: 'Unsafe write scope is intentionally disabled.',
+      },
+      cards: {
+        verified: 'Verified presets',
+        samples: 'Sample records',
+        model: 'Proof model',
+        modelValue: 'Typed samples + tests',
+      },
+      table: {
+        preset: 'Preset',
+        engine: 'Engine',
+        family: 'Family',
+        confidence: 'Confidence',
+        scope: 'Evidence scope',
+        samples: 'Samples',
+        capability: 'Capability',
+        features: 'Features',
+        verifiedAt: 'Last verified',
+        boundary: 'Boundary',
+        sampleCell: (row: { realSampleCount: number; syntheticFixtureCount: number; structureOnlyCount: number }) =>
+          `${row.realSampleCount} real / ${row.syntheticFixtureCount} synthetic / ${row.structureOnlyCount} structure-only`,
+        featureCell: (row: { confidence: string; verifiedFeatures: string[]; candidateFeatures: string[] }) =>
+          row.confidence === 'verified' ? row.verifiedFeatures.join(', ') : `Candidate: ${row.candidateFeatures.join(', ')}`,
+      },
+    };
+---
+
+<BaseLayout
+  title={currentCopy.title}
+  description={currentCopy.description}
+>
+  <section class="container mx-auto px-4 py-10">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8">
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">{currentCopy.heading}</h1>
+        <p class="text-gray-600">
+          {currentCopy.body}
+        </p>
+      </div>
+
+      <div class="mb-8 grid gap-4 md:grid-cols-4">
+        <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+          <p class="font-semibold text-emerald-900">{currentCopy.status.verified}</p>
+          <p class="mt-1 text-sm text-emerald-800">{currentCopy.status.verifiedBody}</p>
+        </div>
+        <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">
+          <p class="font-semibold text-amber-900">{currentCopy.status.candidate}</p>
+          <p class="mt-1 text-sm text-amber-800">{currentCopy.status.candidateBody}</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <p class="font-semibold text-slate-900">{currentCopy.status.readonly}</p>
+          <p class="mt-1 text-sm text-slate-700">{currentCopy.status.readonlyBody}</p>
+        </div>
+        <div class="rounded-2xl border border-rose-100 bg-rose-50 p-4">
+          <p class="font-semibold text-rose-900">{currentCopy.status.blocked}</p>
+          <p class="mt-1 text-sm text-rose-800">{currentCopy.status.blockedBody}</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-8">
+        <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <p class="text-sm text-gray-500">{currentCopy.cards.verified}</p>
+          <p class="text-3xl font-bold text-gray-900">{verifiedRows.length}</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <p class="text-sm text-gray-500">{currentCopy.cards.samples}</p>
+          <p class="text-3xl font-bold text-gray-900">{sampleRecords.length}</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <p class="text-sm text-gray-500">{currentCopy.cards.model}</p>
+          <p class="text-xl font-bold text-gray-900">{currentCopy.cards.modelValue}</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <table class="min-w-full text-left text-sm">
+          <thead class="bg-gray-50 text-xs uppercase text-gray-500">
+            <tr>
+              <th class="px-4 py-3">{currentCopy.table.preset}</th>
+              <th class="px-4 py-3">{currentCopy.table.engine}</th>
+              <th class="px-4 py-3">{currentCopy.table.family}</th>
+              <th class="px-4 py-3">{currentCopy.table.confidence}</th>
+              <th class="px-4 py-3">{currentCopy.table.scope}</th>
+              <th class="px-4 py-3">{currentCopy.table.samples}</th>
+              <th class="px-4 py-3">{currentCopy.table.capability}</th>
+              <th class="px-4 py-3">{currentCopy.table.features}</th>
+              <th class="px-4 py-3">{currentCopy.table.verifiedAt}</th>
+              <th class="px-4 py-3">{currentCopy.table.boundary}</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {rows.map((row) => (
+              <tr>
+                <td class="px-4 py-3 font-semibold text-gray-900">{row.slug}</td>
+                <td class="px-4 py-3">{row.engine}</td>
+                <td class="px-4 py-3">{row.family}</td>
+                <td class="px-4 py-3">
+                  <span class={`rounded-full px-2 py-1 text-xs font-semibold ${row.confidence === 'verified' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                    {row.confidence}
+                  </span>
+                </td>
+                <td class="px-4 py-3">{row.evidenceScope.join(', ')}</td>
+                <td class="px-4 py-3">{currentCopy.table.sampleCell(row)}</td>
+                <td class="px-4 py-3">{row.capability}</td>
+                <td class="px-4 py-3 text-gray-600">{currentCopy.table.featureCell(row)}</td>
+                <td class="px-4 py-3">{row.latest}</td>
+                <td class="px-4 py-3 text-gray-600">{row.limits.join(' ')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

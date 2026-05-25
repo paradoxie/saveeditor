@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="关于我们 | SaveEditor.Online"
-  description="了解 SaveEditor.Online 背后的团队 - 这是一款免费、安全、基于浏览器的游戏存档编辑工具，深受全球玩家信赖。"
+  description="了解 SaveEditor.Online 背后的团队 - 这是一款面向兼容本地存档的免费浏览器端游戏存档编辑工具。"
 >
   <section class="container mx-auto px-4 py-12 max-w-6xl">
     <div class="text-center mb-16">
@@ -12,7 +12,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         关于 SaveEditor.Online
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        一项开源倡议，赋予玩家自由，玩出自己的风格。全球最值得信赖、安全且通用的浏览器端存档编辑器。
+        一项开源倡议，赋予玩家自由，玩出自己的风格。我们专注于兼容本地存档、明确能力边界和备份优先的浏览器端编辑体验。
       </p>
     </div>
 
@@ -42,10 +42,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <h2 class="text-3xl font-bold mb-6">我们的使命</h2>
         <p class="text-lg leading-relaxed">
           SaveEditor.Online 的创建目标简单而强大：<strong>让游戏修改变得民主化</strong
-          >。我们相信单人游戏是一种个人体验。无论你是想跳过繁琐的练级、恢复损坏的存档，还是尝试不同的故事分支，你都应该拥有简单、安全的工具来实现。
+          >。我们相信单人游戏是一种个人体验。无论你是想跳过繁琐的练级、恢复损坏的存档，还是尝试不同的故事分支，你都需要可理解、可备份、边界清晰的工具。
         </p>
         <p class="leading-relaxed mt-4">
-          在过去，编辑存档文件需要下载可疑的软件、进行十六进制编辑或具备复杂的技术知识。我们通过构建一个直接在您的浏览器中运行的强大通用编辑器改变了这一切。无需下载，无需安装，零风险。
+          在过去，编辑存档文件需要下载可疑的软件、进行十六进制编辑或具备复杂的技术知识。我们通过构建一个直接在您的浏览器中运行的通用编辑器改变了这一点。无需下载，无需安装；编辑前仍建议保留原始备份。
         </p>
       </section>
 
@@ -55,16 +55,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <div>
             <h3 class="text-xl font-bold mb-3">🔒 客户端技术</h3>
             <p class="text-gray-700 dark:text-gray-300">
-              安全是我们的首要任务。与其他工具不同，<strong
-                >SaveEditor.Online 在您的设备上本地处理所有内容</strong
-              >。当您“上传”文件时，它实际上从未离开过您的电脑。它被加载到浏览器的内存中，进行编辑，然后保存回您的磁盘。我们绝不会查看、存储或传输您的游戏数据。我们会使用 Google Analytics 和 AdSense 来衡量网站性能并投放广告；详情请查看我们的隐私政策和 Cookie 政策。
+              文件处理以浏览器端解析为核心。选择文件后，它会被加载到浏览器内存中，进行编辑，然后保存回您的磁盘。所选存档文件不会上传到我们的解析服务器。我们会使用 Google Analytics 和 AdSense 来衡量网站性能并投放广告；详情请查看我们的隐私政策和 Cookie 政策。
             </p>
           </div>
           <div>
             <h3 class="text-xl font-bold mb-3">🛡️ 透明且安全</h3>
             <p class="text-gray-700 dark:text-gray-300">
               我们致力于透明化。我们的工具基于现代 Web 标准（HTML5,
-              WebAssembly）构建，并定期更新以确保兼容性和安全性。我们坚决反对在多人游戏中作弊，并且我们的工具仅为单人游戏体验而设计。
+              WebAssembly）构建，并定期更新以改进兼容性。我们坚决反对在多人游戏中作弊，并且我们的工具仅为单人游戏体验而设计。
             </p>
           </div>
         </div>
@@ -156,7 +154,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               </span>
             </summary>
             <p class="mt-4 text-gray-600 dark:text-gray-300">
-              是的，100% 免费，没有隐藏费用。我们通过广告支持，这使我们能够让所有人免费使用该服务。
+              是的，编辑器可免费使用。我们通过广告支持，以维持服务可用。
             </p>
           </details>
           <details
@@ -179,7 +177,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               </span>
             </summary>
             <p class="mt-4 text-gray-600 dark:text-gray-300">
-              绝对安全。所有的文件处理都在您的浏览器中进行。您的存档文件永远不会上传到我们的服务器。我们确实使用 Google Analytics 和 AdSense 来衡量网站性能并投放广告；请参阅我们的隐私政策和 Cookie 政策。
+              以本地处理为核心。所有的文件处理都在您的浏览器中进行。您的存档文件永远不会上传到我们的服务器。我们确实使用 Google Analytics 和 AdSense 来衡量网站性能并投放广告；请参阅我们的隐私政策和 Cookie 政策。
             </p>
           </details>
           <details
@@ -260,7 +258,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           "name": "SaveEditor.Online 真的免费吗？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "是的，100% 免费，没有隐藏费用。我们通过广告支持，这使我们能够让所有人免费使用该服务。"
+            "text": "是的，编辑器可免费使用。我们通过广告支持，以维持服务可用。"
           }
         },
         {
@@ -268,7 +266,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           "name": "我的数据安全吗？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "绝对安全。所有的文件处理都在您的浏览器中进行。您的存档文件永远不会上传到我们的服务器。我们确实使用 Google Analytics 和 AdSense 来衡量网站性能并投放广告；请参阅我们的隐私政策和 Cookie 政策。"
+            "text": "以浏览器端解析为核心。所选存档文件不会上传到我们的解析服务器。我们确实使用 Google Analytics 和 AdSense 来衡量网站性能并投放广告；请参阅我们的隐私政策和 Cookie 政策。"
           }
         },
         {

@@ -16,13 +16,13 @@ subtitle: 'Uma visão geral dos motores e formatos atualmente suportados.'
 | Motor | Estabilidade | Exemplos de Jogos Testados | Notas |
 |---|---|---|---|
 | RPG Maker MV / MZ | 🟢 Alta | Omori, OneShot, Lisa | O formato `rpgsave` é JSON compactado com LZString. |
-| RPG Maker XP / VX | 🔴 Sem Suporte | To the Moon | `rxdata` e `rvdata2` (Ruby Marshal Data) não são suportados atualmente devido às dificuldades de desserialização segura e precisa do lado do cliente do navegador. |
+| RPG Maker XP / VX / VX Ace | 🟡 Estável limitado | To the Moon, LISA: The Painful | Permite edição limitada de campos comuns em `.rxdata`, `.rvdata` e `.rvdata2`, como dinheiro, itens, variáveis, switches e valores de atores; objetos Ruby personalizados e mudanças estruturais são bloqueados. |
 
 ## Ren'Py
 
 | Motor | Estabilidade | Notas |
 |---|---|---|
-| Ren'Py | 🟡 Média | Analisa Python Pickles complexos (compactados com zlib). Como depende fortemente dos tipos de variáveis, a modificação da estrutura dos valores pode corromper o jogo. |
+| Ren'Py | 🟡 Estável limitado | Permite visualizar `.save` e salvar valores simples em `persistent`, como strings, números e booleanos; objetos complexos, estado fora de persistent e mudanças estruturais são bloqueados. |
 
 ## Unity
 
@@ -36,7 +36,7 @@ subtitle: 'Uma visão geral dos motores e formatos atualmente suportados.'
 | Motor / Formato | Estabilidade | Notas |
 |---|---|---|
 | GVAS Padrão | 🟢 Alta | Suporta propriedades descompactadas do padrão Unreal Save Game (jogos como Hogwarts Legacy, Palworld). |
-| GVAS Comprimido | 🟡 Média | Detecta e descompacta automaticamente a compactação zlib (ex: Deep Rock Galactic). Devido ao risco na reconstrução segura para salvar no jogo, opera atualmente no modo "Somente Leitura". |
+| GVAS gzip/zlib | 🟢 Alta | Descompacta, permite editar e reconstrói o wrapper gzip/zlib original. Outros contêineres personalizados mostram modo somente leitura ou uma causa de falha separada. |
 
 ## GameMaker
 

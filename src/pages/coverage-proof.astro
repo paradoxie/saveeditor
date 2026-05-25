@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCoverageRows, sampleRecords } from '../data/capability';
+
+const rows = getCoverageRows().filter((row) => row.sampleCount > 0);
+const verifiedRows = rows.filter((row) => row.confidence === 'verified' && row.sampleCount > 0);
+---
+
+<BaseLayout
+  title="Coverage Proof | SaveEditor.Online"
+  description="Evidence-backed compatibility proof for SaveEditor.Online presets, parser fixtures, save formats, and write boundaries."
+>
+  <section class="container mx-auto px-4 py-10">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8">
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Coverage Proof</h1>
+        <p class="text-gray-600">
+          This page separates fixture-backed parser proof from real anonymized samples. A zero real-sample count means the row is engineering evidence, not market coverage proof.
+        </p>
+      </div>
+
+      <div class="mb-8 grid gap-4 md:grid-cols-4">
+        <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+          <p class="font-semibold text-emerald-900">Verified</p>
+          <p class="mt-1 text-sm text-emerald-800">Evidence-backed for the listed scope.</p>
+        </div>
+        <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">
+          <p class="font-semibold text-amber-900">Candidate</p>
+          <p class="mt-1 text-sm text-amber-800">Visible in UI, but not yet proven by game-specific evidence.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <p class="font-semibold text-slate-900">Read-only</p>
+          <p class="mt-1 text-sm text-slate-700">Inspectable structure with no safe browser-side write path.</p>
+        </div>
+        <div class="rounded-2xl border border-rose-100 bg-rose-50 p-4">
+          <p class="font-semibold text-rose-900">Blocked</p>
+          <p class="mt-1 text-sm text-rose-800">Unsafe write scope is intentionally disabled.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-8">
+        <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <p class="text-sm text-gray-500">Verified presets</p>
+          <p class="text-3xl font-bold text-gray-900">{verifiedRows.length}</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <p class="text-sm text-gray-500">Sample records</p>
+          <p class="text-3xl font-bold text-gray-900">{sampleRecords.length}</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <p class="text-sm text-gray-500">Proof model</p>
+          <p class="text-xl font-bold text-gray-900">Typed samples + tests</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <table class="min-w-full text-left text-sm">
+          <thead class="bg-gray-50 text-xs uppercase text-gray-500">
+            <tr>
+              <th class="px-4 py-3">Preset</th>
+              <th class="px-4 py-3">Engine</th>
+              <th class="px-4 py-3">Family</th>
+              <th class="px-4 py-3">Confidence</th>
+              <th class="px-4 py-3">Evidence scope</th>
+              <th class="px-4 py-3">Samples</th>
+              <th class="px-4 py-3">Capability</th>
+              <th class="px-4 py-3">Features</th>
+              <th class="px-4 py-3">Last verified</th>
+              <th class="px-4 py-3">Boundary</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {rows.map((row) => (
+              <tr>
+                <td class="px-4 py-3 font-semibold text-gray-900">{row.slug}</td>
+                <td class="px-4 py-3">{row.engine}</td>
+                <td class="px-4 py-3">{row.family}</td>
+                <td class="px-4 py-3">
+                  <span class={`rounded-full px-2 py-1 text-xs font-semibold ${row.confidence === 'verified' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                    {row.confidence}
+                  </span>
+                </td>
+                <td class="px-4 py-3">{row.evidenceScope.join(', ')}</td>
+                <td class="px-4 py-3">
+                  {row.realSampleCount} real / {row.syntheticFixtureCount} synthetic / {row.structureOnlyCount} structure-only
+                </td>
+                <td class="px-4 py-3">{row.capability}</td>
+                <td class="px-4 py-3 text-gray-600">
+                  {row.confidence === 'verified' ? row.verifiedFeatures.join(', ') : `Candidate: ${row.candidateFeatures.join(', ')}`}
+                </td>
+                <td class="px-4 py-3">{row.latest}</td>
+                <td class="px-4 py-3 text-gray-600">{row.limits.join(' ')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

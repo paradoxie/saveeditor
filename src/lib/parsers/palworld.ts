@@ -3,7 +3,7 @@ import type { UnrealParseOutcome, UnrealParseResult } from './unreal';
 import { buildUnreal, parseUnreal } from './unreal';
 
 export type PalworldFileRole = 'player' | 'world' | 'unknown';
-export type PalworldFieldId = 'gold' | 'techPoints' | 'playerLevel' | 'hp' | 'stamina';
+export type PalworldFieldId = 'gold' | 'goldItem' | 'techPoints' | 'playerLevel' | 'hp' | 'stamina' | 'inventoryItem';
 export type PalworldInsightNote =
     | 'read_only'
     | 'no_stable_quick_fields'
@@ -25,6 +25,17 @@ export interface PalworldInsights {
     fileRole: PalworldFileRole;
     quickFields: PalworldQuickField[];
     notes: PalworldInsightNote[];
+    palsSummary?: {
+        candidateCount: number;
+        candidates: PalworldPalCandidate[];
+    };
+}
+
+export interface PalworldPalCandidate {
+    path: Array<string | number>;
+    label: string;
+    level?: number;
+    confidence: 'high' | 'medium';
 }
 
 export interface PalworldParseResult extends UnrealParseResult {
@@ -78,6 +89,13 @@ const FIELD_RULES: FieldRule[] = [
         exclude: ['pal', 'monster', 'enemy', 'boss'],
     },
     {
+        id: 'goldItem',
+        includes: ['goldcoin', 'moneyitem', 'coin'],
+        exact: ['goldcoin', 'coin'],
+        context: ['inventory', 'item', 'player', 'container'],
+        exclude: ['pal', 'monster', 'enemy', 'boss'],
+    },
+    {
         id: 'playerLevel',
         includes: ['level', 'playerlevel'],
         exact: ['level', 'playerlevel'],
@@ -96,6 +114,12 @@ const FIELD_RULES: FieldRule[] = [
         context: ['player', 'character', 'status', 'saveparameter', 'parameter'],
         exclude: ['pal', 'monster', 'enemy', 'boss'],
     },
+    {
+        id: 'inventoryItem',
+        includes: ['itemnum', 'quantity', 'count', 'stack'],
+        context: ['inventory', 'itemcontainer', 'item', 'slot', 'player'],
+        exclude: ['pal', 'monster', 'enemy', 'boss'],
+    },
 ];
 
 function normalizeKey(input: string): string {
@@ -104,6 +128,7 @@ function normalizeKey(input: string): string {
 
 function getRuleThreshold(ruleId: PalworldFieldId): number {
     if (ruleId === 'hp' || ruleId === 'stamina') return 65;
+    if (ruleId === 'inventoryItem' || ruleId === 'goldItem') return 85;
     return 70;
 }
 
@@ -299,6 +324,10 @@ function scoreCandidate(candidate: Candidate, rule: FieldRule): CandidateScore |
         score += 5;
         evidence.push('tech-range');
     }
+    if ((rule.id === 'inventoryItem' || rule.id === 'goldItem') && candidate.value >= 0 && candidate.value <= 999999) {
+        score += 8;
+        evidence.push('inventory-range');
+    }
 
     return { score, evidence };
 }
@@ -405,9 +434,87 @@ export function extractPalworldQuickFields(jsonView: unknown): PalworldQuickFiel
     return analyzePalworldQuickFields(jsonView).quickFields;
 }
 
+export function summarizePalworldPals(root: unknown): { candidateCount: number; candidates: PalworldPalCandidate[] } {
+    const stack: Array<{ node: unknown; path: Array<string | number> }> = [{ node: root, path: [] }];
+    const visited = new WeakSet<object>();
+    let candidateCount = 0;
+    let visitedNodes = 0;
+    const candidates: PalworldPalCandidate[] = [];
+
+    while (stack.length > 0 && visitedNodes < MAX_QUICK_SCAN_NODES) {
+        const current = stack.pop();
+        if (!current) break;
+        const { node, path } = current;
+        visitedNodes += 1;
+        if (!node || typeof node !== 'object') continue;
+        if (visited.has(node)) continue;
+        visited.add(node);
+
+        if (Array.isArray(node)) {
+            for (let index = node.length - 1; index >= 0; index -= 1) stack.push({ node: node[index], path: [...path, index] });
+            continue;
+        }
+
+        const record = node as Record<string, unknown>;
+        const palCandidate = extractPalCandidate(record, path);
+        if (palCandidate) {
+            candidateCount += 1;
+            if (candidates.length < 20) candidates.push(palCandidate);
+        }
+
+        for (const [key, value] of Object.entries(record)) {
+            stack.push({ node: value, path: [...path, key] });
+        }
+    }
+
+    return { candidateCount, candidates };
+}
+
+function extractPalCandidate(record: Record<string, unknown>, path: Array<string | number>): PalworldPalCandidate | null {
+    const entries = Object.entries(record);
+    const getByTerms = (terms: string[]) => {
+        const entry = entries.find(([key]) => terms.some((term) => normalizeKey(key).includes(term)));
+        return entry?.[1];
+    };
+    const labelValue = getByTerms(['palid', 'palname', 'nickname', 'characterid', 'speciesid']);
+    const levelValue = getByTerms(['level']);
+    const hasPalContext = entries.some(([key, value]) => {
+        const normalized = normalizeKey(key);
+        return normalized.includes('pal') || (typeof value === 'string' && normalizeKey(value).includes('pal'));
+    }) || path.some((part) => typeof part === 'string' && normalizeKey(part).includes('pal'));
+
+    if (!hasPalContext || (labelValue === undefined && levelValue === undefined)) return null;
+    const label = labelValue === undefined ? 'Pal candidate' : String(labelValue);
+    const level = typeof levelValue === 'number' && Number.isFinite(levelValue) ? levelValue : undefined;
+    return {
+        path,
+        label,
+        level,
+        confidence: labelValue !== undefined && level !== undefined ? 'high' : 'medium',
+    };
+}
+
 export async function parsePalworld(file: File): Promise<PalworldParseOutcome> {
     const unrealOutcome: UnrealParseOutcome = await parseUnreal(file);
     const unreal = unrealOutcome.data;
+    if (!unrealOutcome.capabilities.canView || !unreal) {
+        return makeOutcome({
+            engine: 'palworld',
+            format: 'sav',
+            mode: unrealOutcome.mode,
+            reasonCode: unrealOutcome.reasonCode,
+            reason: unrealOutcome.reason || 'This Palworld candidate could not be parsed as a standard GVAS save.',
+            capabilities: {
+                canView: false,
+                canEdit: false,
+                canSave: false,
+                roundTripSupport: 'none',
+            },
+            data: null as any,
+            warnings: unrealOutcome.warnings,
+            diagnostics: unrealOutcome.diagnostics,
+        });
+    }
 
     const fileRole = detectFileRole(file.name, unreal.jsonView);
     const shouldRunQuickFieldDetection = fileRole !== 'world';
@@ -450,6 +557,7 @@ export async function parsePalworld(file: File): Promise<PalworldParseOutcome> {
         fileRole,
         quickFields,
         notes,
+        palsSummary: shouldRunQuickFieldDetection ? summarizePalworldPals(unreal.jsonView) : undefined,
     };
 
     const worldLimited = fileRole === 'world';
@@ -485,5 +593,9 @@ export async function parsePalworld(file: File): Promise<PalworldParseOutcome> {
 
 export async function buildPalworld(originalFile: File, data: PalworldParseResult | any): Promise<Blob> {
     const payload = data?.engine ? data?.data : data;
+    const role = payload?._palworld?.fileRole ?? detectFileRole(originalFile.name, payload?.jsonView ?? payload);
+    if (role === 'world') {
+        throw new Error('Palworld world saves are read-only in this editor. Safe world-file writing is not enabled.');
+    }
     return buildUnreal(originalFile, payload);
 }

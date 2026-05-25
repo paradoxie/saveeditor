@@ -1,26 +1,29 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FAQ from '../../components/FAQ.astro';
-import { games } from '../../data/games';
+import { games as baseGames } from '../../data/games';
+import { absoluteUrl, getSiteOrigin } from '../../lib/site';
 
 export async function getStaticPaths() {
-  return games.map((game) => ({
+  return baseGames.map((game) => ({
     params: { slug: game.slug },
     props: { game },
   }));
 }
 
 const { game } = Astro.props;
-const siteOrigin = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
-const absUrl = (path: string) =>
-  new URL(path.endsWith('/') ? path : `${path}/`, siteOrigin).toString();
+const siteOrigin = getSiteOrigin(Astro.site);
+const absUrl = (path: string) => absoluteUrl(path, siteOrigin);
+const imageUrl = absUrl(game.image);
+const featureList = (game.editorQuickEditTargets.length > 0 ? game.editorQuickEditTargets : game.quickEditTargets).slice(0, 8);
+const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 6);
 ---
 
 <BaseLayout
-  title={`${game.name} Save Editor - Edit ${game.format} Files Online Free`}
-  description={game.seoDescription ||
-    `Free online save editor for ${game.name}. Edit gold, items, stats and more. Find save file location and start editing in your browser.`}
-  keywords={`${game.name.toLowerCase()} save editor, ${game.name.toLowerCase()} save file location, ${game.name.toLowerCase()} edit save, ${game.format} editor`}
+  title={game.seoTitleByLocale.en}
+  description={game.seoDescriptionByLocale.en}
+  keywords={game.longTailTermsByLocale.en.join(', ')}
+  ogImage={game.image}
 >
   <!-- Hero Section -->
   <section class="relative bg-slate-900 text-white overflow-hidden">
@@ -28,7 +31,8 @@ const absUrl = (path: string) =>
     <div class="absolute inset-0 z-0">
       <img
         src={game.image}
-        alt={`${game.name} Background`}
+        alt=""
+        aria-hidden="true"
         class="w-full h-full object-cover opacity-20 blur-sm"
       />
       <div
@@ -46,7 +50,7 @@ const absUrl = (path: string) =>
           </div>
           <img
             src={game.image}
-            alt={game.name}
+            alt={game.imageAltByLocale.en}
             class="relative w-full max-w-lg h-auto rounded-xl shadow-2xl border border-white/10 mx-auto transform transition hover:scale-[1.02]"
           />
           <div
@@ -74,7 +78,7 @@ const absUrl = (path: string) =>
             Format: {game.format}
           </span>
           <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">
-            ✓ 100% Free
+            ✓ Free to Use
           </span>
         </div>
 
@@ -93,7 +97,35 @@ const absUrl = (path: string) =>
       <!-- What Can You Edit Section -->
       <section class="mb-16">
         <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
-          What Can You Edit in {game.name}?
+          Verified In The Editor
+        </h2>
+        {game.editorVerifiedItems.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {
+              game.editorVerifiedItems.map((item: { icon: string; name: string; desc: string }) => (
+                <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="text-3xl mb-3">{item.icon}</div>
+                  <h3 class="font-bold text-gray-900 mb-2">{item.name}</h3>
+                  <p class="text-gray-600 text-sm">{item.desc}</p>
+                </div>
+              ))
+            }
+          </div>
+        ) : (
+          <p class="rounded-2xl border border-amber-100 bg-amber-50 p-5 text-sm text-amber-900">
+            No game-specific verified editor fields yet. Candidate and engine-level notes stay visible below.
+          </p>
+        )}
+        <div class="mt-6 rounded-2xl border border-indigo-100 bg-indigo-50 p-5 text-sm text-indigo-900">
+          <p class="font-semibold">Evidence status: {game.presetConfidence}</p>
+          <p class="mt-1 text-indigo-700">Verified editor fields come from the evidence model only. Game-specific notes stay separate below.</p>
+          <a class="mt-3 inline-flex text-primary-700 hover:underline" href="/coverage-proof">View coverage proof</a>
+        </div>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
+          Game-Specific Editing Notes For {game.name}
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
@@ -106,6 +138,76 @@ const absUrl = (path: string) =>
             ))
           }
         </div>
+      </section>
+
+      <!-- Compatibility Expectations Section -->
+      <section class="mb-16 bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">
+          Compatibility & Common Failure Reasons
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4">
+            <h3 class="font-semibold text-emerald-900 mb-2">Best case</h3>
+            <p class="text-sm text-emerald-800">
+              The file opens in Quick Edit, common fields are detected, and the download button is enabled.
+            </p>
+          </div>
+          <div class="rounded-xl border border-amber-100 bg-amber-50 p-4">
+            <h3 class="font-semibold text-amber-900 mb-2">Read-only mode</h3>
+            <p class="text-sm text-amber-800">
+              The file can be inspected, but export is disabled because this structure cannot be rebuilt safely in-browser.
+            </p>
+          </div>
+          <div class="rounded-xl border border-red-100 bg-red-50 p-4">
+            <h3 class="font-semibold text-red-900 mb-2">Parse error</h3>
+            <p class="text-sm text-red-800">
+              The file may be encrypted, compressed by a custom container, the wrong save file, or larger than the browser limit.
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-3">Support limits</h3>
+            <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+              {game.supportLimits.map((item: string) => <li>{item}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-3">Failure reasons</h3>
+            <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+              {game.failureReasons.map((item: string) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-16 bg-indigo-50 rounded-2xl p-8 border border-indigo-100">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900">Quick Edit Targets</h2>
+        <div class="flex flex-wrap gap-2 mb-6">
+          {(game.editorQuickEditTargets.length > 0 ? game.editorQuickEditTargets : game.quickEditTargets).map((target: string) => (
+            <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-indigo-800 border border-indigo-200">
+              {target}
+            </span>
+          ))}
+        </div>
+        <h3 class="font-semibold text-gray-900 mb-3">Backup steps</h3>
+        <ol class="list-decimal list-inside text-sm text-gray-700 space-y-2">
+          {game.backupSteps.map((step: string) => <li>{step}</li>)}
+        </ol>
+        {game.sourceRefs.length > 0 && (
+          <div class="mt-5 text-sm text-gray-600">
+            Sources: {game.sourceRefs.map((ref: { title: string; url: string }, index: number) => (
+              <>
+                <a class="text-primary-700 hover:underline" href={ref.url} rel="nofollow noopener" target="_blank">
+                  {ref.title}
+                </a>{index < game.sourceRefs.length - 1 ? ', ' : ''}
+              </>
+            ))}
+          </div>
+        )}
+        <a class="mt-4 inline-flex text-sm font-semibold text-primary-700 hover:underline" href="/coverage-proof">
+          Evidence-backed coverage proof
+        </a>
       </section>
 
       <!-- Save File Location Section -->
@@ -271,87 +373,22 @@ const absUrl = (path: string) =>
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Other Popular Games</h2>
         <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
-            game.slug !== 'stardew-valley' && (
+            otherGames.map((item) => (
               <a
-                href="/games/stardew-valley"
+                href={`/games/${item.slug}`}
                 class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
               >
-                <span class="text-2xl block mb-2">🌾</span>
+                <span class="text-2xl block mb-2">{item.emoji}</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Stardew Valley
+                  {item.name}
                 </span>
               </a>
-            )
-          }
-          {
-            game.slug !== 'palworld' && (
-              <a
-                href="/games/palworld"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🦎</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Palworld
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'undertale' && (
-              <a
-                href="/games/undertale"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">❤️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Undertale
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'ddlc' && (
-              <a
-                href="/games/ddlc"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">📚</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  DDLC
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'hollow-knight' && (
-              <a
-                href="/games/hollow-knight"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🪲</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Hollow Knight
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'rpg-maker' && (
-              <a
-                href="/games/rpg-maker"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">⚔️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  RPG Maker
-                </span>
-              </a>
-            )
+            ))
           }
         </div>
         <div class="text-center mt-6">
           <a href="/games" class="text-primary-600 hover:text-primary-700 font-medium">
-            Browse All 80+ Games →
+            Browse All Games →
           </a>
         </div>
       </section>
@@ -360,7 +397,7 @@ const absUrl = (path: string) =>
       <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
         <h2 class="text-3xl font-bold mb-4">Ready to Edit Your {game.name} Save?</h2>
         <p class="text-gray-300 mb-8 max-w-xl mx-auto">
-          100% free, no download required. Your files never leave your device.
+          Free to use, no download required. Browser-side parsing with backup-first editing.
         </p>
         <a
           href={game.editorPath}
@@ -392,19 +429,19 @@ const absUrl = (path: string) =>
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://saveeditor.top/',
+          item: absUrl('/'),
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Games',
-          item: 'https://saveeditor.top/games/',
+          item: absUrl('/games'),
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: game.name,
-          item: `https://saveeditor.top/games/${game.slug}/`,
+          item: absUrl(`/games/${game.slug}`),
         },
       ],
     })}
@@ -436,7 +473,11 @@ const absUrl = (path: string) =>
       name: `${game.name} Save Editor`,
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web Browser',
+      inLanguage: 'en',
       url: absUrl(`/games/${game.slug}`),
+      image: imageUrl,
+      isAccessibleForFree: true,
+      featureList,
       offers: {
         '@type': 'Offer',
         price: '0',

@@ -6,7 +6,7 @@ import { editors } from '../../../src/data/editors';
 import { localizePath } from '../../../src/i18n/utils';
 
 function makeFile(name: string, bytes: Uint8Array, type = 'application/octet-stream'): File {
-    return new File([bytes], name, { type });
+    return new File([bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer], name, { type });
 }
 
 async function main() {
@@ -48,11 +48,23 @@ async function main() {
 
     const rvdata2 = await detectIngestRoute(makeFile('Save01.rvdata2', new Uint8Array([4, 8])));
     assert.equal(rvdata2.engine, 'rpg-maker-mv');
+    const lsd = await detectIngestRoute(makeFile('Save01.lsd', new Uint8Array([1, 2, 3])));
+    assert.equal(lsd.engine, 'rpg-maker-mv');
     const rpgMakerEditor = editors.find((editor) => editor.slug === 'rpg-maker-mv');
     assert.ok(rpgMakerEditor);
     assert.match(rpgMakerEditor.fileType, /\.rvdata2/);
+    assert.match(rpgMakerEditor.fileType, /\.lsd/);
 
-    for (const result of [rpgmaker, renpy, palworld, genericSav, unityPrefs, rvdata2]) {
+    const generic = await detectIngestRoute(makeFile('save.msgpack', new Uint8Array([0x80])));
+    assert.equal(generic.engine, 'generic');
+    const nrbf = await detectIngestRoute(makeFile('save.nrbf', new Uint8Array([0, 1, 0, 0, 0, 255, 255, 255, 255])));
+    assert.equal(nrbf.engine, 'generic');
+    const genericEditor = editors.find((editor) => editor.slug === 'generic');
+    assert.ok(genericEditor);
+    assert.match(genericEditor.fileType, /\.msgpack/);
+    assert.match(genericEditor.fileType, /\.nrbf/);
+
+    for (const result of [rpgmaker, renpy, palworld, genericSav, unityPrefs, rvdata2, generic]) {
         const editor = editors.find((item) => item.slug === result.engine);
         assert.ok(editor);
         const ext = result === unityPrefs ? '.prefs' : result === rvdata2 ? '.rvdata2' : makeExtForEngine(result.engine);
@@ -101,6 +113,7 @@ function makeExtForEngine(engine: string): string {
         palworld: '.sav',
         gamemaker: '.json',
         naninovel: '.nson',
+        generic: '.msgpack',
     };
     return byEngine[engine];
 }

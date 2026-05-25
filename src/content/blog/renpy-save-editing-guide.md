@@ -129,13 +129,13 @@ Files are named `1-1-LT1.save` (slot 1), `2-1-LT1.save` (slot 2), etc.
 ## Frequently Asked Questions
 
 **Q: Can your online editor modify Ren'Py saves?**
-A: Currently, our editor provides **read-only** viewing of Ren'Py saves. Full editing support is not available due to the security risks of pickle deserialization.
+A: Yes, with limits. It can rebuild supported primitive fields under `persistent`; full game-state pickle editing remains blocked.
 
 **Q: Why not just support it anyway?**
 A: Executing arbitrary pickle data in a web browser could allow malicious code execution. We prioritize user safety over feature completeness.
 
 **Q: Will you ever support full editing?**
-A: We're exploring safe methods to support limited editing (e.g., modifying simple variables without repickling). Stay tuned for updates.
+A: Full arbitrary pickle editing is not planned. The stable path is limited persistent-field editing with strict guards.
 
 **Q: Is using the developer console cheating?**
 A: For single-player games, it's your experience. Do whatever makes the game enjoyable for you.
@@ -168,4 +168,3 @@ Learn more about visual novel save editing and related topics:
 - [Common Save File Extensions Explained](/blog/common-save-file-extensions-explained)
 - [NaniNovel Save Editing Guide](/blog/naninovel-save-editing-guide)
 - [How to Edit Unity Saves](/blog/how-to-edit-unity-saves)
-

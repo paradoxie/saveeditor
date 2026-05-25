@@ -1,682 +1,282 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import {
+  games as baseGames,
+  localizeGamePage,
+  localizePresetConfidence,
+} from '../../../data/games';
+import { absoluteUrl, getSiteOrigin } from '../../../lib/site';
+
+const locale = 'ja' as const;
+const localizedNames: Record<string, string> = {
+  "stardew-valley": "スターデューバレー",
+  "palworld": "パルワールド",
+  "undertale": "アンダーテール",
+  "ddlc": "ドキドキ文芸部",
+  "hollow-knight": "Hollow Knight",
+  "rpg-maker": "RPGツクールゲーム",
+  "omori": "OMORI",
+  "lisa-the-painful": "LISA: The Painful",
+  "to-the-moon": "To the Moon",
+  "mad-father": "Mad Father",
+  "oneshot": "OneShot",
+  "katawa-shoujo": "かたわ少女",
+  "fear-and-hunger": "Fear & Hunger",
+  "ib": "Ib",
+  "yume-nikki": "ゆめにっき",
+  "the-witchs-house": "魔女の家",
+  "ao-oni": "青鬼",
+  "mogeko-castle": "Mogeko Castle",
+  "misao": "操",
+  "off": "OFF",
+  "wadanohara": "大海原と大海原",
+  "pocket-mirror": "Pocket Mirror",
+  "hello-charlotte": "Hello Charlotte",
+  "teaching-feeling": "Teaching Feeling",
+  "being-a-dik": "Being a DIK",
+  "summertime-saga": "Summertime Saga"
+};
+const copy = {
+  "titleSuffix": "セーブエディタ",
+  "descSuffix": "セーブ場所、編集候補、制限、失敗理由を確認しながらブラウザで編集できます。",
+  "engine": "エンジン",
+  "format": "形式",
+  "free": "無料",
+  "start": "編集を開始",
+  "verified": "エディタで検証済み",
+  "noVerified": "このゲーム固有の verified フィールドはまだありません。候補/エンジン単位の情報とゲーム別メモを分けて表示します。",
+  "evidence": "証拠ステータス",
+  "evidenceBody": "verified は証拠モデルからのみ表示します。ゲーム別メモとは分離しています。",
+  "notes": "ゲーム別編集メモ",
+  "compatibility": "互換性とよくある失敗理由",
+  "best": "最良ケース",
+  "bestBody": "Quick Edit に入り、共通フィールドが検出され、ダウンロードが有効になります。",
+  "readonly": "読み取り専用",
+  "readonlyBody": "構造は確認できますが、安全な再構築ができないためエクスポートは無効です。",
+  "parse": "解析失敗",
+  "parseBody": "暗号化、独自圧縮、誤ったファイル、サイズ制限が原因の可能性があります。",
+  "limits": "対応範囲",
+  "failures": "失敗理由",
+  "targets": "Quick Edit 対象",
+  "backup": "バックアップ手順",
+  "location": "セーブ場所",
+  "tip": "ヒント: Windows では Win+R にパスを貼り付けると開けます。",
+  "how": "編集手順",
+  "locate": "セーブを探す",
+  "locateBody": "上のパスからセーブを見つけ、先にバックアップしてください。",
+  "upload": "アップロードして編集",
+  "uploadBody": "セーブをアップロードし、Quick Edit または詳細モードで少しずつ変更します。",
+  "download": "ダウンロードして確認",
+  "downloadBody": "編集済みファイルを保存し、バックアップを残したままゲーム内で確認します。",
+  "open": "エディタを開く",
+  "faq": "よくある質問",
+  "guides": "関連ガイド",
+  "other": "他の人気ゲーム",
+  "browse": "すべてのゲームを見る",
+  "ready": "セーブを編集しますか？",
+  "ctaBody": "無料、ダウンロード不要。ブラウザ内で解析し、バックアップ前提で編集します。",
+  "now": "今すぐ開始"
+};
 
 export async function getStaticPaths() {
-  const games = [
-    {
-      slug: 'stardew-valley',
-      name: 'Stardew Valley',
-      nameLocal: 'スターデューバレー',
-      seoDescription:
-        'スターデューバレー無料オンラインセーブエディタ（ダウンロード不要）。ゴールド、アイテム、スキルレベルを瞬時に編集。PC/Mac/スマホ対応。安全なローカル処理。',
-      seoContent: `
-        <h2>スターデューバレーセーブエディタを選ぶ理由</h2>
-        <p>この自動ツールは、スターデューバレーの複雑なXML構造を解析し、セーブデータの編集を簡単かつ安全に行います。データ破損のリスクがある手動編集とは異なり、保存前にデータの整合性を検証します。</p>
-        <h3>主な機能</h3>
-        <ul>
-            <li><strong>資金無限化：</strong> ゴールド、Qiジェム、カジノコインを瞬時に追加。</li>
-            <li><strong>インベントリ管理：</strong> バックパックやチェストに任意のアイテム（レインボージェム、ギャラクシーソードなど）を追加。</li>
-            <li><strong>スキルMAX：</strong> 農業、採鉱、採集、釣り、戦闘のレベルを一気に10まで引き上げます。</li>
-            <li><strong>友好度操作：</strong> 村人や結婚候補とのハートを最大にします。</li>
-        </ul>
-        <h3>安心のローカル処理</h3>
-        <p>セーブデータはすべてブラウザ上のJavaScriptで処理されます。<strong>外部サーバーにアップロードされることは一切ありません</strong>ので、プライバシーは完全に守られます。サイト改善と広告表示のためにGoogle AnalyticsとAdSenseを使用しています。詳細はプライバシー/クッキーポリシーをご覧ください。</p>
-      `,
-      engine: 'Unity (XML)',
-      format: '.xml',
-      editorPath: '/ja/editor/unity',
-      emoji: '🌾',
-      description: 'ConcernedApeによる人気の農場シミュレーションRPG。',
-      saveLocations: {
-        windows: '%appdata%\\StardewValley\\Saves',
-        mac: '~/Library/Application Support/StardewValley/Saves',
-        linux: '~/.config/StardewValley/Saves',
-      },
-      editableItems: [
-        { icon: '💰', name: 'ゴールド', desc: '農場の収入を編集' },
-        { icon: '🎒', name: 'アイテム', desc: 'すべてのアイテムを追加' },
-        { icon: '❤️', name: '好感度', desc: '住民との友情を変更' },
-        { icon: '📈', name: 'スキル', desc: '農業、採掘などのレベルアップ' },
-        { icon: '🏆', name: '実績', desc: 'コミュニティセンターの解除' },
-        { icon: '🗓️', name: '日付', desc: '現在の季節と日付を変更' },
-      ],
-      faq: [
-        {
-          question: 'スターデューバレーのセーブファイルはどこ？',
-          answer:
-            'Windowsでは %appdata%\\StardewValley\\Saves にあります。各セーブフォルダは農家の名前（例：FarmerName_123456789）で命名されています。',
-        },
-        {
-          question: 'マルチプレイのセーブは編集できる？',
-          answer:
-            'はい、ホストとして自分のセーブのみ編集できます。共有農場データを破損しないよう注意してください。',
-        },
-        {
-          question: '編集でゲームが壊れない？',
-          answer:
-            '必ずバックアップを取ってから編集してください！当エディタは変更を検証しますが、極端な変更は問題を引き起こす可能性があります。',
-        },
-      ],
-      relatedGuides: [{ title: 'Unityセーブ編集ガイド', url: '/ja/blog/how-to-edit-unity-saves' }],
-    },
-    {
-      slug: 'palworld',
-      name: 'Palworld',
-      nameLocal: 'パルワールド',
-      seoDescription:
-        'Palworld `.sav` 向けオンライン編集フロー。標準GVASを優先し、安全な閲覧と互換ファイルの慎重な編集に対応。非互換は読み取り専用に自動切替。',
-      seoContent: `
-        <h2>Palworldセーブ編集（互換性重視）</h2>
-        <p>本ワークフローは <strong>まず安全に読めること</strong> を優先します。標準GVASは編集可能になる場合がありますが、ゲーム固有コンテナ/暗号化形式は読み取り専用になります。</p>
-        <h3>互換セーブで編集できる可能性がある項目</h3>
-        <ul>
-            <li><strong>プレイヤー:</strong> レベルや一部進行値（実際の解析構造に依存）。</li>
-            <li><strong>パル:</strong> 露出しているパラメータを確認し、バックアップ前提で慎重に変更。</li>
-            <li><strong>インベントリ/拠点:</strong> 構造を確認しながら小さな変更を段階的に適用。</li>
-        </ul>
-        <h3>Steam と Game Pass の違い</h3>
-        <p>Steam版は標準フローに入りやすい一方、Game Pass/Xbox版は追加コンテナにより読み取り専用になるケースがあります。</p>
-      `,
-      engine: 'Unreal Engine (GVAS)',
-      format: '.sav',
-      editorPath: '/ja/editor/palworld',
-      emoji: '🦎',
-      description: 'Pocketpairが開発したサバイバル×モンスター育成ゲーム。',
-      saveLocations: {
-        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
-        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
-        linux:
-          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
-      },
-      editableItems: [
-        { icon: '💰', name: 'ゴールド', desc: '互換セーブで通貨フィールドを確認・調整' },
-        { icon: '🦎', name: 'パル情報', desc: 'パル構造を確認し、対応時のみ慎重に編集' },
-        { icon: '📈', name: 'プレイヤー能力', desc: '対応バリアントでレベル/体力等を調整' },
-        { icon: '🎒', name: 'インベントリ', desc: 'アイテム配列を確認し、小刻みに変更' },
-        { icon: '🏠', name: '拠点進行', desc: 'GVASで露出している拠点データを確認' },
-      ],
-      faq: [
-        {
-          question: 'Palworldのセーブはどこにありますか？',
-          answer:
-            'Windows: %localappdata%\\Pal\\Saved\\SaveGames。通常、各ワールドにLevel.sav（ワールド）とPlayersフォルダ（プレイヤー）があります。',
-        },
-        {
-          question: 'Steam Deckでも編集できますか？',
-          answer:
-            '可能です。Protonプレフィックス内の保存先にアクセスし、必要に応じてPCへ転送して編集できます。',
-        },
-        {
-          question: 'なぜ読み取り専用になるのですか？',
-          answer:
-            'ゲーム固有コンテナや特殊圧縮/暗号化が原因です。ブラウザでは安全な再パッケージ化ができないため、専用ツールの利用を推奨します。',
-        },
-        {
-          question: '安全に編集するには？',
-          answer:
-            '毎回 SaveGames フォルダ全体をバックアップし、1項目ずつ変更して即ゲーム内で検証してください。',
-        },
-      ],
-      relatedGuides: [
-        { title: 'Palworldセーブ編集ガイド', url: '/ja/blog/palworld-save-editing-guide' },
-        { title: 'Unreal Engineセーブ編集ガイド', url: '/ja/blog/how-to-edit-unreal-engine-saves' },
-      ],
-    },
-    {
-      slug: 'undertale',
-      name: 'Undertale',
-      nameLocal: 'アンダーテール',
-      seoDescription:
-        'Undertale (アンダーテール) 無料オンラインセーブエディタ。file0 と undertale.ini を編集。HP、G、EXP、FUN値、Gルートフラグ等を変更可能。',
-      seoContent: `
-        <h2>Undertale セーブデータエディタ (file0 & undertale.ini)</h2>
-        <p>Undertaleは主に2つのファイルでデータを管理しています：<code>file0</code>（現在のセーブスロット）と <code>undertale.ini</code>（メタデータと永続フラグ）。当エディタは両方の編集に対応しています。</p>
-        <h3>よくある編集例</h3>
-        <ul>
-            <li><strong>G/Pルート変更：</strong> ストーリーを最初からやり直すことなく、ルート固有のフラグをリセットまたはトリガーできます。</li>
-            <li><strong>FUN値：</strong> <code>undertale.ini</code> の 'fun' 変数を変更して、ガスターのフォロワーなどのランダムイベントを発生させます。</li>
-            <li><strong>戦闘ステータス：</strong> HP、ATK、DEF、EXPを変更して、戦闘の難易度を調整します。</li>
-        </ul>
-        <h3>使い方</h3>
-        <p>現在のステータスを編集するには <code>file0</code> をアップロードしてください。真の平和主義者エンド（Pルート）の判定リセットなどを行いたい場合は <code>undertale.ini</code> を編集します。</p>
-      `,
-      engine: 'GameMaker',
-      format: 'file0, undertale.ini',
-      editorPath: '/ja/editor/gamemaker',
-      emoji: '❤️',
-      description: 'Toby Fox制作の「誰も死ななくていいやさしいRPG」。',
-      saveLocations: {
-        windows: '%localappdata%\\UNDERTALE',
-        mac: '~/Library/Application Support/com.tobyfox.undertale/',
-        linux: '~/.config/UNDERTALE',
-      },
-      editableItems: [
-        { icon: '❤️', name: 'HP・LV', desc: '体力とLOVEレベルを変更' },
-        { icon: '🎒', name: 'インベントリ', desc: 'アイテムを編集' },
-        { icon: '💰', name: 'ゴールド (G)', desc: 'お金を変更' },
-        { icon: '📍', name: 'セーブ位置', desc: 'セーブポイントを変更' },
-        { icon: '🎮', name: 'ゲームフラグ', desc: 'ストーリー進行を操作' },
-        { icon: '👤', name: 'キャラ名', desc: '落ちた人間の名前を変更' },
-      ],
-      faq: [
-        {
-          question: 'Undertaleのセーブはどこ？',
-          answer:
-            'Windows: %localappdata%\\UNDERTALE。Mac: ~/Library/Application Support/com.tobyfox.undertale/。メインファイルはfile0（セーブデータ）とundertale.ini（設定）です。',
-        },
-        {
-          question: '完全リセットの方法は？',
-          answer:
-            'セーブフォルダ内のすべてのファイルを削除するか、エディタでゲームフラグをリセットします。Steam Cloudがファイルを復元する場合があります。',
-        },
-      ],
-      relatedGuides: [
-        { title: 'GameMakerセーブ編集ガイド', url: '/ja/blog/gamemaker-save-editing-guide' },
-      ],
-    },
-    {
-      slug: 'ddlc',
-      name: 'Doki Doki Literature Club',
-      nameLocal: 'ドキドキ文芸部',
-      engine: "Ren'Py",
-      format: '.save, persistent',
-      editorPath: '/ja/editor/renpy',
-      emoji: '📚',
-      description: 'Team Salvatoによるサイコホラービジュアルノベル。',
-      saveLocations: {
-        windows: '%appdata%\\RenPy\\DDLC-1454445547',
-        mac: '~/Library/RenPy/DDLC-1454445547',
-        linux: '~/.renpy/DDLC-1454445547',
-      },
-      editableItems: [
-        { icon: '📖', name: 'ストーリー進行', desc: '任意のチャプターにジャンプ' },
-        { icon: '📝', name: 'ポエム変数', desc: 'ポエム選択を変更' },
-        { icon: '❤️', name: 'キャラ好感度', desc: 'キャラクターとの関係を変更' },
-        { icon: '🖼️', name: 'CGギャラリー', desc: 'すべての画像を解除' },
-      ],
-      faq: [
-        {
-          question: 'DDLCのセーブはどこ？',
-          answer:
-            'Windows: %appdata%\\RenPy\\DDLC-1454445547。DDLC Plusは %appdata%\\..\\LocalLow\\Team Salvato\\Doki Doki Literature Club Plus にあります。',
-        },
-        {
-          question: 'ファイル操作もゲームの一部？',
-          answer:
-            'はい！DDLCはメタナラティブの一部として、プレイヤーがゲームファイルを操作することを推奨しています。当エディタでこれが簡単になります。',
-        },
-      ],
-      relatedGuides: [
-        { title: "Ren'Pyセーブ編集ガイド", url: '/ja/blog/renpy-save-editing-guide' },
-      ],
-    },
-    {
-      slug: 'hollow-knight',
-      name: 'Hollow Knight',
-      nameLocal: 'ホロウナイト',
-      engine: 'Unity',
-      format: 'user#.dat',
-      editorPath: '/ja/editor/unity',
-      emoji: '🪲',
-      description: 'Team Cherryによる称賛されたメトロイドヴァニア。',
-      saveLocations: {
-        windows: '%appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight',
-        mac: '~/Library/Application Support/unity.Team Cherry.Hollow Knight',
-        linux: '~/.config/unity3d/Team Cherry/Hollow Knight',
-      },
-      editableItems: [
-        { icon: '💰', name: 'ジオ', desc: '通貨を編集' },
-        { icon: '❤️', name: 'マスク', desc: '最大HPを変更' },
-        { icon: '💎', name: 'ソウル', desc: 'ソウルメーターを変更' },
-        { icon: '🗡️', name: 'ネイル強化', desc: 'ネイルレベルを解除' },
-        { icon: '✨', name: 'チャーム', desc: 'チャームノッチと解除を編集' },
-      ],
-      faq: [
-        {
-          question: 'Hollow Knightのセーブはどこ？',
-          answer:
-            'Windows: %appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight。ファイルは各セーブスロットでuser1.dat、user2.datなどと命名されています。',
-        },
-        {
-          question: '編集前にバックアップできる？',
-          answer:
-            'もちろん！変更前にuser#.datファイルをコピーしてください。同じフォルダに.bakバックアップファイルもあります。',
-        },
-      ],
-      relatedGuides: [{ title: 'Unityセーブ編集ガイド', url: '/ja/blog/how-to-edit-unity-saves' }],
-    },
-    {
-      slug: 'rpg-maker',
-      name: 'RPGツクールゲーム',
-      nameLocal: 'RPGツクール',
-      engine: 'RPG Maker (MV/MZ)',
-      format: '.rpgsave, .rmmzsave',
-      editorPath: '/ja/editor/rpg-maker-mv',
-      emoji: '⚔️',
-      description: 'RPGツクールシリーズで作られた何千ものゲーム。',
-      saveLocations: {
-        windows: 'ゲームフォルダ/www/save または ゲームフォルダ/save',
-        mac: 'Game.app/Contents/Resources/app.nw/save',
-        linux: 'ゲームフォルダ/save',
-      },
-      editableItems: [
-        { icon: '💰', name: 'ゴールド', desc: 'パーティのお金を編集' },
-        { icon: '👥', name: 'ステータス', desc: 'HP、MP、レベル、経験値を変更' },
-        { icon: '🎒', name: 'インベントリ', desc: 'アイテムを追加・削除' },
-        { icon: '⚔️', name: '装備', desc: '武器と防具を変更' },
-        { icon: '✨', name: 'スキル', desc: '任意のスキルを習得' },
-        { icon: '🎮', name: 'スイッチ・変数', desc: 'ゲームロジックを編集' },
-      ],
-      faq: [
-        {
-          question: 'RPGツクールのセーブはどこ？',
-          answer:
-            'ほとんどのRPGツクールMV/MZゲームは、ゲームディレクトリ内のwww/saveまたはsaveフォルダにセーブを保存します。ブラウザゲームはlocalStorageを使用します。',
-        },
-        {
-          question: 'すべてのRPGツクールゲームを編集できる？',
-          answer:
-            'このWebエディタでは MV (.rpgsave) と MZ (.rmmzsave) を優先サポートしています。旧Ruby Marshal形式 (.rvdata2/.rvdata/.rxdata) は現在未対応です。',
-        },
-      ],
-      relatedGuides: [
-        { title: 'RPGツクールセーブ編集ガイド', url: '/ja/blog/how-to-edit-rpg-maker-save' },
-      ],
-    },
-  ];
-
-  return games.map((game) => ({
-    params: { slug: game.slug },
-    props: { game },
-  }));
+  const routeNames: Record<string, string> = {
+  "stardew-valley": "スターデューバレー",
+  "palworld": "パルワールド",
+  "undertale": "アンダーテール",
+  "ddlc": "ドキドキ文芸部",
+  "hollow-knight": "Hollow Knight",
+  "rpg-maker": "RPGツクールゲーム",
+  "omori": "OMORI",
+  "lisa-the-painful": "LISA: The Painful",
+  "to-the-moon": "To the Moon",
+  "mad-father": "Mad Father",
+  "oneshot": "OneShot",
+  "katawa-shoujo": "かたわ少女",
+  "fear-and-hunger": "Fear & Hunger",
+  "ib": "Ib",
+  "yume-nikki": "ゆめにっき",
+  "the-witchs-house": "魔女の家",
+  "ao-oni": "青鬼",
+  "mogeko-castle": "Mogeko Castle",
+  "misao": "操",
+  "off": "OFF",
+  "wadanohara": "大海原と大海原",
+  "pocket-mirror": "Pocket Mirror",
+  "hello-charlotte": "Hello Charlotte",
+  "teaching-feeling": "Teaching Feeling",
+  "being-a-dik": "Being a DIK",
+  "summertime-saga": "Summertime Saga"
+  };
+  return baseGames.map((game) => {
+    const localized = localizeGamePage(game, 'ja', routeNames[game.slug] ?? game.name);
+    return { params: { slug: game.slug }, props: { game: localized } };
+  });
 }
 
 const { game } = Astro.props;
+const siteOrigin = getSiteOrigin(Astro.site);
+const absUrl = (path: string) => absoluteUrl(path, siteOrigin);
+const editorHref = game.editorPath.replace('/editor/', '/ja/editor/');
+const gameHref = (slug: string) => `/ja/games/${slug}`;
+const gamesHref = '/ja/games';
+const coverageHref = '/ja/coverage-proof';
+const confidenceLabel = localizePresetConfidence(game.presetConfidence, locale);
+const quickTargets = game.editorQuickEditTargets.length > 0 ? game.editorQuickEditTargets : game.quickEditTargets;
+const imageUrl = absUrl(game.image);
+const featureList = quickTargets.slice(0, 8);
 ---
 
 <BaseLayout
-  title={`${game.nameLocal}セーブエディタ - ${game.format}ファイルを無料で編集`}
-  description={game.seoDescription ||
-    `${game.nameLocal}の無料オンラインセーブエディタ。ゴールド、アイテム、ステータスを編集。セーブファイルの場所を確認してブラウザで編集開始。`}
-  keywords={`${game.name.toLowerCase()} セーブエディタ, ${game.name.toLowerCase()} セーブ場所, ${game.name.toLowerCase()} セーブ編集, ${game.format} エディタ`}
+  title={game.seoTitleByLocale[locale]}
+  description={game.seoDescriptionByLocale[locale]}
+  keywords={game.longTailTermsByLocale[locale].join(', ')}
+  ogImage={game.image}
 >
-  <!-- Hero Section -->
-  <section
-    class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 text-white py-16"
-  >
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl">
-      </div>
-      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl">
-      </div>
+  <section class="relative bg-slate-900 text-white overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src={game.image} alt="" aria-hidden="true" class="w-full h-full object-cover opacity-20 blur-sm" />
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/80 to-slate-900"></div>
     </div>
-
-    <div class="relative container mx-auto px-4">
+    <div class="relative z-10 container mx-auto px-4 py-20 lg:py-28">
       <div class="max-w-4xl mx-auto text-center">
-        <div class="text-6xl mb-6">{game.emoji}</div>
-        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-          {game.nameLocal}
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
-            >セーブエディタ</span
-          >
-        </h1>
-        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          {game.description} セーブファイルを無料でオンライン編集。
-        </p>
-
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
-          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">
-            エンジン: {game.engine}
-          </span>
-          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">
-            形式: {game.format}
-          </span>
-          <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">
-            ✓ 100% 無料
-          </span>
+        <div class="mb-8 relative inline-block group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-cyan-600 rounded-2xl blur opacity-40"></div>
+          <img src={game.image} alt={game.imageAltByLocale[locale]} class="relative w-full max-w-lg h-auto rounded-xl shadow-2xl border border-white/10 mx-auto" />
+          <div class="absolute -top-6 -right-6 w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center text-4xl shadow-lg rotate-12">{game.emoji}</div>
         </div>
-
-        <a
-          href={game.editorPath}
-          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg"
-        >
-          {game.nameLocal}のセーブを編集する →
-        </a>
+        <h1 class="text-5xl lg:text-7xl font-bold tracking-tight mb-6 mt-8">
+          {game.nameLocal} <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400">{copy.titleSuffix}</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">{game.description}</p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">{copy.engine}: {game.engine}</span>
+          <span class="px-4 py-2 bg-white/10 rounded-full text-sm">{copy.format}: {game.format}</span>
+          <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">{copy.free}</span>
+        </div>
+        <a href={editorHref} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg">{copy.start}</a>
       </div>
     </div>
   </section>
 
   <section class="container mx-auto px-4 py-16">
     <div class="max-w-6xl mx-auto">
-      <!-- What Can You Edit Section -->
       <section class="mb-16">
-        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
-          {game.nameLocal}で編集できるもの
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {
-            game.editableItems.map((item: { icon: string; name: string; desc: string }) => (
-              <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">{copy.verified}</h2>
+        {game.editorVerifiedItems.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {game.editorVerifiedItems.map((item: { icon: string; name: string; desc: string }) => (
+              <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
                 <div class="text-3xl mb-3">{item.icon}</div>
                 <h3 class="font-bold text-gray-900 mb-2">{item.name}</h3>
                 <p class="text-gray-600 text-sm">{item.desc}</p>
               </div>
-            ))
-          }
+            ))}
+          </div>
+        ) : (
+          <p class="rounded-2xl border border-amber-100 bg-amber-50 p-5 text-sm text-amber-900">{copy.noVerified}</p>
+        )}
+        <div class="mt-6 rounded-2xl border border-indigo-100 bg-indigo-50 p-5 text-sm text-indigo-900">
+          <p class="font-semibold">{copy.evidence}: {confidenceLabel}</p>
+          <p class="mt-1 text-indigo-700">{copy.evidenceBody}</p>
+          <a class="mt-3 inline-flex text-primary-700 hover:underline" href={coverageHref}>Coverage Proof を確認</a>
         </div>
       </section>
 
-      <!-- Save File Location Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">{copy.notes}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {game.editableItems.map((item: { icon: string; name: string; desc: string }) => (
+            <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+              <div class="text-3xl mb-3">{item.icon}</div>
+              <h3 class="font-bold text-gray-900 mb-2">{item.name}</h3>
+              <p class="text-gray-600 text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-16 bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">{copy.compatibility}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4"><h3 class="font-semibold text-emerald-900 mb-2">{copy.best}</h3><p class="text-sm text-emerald-800">{copy.bestBody}</p></div>
+          <div class="rounded-xl border border-amber-100 bg-amber-50 p-4"><h3 class="font-semibold text-amber-900 mb-2">{copy.readonly}</h3><p class="text-sm text-amber-800">{copy.readonlyBody}</p></div>
+          <div class="rounded-xl border border-red-100 bg-red-50 p-4"><h3 class="font-semibold text-red-900 mb-2">{copy.parse}</h3><p class="text-sm text-red-800">{copy.parseBody}</p></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div><h3 class="font-semibold text-gray-900 mb-3">{copy.limits}</h3><ul class="list-disc list-inside text-sm text-gray-700 space-y-2">{game.supportLimits.map((item: string) => <li>{item}</li>)}</ul></div>
+          <div><h3 class="font-semibold text-gray-900 mb-3">{copy.failures}</h3><ul class="list-disc list-inside text-sm text-gray-700 space-y-2">{game.failureReasons.map((item: string) => <li>{item}</li>)}</ul></div>
+        </div>
+      </section>
+
+      <section class="mb-16 bg-indigo-50 rounded-2xl p-8 border border-indigo-100">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900">{copy.targets}</h2>
+        <div class="flex flex-wrap gap-2 mb-6">{quickTargets.map((target: string) => <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-indigo-800 border border-indigo-200">{target}</span>)}</div>
+        <h3 class="font-semibold text-gray-900 mb-3">{copy.backup}</h3>
+        <ol class="list-decimal list-inside text-sm text-gray-700 space-y-2">{game.backupSteps.map((step: string) => <li>{step}</li>)}</ol>
+        {game.sourceRefs.length > 0 && (
+          <div class="mt-5 text-sm text-gray-600">
+            出典：{game.sourceRefs.map((ref: { title: string; url: string }, index: number) => (
+              <>
+                <a class="text-primary-700 hover:underline" href={ref.url} rel="nofollow noopener" target="_blank">{ref.title}</a>{index < game.sourceRefs.length - 1 ? '、' : ''}
+              </>
+            ))}
+          </div>
+        )}
+        <a class="mt-4 inline-flex text-sm font-semibold text-primary-700 hover:underline" href={coverageHref}>証拠ベースの対応状況を見る</a>
+      </section>
+
       <section class="mb-16 bg-gray-50 rounded-2xl p-8">
-        <h2 class="text-2xl font-bold mb-6 text-gray-900">
-          📂 {game.nameLocal}のセーブファイルの場所
-        </h2>
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">{copy.location}</h2>
         <div class="space-y-4">
-          <div class="bg-white p-4 rounded-lg border border-gray-200">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded"
-                >Windows</span
-              >
-            </div>
-            <code class="text-sm text-gray-600 break-all">{game.saveLocations.windows}</code>
-          </div>
-          <div class="bg-white p-4 rounded-lg border border-gray-200">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded"
-                >macOS</span
-              >
-            </div>
-            <code class="text-sm text-gray-600 break-all">{game.saveLocations.mac}</code>
-          </div>
-          <div class="bg-white p-4 rounded-lg border border-gray-200">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="px-3 py-1 bg-orange-100 text-orange-700 text-sm font-medium rounded"
-                >Linux</span
-              >
-            </div>
-            <code class="text-sm text-gray-600 break-all">{game.saveLocations.linux}</code>
-          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200"><span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded">Windows</span><code class="mt-2 block text-sm text-gray-600 break-all">{game.saveLocations.windows}</code></div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200"><span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded">macOS</span><code class="mt-2 block text-sm text-gray-600 break-all">{game.saveLocations.mac}</code></div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200"><span class="px-3 py-1 bg-orange-100 text-orange-700 text-sm font-medium rounded">Linux</span><code class="mt-2 block text-sm text-gray-600 break-all">{game.saveLocations.linux}</code></div>
         </div>
-        <p class="text-gray-500 text-sm mt-4">
-          💡 ヒント: WindowsでWin+Rを押してパスを貼り付けると、セーブに素早くアクセスできます。
-        </p>
+        <p class="text-gray-500 text-sm mt-4">{copy.tip}</p>
       </section>
 
-      <!-- How to Edit Section -->
       <section class="mb-16">
-        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
-          {game.nameLocal}のセーブを編集する方法
-        </h2>
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">{copy.how}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="text-center p-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
-            >
-              1
-            </div>
-            <h3 class="font-bold text-lg mb-2">セーブを見つける</h3>
-            <p class="text-gray-600">
-              上記のパスでセーブファイルを見つけます。まずバックアップを作成！
-            </p>
-          </div>
-          <div class="text-center p-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
-            >
-              2
-            </div>
-            <h3 class="font-bold text-lg mb-2">アップロードして編集</h3>
-            <p class="text-gray-600">
-              {
-                game.slug === 'palworld'
-                  ? '`.sav` をアップロード後、まず互換モードを確認してください。読み取り専用の場合は閲覧のみに留め、書き込みは専用ツールへ切り替えてください。'
-                  : 'セーブファイルをエディタにドラッグ。ゴールド、アイテム、ステータスを変更。'
-              }
-            </p>
-          </div>
-          <div class="text-center p-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg"
-            >
-              3
-            </div>
-            <h3 class="font-bold text-lg mb-2">ダウンロードしてプレイ</h3>
-            <p class="text-gray-600">
-              {
-                game.slug === 'palworld'
-                  ? 'エディタが「編集可能・保存可能」と表示した場合のみダウンロードして置き換えてください。そうでない場合はバックアップを保持して専用ツールを利用してください。'
-                  : '編集したセーブをダウンロードして元のファイルと置き換え。ゲームを起動！'
-              }
-            </p>
-          </div>
+          {[ [copy.locate, copy.locateBody], [copy.upload, copy.uploadBody], [copy.download, copy.downloadBody] ].map(([title, body], index) => (
+            <div class="text-center p-6"><div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg">{index + 1}</div><h3 class="font-bold text-lg mb-2">{title}</h3><p class="text-gray-600">{body}</p></div>
+          ))}
         </div>
-        <div class="text-center mt-8">
-          <a
-            href={game.editorPath}
-            class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors"
-          >
-            {game.nameLocal}エディタを開く
-          </a>
-        </div>
+        <div class="text-center mt-8"><a href={editorHref} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700">{copy.open}</a></div>
       </section>
 
-      <!-- FAQ Section -->
       <section class="mb-16">
-        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">よくある質問</h2>
-        <div class="max-w-3xl mx-auto space-y-4">
-          {
-            game.faq.map((item: { question: string; answer: string }) => (
-              <details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
-                  {item.question}
-                  <svg
-                    class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </summary>
-                <div class="px-6 pb-6 text-gray-600">{item.answer}</div>
-              </details>
-            ))
-          }
-        </div>
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">{copy.faq}</h2>
+        <div class="max-w-3xl mx-auto space-y-4">{game.faq.map((item: { question: string; answer: string }) => (<details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"><summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">{item.question}</summary><div class="px-6 pb-6 text-gray-600">{item.answer}</div></details>))}</div>
       </section>
 
-      <!-- Related Guides -->
-      {
-        game.relatedGuides.length > 0 && (
-          <section class="mb-16 bg-primary-50 rounded-2xl p-8">
-            <h2 class="text-2xl font-bold mb-6 text-gray-900">📖 関連ガイド</h2>
-            <div class="space-y-4">
-              {game.relatedGuides.map((guide: { title: string; url: string }) => (
-                <a
-                  href={guide.url}
-                  class="flex items-center justify-between p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300 transition-colors"
-                >
-                  <span class="font-medium text-gray-900">{guide.title}</span>
-                  <svg
-                    class="w-5 h-5 text-primary-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </a>
-              ))}
-            </div>
-          </section>
-        )
-      }
+      {game.relatedGuides.length > 0 && (
+        <section class="mb-16 bg-primary-50 rounded-2xl p-8"><h2 class="text-2xl font-bold mb-6 text-gray-900">{copy.guides}</h2><div class="space-y-4">{game.relatedGuides.map((guide: { title: string; url: string }) => (<a href={guide.url.replace(/^\/games/, `/ja/games`)} class="block p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300"><span class="font-medium text-gray-900">{guide.title}</span></a>))}</div></section>
+      )}
 
-      <!-- Related Games (Cross-linking) -->
       <section class="mb-16">
-        <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">他の人気ゲーム</h2>
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">{copy.other}</h2>
         <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
-          {
-            game.slug !== 'stardew-valley' && (
-              <a
-                href="/ja/games/stardew-valley"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🌾</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  スターデューバレー
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'palworld' && (
-              <a
-                href="/ja/games/palworld"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🦎</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  パルワールド
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'undertale' && (
-              <a
-                href="/ja/games/undertale"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">❤️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  アンダーテール
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'ddlc' && (
-              <a
-                href="/ja/games/ddlc"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">📚</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  ドキドキ文芸部
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'hollow-knight' && (
-              <a
-                href="/ja/games/hollow-knight"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🪲</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  ホロウナイト
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'rpg-maker' && (
-              <a
-                href="/ja/games/rpg-maker"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">⚔️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  RPGツクール
-                </span>
-              </a>
-            )
-          }
+          {baseGames.filter((item) => item.slug !== game.slug).slice(0, 6).map((item) => (<a href={gameHref(item.slug)} class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md text-center"><span class="text-2xl block mb-2">{item.emoji}</span><span class="font-medium text-gray-900 text-sm">{localizedNames[item.slug] ?? item.name}</span></a>))}
         </div>
-        <div class="text-center mt-6">
-          <a href="/ja/games" class="text-primary-600 hover:text-primary-700 font-medium">
-            80以上のゲームを見る →
-          </a>
-        </div>
+        <div class="text-center mt-6"><a href={gamesHref} class="text-primary-600 hover:text-primary-700 font-medium">{copy.browse}</a></div>
       </section>
 
-      <!-- CTA Section -->
       <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
-        <h2 class="text-3xl font-bold mb-4">
-          {game.nameLocal}のセーブを編集する準備はできましたか？
-        </h2>
-        <p class="text-gray-300 mb-8 max-w-xl mx-auto">
-          100%無料、ダウンロード不要。ファイルはデバイスを離れません。
-        </p>
-        <a
-          href={game.editorPath}
-          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100 transition-colors"
-        >
-          今すぐ編集を開始 →
-        </a>
+        <h2 class="text-3xl font-bold mb-4">{copy.ready}</h2>
+        <p class="text-gray-300 mb-8 max-w-xl mx-auto">{copy.ctaBody}</p>
+        <a href={editorHref} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100">{copy.now}</a>
       </section>
-    </div>
 
-    {/* SEO Content Section */}
-    {
-      game.seoContent && (
+      {game.seoContent && (
         <section class="max-w-4xl mx-auto mt-16 prose prose-lg prose-slate px-6 py-8 bg-white rounded-2xl shadow-sm border border-gray-100">
           <Fragment set:html={game.seoContent} />
         </section>
-      )
-    }
+      )}
+    </div>
   </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'ホーム', item: absUrl('/ja') }, { '@type': 'ListItem', position: 2, name: 'ゲーム', item: absUrl('/ja/games') }, { '@type': 'ListItem', position: 3, name: game.nameLocal, item: absUrl(`/ja/games/${game.slug}`) }] })} />
+  <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: game.faq.map((item: { question: string; answer: string }) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) })} />
+  <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: `${game.nameLocal} セーブエディタ`, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web Browser', inLanguage: 'ja', url: absUrl(`/ja/games/${game.slug}`), image: imageUrl, isAccessibleForFree: true, featureList, offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, description: game.seoDescriptionByLocale[locale], author: { '@type': 'Organization', name: 'SaveEditor.Online', url: absUrl('/') } })} />
 </BaseLayout>
-
-<!-- BreadcrumbList Schema -->
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://saveeditor.top/ja/' },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'ゲーム',
-        item: 'https://saveeditor.top/ja/games/',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: game.nameLocal,
-        item: `https://saveeditor.top/ja/games/${game.slug}/`,
-      },
-    ],
-  })}
-/>
-
-<!-- FAQ Schema -->
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
-    })),
-  })}
-/>

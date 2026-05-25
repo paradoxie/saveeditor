@@ -20,10 +20,10 @@ export const editors: EditorData[] = [
   {
     slug: 'rpg-maker-mv',
     name: 'RPG Maker MV/MZ',
-    fileType: '.rpgsave, .rmmzsave, .rvdata2',
+    fileType: '.rpgsave, .rmmzsave, .rvdata2, .rvdata, .rxdata, .lsd',
     title: 'RPG Maker SaveEditor.Online - Free .rpgsave & .rmmzsave Editor',
     description:
-      'Free RPG Maker save editor. Edit .rpgsave (MV) and .rmmzsave (MZ) files online. Upload older .rvdata2 files for compatibility checks and read-only guidance. No download, 100% browser-based rpg save editor.',
+      'Free RPG Maker save editor. Edit .rpgsave (MV), .rmmzsave (MZ), and common fields in older .rvdata2, .rvdata, and .rxdata Ruby Marshal files. No download, browser-based rpg save editor.',
     keywords:
       'rpg maker save editor, rpg save editor, rpgsave editor, .rpgsave editor online, rpg maker mv save editor, rpg maker mz save editor, rmmzsave editor, edit rpgsave file',
     features: [
@@ -34,9 +34,9 @@ export const editors: EditorData[] = [
     ],
     instructions: [
       'Locate your save file (usually in the game folder under `www/save/`)',
-      'Upload the `.rpgsave`, `.rmmzsave`, or `.rvdata2` file above',
+      'Upload the `.rpgsave`, `.rmmzsave`, `.rvdata2`, `.rvdata`, `.rxdata`, or `.lsd` file above',
       'Edit your gold, stats, and variables',
-      'If you uploaded `.rvdata2`, the editor will keep it read-only and explain the compatibility limit',
+      'Ruby Marshal exports are limited to common fields; unsupported structural edits are blocked.',
     ],
   },
   {
@@ -74,13 +74,13 @@ export const editors: EditorData[] = [
       "View & Edit Ren'Py Save Data",
       'Modify Game Variables and Flags',
       'Inspect History and Playtime',
-      'Experimental save export (persistent primitive fields only)',
+      'Limited stable export for persistent primitive fields',
     ],
     instructions: [
       "Find your Ren'Py save files (usually in `game/saves/`)",
       'Upload the `.save` file',
-      'Edit the game state and variables',
-      '⚠️ Note: Saving is experimental and may corrupt files. Enable it only if you understand the risk.',
+      'Edit supported primitive fields under persistent',
+      'Download the rebuilt file after unsupported Python objects and non-persistent edits are blocked.',
     ],
   },
   {
@@ -133,7 +133,7 @@ export const editors: EditorData[] = [
     fileType: '.ini, .json',
     title: 'GameMaker Save Editor | Edit INI & JSON Saves',
     description:
-      'Universal GameMaker save editor online. Modify .ini and .json save files for GameMaker Studio 1 & 2 games. Edit health, inventory, and stats easily. 100% free.',
+      'GameMaker save editor online. Modify compatible .ini and .json save files for GameMaker Studio 1 & 2 games. Edit health, inventory, and stats in your browser.',
     keywords:
       'gamemaker save editor, edit gamemaker save, undertale save editor, gamemaker ini editor',
     features: [
@@ -168,6 +168,28 @@ export const editors: EditorData[] = [
       'Upload it to the editor',
       'Modify the JSON data',
       'Download the updated file',
+    ],
+  },
+  {
+    slug: 'generic',
+    name: 'Generic Inspector',
+    fileType: '.sol, .db, .sqlite, .msgpack, .mpack, .cbor, .es3, .dat, .nrbf, .bytes, .pkl, .pickle, .cfg',
+    title: 'Generic Save Format Inspector | SQLite, SOL, MessagePack, CBOR',
+    description:
+      'Read-only browser inspector for competitor-covered save formats such as Flash SOL, SQLite, MessagePack, CBOR, ES3, BinaryFormatter candidates, Python pickle, and Godot CFG.',
+    keywords:
+      'save file inspector, sqlite save editor, sol save viewer, msgpack save viewer, cbor save viewer, es3 save editor',
+    features: [
+      'Recognize broad competitor formats',
+      'Show decoded structure when safe',
+      'Explain why export is disabled',
+      'Provide sample-request path for new write support',
+    ],
+    instructions: [
+      'Upload the save or database file',
+      'Review the detected format and read-only explanation',
+      'Use visible structure to identify values',
+      'Send a sample if you need safe write support for this format',
     ],
   },
 ];

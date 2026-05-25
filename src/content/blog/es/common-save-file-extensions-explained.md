@@ -222,7 +222,7 @@ R: Ábrelo en un editor de texto simple (como el Bloc de notas). Si ves texto le
 **P: ¿Qué pasa si el formato de mi juego no está en la lista?**
 R: Intenta abrirlo en nuestro editor genérico; puede detectar automáticamente formatos comunes de Unity o JSON disfrazados. De lo contrario, consulta las comunidades específicas del juego (Reddit, Discord) para ver si existen herramientas creadas por fans.
 
-**P: ¿Se pueden editar absolutamente todos los archivos de guardado?**
+**P: ¿Se pueden editar todos los archivos de guardado?**
 R: La gran mayoría se puede editar técnicamente. Sin embargo, algunos juegos modernos usan:
 *   **Encriptación**: Requiere una clave que podría estar oculta en el ejecutable del juego.
 *   **Sumas de verificación (Checksums)**: Una firma matemática que valida la integridad del archivo. Si cambias un byte sin actualizar la suma, el juego marcará el guardado como corrupto.

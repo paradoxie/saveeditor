@@ -53,7 +53,7 @@ RPG Maker MV 游戏使用 `.rpgsave` 扩展名的存档文件，而 MZ 游戏通
 2.  将您的 `.rpgsave` 文件拖放到上传区域，或点击浏览选择。
 3.  等待几秒钟，文件将被解析。
 
-所有处理都在**您的浏览器本地**进行。您的存档文件永远不会上传到任何服务器。
+所选存档文件会在**您的浏览器内**解析，不会上传到我们的解析服务器。
 
 ## 步骤 4：编辑常用数值
 
@@ -98,7 +98,7 @@ RPG Maker MV 游戏使用 `.rpgsave` 扩展名的存档文件，而 MZ 游戏通
 ## 常见问题
 
 **问：这安全吗？**
-答：是的。所有处理都在您的浏览器中进行。您的文件永远不会上传到任何服务器。
+答：所选文件会在浏览器内解析，不会上传到我们的解析服务器。
 
 **问：这适用于 RPG Maker MZ 吗？**
 答：是的！MZ 使用与 MV 相同的 `.rpgsave` 格式。
@@ -129,4 +129,3 @@ RPG Maker MV 游戏使用 `.rpgsave` 扩展名的存档文件，而 MZ 游戏通
 - [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
 - [RPG Maker 存档结构](/zh-cn/blog/rpg-maker-save-file-structure)
 - [GameMaker 存档编辑](/zh-cn/blog/gamemaker-save-editing-guide)
-

@@ -248,7 +248,7 @@ Depending on the game engine, you might also need:
 
 - [Unity Save Editor](/editor/unity) – For Unity-based games
 - [RPG Maker Editor](/editor/rpg-maker-mv) – For RPG Maker titles
-- [Ren'Py Viewer](/editor/renpy) – For visual novels
+- [Ren'Py Editor](/editor/renpy) – For visual novels
 
 ## Conclusion
 
@@ -280,4 +280,3 @@ Expand your GameMaker knowledge with these related guides:
 - [Common Save File Extensions Explained](/blog/common-save-file-extensions-explained)
 - [How to Edit RPG Maker Saves](/blog/how-to-edit-rpg-maker-save)
 - [Undertale Save Locations](/games/undertale)
-

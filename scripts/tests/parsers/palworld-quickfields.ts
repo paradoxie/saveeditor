@@ -3,6 +3,8 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import {
     analyzePalworldQuickFields,
+    buildPalworld,
+    summarizePalworldPals,
     type PalworldFieldId,
     type PalworldQuickField,
 } from '../../../src/lib/parsers/palworld';
@@ -88,6 +90,22 @@ async function main() {
         `Palworld quick-fields falsePositiveRate above threshold: ${falsePositiveRate.toFixed(3)} > 0.100`
     );
     assert.ok(recall >= 0.8, `Palworld quick-fields recall below threshold: ${recall.toFixed(3)} < 0.800`);
+
+    const pals = summarizePalworldPals({
+        PlayerSaveData: {
+            Pals: [
+                { PalId: 'JetDragon', Level: 50 },
+                { NickName: 'Worker', Level: 12 },
+            ],
+        },
+    });
+    assert.equal(pals.candidateCount, 2);
+    assert.equal(pals.candidates[0].label, 'JetDragon');
+    assert.equal(pals.candidates[0].level, 50);
+    await assert.rejects(
+        () => buildPalworld(new File([new Uint8Array([1, 2, 3])], 'Level.sav'), { jsonView: { WorldSaveData: {} } } as any),
+        /world saves are read-only/i
+    );
 
     console.log(
         `Palworld quick-field metrics passed: precision=${precision.toFixed(3)}, recall=${recall.toFixed(3)}, falsePositiveRate=${falsePositiveRate.toFixed(3)}.`

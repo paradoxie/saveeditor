@@ -3,14 +3,19 @@ import { appendUploadToken } from '../lib/ingest';
 import { ui } from '../i18n/ui';
 import { localizePath } from '../i18n/utils';
 import JsonEditor from './JsonEditor';
+import BeforeAfterDiffWizard from './editors/BeforeAfterDiffWizard';
 import RpgMakerEditor from './editors/RpgMakerEditor';
+import GenericInspector from './editors/GenericInspector';
+import QuickFieldEditor from './editors/QuickFieldEditor';
+import { parseSaveFileSafe } from '../lib/parseSaveFile';
+import { buildRejectedSupportPackFromFile, supportPackMailto } from '../lib/supportPack';
 import type {
     PalworldInsightNote,
     PalworldParseResult,
     PalworldQuickField
 } from '../lib/parsers/palworld';
 import type { UnrealParseResult } from '../lib/parsers/unreal';
-import type { ParseOutcome, ParserCapability } from '../lib/parsers/types';
+import { type ParserCapability, type SupportPackSummary } from '../lib/parsers/types';
 
 interface SaveEditorProps {
     file: File;
@@ -33,8 +38,11 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
     const [capabilities, setCapabilities] = useState<ParserCapability | null>(null);
     const [activeTab, setActiveTab] = useState<'quick' | 'advanced'>('quick');
     const [isAdvancedLoading, setIsAdvancedLoading] = useState(false);
+    const [advancedTool, setAdvancedTool] = useState<'editor' | 'diff'>('editor');
     const [experimentalEnabled, setExperimentalEnabled] = useState(false);
     const [errorAdvice, setErrorAdvice] = useState<string[]>([]);
+    const [supportPack, setSupportPack] = useState<SupportPackSummary | null>(null);
+    const contactHref = localizePath('/contact', lang);
 
     React.useEffect(() => {
         const parseFile = async () => {
@@ -43,51 +51,27 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                 setError(null);
                 setErrorAdvice([]);
                 setCapabilities(null);
+                setSupportPack(null);
 
                 // File size validation (50MB limit)
                 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
                 if (file.size > MAX_FILE_SIZE) {
+                    setSupportPack(await buildRejectedSupportPackFromFile({
+                        file,
+                        parserPath: editorSlug || 'upload',
+                        failureStage: 'file_size_limit',
+                        reasonCode: 'file_too_large',
+                        format: file.name.split('.').pop()?.toLowerCase() || 'unknown',
+                    }));
                     setError('File too large. Maximum file size is 50MB. Please try a smaller save file.');
                     setLoading(false);
                     return;
                 }
 
                 const ext = file.name.split('.').pop()?.toLowerCase();
-
-                let outcome: ParseOutcome<any>;
-                if (ext === 'save') {
-                    const { parseRenpy } = await import('../lib/parsers/renpy');
-                    outcome = await parseRenpy(file);
-                    setFormat('renpy');
-                } else if (['xml', 'plist', 'prefs'].includes(ext || '')) {
-                    const { parseUnity } = await import('../lib/parsers/unity');
-                    outcome = await parseUnity(file);
-                    setFormat('unity');
-                } else if (ext === 'sav') {
-                    if (editorSlug === 'palworld') {
-                        const { parsePalworld } = await import('../lib/parsers/palworld');
-                        outcome = await parsePalworld(file);
-                        setFormat('palworld');
-                    } else {
-                        const { parseUnreal } = await import('../lib/parsers/unreal');
-                        outcome = await parseUnreal(file);
-                        setFormat('unreal');
-                    }
-                } else if (ext === 'nson') {
-                    const { parseNaniNovel } = await import('../lib/parsers/naninovel');
-                    outcome = await parseNaniNovel(file);
-                    setFormat(outcome.format);
-                } else if (ext === 'rpgsave' || ext === 'rvdata2' || ext === 'rmmzsave') {
-                    const { parseRPGMakerMV } = await import('../lib/parsers/rpgmaker');
-                    outcome = await parseRPGMakerMV(file);
-                    setFormat('rpgmaker');
-                } else {
-                    // Fallback to Gamemaker / Generic
-                    const { parseGamemaker } = await import('../lib/parsers/gamemaker');
-                    outcome = await parseGamemaker(file);
-                    setFormat(outcome.format);
-                }
-
+                const { outcome, uiFormat } = await parseSaveFileSafe(file, editorSlug);
+                setFormat(uiFormat);
+                setSupportPack(outcome.diagnostics?.supportPack || null);
                 setCapabilities(outcome.capabilities);
 
                 if (!outcome.capabilities.canView) {
@@ -106,6 +90,13 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
             } catch (err: any) {
                 console.error(err);
                 const ext = file.name.split('.').pop()?.toLowerCase();
+                setSupportPack(await buildRejectedSupportPackFromFile({
+                    file,
+                    parserPath: editorSlug || 'editor',
+                    failureStage: 'exception',
+                    reasonCode: 'parse_failed',
+                    format: ext ? `.${ext}` : 'unknown',
+                }));
                 setError(`${t('editor.parseError')}: ${err.message}`);
                 setErrorAdvice(buildErrorAdvice(ext, err?.message || '', t, 'parse_failed'));
                 setLoading(false);
@@ -133,7 +124,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
 
         if (capabilities.requiresExperimental) {
             const confirmed = window.confirm(
-                "Experimental save export may corrupt files. Please confirm you've created a backup before continuing."
+                "Guarded export may be incompatible with this save. Please confirm you've created a backup before continuing."
             );
             if (!confirmed) return;
         }
@@ -155,9 +146,12 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
             } else if (format === 'renpy') {
                 const { buildRenpy } = await import('../lib/parsers/renpy');
                 blob = await buildRenpy(file, data);
-            } else if (format === 'rpgmaker') {
+            } else if (format === 'rpgmaker' || format === 'rpgmaker-ruby-marshal' || format === 'rpgmaker-2000-2003-lsd') {
                 const { buildRPGMakerMV } = await import('../lib/parsers/rpgmaker');
                 blob = await buildRPGMakerMV(file, data);
+            } else if (format.startsWith('generic')) {
+                const { buildGeneric } = await import('../lib/parsers/generic');
+                blob = await buildGeneric();
             } else {
                 // Gamemaker / Raw
                 const { buildGamemaker } = await import('../lib/parsers/gamemaker');
@@ -186,6 +180,16 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
             return;
         }
         setData(newData);
+    };
+
+    const openAdvancedTools = (tool: 'editor' | 'diff' = 'editor') => {
+        setAdvancedTool(tool);
+        if (activeTab !== 'advanced') {
+            setIsAdvancedLoading(true);
+            setActiveTab('advanced');
+            // Delay rendering to allow loading state to show
+            setTimeout(() => setIsAdvancedLoading(false), 100);
+        }
     };
 
     if (loading) {
@@ -239,7 +243,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                             <h4 className="font-bold text-blue-900 mb-1">{t('editor.feedbackTitle')}</h4>
                             <p className="text-blue-700 text-sm mb-3">{t('editor.feedbackDesc')}</p>
                             <a
-                                href={contactHref}
+                                href={supportPack ? supportPackMailto(supportPack) : contactHref}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,6 +251,14 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                 </svg>
                                 {t('editor.contactUs')}
                             </a>
+                            {supportPack && (
+                                <div className="mt-4 rounded-lg border border-blue-200 bg-white/80 p-3 text-xs text-blue-900">
+                                    <p><strong>Reason:</strong> {supportPack.reasonCode}</p>
+                                    <p><strong>Parser:</strong> {supportPack.parserPath}</p>
+                                    <p><strong>Capability:</strong> {supportPack.capability}</p>
+                                    <p><strong>Content:</strong> {supportPack.contentClass}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -267,9 +279,10 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
     const isUnrealExperimentalRequired = isUnrealFamily && !!capabilities?.requiresExperimental;
     const showUnrealLimitedSupport =
         isUnrealFamily && (isUnrealPartial || isUnrealCompressedUnsupported || !isUnrealSaveSupported);
-    const palworldQuickFields = palworldData?._palworld?.quickFields ?? [];
+    const palworldQuickFields = (palworldData?._palworld?.quickFields ?? []).filter((field) => field.confidence === 'high');
     const palworldRole = palworldData?._palworld?.fileRole ?? 'unknown';
     const palworldNotes = palworldData?._palworld?.notes ?? [];
+    const palworldPalsSummary = palworldData?._palworld?.palsSummary;
     const unrealReason = isUnrealFamily ? getUnrealReasonText(unrealData, t) : '';
     const isSaveDisabled =
         !capabilities?.canSave ||
@@ -279,8 +292,19 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
     const showQuickEdit =
         isPalworld ||
         format === 'rpgmaker' ||
-        (format === 'json' && editorData?.gold !== undefined);
-    const contactHref = localizePath('/contact', lang);
+        format === 'rpgmaker-ruby-marshal' ||
+        format === 'rpgmaker-2000-2003-lsd' ||
+        format === 'renpy' ||
+        format === 'unity' ||
+        format === 'json' ||
+        format.startsWith('generic') ||
+        format === 'raw' ||
+        format === 'naninovel-nson' ||
+        format === 'naninovel-json' ||
+        format === 'naninovel-base64' ||
+        format === 'naninovel-gzip' ||
+        format === 'naninovel-zlib' ||
+        format === 'naninovel-base64-gzip';
     const savWorkflowCopy = getSavWorkflowCopy(lang);
     const savAlternate =
         file.name.toLowerCase().endsWith('.sav') && editorSlug === 'palworld'
@@ -332,14 +356,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                 </button>
                             )}
                             <button
-                                onClick={() => {
-                                    if (activeTab !== 'advanced') {
-                                        setIsAdvancedLoading(true);
-                                        setActiveTab('advanced');
-                                        // Delay rendering to allow loading state to show
-                                        setTimeout(() => setIsAdvancedLoading(false), 100);
-                                    }
-                                }}
+                                onClick={() => openAdvancedTools('editor')}
                                 className={`px-4 py-1.5 rounded-md transition-all font-medium ${activeTab === 'advanced' ? 'bg-primary-50 text-primary-700 shadow-sm ring-1 ring-primary-200' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}
                             >
                                 {showQuickEdit ? 'Advanced' : 'Editor'}
@@ -367,6 +384,16 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                         </svg>
                         <div>
                             <strong>{t('editor.renpyExperimentalTitle')}:</strong> {t('editor.renpyExperimentalBody')}
+                        </div>
+                    </div>
+                )}
+                {format === 'rpgmaker-ruby-marshal' && (
+                    <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg text-sm flex items-start gap-3">
+                        <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <div>
+                            <strong>Limited Ruby Marshal editing:</strong> RPG Maker XP/VX/VX Ace exports are enabled for common fields only. Structural changes are blocked to avoid unsafe rewrites.
                         </div>
                     </div>
                 )}
@@ -416,7 +443,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                         </a>
                     </div>
                 )}
-                {(format === 'renpy' || (isUnrealFamily && isUnrealSaveSupported && isUnrealExperimentalRequired)) && (
+                {isUnrealFamily && isUnrealSaveSupported && isUnrealExperimentalRequired && (
                     <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-lg text-sm">
                         <label className="flex items-start gap-3">
                             <input
@@ -447,13 +474,14 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                 ) : (
                     <>
                         {activeTab === 'quick' && showQuickEdit ? (
-                            format === 'rpgmaker' ? (
-                                <RpgMakerEditor data={data} onChange={handleDataChange} />
+                            format === 'rpgmaker' || format === 'rpgmaker-ruby-marshal' || format === 'rpgmaker-2000-2003-lsd' ? (
+                                <RpgMakerEditor data={data} onChange={handleDataChange} readOnly={isReadOnly} />
                             ) : format === 'palworld' ? (
                                 <div className="space-y-5">
                                     <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4 text-sm text-indigo-900">
                                         <p className="font-semibold">{t('editor.palworldQuickTitle')}</p>
                                         <p className="mt-1 text-indigo-700">{t('editor.palworldQuickDesc')}</p>
+                                        <p className="mt-1 text-indigo-700">{t('editor.palworldDedicatedBoundary')}</p>
                                         <div className="mt-3 flex flex-wrap gap-2">
                                             <span className="inline-flex items-center rounded-full bg-white px-3 py-1 border border-indigo-200 text-xs font-medium">
                                                 {t('editor.palworldRoleLabel')}: {getPalworldRoleLabel(palworldRole, t)}
@@ -461,6 +489,11 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                             <span className="inline-flex items-center rounded-full bg-white px-3 py-1 border border-indigo-200 text-xs font-medium">
                                                 {t('editor.palworldFieldCountLabel')}: {palworldQuickFields.length}
                                             </span>
+                                            {palworldPalsSummary && (
+                                                <span className="inline-flex items-center rounded-full bg-white px-3 py-1 border border-indigo-200 text-xs font-medium">
+                                                    {t('editor.palworldPalsCandidates')}: {palworldPalsSummary.candidateCount}
+                                                </span>
+                                            )}
                                             {isReadOnly && (
                                                 <span className="inline-flex items-center rounded-full bg-amber-100 text-amber-900 px-3 py-1 border border-amber-200 text-xs font-medium">
                                                     {t('editor.palworldQuickReadOnly')}
@@ -479,84 +512,123 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                                     ))}
                                                 </ul>
                                             )}
+                                            <div className="mt-3 flex flex-wrap gap-2">
+                                                <button
+                                                    type="button"
+                                                    className="inline-flex rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-100"
+                                                    onClick={() => openAdvancedTools('diff')}
+                                                >
+                                                    Open diff wizard
+                                                </button>
+                                                <a
+                                                    className="inline-flex rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-100"
+                                                    href={supportPack ? supportPackMailto(supportPack) : contactHref}
+                                                >
+                                                    Send anonymized support pack
+                                                </a>
+                                            </div>
                                         </div>
                                     ) : (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            {palworldQuickFields.map((field) => {
-                                                const currentValue = getNumericValueAtPath(editorData, field.path) ?? field.value;
-                                                return (
-                                                    <div
-                                                        key={field.path.join('.')}
-                                                        className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm"
-                                                    >
-                                                        <div className="flex items-center justify-between mb-2">
-                                                            <p className="font-semibold text-gray-900">
-                                                                {getPalworldFieldLabel(field.id, t)}
-                                                            </p>
-                                                            <span className={`text-[11px] px-2 py-0.5 rounded-full border ${
-                                                                field.confidence === 'high'
-                                                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                                                    : 'bg-amber-50 text-amber-700 border-amber-200'
-                                                            }`}>
-                                                                {getPalworldConfidenceLabel(field.confidence, t)}
-                                                            </span>
-                                                        </div>
-                                                        <p className="text-xs text-gray-500 mb-2 font-mono break-all">
-                                                            {field.path.join('.')}
-                                                        </p>
-                                                        <input
-                                                            type="number"
-                                                            className="block w-full rounded-lg border border-gray-300 bg-white shadow-sm focus:border-primary-500 focus:ring-primary-500 p-2.5"
-                                                            value={currentValue}
-                                                            readOnly={isReadOnly}
-                                                            onChange={(event) => {
-                                                                const nextValue = Number(event.target.value);
-                                                                if (!Number.isFinite(nextValue) || !editorData) return;
-                                                                const updated = setValueAtPath(editorData, field.path, nextValue);
-                                                                handleDataChange(updated);
-                                                            }}
-                                                        />
+                                        <div className="space-y-4">
+                                            {palworldPalsSummary?.candidates?.length ? (
+                                                <section className="rounded-xl border border-slate-200 bg-white p-4">
+                                                    <p className="mb-3 text-sm font-semibold text-slate-900">{t('editor.palworldPalsCandidates')}</p>
+                                                    <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                                                        {palworldPalsSummary.candidates.map((pal) => (
+                                                            <div key={pal.path.join('.')} className="rounded-lg border border-slate-100 bg-slate-50 p-3 text-sm">
+                                                                <div className="flex items-center justify-between gap-3">
+                                                                    <span className="font-medium text-slate-900">{pal.label}</span>
+                                                                    <span className={`text-[11px] px-2 py-0.5 rounded-full border ${
+                                                                        pal.confidence === 'high'
+                                                                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                                                            : 'bg-amber-50 text-amber-700 border-amber-200'
+                                                                    }`}>
+                                                                        {getPalworldConfidenceLabel(pal.confidence, t)}
+                                                                    </span>
+                                                                </div>
+                                                                {typeof pal.level === 'number' && <p className="mt-1 text-slate-600">Level: {pal.level}</p>}
+                                                                <p className="mt-1 break-all font-mono text-xs text-slate-500">{pal.path.join('.')}</p>
+                                                            </div>
+                                                        ))}
                                                     </div>
-                                                );
-                                            })}
+                                                </section>
+                                            ) : null}
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                {palworldQuickFields.map((field) => {
+                                                    const currentValue = getNumericValueAtPath(editorData, field.path) ?? field.value;
+                                                    return (
+                                                        <div
+                                                            key={field.path.join('.')}
+                                                            className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm"
+                                                        >
+                                                            <div className="flex items-center justify-between mb-2">
+                                                                <p className="font-semibold text-gray-900">
+                                                                    {getPalworldFieldLabel(field.id, t)}
+                                                                </p>
+                                                                <span className={`text-[11px] px-2 py-0.5 rounded-full border ${
+                                                                    field.confidence === 'high'
+                                                                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                                                        : 'bg-amber-50 text-amber-700 border-amber-200'
+                                                                }`}>
+                                                                    {getPalworldConfidenceLabel(field.confidence, t)}
+                                                                </span>
+                                                            </div>
+                                                            <p className="text-xs text-gray-500 mb-2 font-mono break-all">
+                                                                {field.path.join('.')}
+                                                            </p>
+                                                            <input
+                                                                type="number"
+                                                                className="block w-full rounded-lg border border-gray-300 bg-white shadow-sm focus:border-primary-500 focus:ring-primary-500 p-2.5"
+                                                                value={currentValue}
+                                                                readOnly={isReadOnly}
+                                                                onChange={(event) => {
+                                                                    const nextValue = Number(event.target.value);
+                                                                    if (!Number.isFinite(nextValue) || !editorData) return;
+                                                                    const updated = setValueAtPath(editorData, field.path, nextValue);
+                                                                    handleDataChange(updated);
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
                                     )}
                                 </div>
+                            ) : format.startsWith('generic') ? (
+                                <GenericInspector data={data} supportHref={supportPack ? supportPackMailto(supportPack) : contactHref} />
                             ) : (
-                                <div className="space-y-6">
-                                    {/* Gold Editor (Generic) */}
-                                    <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-5 border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
-                                                <span className="text-xl">💰</span>
-                                            </div>
-                                            <label className="text-base font-semibold text-gray-800">Gold / Money</label>
-                                        </div>
-                                        <input
-                                            type="number"
-                                            className="block w-full max-w-xs rounded-lg border-amber-200 bg-white shadow-sm focus:border-amber-400 focus:ring-amber-400 text-lg p-3 border font-medium"
-                                            value={editorData?.party?._gold ?? editorData?.party?.gold ?? editorData?.gold ?? 0}
-                                            onChange={(e) => setData((prev: any) => {
-                                                if (!prev) return null;
-                                                const newData = JSON.parse(JSON.stringify(prev)); // Deep clone
-                                                const newGold = parseInt(e.target.value) || 0;
-                                                // Update all possible gold locations
-                                                if (newData.party) {
-                                                    newData.party._gold = newGold;
-                                                    newData.party.gold = newGold;
-                                                } else {
-                                                    newData.gold = newGold;
-                                                }
-                                                return newData;
-                                            })}
-                                        />
-                                    </div>
-                                </div>
+                                <QuickFieldEditor
+                                    data={editorData}
+                                    onChange={handleDataChange}
+                                    readOnly={isReadOnly}
+                                    canEditPath={isRenpy ? (path) => path[0] === 'persistent' : undefined}
+                                    allowItemAdd={!isRenpy}
+                                    presetSlug={getPresetSlugForFormat(format, editorSlug)}
+                                    supportHref={supportPack ? supportPackMailto(supportPack) : contactHref}
+                                    onOpenDiffWizard={() => openAdvancedTools('diff')}
+                                />
                             )
                         ) : (
                             <div className="space-y-4">
                                 <div className="bg-blue-50 text-blue-800 p-4 rounded-lg text-sm">
                                     <strong>{t('editor.advancedModeTitle')}:</strong> {t('editor.advancedModeBody')}
+                                </div>
+                                <div className="flex gap-2 rounded-lg border border-slate-200 bg-slate-50 p-1 text-sm">
+                                    <button
+                                        type="button"
+                                        className={`rounded-md px-3 py-1.5 font-semibold ${advancedTool === 'editor' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'}`}
+                                        onClick={() => setAdvancedTool('editor')}
+                                    >
+                                        JSON editor
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={`rounded-md px-3 py-1.5 font-semibold ${advancedTool === 'diff' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'}`}
+                                        onClick={() => setAdvancedTool('diff')}
+                                    >
+                                        Diff wizard
+                                    </button>
                                 </div>
                                 {isAdvancedLoading ? (
                                     <div className="flex flex-col items-center justify-center py-16 space-y-4">
@@ -564,7 +636,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                         <p className="text-gray-500 text-sm">{t('editor.loadingJson')}</p>
                                         <p className="text-gray-400 text-xs">{t('editor.loadingLargeFile')}</p>
                                     </div>
-                                ) : (
+                                ) : advancedTool === 'editor' ? (
                                     editorData && (
                                         <JsonEditor
                                             data={editorData}
@@ -573,6 +645,8 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                             canEdit={isRenpy ? canEditRenpy : undefined}
                                         />
                                     )
+                                ) : (
+                                    editorData && <BeforeAfterDiffWizard currentFile={file} editorSlug={editorSlug} />
                                 )}
                             </div>
                         )}
@@ -594,7 +668,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                         </span>
                     </div>
                     <a
-                        href={contactHref}
+                        href={supportPack ? supportPackMailto(supportPack) : contactHref}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-all text-sm font-medium shadow-sm"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -606,7 +680,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
             </div>
 
             {/* Floating Download Button - Centered */}
-            {/* Some formats have limited saving support (Ren'Py read-only, Unreal unreliable) */}
+            {/* Some formats have limited saving support (Ren'Py limited, Unreal guarded) */}
             {!isSaveDisabled && (
             <button
                 onClick={handleDownload}
@@ -688,6 +762,14 @@ function getSavWorkflowCopy(lang: string) {
     return copy[(lang in copy ? lang : 'en') as keyof typeof copy];
 }
 
+function getPresetSlugForFormat(format: string, editorSlug?: string): string | undefined {
+    if (editorSlug === 'palworld' || format === 'palworld') return 'palworld';
+    if (format === 'renpy') return 'renpy-engine';
+    if (format === 'unity') return 'unity-engine';
+    if (format === 'raw') return 'gamemaker-engine';
+    return undefined;
+}
+
 function getPalworldRoleLabel(role: string, t: (key: string) => string): string {
     if (role === 'player') return t('editor.palworldRolePlayer');
     if (role === 'world') return t('editor.palworldRoleWorld');
@@ -696,9 +778,11 @@ function getPalworldRoleLabel(role: string, t: (key: string) => string): string 
 
 function getPalworldFieldLabel(id: PalworldQuickField['id'], t: (key: string) => string): string {
     if (id === 'gold') return t('editor.palworldFieldGold');
+    if (id === 'goldItem') return t('editor.palworldFieldGoldItem');
     if (id === 'techPoints') return t('editor.palworldFieldTechPoints');
     if (id === 'playerLevel') return t('editor.palworldFieldLevel');
     if (id === 'hp') return t('editor.palworldFieldHp');
+    if (id === 'inventoryItem') return t('editor.palworldFieldInventoryItem');
     return t('editor.palworldFieldStamina');
 }
 
@@ -823,9 +907,9 @@ function buildErrorAdvice(
         advice.unshift(t('editor.naninovelReasonUnsupportedWrapper'));
     }
 
-    if (reasonCode === 'unsupported_ruby_marshal' || ext === 'rvdata2') {
-        advice.unshift('RPG Maker VX Ace (.rvdata2) uses Ruby Marshal and is currently read-only/unsupported here.');
-        advice.unshift('Use an RPG Maker VX Ace dedicated desktop tool for .rvdata2 files.');
+    if (reasonCode === 'unsupported_ruby_marshal' || ext === 'rvdata2' || ext === 'rvdata' || ext === 'rxdata') {
+        advice.unshift('RPG Maker XP/VX/VX Ace Ruby Marshal files support limited editing when the structure is standard.');
+        advice.unshift('Unsupported custom Ruby objects or structural edits are blocked before export.');
     }
 
     if (ext === 'sav') {

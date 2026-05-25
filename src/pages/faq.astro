@@ -11,12 +11,12 @@ const faqCategories = [
       {
         question: 'What is SaveEditor.Online?',
         answer:
-          "SaveEditor.Online is a free, browser-based tool for editing game save files. It works entirely in your browser, meaning your files never leave your device. We support popular game engines like RPG Maker, Unity, Ren'Py, Unreal Engine, and more. For Unreal `.sav`, support is compatibility-first: standard unencrypted GVAS is best supported, while game-specific containers/compression may be read-only.",
+          "SaveEditor.Online is a free, browser-based tool for editing compatible game save files. It parses the selected save in your browser. We support popular game engines like RPG Maker, Unity, Ren'Py, Unreal Engine, and more. For Unreal `.sav`, support is compatibility-first: standard unencrypted GVAS is best supported, while game-specific containers/compression may be read-only.",
       },
       {
         question: 'Is this safe to use?',
         answer:
-          'Yes. SaveEditor.Online runs entirely in your web browser (client-side JavaScript). Your save files are never uploaded to any server. We do use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie policies for details.',
+          'SaveEditor.Online parses the selected save file in your web browser. The selected save file is not uploaded to our parser server. We do use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie policies for details.',
       },
       {
         question: 'Do I need to create an account?',
@@ -26,7 +26,7 @@ const faqCategories = [
       {
         question: 'Is this really free?',
         answer:
-          'Yes, completely free with no hidden costs, premium tiers, or feature limits. We support ourselves through optional donations and non-intrusive advertising.',
+          'Yes, the editor is free to use. We support ourselves through optional donations and non-intrusive advertising.',
       },
     ],
   },
@@ -125,7 +125,7 @@ const faqCategories = [
       {
         question: 'Will I get VAC banned for editing saves?',
         answer:
-          'No. VAC (Valve Anti-Cheat) only monitors multiplayer/online games. Single-player save editing is completely safe and will not result in any Steam bans or restrictions.',
+          'For local single-player saves, VAC normally is not involved. Do not use modified saves on public servers, competitive modes, or online games whose rules forbid modifications.',
       },
       {
         question: 'Do Steam achievements still work after editing?',

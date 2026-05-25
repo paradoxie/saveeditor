@@ -1,6 +1,8 @@
 import LZString from 'lz-string';
 import pako from 'pako';
 import * as fflate from 'fflate';
+import { buildLcfSave, parseLcfSave } from './lcf';
+import { buildRubyMarshalFromProjection, parseRubyMarshal } from './ruby-marshal';
 import { makeOutcome, type ParseOutcome } from './types';
 
 export interface RPGMakerSave {
@@ -43,6 +45,14 @@ function getExtension(fileName: string): string {
     return ext || '';
 }
 
+function isRubyMarshalExtension(ext: string): boolean {
+    return ext === 'rvdata2' || ext === 'rvdata' || ext === 'rxdata';
+}
+
+function isRpgMaker200xExtension(ext: string): boolean {
+    return ext === 'lsd';
+}
+
 function keepJsonCandidate(input: string | null): string | null {
     if (!input) return null;
     try {
@@ -55,22 +65,11 @@ function keepJsonCandidate(input: string | null): string | null {
 
 export async function parseRPGMakerMV(file: File): Promise<ParseOutcome<RPGMakerSave | null>> {
     const ext = getExtension(file.name);
-    if (ext === 'rvdata2') {
-        return makeOutcome({
-            engine: 'rpgmaker',
-            format: 'rpgmaker',
-            mode: 'unsupported',
-            reasonCode: 'unsupported_ruby_marshal',
-            reason:
-                'RPG Maker VX Ace .rvdata2 uses Ruby Marshal and is not supported in this browser editor yet.',
-            capabilities: {
-                canView: false,
-                canEdit: false,
-                canSave: false,
-                roundTripSupport: 'none',
-            },
-            data: null,
-        });
+    if (isRubyMarshalExtension(ext)) {
+        return parseRPGMakerRubyMarshal(file);
+    }
+    if (isRpgMaker200xExtension(ext)) {
+        return parseRPGMaker200x(file);
     }
 
     const debug = typeof window !== 'undefined' && (window as any).__SAVE_EDITOR_DEBUG === true;
@@ -200,6 +199,7 @@ export async function parseRPGMakerMV(file: File): Promise<ParseOutcome<RPGMaker
         return makeOutcome({
             engine: 'rpgmaker',
             format: 'rpgmaker',
+            formatFamily: 'rpgmaker',
             mode: 'full',
             reasonCode: 'ok',
             capabilities: {
@@ -216,6 +216,7 @@ export async function parseRPGMakerMV(file: File): Promise<ParseOutcome<RPGMaker
         return makeOutcome({
             engine: 'rpgmaker',
             format: 'rpgmaker',
+            formatFamily: 'rpgmaker',
             mode: 'unsupported',
             reasonCode: 'parse_failed',
             reason: 'Invalid RPG Maker MV/MZ save file',
@@ -233,7 +234,115 @@ export async function parseRPGMakerMV(file: File): Promise<ParseOutcome<RPGMaker
     }
 }
 
+export async function parseRPGMakerRubyMarshal(file: File): Promise<ParseOutcome<any>> {
+    try {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        const parsed = parseRubyMarshal(bytes);
+
+        return makeOutcome({
+            engine: 'rpgmaker',
+            format: 'rpgmaker-ruby-marshal',
+            formatFamily: 'rpgmaker',
+            mode: 'limited',
+            reasonCode: 'ok',
+            reason:
+                'Ruby Marshal files support limited, guarded editing for common RPG Maker fields.',
+            capabilities: {
+                canView: true,
+                canEdit: true,
+                canSave: true,
+                roundTripSupport: 'stable-limited',
+            },
+            data: {
+                _format: 'RPG Maker Ruby Marshal',
+                _sourceFile: file.name,
+                _limitedWrite: true,
+                data: parsed,
+            },
+            warnings: [
+                'Limited write support for RPG Maker XP/VX/VX Ace Ruby Marshal saves.',
+                'Edit common numeric fields conservatively and keep the original file backed up.',
+            ],
+        });
+    } catch (error: any) {
+        return makeOutcome({
+            engine: 'rpgmaker',
+            format: 'rpgmaker-ruby-marshal',
+            formatFamily: 'rpgmaker',
+            mode: 'unsupported',
+            reasonCode: 'unsupported_ruby_marshal',
+            reason:
+                error?.message ||
+                'RPG Maker Ruby Marshal file could not be parsed safely in the browser.',
+            capabilities: {
+                canView: false,
+                canEdit: false,
+                canSave: false,
+                roundTripSupport: 'none',
+            },
+            data: null,
+        });
+    }
+}
+
+export async function parseRPGMaker200x(file: File): Promise<ParseOutcome<any>> {
+    try {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        const data = parseLcfSave(bytes, file.name);
+
+        const editable = Array.isArray(data?._lcf?.editable) ? data._lcf.editable : [];
+        const reason =
+            editable.length > 0
+                ? `RPG Maker 2000/2003 .lsd support is stable-limited for detected fields: ${editable.join(', ')}.`
+                : 'RPG Maker 2000/2003 .lsd was parsed, but no safe editable chunks were detected.';
+
+        return makeOutcome({
+            engine: 'rpgmaker',
+            format: 'rpgmaker-2000-2003-lsd',
+            formatFamily: 'rpgmaker',
+            mode: 'limited',
+            reasonCode: 'ok',
+            reason,
+            capabilities: {
+                canView: true,
+                canEdit: editable.length > 0,
+                canSave: editable.length > 0,
+                roundTripSupport: 'stable-limited',
+            },
+            data,
+            warnings: [
+                'Limited write support for RPG Maker 2000/2003 .lsd saves.',
+                'Unknown LCF chunks are preserved; edit common fields conservatively and keep the original file backed up.',
+            ],
+        });
+    } catch (error: any) {
+        return makeOutcome({
+            engine: 'rpgmaker',
+            format: 'rpgmaker-2000-2003-lsd',
+            formatFamily: 'rpgmaker',
+            mode: 'unsupported',
+            reasonCode: 'parse_failed',
+            reason: error?.message || 'The file does not look like a RPG Maker 2000/2003 .lsd save.',
+            capabilities: {
+                canView: false,
+                canEdit: false,
+                canSave: false,
+                roundTripSupport: 'none',
+            },
+            data: null,
+        });
+    }
+}
+
 export async function buildRPGMakerMV(originalFile: File, input: any): Promise<Blob> {
+    const ext = getExtension(originalFile.name);
+    if (isRubyMarshalExtension(ext)) {
+        return buildRPGMakerRubyMarshal(originalFile, input);
+    }
+    if (isRpgMaker200xExtension(ext)) {
+        return new Blob([buildLcfSave(new Uint8Array(await originalFile.arrayBuffer()), input) as any], { type: 'application/octet-stream' });
+    }
+
     const payload = input?.data ?? input;
     if (!payload || typeof payload !== 'object') {
         throw new Error('No RPG Maker payload found.');
@@ -300,4 +409,15 @@ export async function buildRPGMakerMV(originalFile: File, input: any): Promise<B
     }
 
     throw new Error(`Unhandled RPG Maker compression strategy "${compressionType}".`);
+}
+
+export async function buildRPGMakerRubyMarshal(originalFile: File, input: any): Promise<Blob> {
+    const payload = input?.data?.data ?? input?.data ?? input;
+    if (!payload || typeof payload !== 'object') {
+        throw new Error('No RPG Maker Ruby Marshal payload found.');
+    }
+
+    const bytes = new Uint8Array(await originalFile.arrayBuffer());
+    const rebuilt = buildRubyMarshalFromProjection(bytes, payload);
+    return new Blob([rebuilt.buffer.slice(rebuilt.byteOffset, rebuilt.byteOffset + rebuilt.byteLength) as ArrayBuffer], { type: 'application/octet-stream' });
 }

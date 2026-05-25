@@ -9,11 +9,11 @@ import HomeTemplate from '../../components/templates/HomeTemplate.astro';
   keywords="sav文件编辑器, rpgsave修改, 在线存档修改器, 免费存档修改, RPG Maker 存档修改, Ren'Py 存档编辑, Unity 存档工具, save editor online"
 >
   <div slot="seo-content" class="max-w-4xl mx-auto prose prose-blue prose-lg text-gray-600 mb-16">
-    <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">最强大的在线游戏存档编辑器</h2>
+    <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">浏览器端在线游戏存档编辑器</h2>
     <p>
-      欢迎使用 <strong>SaveEditor.Online</strong>，这是最先进的免费在线游戏存档编辑工具。无论你想在 RPG
-      Maker 游戏中添加无限金币、在 Ren'Py 视觉小说中解锁全部 CG，还是修改 Unity
-      游戏中的属性值，我们的工具都能让这一切变得安全、快速、简单。
+      欢迎使用 <strong>SaveEditor.Online</strong>，这是免费的在线游戏存档编辑工具。无论你想在 RPG
+      Maker 游戏中调整金币、在 Ren'Py 视觉小说中检查 CG 解锁标志，还是修改 Unity
+      游戏中的属性值，我们的工具都会优先提示备份和兼容性边界。
     </p>
     <div class="grid md:grid-cols-2 gap-8 my-8 not-prose">
       <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
@@ -28,17 +28,17 @@ import HomeTemplate from '../../components/templates/HomeTemplate.astro';
       <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
         <h3 class="text-lg font-bold text-gray-900 mb-2">支持的格式</h3>
         <ul class="text-sm space-y-2 list-disc list-inside">
-          <li><strong>RPG Maker</strong>: .rpgsave, .rmmzsave</li>
-          <li><strong>Ren'Py</strong>: .save (Python pickle)</li>
+          <li><strong>RPG Maker</strong>: .rpgsave, .rmmzsave, .rvdata2, .rvdata, .rxdata, .lsd</li>
+          <li><strong>Ren'Py</strong>: .save / persistent（有限稳定写回）</li>
           <li><strong>Unity</strong>: PlayerPrefs, .xml, .plist</li>
-          <li><strong>通用格式</strong>: .json, .ini, .txt</li>
+          <li><strong>通用格式</strong>: .json, .ini, .sol, .sqlite, .msgpack, .cbor, .es3, .pkl</li>
         </ul>
       </div>
     </div>
     <p>
       与其他需要下载潜在有害软件或将私人数据上传到未知服务器的编辑器不同，<strong
         >SaveEditor.Online</strong
-      > 完全在您的浏览器中运行。我们使用先进的技术直接在您的设备上解析和编辑文件，这意味着您的存档文件永远不会离开您的电脑或手机。我们会使用 Google Analytics 和 AdSense 进行站点分析与广告展示，详情请查看隐私与 Cookie 政策。
+      > 在您的浏览器中运行。我们直接在您的设备上解析和编辑所选存档文件，不会把该文件发送到解析服务器。我们会使用 Google Analytics 和 AdSense 进行站点分析与广告展示，详情请查看隐私与 Cookie 政策。
     </p>
   </div>
 </HomeTemplate>

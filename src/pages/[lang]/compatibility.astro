@@ -1,5 +1,5 @@
 ---
-import { getEntryBySlug } from 'astro:content';
+import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export function getStaticPaths() {
@@ -14,24 +14,55 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const entry = await getEntryBySlug('compatibility', 'matrix');
+const localizedEntry = await getEntry('matrix', `${lang}/matrix`);
+const fallbackEntry = await getEntry('compatibility', 'matrix');
+const entry = localizedEntry ?? fallbackEntry;
+const coverageHref = `/${lang}/coverage-proof`;
 if (!entry) {
   throw new Error('Compatibility matrix content is missing: src/content/compatibility/matrix.md');
 }
 const { Content } = await entry.render();
+const copy = {
+  'zh-cn': {
+    title: '兼容性矩阵 | SaveEditor.Online',
+    description: 'SaveEditor.Online 兼容性矩阵。查看 RPG Maker、Unity、Ren’Py、Unreal、GameMaker、NaniNovel 的格式、写回等级和限制。',
+    heading: '兼容性矩阵',
+    body: '以下矩阵按真实解析器能力展示支持状态、保存边界和常见限制。',
+    cta: '查看证据覆盖页',
+  },
+  ja: {
+    title: '互換性マトリックス | SaveEditor.Online',
+    description: 'SaveEditor.Online の互換性マトリックス。RPG Maker、Unity、Ren’Py、Unreal、GameMaker、NaniNovel の形式、保存レベル、制限を確認できます。',
+    heading: '互換性マトリックス',
+    body: '以下の表は、実際のパーサー能力、保存境界、既知の制限に基づいています。',
+    cta: '証拠ベースの対応状況を見る',
+  },
+} as const;
+const currentCopy = lang === 'zh-cn' || lang === 'ja'
+  ? copy[lang]
+  : {
+      title: 'Compatibility Matrix | SaveEditor.Online',
+      description: 'Short compatibility summary for SaveEditor.Online. Core support status is shared to avoid unsupported claims in short-form locales.',
+      heading: 'Compatibility Matrix',
+      body: `Locale: ${lang}. This short-form locale shares the canonical matrix to keep support status consistent.`,
+      cta: 'View evidence-backed coverage proof',
+    };
 ---
 
 <BaseLayout
-  title={`Compatibility Matrix | SaveEditor.Online`}
-  description="Compatibility matrix for SaveEditor.Online. Check supported engines, file formats, edit/save safety levels, and known limitations for RPG Maker, Unity, Ren'Py, Unreal, GameMaker, NaniNovel."
+  title={currentCopy.title}
+  description={currentCopy.description}
 >
   <section class="container mx-auto px-4 py-10">
     <div class="max-w-5xl mx-auto">
       <div class="mb-8">
-        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Compatibility Matrix</h1>
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">{currentCopy.heading}</h1>
         <p class="text-gray-600">
-          Locale: <span class="font-mono uppercase">{lang}</span>. Matrix content is shared across locales to keep support status consistent.
+          {currentCopy.body}
         </p>
+        <a class="mt-4 inline-flex rounded-lg border border-primary-200 bg-primary-50 px-4 py-2 text-sm font-semibold text-primary-700 hover:bg-primary-100" href={coverageHref}>
+          {currentCopy.cta}
+        </a>
       </div>
 
       <article class="prose prose-gray max-w-none bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 shadow-sm">

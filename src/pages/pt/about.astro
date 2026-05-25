@@ -3,291 +3,54 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Sobre nós | SaveEditor.Online"
-  description="Conheça a equipe do SaveEditor.Online. O editor de dados de jogos de navegador mais seguro, confiável e gratuito que capacita os jogadores mundialmente."
+  title="Sobre o SaveEditor.Online"
+  description="SaveEditor.Online é um editor de saves no navegador, com processamento local e limites claros para cada formato."
 >
-  <section class="container mx-auto px-4 py-12 max-w-6xl">
-    <div class="text-center mb-16">
-      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-        Sobre o SaveEditor.Online
-      </h1>
-      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        Uma iniciativa de código aberto para capacitar os jogadores que buscam jogar o seu jogo da maneira que desejarem. Somos o editor de arquivos de salvamento baseado em navegador mais confiável, seguro e versátil do mundo.
+  <main class="container mx-auto px-4 py-16 max-w-5xl">
+    <section class="text-center mb-14">
+      <h1 class="text-4xl md:text-5xl font-bold mb-5 text-gray-900">Sobre o SaveEditor.Online</h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Uma ferramenta web para abrir, inspecionar e editar saves compatíveis sem instalar programas adicionais.
       </p>
-    </div>
+    </section>
 
-    <div class="grid md:grid-cols-3 gap-8 mb-16">
-      <div
-        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
-      >
-        <div class="text-4xl font-bold text-primary-600 mb-2">100%</div>
-        <div class="text-gray-600 dark:text-gray-400 font-medium">Privacidade Client-Side</div>
+    <section class="grid md:grid-cols-3 gap-6 mb-14">
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+        <div class="text-3xl font-bold text-primary-600">Local</div>
+        <p class="mt-2 text-gray-600">Os arquivos são processados no navegador.</p>
       </div>
-      <div
-        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
-      >
-        <div class="text-4xl font-bold text-primary-600 mb-2">50+</div>
-        <div class="text-gray-600 dark:text-gray-400 font-medium">Formatos Suportados</div>
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+        <div class="text-3xl font-bold text-primary-600">50+</div>
+        <p class="mt-2 text-gray-600">Formatos e variantes de saves suportados.</p>
       </div>
-      <div
-        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center"
-      >
-        <div class="text-4xl font-bold text-primary-600 mb-2">Grátis</div>
-        <div class="text-gray-600 dark:text-gray-400 font-medium">Para Sempre</div>
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+        <div class="text-3xl font-bold text-primary-600">Aberto</div>
+        <p class="mt-2 text-gray-600">Foco em transparência, compatibilidade e uso responsável.</p>
       </div>
-    </div>
+    </section>
 
-    <div class="prose prose-lg prose-blue max-w-none dark:prose-invert">
-      <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-6">Nossa Missão</h2>
-        <p class="text-lg leading-relaxed">
-          O SaveEditor.Online foi criado com um objetivo simples, mas totalmente focado em você: <strong
-            >democratizar a modificação de progresso dos jogos</strong
-          >. Acreditamos fortemente que jogar games "single-player" sempre deverá ser uma experiência estritamente pessoal. Se você deseja evitar o cansaço do "grind", reparar um jogo acidentalmente quebrado, restaurar dados de salvamento defeituosos ou simplesmente testar rotas e possibilidades dentro de uma história ramificada, deve haver sempre uma ferramenta fácil e segura para que isso seja feito.
-        </p>
-        <p class="leading-relaxed mt-4">
-          No passado, editar o seu próprio progresso exigia baixar programas suspeitos não verificados, tentar a sorte utilizando decodificadores Hex em sua própria máquina host, e ter um conhecimento técnico complexo. Nós mudamos tudo isso, desenvolvendo um editor analítico potente trabalhando universalmente e sem necessidade de sair do seu navegador de confiança. Sem downloads obscuros. Sem instalações longas. Totalmente sem riscos.
-        </p>
-      </section>
+    <section class="prose prose-lg max-w-none">
+      <h2>Nossa missão</h2>
+      <p>
+        SaveEditor.Online ajuda jogadores de jogos single-player a revisar, fazer backup e alterar saves quando o formato permite. A ferramenta reduz a necessidade de baixar executáveis desconhecidos ou editar dados binários manualmente.
+      </p>
 
-      <section class="mb-16 bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 md:p-12">
-        <h2 class="text-3xl font-bold mb-6">Por que você deve confiar em nós?</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div>
-            <h3 class="text-xl font-bold mb-3">🔒 Tecnologias Client-Side Modernas</h3>
-            <p class="text-gray-700 dark:text-gray-300">
-              A sua segurança e privacidade são a espinha dorsal de todo esse projeto. Diferente das muitas ferramentas antigas por aí afora, <strong
-                >O SaveEditor.Online processa tudo, 100% de forma estrita, localmente no seu dispositivo e no seu console</strong
-              >. Sempre que você resolve nos fazer o "upload" de arquivos, na vida real isso nunca ocorreu: os itens nunca de fato saíram da caixa que é o seu computador. Toda a leitura é colocada por breves instantes na memórias cache do navegador web com a intenção total de facilitar a modificação. Em momento algum do histórico nós sequer salvamos ou tivemos contato visível com o interior do seu precioso progresso de jogatina de centenas de horas. Usamos o Analytics / Google Ads apenas estritamente e cuidadosamente a fim de obtermos métricas essenciais como qual página visualizam ou ajudar as luzes dos servidores ligadas. Verifique a página sobre Privacidade e Cookies se deseja ler à finco.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold mb-3">🛡️ Segurança e Transparência</h3>
-            <p class="text-gray-700 dark:text-gray-300">
-              Nós fazemos um forte compromisso e declaração sobre sermos puros no ecossistema e baseados nas linguagens web atualizadas WebAssembly & HTML5. Nossa equipe é terminantemente conta ou discorda da existência dos sistemas maliciosos que abusam em jogos Online do tipo multijogador competitivo (conhecido vulgarmente como "Cheats" e Hacks) na web, desenhando em suma nosso app de serviço único com um viés puramente dedicado às sessões individuais solo (o clássico modelo de jogar "Campanhas Sem Conexões Multiplayers Puras"). Tudo que é exibido aqui visa que os single players desfrutem as melhores possibilidades disponíveis na vida.
-            </p>
-          </div>
-        </div>
-      </section>
+      <h2>Privacidade e limites</h2>
+      <p>
+        O processamento principal acontece no navegador. Mesmo assim, sempre mantenha uma cópia do save original, pois alguns jogos usam criptografia, checksums ou estruturas próprias que impedem uma reconstrução segura.
+      </p>
 
-      <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-6">Motores e Tecnologias Suportadas</h2>
-        <p class="mb-6">
-          Nós atualizamos a variedade e opções fornecidas dos tipos de arquivos a serem carregados a todo mês, com muito suor. Aqui estão representados alguns das compatibilidades nativas vigentes de mercado:
-        </p>
-        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <div
-            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
-          >
-            <span class="text-2xl">🎮</span>
-            <div>
-              <div class="font-bold">RPG Maker</div>
-              <div class="text-sm text-gray-500">.rpgsave (MV/MZ)</div>
-            </div>
-          </div>
-          <div
-            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
-          >
-            <span class="text-2xl">🎲</span>
-            <div>
-              <div class="font-bold">Unity</div>
-              <div class="text-sm text-gray-500">PlayerPrefs, JSON</div>
-            </div>
-          </div>
-          <div
-            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
-          >
-            <span class="text-2xl">⚡</span>
-            <div>
-              <div class="font-bold">Unreal Engine</div>
-              <div class="text-sm text-gray-500">.sav (GVAS)</div>
-            </div>
-          </div>
-          <div
-            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
-          >
-            <span class="text-2xl">🎭</span>
-            <div>
-              <div class="font-bold">Ren'Py</div>
-              <div class="text-sm text-gray-500">.save (Viewer)</div>
-            </div>
-          </div>
-          <div
-            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
-          >
-            <span class="text-2xl">👾</span>
-            <div>
-              <div class="font-bold">GameMaker</div>
-              <div class="text-sm text-gray-500">.ini, .json</div>
-            </div>
-          </div>
-          <div
-            class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
-          >
-            <span class="text-2xl">📝</span>
-            <div>
-              <div class="font-bold">NaniNovel</div>
-              <div class="text-sm text-gray-500">.nson</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <h2>Formatos suportados</h2>
+      <ul>
+        <li>RPG Maker MV/MZ e suporte limitado para XP/VX/VX Ace.</li>
+        <li>Ren'Py com escrita limitada a campos simples em persistent.</li>
+        <li>Unity PlayerPrefs, GameMaker, NaniNovel, JSON/XML e variantes Unreal GVAS compatíveis.</li>
+      </ul>
 
-      <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-6">Perguntas Frequentes Sobre o App Analisado (FAQ)</h2>
-        <div class="space-y-4">
-          <details
-            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
-          >
-            <summary class="font-bold text-lg flex justify-between items-center list-none">
-              <span>Todo uso real que ocorre no site é gratuito? De verdade?</span>
-              <span class="transition group-open:rotate-180">
-                <svg
-                  fill="none"
-                  height="24"
-                  shape-rendering="geometricPrecision"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  width="24"><path d="M6 9l6 6 6-6"></path></svg
-                >
-              </span>
-            </summary>
-            <p class="mt-4 text-gray-600 dark:text-gray-300">
-              Absolutamente livre de pagamentos embutidos e não requisita quaisquer subscrições de pacotes premium mensais ocultos que não são ditos inicialmente! Somos orgulhosamente 100% patrocinados em todo este acesso gratuito, operando devido a alguns comerciais expostos (Adverts Adsences) minimamente não obstrutivos. 
-            </p>
-          </details>
-          <details
-            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
-          >
-            <summary class="font-bold text-lg flex justify-between items-center list-none">
-              <span>Haveria uma possibilidade real de vocês interceptarem meu login, ou vazarem meus preciosos dados armazenados na plataforma localmente com riscos online no meio digital como invasores ou outros perigos externos online de forma maliciosa e deliberada aos servidores remotos globais do Mundo ou dos Criadores deste próprio programa online da internet onde realizo as transações ?</span>
-              <span class="transition group-open:rotate-180">
-                <svg
-                  fill="none"
-                  height="24"
-                  shape-rendering="geometricPrecision"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  width="24"><path d="M6 9l6 6 6-6"></path></svg
-                >
-              </span>
-            </summary>
-            <p class="mt-4 text-gray-600 dark:text-gray-300">
-              Nunca de nenhuma maneira. Não nos preocuparemos jamais, portanto também não se alarme. Conforme mencionado explicitamente nas secções na categoria e nas sessões presentes neste site ou nos nossos serviços anteriores que demonstram claramente a veracidade dos preceitos adotados de "Integridade em Primeiro e Último lugar à proteção plena e irrevogavelmente incondicional da Privacidade Integral aos Registros ou Documentações Singulares, Manuais ou de Back-Ups Confidenciais das Entidades Humanas Partidárias e Partícipe dos Serviços", este aplicativo opera executando e utilizando em termos as práticas com o próprio código inteiramente mantido na "Caixa Isolada Total" base do interpretador da renderização contida local da Máquina Central no Navegador em tempo isolado; e sem contatar nenhuma rede externa fora, senão por eventuais pings rotineiros invisíveis dos Google Analyzers ou AD Sense Banners estritamente dentro da segurança oficial! Confira por precaução nossos dados de Contrato de Política de Diretrizes e Proteções para ter profunda tranquilidade garantida conosco e a consciência livre.
-            </p>
-          </details>
-          <details
-            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
-          >
-            <summary class="font-bold text-lg flex justify-between items-center list-none">
-              <span>Serei expulso dos servidores de plataforma principal do Game (STEAM, Gog, EPIC, PlayN, etc) - ou seja - Banido nas comunidades multijogadas com cheaters onlines utilizando das proteções como o Valve Anti Cherators VAC , por um pequeno eventual modificativo a ser injetado nos códigos hex de base singulares ?</span>
-              <span class="transition group-open:rotate-180">
-                <svg
-                  fill="none"
-                  height="24"
-                  shape-rendering="geometricPrecision"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  width="24"><path d="M6 9l6 6 6-6"></path></svg
-                >
-              </span>
-            </summary>
-            <p class="mt-4 text-gray-600 dark:text-gray-300">
-              Os Riscos computados equivalem e tangenciam a faixa limítrofe inofensiva estimada estocástica na porcentagem total literal equivalente a redondos e integrais absurdos ZERO %. Jogos voltados ao caráter lúdico do sistema base da experiência única local da campanha "Single Player", não possuem sequer sistemas arquitetônicos da rede interligadas capazes o bastante e que visam banir usuários nas áreas de fora do universo interativo online em combate aos modders solitários, sendo meras informações dos status inofensivas geradas ou consumidas na maquina individual pertencente como um simples direito passivo dos consumidores! Entretanto o site também expressamente aconselha veementemente de nós e adverte em tom oficial - contra e abstendo-nos totalmente perante toda a lei por infrações originadas na quebra explícitas ou transgressões de leis morais contra as Regras e Normas da convivência Social aplicadas aos Universos do Multijogadores (E-SPORTS), onde o caráter ilegal da Trapaça afeta danosa as mecânicas, as atmosferas originais e pior: atrapalha integral os progressos sofridos de dezenas e centenas e milhares e milhões daqueles próximos e da integridades estruturais orgânicas dos ecosistemas competicionais vivos espalhados entre jogadores puros pelo globo terrestres.
-            </p>
-          </details>
-          <details
-            class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer"
-          >
-            <summary class="font-bold text-lg flex justify-between items-center list-none">
-              <span>Vocês poderiam incluir ou adotar em sua infra-estrutura técnica aos suporte a edições futuras de um determinado tipo de jogo bem específico , exótico e peculiar que estou necessitando ?</span>
-              <span class="transition group-open:rotate-180">
-                <svg
-                  fill="none"
-                  height="24"
-                  shape-rendering="geometricPrecision"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  width="24"><path d="M6 9l6 6 6-6"></path></svg
-                >
-              </span>
-            </summary>
-            <p class="mt-4 text-gray-600 dark:text-gray-300">
-              Por favor e não meça o nível para contatarem-nos utilizando-se prontamente a abas dos formulário do contato conosco do nosso portais ! Nós estabelecemos e criamos sempre a hierarquizações dos fluxos dos trabalhos dependendo puramente baseados aos reflexos condicionados gerados do próprio pedido ativo expressos clamados por grandes quantidades dos requerimentos na voz forte e da prioridade dos suportes coletivos da demandas ou de suas naturezas exequíveis tecnobiológicas do código ou do framework.
-            </p>
-          </details>
-        </div>
-      </section>
-    </div>
+      <h2>Uso responsável</h2>
+      <p>
+        A ferramenta é voltada para saves locais e jogos single-player. Ela não foi criada para trapaças em partidas competitivas ou servidores multiplayer.
+      </p>
+    </section>
   </main>
 </BaseLayout>
-
-<script type="application/ld+json">
-  [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "SaveEditor.Online",
-      "url": "https://saveeditor.top",
-      "logo": "https://saveeditor.top/favicon.svg",
-      "sameAs": ["https://github.com/paradoxie/saveeditor"],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "support@saveeditor.top",
-        "contactType": "customer support"
-      },
-      "foundingDate": "2024",
-      "slogan": "Capacitando os jogadores que buscam jogar o seu jogo da maneira que desejarem."
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Todo uso real que ocorre no site é gratuito? De verdade?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Absolutamente livre de pagamentos embutidos e não requisita quaisquer subscrições de pacotes premium mensais ocultos que não são ditos inicialmente! Somos orgulhosamente 100% patrocinados em todo este acesso gratuito, operando devido a alguns comerciais expostos (Adverts Adsences) minimamente não obstrutivos."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Haveria uma possibilidade real de vocês interceptarem meu login, ou vazarem meus preciosos dados armazenados na plataforma localmente com riscos online no meio digital como invasores ou outros perigos externos online de forma maliciosa e deliberada aos servidores remotos globais do Mundo ou dos Criadores deste próprio programa online da internet onde realizo as transações ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Nunca de nenhuma maneira. Não nos preocuparemos jamais, portanto também não se alarme. Conforme mencionado explicitamente nas secções na categoria e nas sessões presentes neste site ou nos nossos serviços anteriores que demonstram claramente a veracidade dos preceitos adotados de \"Integridade em Primeiro e Último lugar à proteção plena e irrevogavelmente incondicional da Privacidade Integral aos Registros ou Documentações Singulares, Manuais ou de Back-Ups Confidenciais das Entidades Humanas Partidárias e Partícipe dos Serviços\", este aplicativo opera executando e utilizando em termos as práticas com o próprio código inteiramente mantido na \"Caixa Isolada Total\" base do interpretador da renderização contida local da Máquina Central no Navegador em tempo isolado; e sem contatar nenhuma rede externa fora, senão por eventuais pings rotineiros invisíveis dos Google Analyzers ou AD Sense Banners estritamente dentro da segurança oficial! Confira por precaução nossos dados de Contrato de Política de Diretrizes e Proteções para ter profunda tranquilidade garantida conosco e a consciência livre."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Serei expulso dos servidores de plataforma principal do Game (STEAM, Gog, EPIC, PlayN, etc) - ou seja - Banido nas comunidades multijogadas com cheaters onlines utilizando das proteções como o Valve Anti Cherators VAC , por um pequeno eventual modificativo a ser injetado nos códigos hex de base singulares ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Os Riscos computados equivalem e tangenciam a faixa limítrofe inofensiva estimada estocástica na porcentagem total literal equivalente a redondos e integrais absurdos ZERO %. Jogos voltados ao caráter lúdico do sistema base da experiência única local da campanha \"Single Player\", não possuem sequer sistemas arquitetônicos da rede interligadas capazes o bastante e que visam banir usuários nas áreas de fora do universo interativo online em combate aos modders solitários, sendo meras informações dos status inofensivas geradas ou consumidas na maquina individual pertencente como um simples direito passivo dos consumidores! Entretanto o site também expressamente aconselha veementemente de nós e adverte em tom oficial - contra e abstendo-nos totalmente perante toda a lei por infrações originadas na quebra explícitas ou transgressões de leis morais contra as Regras e Normas da convivência Social aplicadas aos Universos do Multijogadores (E-SPORTS), onde o caráter ilegal da Trapaça afeta danosa as mecânicas, as atmosferas originais e pior: atrapalha integral os progressos sofridos de dezenas e centenas e milhares e milhões daqueles próximos e da integridades estruturais orgânicas dos ecosistemas competicionais vivos espalhados entre jogadores puros pelo globo terrestres."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Vocês poderiam incluir ou adotar em sua infra-estrutura técnica aos suporte a edições futuras de um determinado tipo de jogo bem específico , exótico e peculiar que estou necessitando ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Por favor e não meça o nível para contatarem-nos utilizando-se prontamente a abas dos formulário do contato conosco do nosso portais ! Nós estabelecemos e criamos sempre a hierarquizações dos fluxos dos trabalhos dependendo puramente baseados aos reflexos condicionados gerados do próprio pedido ativo expressos clamados por grandes quantidades dos requerimentos na voz forte e da prioridade dos suportes coletivos da demandas ou de suas naturezas exequíveis tecnobiológicas do código ou do framework."
-          }
-        }
-      ]
-    }
-  ]
-</script>

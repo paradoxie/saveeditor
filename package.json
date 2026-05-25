@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "tsx scripts/generate-llms.ts",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -18,7 +19,12 @@
     "test:i18n:parser-keys": "tsx scripts/tests/i18n/new-parser-keys.ts",
     "test:i18n:routes": "tsx scripts/tests/i18n/localized-paths.ts",
     "test:app:ingest": "tsx scripts/tests/app/ingest-detection.ts",
-    "test:app": "npm run test:app:ingest && npm run test:i18n:routes",
+    "test:app:game-pages": "tsx scripts/tests/app/game-pages.ts",
+    "test:app:capability-flywheel": "tsx scripts/tests/app/capability-flywheel.ts",
+    "test:app:seo-geo": "tsx scripts/tests/app/seo-geo.ts",
+    "test:i18n:forbidden-claims": "tsx scripts/tests/i18n/forbidden-claims.ts",
+    "index:urls": "node scripts/search-console-urls.js",
+    "test:app": "npm run test:app:ingest && npm run test:app:game-pages && npm run test:app:capability-flywheel && npm run test:app:seo-geo && npm run test:i18n:routes && npm run test:i18n:forbidden-claims",
     "test:parsers": "npm run test:parsers:smoke && npm run test:parsers:fidelity && npm run test:parsers:quickfields && npm run test:parsers:unity-binary && npm run test:parsers:gamemaker-ini && npm run test:parsers:naninovel && npm run test:parsers:benchmark && npm run test:i18n:parser-keys"
   },
   "dependencies": {

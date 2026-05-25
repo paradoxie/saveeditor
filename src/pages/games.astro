@@ -1,126 +1,77 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { absoluteUrl, getSiteOrigin } from '../lib/site';
+import { games as baseGames } from '../data/games';
 
-const games = {
-  rpgMaker: {
+const siteOrigin = getSiteOrigin(Astro.site);
+
+const sectionDefinitions = [
+  {
+    key: 'rpg-maker',
     name: 'RPG Maker',
     editor: '/editor/rpg-maker-mv',
-    formats: ['.rpgsave', '.rmmzsave'],
-    games: [
-      'Omori',
-      'To the Moon',
-      'OneShot',
-      'Corpse Party',
-      'Yume Nikki',
-      'Lisa: The Painful',
-      'Mad Father',
-      'Ib',
-      "The Witch's House",
-      'Wadanohara',
-      'Hello Charlotte',
-      'OFF',
-      'Space Funeral',
-      'The Crooked Man',
-      'Angels of Death',
-      'Pocket Mirror',
-      'Mogeko Castle',
-    ],
+    match: (game: (typeof baseGames)[number]) => game.editorPath === '/editor/rpg-maker-mv',
   },
-  unity: {
-    name: 'Unity',
-    editor: '/editor/unity',
-    formats: ['PlayerPrefs', '.xml', '.plist', '.json'],
-    games: [
-      'Stardew Valley',
-      'Hollow Knight',
-      'Cuphead',
-      'Subnautica',
-      'Escape from Tarkov',
-      'Fall Guys',
-      'Rust',
-      'Cities: Skylines',
-      'Valheim',
-      'Risk of Rain 2',
-      'Kerbal Space Program',
-      'Phasmophobia',
-      'Among Us',
-      'GTFO',
-      'Outer Wilds',
-    ],
-  },
-  renpy: {
+  {
+    key: 'renpy',
     name: "Ren'Py",
     editor: '/editor/renpy',
-    formats: ['.save'],
-    games: [
-      'Doki Doki Literature Club',
-      'Katawa Shoujo',
-      'Butterfly Soup',
-      'Long Live the Queen',
-      'Hatoful Boyfriend',
-      'VA-11 HALL-A',
-      'Dream Daddy',
-      'Coffee Talk',
-      'Ladykiller in a Bind',
-      'The Arcana',
-    ],
+    match: (game: (typeof baseGames)[number]) => game.editorPath === '/editor/renpy',
   },
-  unreal: {
+  {
+    key: 'unity',
+    name: 'Unity',
+    editor: '/editor/unity',
+    match: (game: (typeof baseGames)[number]) => game.editorPath === '/editor/unity',
+  },
+  {
+    key: 'unreal',
     name: 'Unreal Engine',
-    editor: '/editor/unreal',
-    formats: ['.sav (GVAS)'],
-    games: [
-      'Palworld',
-      'Satisfactory',
-      'Deep Rock Galactic',
-      'Grounded',
-      'HELLDIVERS 2',
-      'The Finals',
-      'Hogwarts Legacy',
-      'Remnant 2',
-      'Ark: Survival Evolved',
-      'PUBG',
-      'Fortnite',
-      'Borderlands 3',
-      'Gears 5',
-      'Days Gone',
-    ],
+    editor: '/editor/palworld',
+    match: (game: (typeof baseGames)[number]) => game.engine.includes('Unreal'),
   },
-  gamemaker: {
+  {
+    key: 'gamemaker',
     name: 'GameMaker',
     editor: '/editor/gamemaker',
-    formats: ['.ini', '.json', '.sav'],
-    games: [
-      'Undertale',
-      'Deltarune',
-      'HoloCure',
-      'Vampire Survivors',
-      'Rivals of Aether',
-      'Hyper Light Drifter',
-      'Nuclear Throne',
-      'Hotline Miami',
-      'Shovel Knight',
-      'Spelunky',
-      'Risk of Rain',
-      'Gunpoint',
-      'Nidhogg',
-      'Forager',
-    ],
+    match: (game: (typeof baseGames)[number]) => game.editorPath === '/editor/gamemaker',
   },
-  naninovel: {
-    name: 'NaniNovel',
-    editor: '/editor/naninovel',
-    formats: ['.nson'],
-    games: ['NaniNovel Visual Novels', 'Unity-based VN Projects'],
-  },
-};
+];
 
-const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.games.length, 0);
+const splitFormats = (format: string) =>
+  format
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+const games = sectionDefinitions
+  .map((section) => {
+    const items = baseGames.filter(section.match);
+    return {
+      ...section,
+      formats: [...new Set(items.flatMap((game) => splitFormats(game.format)))],
+      games: items,
+    };
+  })
+  .filter((section) => section.games.length > 0);
+
+const totalGames = baseGames.length;
+
+const popularSlugs = ['stardew-valley', 'palworld', 'undertale', 'hollow-knight', 'ddlc', 'rpg-maker'];
+const popularGames = popularSlugs.map(slug => {
+  const g = baseGames.find(x => x.slug === slug);
+  return {
+    name: g?.name || slug,
+    slug: slug,
+    image: g?.image || '/images/games/default.webp',
+    engine: g?.engine || 'Game Engine'
+  };
+});
 ---
 
 <BaseLayout
-  title="Supported Games List - 80+ Games | SaveEditor.Online"
-  description="Browse all games supported by our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more. Find your game and start editing!"
+  title="Supported Games List | SaveEditor.Online"
+  description="Browse the real game pages supported by our save editor. Find your save file path, compatible fields, support limits, and upload entry."
   keywords="save editor games, rpg maker games, unity games, unreal engine games, supported games list"
 >
   <section class="flex-grow container mx-auto px-4 py-12">
@@ -131,8 +82,7 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
           Supported <span class="text-primary-600">Games</span>
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-          Our save editor supports <span class="font-bold text-primary-600">{totalGames}+</span> games
-          across 6 major game engines. Find your game below and start editing!
+          Browse <span class="font-bold text-primary-600">{totalGames}</span> live game pages with save locations, compatible fields, limits, and upload entry.
         </p>
 
         <!-- Search Box -->
@@ -166,44 +116,7 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
         <h2 class="text-2xl font-bold text-gray-900 mb-6">Popular Games</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
-            [
-              {
-                name: 'Stardew Valley',
-                slug: 'stardew-valley',
-                image: '/images/games/stardew-valley.webp',
-                engine: 'Unity',
-              },
-              {
-                name: 'Palworld',
-                slug: 'palworld',
-                image: '/images/games/palworld.webp',
-                engine: 'Unreal Engine',
-              },
-              {
-                name: 'Undertale',
-                slug: 'undertale',
-                image: '/images/games/undertale.webp',
-                engine: 'GameMaker',
-              },
-              {
-                name: 'Hollow Knight',
-                slug: 'hollow-knight',
-                image: '/images/games/hollow-knight.webp',
-                engine: 'Unity',
-              },
-              {
-                name: 'Doki Doki Literature Club',
-                slug: 'ddlc',
-                image: '/images/games/ddlc.webp',
-                engine: "Ren'Py",
-              },
-              {
-                name: 'RPG Maker Games',
-                slug: 'rpg-maker',
-                image: '/images/games/rpg-maker.webp',
-                engine: 'RPG Maker',
-              },
-            ].map((game) => (
+            popularGames.map((game) => (
               <a
                 href={`/games/${game.slug}`}
                 class="group relative block overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
@@ -231,10 +144,10 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
       <!-- Engine Sections -->
       <div class="space-y-12">
         {
-          Object.entries(games).map(([key, engine]) => (
+          games.map((engine) => (
             <section
               class="engine-section bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
-              data-engine={key}
+              data-engine={engine.key}
             >
               <div class="bg-gradient-to-r from-primary-600 to-primary-700 p-6 text-white">
                 <div class="flex items-center justify-between flex-wrap gap-4">
@@ -255,12 +168,13 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
               <div class="p-6">
                 <div class="flex flex-wrap gap-2">
                   {engine.games.map((game) => (
-                    <span
-                      class="game-tag px-3 py-1.5 bg-gray-100 hover:bg-primary-100 hover:text-primary-700 rounded-full text-sm text-gray-700 transition-colors cursor-default"
-                      data-game={game.toLowerCase()}
+                    <a
+                      href={`/games/${game.slug}`}
+                      class="game-tag px-3 py-1.5 bg-gray-100 hover:bg-primary-100 hover:text-primary-700 rounded-full text-sm text-gray-700 transition-all hover:scale-105"
+                      data-game={game.name.toLowerCase()}
                     >
-                      {game}
-                    </span>
+                      {game.name}
+                    </a>
                   ))}
                 </div>
               </div>
@@ -347,32 +261,11 @@ const totalGames = Object.values(games).reduce((acc, engine) => acc + engine.gam
       description:
         "Browse all games supported by our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more.",
       orderBy: 'name',
-      itemListElement: [
-        {
-          name: 'Stardew Valley',
-          slug: 'stardew-valley',
-        },
-        {
-          name: 'Undertale',
-          slug: 'undertale',
-        },
-        {
-          name: 'Hollow Knight',
-          slug: 'hollow-knight',
-        },
-        {
-          name: 'Doki Doki Literature Club',
-          slug: 'ddlc',
-        },
-        {
-          name: 'RPG Maker Games',
-          slug: 'rpg-maker',
-        },
-      ].map((game, index) => ({
+      itemListElement: baseGames.map((game, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         name: game.name,
-        url: `https://saveeditor.top/games/${game.slug}`,
+        url: absoluteUrl(`/games/${game.slug}`, siteOrigin),
       })),
     })}
   />

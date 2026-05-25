@@ -14,7 +14,7 @@ image: "/images/blog/gamemaker-cover.webp"
 
 **GameMaker Studio**（GMS）是最受欢迎的 2D 游戏引擎之一，支撑着 **Undertale**（传说之下）、**Deltarune**、**Hotline Miami**（迈阿密热线）、**Hyper Light Drifter** 等无数独立游戏大作。
 
-与拥有标准化存档系统的引擎不同，GameMaker 给予开发者完全的数据存储自由。这意味着存档格式变化多样，但大多数属于我们编辑器完全支持的几个常见类别。
+与拥有标准化存档系统的引擎不同，GameMaker 给予开发者高度自由的数据存储方式。这意味着存档格式变化多样，但不少文件属于我们编辑器稳定支持的几个常见类别。
 
 ## 常见 GameMaker 存档格式
 
@@ -243,7 +243,7 @@ item1="ReviveMint"
 
 - [Unity 存档编辑器](/zh-cn/editor/unity) – 用于 Unity 游戏
 - [RPG Maker 编辑器](/zh-cn/editor/rpg-maker-mv) – 用于 RPG Maker 游戏
-- [Ren'Py 查看器](/zh-cn/editor/renpy) – 用于视觉小说
+- [Ren'Py 编辑器](/zh-cn/editor/renpy) – 用于视觉小说
 
 ## 总结
 
@@ -273,4 +273,3 @@ GameMaker 的灵活性意味着存档编辑没有万能方法，但最常见的�
 - [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
 - [RPG Maker 存档编辑](/zh-cn/blog/how-to-edit-rpg-maker-save)
 - [Undertale 存档位置](/zh-cn/games/undertale)
-

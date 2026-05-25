@@ -138,9 +138,9 @@ Pythonの`pickle`モジュールを使用してゲーム状態全体をシリア
 
 ゲーム例：Doki Doki Literature Club、かたわ少女。
 
-**編集方法**: 読み取り専用の閲覧は安全です。変更には慎重な再ピクルまたはゲーム内コンソールの使用が必要です。
+**編集方法**: `persistent` 配下の基本型フィールドは限定編集できます。完全なゲーム状態pickle編集はガードされます。
 
-**ツール**: [Ren'Pyビューア](/ja/editor/renpy)（読み取り専用）
+**ツール**: [Ren'Pyエディタ](/ja/editor/renpy)（限定persistent編集）
 
 ---
 
@@ -245,4 +245,3 @@ A: 所有するファイルのシングルプレイヤーゲームの場合、�
 - [Ren'Py ビューア](/ja/editor/renpy)
 - [GameMaker エディタ](/ja/editor/gamemaker)
 - [NaniNovel エディタ](/ja/editor/naninovel)
-

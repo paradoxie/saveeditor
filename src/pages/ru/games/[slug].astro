@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { games as baseGames } from '../../../data/games';
 
 export async function getStaticPaths() {
-  const games = [
-    {
-      slug: 'stardew-valley',
+  const overrides: Record<string, any> = {
+    'stardew-valley': {
       name: 'Stardew Valley',
+      nameLocal: 'Stardew Valley',
       seoDescription:
         'Лучший бесплатный онлайн редактор сохранений Stardew Valley (Без загрузки). Изменяйте .xml сохранения, золото, инвентарь и навыки мгновенно. Безопасная локальная обработка.',
       seoContent: `
@@ -19,21 +20,11 @@ export async function getStaticPaths() {
             <li><strong>Изменение отношений:</strong> Максимизируйте сердца с любым жителем или кандидатом на брак.</li>
         </ul>
         <h3>Безопасная и локальная обработка</h3>
-        <p>Ваши файлы сохранения обрабатываются полностью в вашем браузере с использованием JavaScript. <strong>Никакие данные не загружаются на удаленный сервер</strong>, что гарантирует полную конфиденциальность и безопасность ваших данных.</p>
+        <p>Совместимые варианты обрабатываются в браузере, а для структур без надёжной обратной сборки редактор может включать режим только чтения. Дополнительно проверьте разделы с ограничениями и политиками сайта.</p>
         <h3>Поддерживаемые платформы</h3>
         <p>Полная совместимость с сохранениями ПК (Steam/GOG), Mac, Linux и Мобильных устройств (Android/iOS). Для Switch/Консолей сначала необходимо экспортировать их с помощью homebrew.</p>
       `,
-      engine: 'Unity (XML)',
-      format: '.xml',
-      editorPath: '/ru/editor/unity',
-      emoji: '🌾',
-      image: '/images/games/stardew-valley.webp',
       description: 'Любимая ролевая игра-симулятор фермы от ConcernedApe.',
-      saveLocations: {
-        windows: '%appdata%\\StardewValley\\Saves',
-        mac: '~/Library/Application Support/StardewValley/Saves',
-        linux: '~/.config/StardewValley/Saves',
-      },
       editableItems: [
         { icon: '💰', name: 'Золото и Деньги', desc: 'Изменить доход фермы' },
         { icon: '🎒', name: 'Инвентарь', desc: 'Добавить предметы в сумку' },
@@ -63,9 +54,9 @@ export async function getStaticPaths() {
         { title: 'Как редактировать сохранения Unity', url: '/ru/blog/how-to-edit-unity-saves' },
       ],
     },
-    {
-      slug: 'palworld',
+    'palworld': {
       name: 'Palworld',
+      nameLocal: 'Palworld',
       seoDescription:
         'Поток работы с Palworld `.sav` для стандартных GVAS-вариантов. Сначала безопасный просмотр, затем аккуратное редактирование только совместимых файлов.',
       seoContent: `
@@ -78,18 +69,7 @@ export async function getStaticPaths() {
             <li><strong>База и предметы:</strong> Проверка структур перед консервативными изменениями.</li>
         </ul>
       `,
-      engine: 'Unreal Engine (GVAS)',
-      format: '.sav',
-      editorPath: '/ru/editor/palworld',
-      emoji: '🦎',
-      image: '/images/games/palworld.webp',
       description: 'Вирусная игра про выживание и коллекционирование существ.',
-      saveLocations: {
-        windows: '%localappdata%\\Pal\\Saved\\SaveGames',
-        mac: '~/Library/Application Support/Pal/Saved/SaveGames',
-        linux:
-          '~/.steam/steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames',
-      },
       editableItems: [
         { icon: '💰', name: 'Золото', desc: 'Просмотр/изменение валюты в совместимых файлах' },
         { icon: '🦎', name: 'Палы', desc: 'Проверка структур Палов и осторожные правки' },
@@ -120,9 +100,9 @@ export async function getStaticPaths() {
         },
       ],
     },
-    {
-      slug: 'undertale',
+    'undertale': {
       name: 'Undertale',
+      nameLocal: 'Undertale',
       seoDescription:
         'Бесплатный редактор сохранений Undertale. Редактируйте file0 и undertale.ini. Изменяйте HP, Золото, EXP, значения FUN и флаги Геноцида.',
       seoContent: `
@@ -135,17 +115,7 @@ export async function getStaticPaths() {
             <li><strong>Боевые характеристики:</strong> Измените HP, ATK, DEF и EXP, чтобы облегчить или усложнить битвы.</li>
         </ul>
       `,
-      engine: 'GameMaker',
-      format: 'file0, undertale.ini',
-      editorPath: '/ru/editor/gamemaker',
-      emoji: '❤️',
-      image: '/images/games/undertale.webp',
       description: 'Культовая инди-RPG от Тоби Фокса, где никому не нужно умирать.',
-      saveLocations: {
-        windows: '%localappdata%\\UNDERTALE',
-        mac: '~/Library/Application Support/com.tobyfox.undertale/',
-        linux: '~/.config/UNDERTALE',
-      },
       editableItems: [
         { icon: '❤️', name: 'HP и LOVE', desc: 'Изменить здоровье и уровень' },
         { icon: '🎒', name: 'Инвентарь', desc: 'Редактировать предметы' },
@@ -169,9 +139,9 @@ export async function getStaticPaths() {
         { title: 'Гайд по редактированию GameMaker', url: '/ru/blog/gamemaker-save-editing-guide' },
       ],
     },
-    {
-      slug: 'ddlc',
+    'ddlc': {
       name: 'Doki Doki Literature Club',
+      nameLocal: 'Doki Doki Literature Club',
       seoDescription:
         'Редактор сохранений DDLC. Редактируйте .save файлы, постоянные данные и слова поэм. Разблокируйте все CG и концовки онлайн.',
       seoContent: `
@@ -180,17 +150,7 @@ export async function getStaticPaths() {
         <h3>Разблокировать всё</h3>
         <p>Редактируя данные <code>persistent</code>, вы можете мгновенно разблокировать все CG (изображения) в галерее и музыкальные треки.</p>
       `,
-      engine: "Ren'Py",
-      format: '.save, persistent',
-      editorPath: '/ru/editor/renpy',
-      emoji: '📚',
-      image: '/images/games/ddlc.webp',
       description: 'Психологический хоррор-визуальная новелла, которая не то, чем кажется.',
-      saveLocations: {
-        windows: '%appdata%\\RenPy\\DDLC-1454445547',
-        mac: '~/Library/RenPy/DDLC-1454445547',
-        linux: '~/.renpy/DDLC-1454445547',
-      },
       editableItems: [
         { icon: '📖', name: 'Прогресс истории', desc: 'Прыгнуть к любой главе' },
         { icon: '📝', name: 'Переменные поэм', desc: 'Изменить слова поэм' },
@@ -208,20 +168,10 @@ export async function getStaticPaths() {
         { title: "Гайд по редактированию Ren'Py", url: '/ru/blog/renpy-save-editing-guide' },
       ],
     },
-    {
-      slug: 'hollow-knight',
+    'hollow-knight': {
       name: 'Hollow Knight',
-      engine: 'Unity',
-      format: 'user#.dat',
-      editorPath: '/ru/editor/unity',
-      emoji: '🪲',
-      image: '/images/games/hollow-knight.webp',
+      nameLocal: 'Hollow Knight',
       description: 'Признанная метроидвания от Team Cherry.',
-      saveLocations: {
-        windows: '%appdata%\\..\\LocalLow\\Team Cherry\\Hollow Knight',
-        mac: '~/Library/Application Support/unity.Team Cherry.Hollow Knight',
-        linux: '~/.config/unity3d/Team Cherry/Hollow Knight',
-      },
       editableItems: [
         { icon: '💰', name: 'Гео', desc: 'Изменить валюту' },
         { icon: '❤️', name: 'Маски', desc: 'Изменить макс. HP' },
@@ -240,20 +190,10 @@ export async function getStaticPaths() {
         { title: 'Как редактировать сохранения Unity', url: '/ru/blog/how-to-edit-unity-saves' },
       ],
     },
-    {
-      slug: 'rpg-maker',
+    'rpg-maker': {
       name: 'Игры RPG Maker',
-      engine: 'RPG Maker (MV/MZ)',
-      format: '.rpgsave, .rmmzsave',
-      editorPath: '/ru/editor/rpg-maker-mv',
-      emoji: '⚔️',
-      image: '/images/games/hollow-knight.webp',
+      nameLocal: 'Игры RPG Maker',
       description: 'Тысячи игр, созданных с помощью серии RPG Maker.',
-      saveLocations: {
-        windows: 'Папка игры/www/save или Папка игры/save',
-        mac: 'Game.app/Contents/Resources/app.nw/save',
-        linux: 'Папка игры/save',
-      },
       editableItems: [
         { icon: '💰', name: 'Золото', desc: 'Изменить золото группы' },
         { icon: '👥', name: 'Характеристики', desc: 'Изменить HP, MP, Уровень, EXP' },
@@ -276,25 +216,70 @@ export async function getStaticPaths() {
         },
       ],
     },
-  ];
+  };
 
-  return games.map((game) => ({
-    params: { slug: game.slug },
-    props: { game },
-  }));
+  return baseGames.map((baseGame) => {
+    const override = overrides[baseGame.slug] || {};
+    const nameLocal = override.nameLocal || override.name || baseGame.name;
+    const format = baseGame.format;
+
+    const game = {
+      ...baseGame,
+      nameLocal,
+      seoDescription: override.seoDescription ||
+        `На этой странице собраны путь к сохранению ${nameLocal}, совместимые поля формата ${format}, ограничения поддержки и частые причины ошибок перед загрузкой файла.`,
+      seoContent: override.seoContent || `
+        <h2>Краткий сценарий для ${nameLocal}</h2>
+        <p>Эта страница помогает проверить путь к сохранению, типичные редактируемые поля и известные ограничения формата ${format}. Перед любыми изменениями сделайте резервную копию и проверяйте игру после каждого небольшого шага.</p>
+        <h3>Что проверить сначала</h3>
+        <ul>
+            <li><strong>Путь к сохранению:</strong> убедитесь, что выбран правильный файл.</li>
+            <li><strong>Совместимость:</strong> некоторые варианты ${format} доступны только для просмотра или могут не собраться обратно.</li>
+            <li><strong>Проверка:</strong> сначала меняйте одно небольшое значение и сразу сверяйте результат в игре.</li>
+        </ul>
+      `,
+      description: override.description || `Короткая страница по совместимости и расположению сохранений ${nameLocal}.`,
+      editorPath: baseGame.editorPath.replace('/editor/', '/ru/editor/'),
+      editableItems: override.editableItems || baseGame.editableItems.map(item => ({
+        icon: item.icon,
+        name: item.name,
+        desc: `Просмотреть или отредактировать параметр ${item.name}`
+      })),
+      faq: override.faq || [
+        {
+          question: `Где находится файл сохранения ${nameLocal}?`,
+          answer: `В Windows путь по умолчанию: ${baseGame.saveLocations.windows}. Для macOS или Linux проверьте соответствующий раздел на этой странице.`
+        },
+        {
+          question: 'Безопасно ли использовать этот онлайн-редактор?',
+          answer: 'Совместимые варианты обрабатываются в браузере, но некоторые структуры остаются только для просмотра или завершаются ошибкой. Сначала проверьте ограничения поддержки и сохраните резервную копию.'
+        }
+      ],
+      relatedGuides: (override.relatedGuides || baseGame.relatedGuides || []).map((guide: any) => ({
+        title: guide.title,
+        url: guide.url.replace('/blog/', '/ru/blog/').replace('/games/', '/ru/games/')
+      }))
+    };
+
+    return {
+      params: { slug: baseGame.slug },
+      props: { game },
+    };
+  });
 }
 
 const { game } = Astro.props;
+const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 6);
+
 const siteOrigin = Astro.site ? new URL(Astro.site).origin : 'https://saveeditor.top';
 const absUrl = (path: string) =>
   new URL(path.endsWith('/') ? path : `${path}/`, siteOrigin).toString();
 ---
 
 <BaseLayout
-  title={`Редактор Сохранений ${game.name} - Редактировать ${game.format} Онлайн Бесплатно`}
-  description={game.seoDescription ||
-    `Бесплатный онлайн редактор для ${game.name}. Изменяйте золото, предметы, характеристики и многое другое. Найдите файл сохранения и начните редактирование.`}
-  keywords={`${game.name.toLowerCase()} save editor, ${game.name.toLowerCase()} где сохранения, ${game.name.toLowerCase()} редактировать сохранение, ${game.format} редактор`}
+  title={`Редактор Сохранений ${game.nameLocal} - Редактировать ${game.format} Онлайн Бесплатно`}
+  description={game.seoDescription}
+  keywords={`${game.nameLocal.toLowerCase()} save editor, ${game.nameLocal.toLowerCase()} где сохранения, ${game.nameLocal.toLowerCase()} редактировать сохранение, ${game.format} редактор`}
 >
   <!-- Hero Section -->
   <section class="relative bg-slate-900 text-white overflow-hidden">
@@ -302,7 +287,7 @@ const absUrl = (path: string) =>
     <div class="absolute inset-0 z-0">
       <img
         src={game.image}
-        alt={`Фон ${game.name}`}
+        alt={`Фон ${game.nameLocal}`}
         class="w-full h-full object-cover opacity-20 blur-sm"
       />
       <div
@@ -320,7 +305,7 @@ const absUrl = (path: string) =>
           </div>
           <img
             src={game.image}
-            alt={game.name}
+            alt={game.nameLocal}
             class="relative w-full max-w-lg h-auto rounded-xl shadow-2xl border border-white/10 mx-auto transform transition hover:scale-[1.02]"
           />
           <div
@@ -333,7 +318,7 @@ const absUrl = (path: string) =>
         <h1 class="text-5xl lg:text-7xl font-bold tracking-tight mb-6 mt-8">
           Редактор Сохранений
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-cyan-400"
-            >{game.name}</span
+            >{game.nameLocal}</span
           >
         </h1>
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
@@ -348,7 +333,7 @@ const absUrl = (path: string) =>
             Формат: {game.format}
           </span>
           <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">
-            ✓ 100% Бесплатно
+            Работа в браузере
           </span>
         </div>
 
@@ -356,7 +341,7 @@ const absUrl = (path: string) =>
           href={game.editorPath}
           class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg"
         >
-          Начать редактирование {game.name} →
+          Начать редактирование {game.nameLocal} →
         </a>
       </div>
     </div>
@@ -367,7 +352,7 @@ const absUrl = (path: string) =>
       <!-- What Can You Edit Section -->
       <section class="mb-16">
         <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
-          Что можно изменить в {game.name}?
+          Что можно изменить в {game.nameLocal}?
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
@@ -385,7 +370,7 @@ const absUrl = (path: string) =>
       <!-- Save File Location Section -->
       <section class="mb-16 bg-gray-50 rounded-2xl p-8">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">
-          📂 Где находится файл сохранения {game.name}
+          📂 Где находится файл сохранения {game.nameLocal}
         </h2>
         <div class="space-y-4">
           <div class="bg-white p-4 rounded-lg border border-gray-200">
@@ -421,7 +406,7 @@ const absUrl = (path: string) =>
       <!-- How to Edit Section -->
       <section class="mb-16">
         <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">
-          Как редактировать сохранения {game.name}
+          Как редактировать сохранения {game.nameLocal}
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="text-center p-6">
@@ -469,7 +454,7 @@ const absUrl = (path: string) =>
             href={game.editorPath}
             class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors"
           >
-            Открыть Редактор {game.name}
+            Открыть Редактор {game.nameLocal}
           </a>
         </div>
       </section>
@@ -541,82 +526,17 @@ const absUrl = (path: string) =>
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">Другие Популярные Игры</h2>
         <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
           {
-            game.slug !== 'stardew-valley' && (
+            otherGames.map((item) => (
               <a
-                href="/ru/games/stardew-valley"
+                href={`/ru/games/${item.slug}`}
                 class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
               >
-                <span class="text-2xl block mb-2">🌾</span>
+                <span class="text-2xl block mb-2">{item.emoji}</span>
                 <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Stardew Valley
+                  {item.name}
                 </span>
               </a>
-            )
-          }
-          {
-            game.slug !== 'palworld' && (
-              <a
-                href="/ru/games/palworld"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🦎</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Palworld
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'undertale' && (
-              <a
-                href="/ru/games/undertale"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">❤️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Undertale
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'ddlc' && (
-              <a
-                href="/ru/games/ddlc"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">📚</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  DDLC
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'hollow-knight' && (
-              <a
-                href="/ru/games/hollow-knight"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">🪲</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  Hollow Knight
-                </span>
-              </a>
-            )
-          }
-          {
-            game.slug !== 'rpg-maker' && (
-              <a
-                href="/ru/games/rpg-maker"
-                class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all text-center group"
-              >
-                <span class="text-2xl block mb-2">⚔️</span>
-                <span class="font-medium text-gray-900 group-hover:text-primary-600 text-sm">
-                  RPG Maker
-                </span>
-              </a>
-            )
+            ))
           }
         </div>
         <div class="text-center mt-6">
@@ -628,9 +548,9 @@ const absUrl = (path: string) =>
 
       <!-- CTA Section -->
       <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
-        <h2 class="text-3xl font-bold mb-4">Готовы изменить свое сохранение {game.name}?</h2>
+        <h2 class="text-3xl font-bold mb-4">Готовы изменить свое сохранение {game.nameLocal}?</h2>
         <p class="text-gray-300 mb-8 max-w-xl mx-auto">
-          100% бесплатно, без скачивания. Все файлы остаются на вашем устройстве.
+          Перед заменой исходного файла проверьте совместимость, ограничения и путь к сохранению.
         </p>
         <a
           href={game.editorPath}
@@ -650,73 +570,73 @@ const absUrl = (path: string) =>
       )
     }
   </section>
-
-  <!-- SoftwareApplication Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Home',
-          item: 'https://saveeditor.top/ru/',
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Игры',
-          item: 'https://saveeditor.top/ru/games/',
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: game.name,
-          item: `https://saveeditor.top/ru/games/${game.slug}/`,
-        },
-      ],
-    })}
-  />
-
-  <!-- FAQ Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: item.answer,
-        },
-      })),
-    })}
-  />
-
-  <!-- SoftwareApplication Schema -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      name: `${game.name} Save Editor`,
-      applicationCategory: 'UtilitiesApplication',
-      operatingSystem: 'Web Browser',
-      url: absUrl(`/ru/games/${game.slug}`),
-      author: {
-        '@type': 'Organization',
-        name: 'SaveEditor.Online',
-        url: absUrl('/ru/'),
-      },
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    })}
-  />
 </BaseLayout>
+
+<!-- BreadcrumbList Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://saveeditor.top/ru/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Игры',
+        item: 'https://saveeditor.top/ru/games/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: game.nameLocal,
+        item: `https://saveeditor.top/ru/games/${game.slug}/`,
+      },
+    ],
+  })}
+/>
+
+<!-- FAQ Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: game.faq.map((item: { question: string; answer: string }) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  })}
+/>
+
+<!-- SoftwareApplication Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: `${game.nameLocal} Save Editor`,
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Web Browser',
+    url: absUrl(`/ru/games/${game.slug}`),
+    author: {
+      '@type': 'Organization',
+      name: 'SaveEditor.Online',
+      url: absUrl('/ru/'),
+    },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  })}
+/>

@@ -137,9 +137,9 @@ Python의 `pickle` 모듈을 사용하여 전체 게임 상태를 직렬화합�
 
 대표 게임: Doki Doki Literature Club, 카타와 소녀.
 
-**편집 방법**: 읽기 전용 보기는 안전합니다. 수정은 신중한 리피클링 또는 게임 내 콘솔 사용이 필요합니다.
+**편집 방법**: `persistent` 아래의 기본형 필드는 제한적으로 안정 저장할 수 있습니다. 전체 게임 상태 pickle 편집은 보호됩니다.
 
-**도구**: [Ren'Py 뷰어](/ko/editor/renpy) (읽기 전용)
+**도구**: [Ren'Py 에디터](/ko/editor/renpy) (persistent 기본형 제한 저장)
 
 ---
 
@@ -241,7 +241,6 @@ A: 본인 소유의 싱글 플레이어 게임 파일의 경우, 네. 온라인/
 - [RPG Maker 에디터](/ko/editor/rpg-maker-mv)
 - [Unity 에디터](/ko/editor/unity)
 - [Unreal Engine 에디터](/ko/editor/unreal)
-- [Ren'Py 뷰어](/ko/editor/renpy)
+- [Ren'Py 에디터](/ko/editor/renpy)
 - [GameMaker 에디터](/ko/editor/gamemaker)
 - [NaniNovel 에디터](/ko/editor/naninovel)
-

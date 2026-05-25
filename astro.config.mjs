@@ -7,15 +7,17 @@ import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
 import { rehypeLazyLoadImages } from './src/plugins/rehype-lazy-image.mjs';
 
+const siteOrigin = process.env.PUBLIC_SITE_ORIGIN || 'https://saveeditor.top';
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://saveeditor.top',
+  site: siteOrigin,
   trailingSlash: 'always',
   vite: {
     plugins: [tailwindcss()]
   },
 
-  integrations: [react(), sitemap({ lastmod: new Date() })],
+  integrations: [react(), sitemap()],
   adapter: cloudflare(),
   i18n: {
     defaultLocale: "en",

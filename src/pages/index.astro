@@ -4,7 +4,7 @@ import HomeTemplate from '../components/templates/HomeTemplate.astro';
 
 <HomeTemplate
   title="SaveEditor.Online - Free .sav File Editor | Edit RPG Maker, Ren'Py Saves"
-  description="Free save editor online. Edit .sav, .rpgsave, .save files in your browser. No download, 100% safe. Works with RPG Maker, Ren'Py, Unity, and Unreal (.sav support is compatibility-first for standard GVAS)."
+  description="Free save editor online. Edit .sav, .rpgsave, .save files in your browser. No download required. Works with RPG Maker, Ren'Py, Unity, and Unreal (.sav support is compatibility-first for standard GVAS)."
   keywords="save editor online, sav file editor, .sav file editor, save editor free, rpg maker save editor, renpy save editor, .rpgsave editor, game save editor, saveedit"
 >
   <div slot="seo-content" class="max-w-4xl mx-auto prose prose-blue prose-lg text-gray-600 mb-16">
@@ -13,9 +13,9 @@ import HomeTemplate from '../components/templates/HomeTemplate.astro';
     </h2>
     <p>
       Welcome to <strong>SaveEditor.Online</strong>, the most advanced free online tool for editing
-      game save files. Whether you want to add unlimited gold in an RPG Maker game, unlock all
-      gallery images in a Ren'Py visual novel, or modify stats in a Unity game, our tool makes it
-      safe, fast, and easy.
+      game save files. Whether you want to adjust gold in an RPG Maker game, inspect
+      gallery flags in a Ren'Py visual novel, or modify stats in a Unity game, our tool keeps the
+      workflow backup-first and transparent.
     </p>
     <div class="grid md:grid-cols-2 gap-8 my-8 not-prose">
       <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
@@ -30,19 +30,18 @@ import HomeTemplate from '../components/templates/HomeTemplate.astro';
       <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
         <h3 class="text-lg font-bold text-gray-900 mb-2">Supported Formats</h3>
         <ul class="text-sm space-y-2 list-disc list-inside">
-          <li><strong>RPG Maker</strong>: .rpgsave, .rmmzsave</li>
-          <li><strong>Ren'Py</strong>: .save (Python pickle)</li>
+          <li><strong>RPG Maker</strong>: .rpgsave, .rmmzsave, .rvdata2, .rvdata, .rxdata, .lsd</li>
+          <li><strong>Ren'Py</strong>: .save / persistent (limited stable write)</li>
           <li><strong>Unity</strong>: PlayerPrefs, .xml, .plist</li>
-          <li><strong>Generic</strong>: .json, .ini, .txt</li>
+          <li><strong>Generic</strong>: .json, .ini, .sol, .sqlite, .msgpack, .cbor, .es3, .pkl</li>
         </ul>
       </div>
     </div>
     <p>
-      Unlike other editors that require you to download potentially harmful software or upload your
-      private data to unknown servers, <strong>SaveEditor.Online</strong> runs entirely in your web browser.
-      We use advanced WebAssembly technology to parse and edit your files right on your device. This means
-      your save files never leave your computer or phone. We do use Google Analytics and AdSense for site
-      performance and ads; see our Privacy and Cookie policies for details.
+      Unlike editors that require unknown downloads or server-side parsing, <strong>SaveEditor.Online</strong>
+      parses selected save files in your web browser. The selected save file is not uploaded to our parser
+      server. We do use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie
+      policies for details.
     </p>
   </div>
 </HomeTemplate>

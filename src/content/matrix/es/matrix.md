@@ -16,13 +16,13 @@ subtitle: 'Una descripción general de los motores y formatos actualmente compat
 | Motor | Estabilidad | Ejemplos de juegos probados | Notas |
 |---|---|---|---|
 | RPG Maker MV / MZ | 🟢 Alta | Omori, OneShot, Lisa | El formato `rpgsave` es JSON comprimido con LZString. |
-| RPG Maker XP / VX | 🔴 Sin soporte | To the Moon | `rxdata` y `rvdata2` (Ruby Marshal Data) no son compatibles actualmente debido a las dificultades en la deserialización segura y precisa desde el navegador del cliente. |
+| RPG Maker XP / VX / VX Ace | 🟡 Estable limitado | To the Moon, LISA: The Painful | Permite edición limitada de campos comunes en `.rxdata`, `.rvdata` y `.rvdata2`, como dinero, objetos, variables, interruptores y valores de actor; los objetos Ruby personalizados y cambios estructurales se bloquean. |
 
 ## Ren'Py
 
 | Motor | Estabilidad | Notas |
 |---|---|---|
-| Ren'Py | 🟡 Media | Analiza serializaciones complejas de Python Pickles (comprimidos con zlib). Como depende en gran medida de los tipos de variables, modificar la estructura de los valores podría corromper el juego. |
+| Ren'Py | 🟡 Estable limitado | Permite ver `.save` y guardar valores simples de `persistent`, como strings, números y booleanos; objetos complejos, estado fuera de persistent y cambios estructurales se bloquean. |
 
 ## Unity
 
@@ -36,7 +36,7 @@ subtitle: 'Una descripción general de los motores y formatos actualmente compat
 | Motor / Formato | Estabilidad | Notas |
 |---|---|---|
 | GVAS estándar | 🟢 Alta | Soporta propiedades descomprimidas estándar de Unreal Save Game (juegos como Hogwarts Legacy, Palworld). |
-| GVAS comprimido | 🟡 Media | Detecta automáticamente y descomprime la compresión zlib (ej. Deep Rock Galactic). Debido a la falta de garantías en la reconstrucción segura de los guardados en el juego, actualmente opera en modo "Solo lectura". |
+| GVAS gzip/zlib | 🟢 Alta | Descomprime, permite editar y reconstruye el contenedor gzip/zlib original. Otros contenedores personalizados muestran modo de solo lectura o una causa de fallo separada. |
 
 ## GameMaker
 

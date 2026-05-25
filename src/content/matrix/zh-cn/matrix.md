@@ -16,13 +16,14 @@ subtitle: '目前支持的引擎和格式的概述。'
 | 引擎 | 稳定性 | 测试过的游戏示例 | 备注 |
 |---|---|---|---|
 | RPG Maker MV / MZ | 🟢 高 | Omori, OneShot, Lisa | `rpgsave` 是经过 LZString 压缩的 JSON。 |
-| RPG Maker XP / VX | 🔴 不支持 | To the Moon | 由于在浏览器端进行安全且准确的反序列化存在困难，目前暂不支持 `rxdata` 和 `rvdata2` (Ruby Marshal Data)。 |
+| RPG Maker XP / VX / VX Ace | 🟡 有限稳定 | To the Moon, LISA: The Painful | 支持 `.rxdata`、`.rvdata`、`.rvdata2` 的常见字段有限编辑，如金钱、物品、变量、开关和角色数值；自定义 Ruby 对象和结构变更会被拦截。 |
+| RPG Maker 2000 / 2003 | 🟡 稳定受限 | 旧版 RPG_RT 游戏 | `.lsd` 支持金币、物品、角色等级/经验/HP/MP、变量、开关的 LCF 分块保守写回；未知分块保持原样。 |
 
 ## Ren'Py
 
 | 引擎 | 稳定性 | 备注 |
 |---|---|---|
-| Ren'Py | 🟡 中 | 解析复杂的 Python Pickles（zlib压缩）。由于高度依赖变量类型，修改值的结构可能会导致游戏损坏。 |
+| Ren'Py | 🟡 有限稳定 | 支持查看 `.save`，并允许保存 `persistent` 下的简单字符串、数字和布尔值；复杂对象、非 persistent 状态和结构变更会被拦截。 |
 
 ## Unity
 
@@ -36,7 +37,7 @@ subtitle: '目前支持的引擎和格式的概述。'
 | 引擎 / 格式 | 稳定性 | 备注 |
 |---|---|---|
 | 标准 GVAS | 🟢 高 | 支持未压缩的标准 Unreal Save Game 属性（如霍格沃茨之遗、幻兽帕鲁等游戏）。 |
-| 压缩 GVAS | 🟡 中 | 自动检测并解压 zlib 压缩（例如：深岩银河）。但因为目前无法保证能安全地重新构建打包为游戏可识别的存档，因此以“只读”模式呈现。 |
+| gzip/zlib 包裹的 GVAS | 🟢 高 | 支持解包、编辑与按原包装重建。其他自定义容器会单独显示只读或失败原因。 |
 
 ## GameMaker
 
@@ -49,3 +50,10 @@ subtitle: '目前支持的引擎和格式的概述。'
 | 格式 | 稳定性 | 备注 |
 |---|---|---|
 | Nanonovel Save (`.nson`) | 🟢 高 | Unity NaniNovel 引擎的 JSON 序列化格式。 |
+
+## 通用竞品格式
+
+| 格式 | 稳定性 | 备注 |
+|---|---|---|
+| MessagePack / CBOR / Pickle / CFG | ⚪ 只读 | 可解码或结构化查看，暂不导出。 |
+| Flash SOL / SQLite / ES3 / Binary 候选 | ⚪ 只读 | 可识别并解释限制，提供样本反馈入口。 |

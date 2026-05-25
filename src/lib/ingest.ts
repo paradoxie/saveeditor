@@ -1,4 +1,5 @@
 import { localizePath, normalizeLang, type SiteLang } from '../i18n/utils';
+import { SITE_ORIGIN } from './site';
 import { createUploadTicket, type UploadTicket } from './upload-vault';
 
 export type EditorSlug =
@@ -8,7 +9,8 @@ export type EditorSlug =
     | 'unreal'
     | 'palworld'
     | 'gamemaker'
-    | 'naninovel';
+    | 'naninovel'
+    | 'generic';
 
 type DetectionConfidence = 'high' | 'medium' | 'low';
 
@@ -114,6 +116,15 @@ function getEditorLabel(engine: EditorSlug, lang: SiteLang): string {
             es: 'Editor NaniNovel',
             ru: 'Редактор NaniNovel',
         },
+        generic: {
+            en: 'Generic format inspector',
+            ja: '汎用フォーマット解析',
+            pt: 'Inspetor genérico',
+            ko: '일반 형식 검사기',
+            'zh-cn': '通用格式检查器',
+            es: 'Inspector genérico',
+            ru: 'Универсальный анализатор',
+        },
     };
 
     return labels[engine][lang];
@@ -161,7 +172,7 @@ export async function detectIngestRoute(
     const lang = normalizeLang(locale);
     const ext = getExtension(file.name);
 
-    if (ext === '.rpgsave' || ext === '.rmmzsave' || ext === '.rvdata2') {
+    if (ext === '.rpgsave' || ext === '.rmmzsave' || ext === '.rvdata2' || ext === '.rvdata' || ext === '.rxdata' || ext === '.lsd') {
         return buildDetection(lang, 'rpg-maker-mv', 'high', 'RPG Maker save extension matched.');
     }
 
@@ -183,6 +194,10 @@ export async function detectIngestRoute(
         return buildDetection(lang, 'gamemaker', 'medium', 'Structured text save extension matched.');
     }
 
+    if (['.sol', '.db', '.sqlite', '.msgpack', '.mpack', '.cbor', '.es3', '.dat', '.nrbf', '.bytes', '.pkl', '.pickle', '.cfg'].includes(ext)) {
+        return buildDetection(lang, 'generic', 'medium', 'Generic competitor-format coverage matched.');
+    }
+
     if (ext === '.sav') {
         const header = await readFileHeader(file, 16);
         const fileNameLooksLikePalworld = looksLikePalworldFileName(file.name);
@@ -200,23 +215,23 @@ export async function detectIngestRoute(
 
     return buildDetection(
         lang,
-        'gamemaker',
+        'generic',
         'low',
-        'No specific save signature matched; falling back to the generic structured-data workflow.'
+        'No specific save signature matched; falling back to the generic format inspector.'
     );
 }
 
 export function buildIngestUrl(token: string, locale?: string | null): string {
     const lang = normalizeLang(locale);
     const base = localizePath('/ingest', lang);
-    const url = new URL(base, 'https://saveeditor.top');
+    const url = new URL(base, SITE_ORIGIN);
     url.searchParams.set('uploadToken', token);
     return `${url.pathname}${url.search}`;
 }
 
 export function appendUploadToken(route: string, token?: string | null): string {
     if (!token) return route;
-    const url = new URL(route, 'https://saveeditor.top');
+    const url = new URL(route, SITE_ORIGIN);
     url.searchParams.set('uploadToken', token);
     return `${url.pathname}${url.search}`;
 }

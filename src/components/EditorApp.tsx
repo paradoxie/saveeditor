@@ -4,6 +4,7 @@ import SaveEditor from './SaveEditor';
 import { localizePath } from '../i18n/utils';
 import { readUploadToken } from '../lib/ingest';
 import { peekUploadFile } from '../lib/upload-vault';
+import { buildRejectedSupportPackFromFile, supportPackMailto } from '../lib/supportPack';
 
 interface EditorAppProps {
     acceptedFileTypes?: string;
@@ -19,6 +20,7 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
     const [file, setFile] = useState<File | null>(null);
     const [errorModalOpen, setErrorModalOpen] = useState(false);
     const [unsupportedFile, setUnsupportedFile] = useState<File | null>(null);
+    const [unsupportedSupportHref, setUnsupportedSupportHref] = useState('mailto:support@saveeditor.top');
     const [restoreError, setRestoreError] = useState<string | null>(null);
     const currentLang =
         typeof document !== 'undefined' ? document.documentElement.getAttribute('lang') || 'en' : 'en';
@@ -26,9 +28,7 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
     const [isRestoringUpload, setIsRestoringUpload] = useState(() =>
         typeof window !== 'undefined' ? Boolean(readUploadToken(window.location.search)) : false
     );
-    const requestSupportMailto = unsupportedFile
-        ? buildSupportRequestMailto(currentLang, unsupportedFile)
-        : 'mailto:support@saveeditor.top';
+    const requestSupportMailto = unsupportedFile ? unsupportedSupportHref : 'mailto:support@saveeditor.top';
     const homeHref = localizePath('/', currentLang);
 
     const validateFile = (selectedFile: File): boolean => {
@@ -59,6 +59,22 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
             setFile(selectedFile);
         }
     };
+
+    React.useEffect(() => {
+        let cancelled = false;
+        if (!unsupportedFile) {
+            setUnsupportedSupportHref('mailto:support@saveeditor.top');
+            return;
+        }
+
+        buildSupportRequestMailto(currentLang, unsupportedFile).then((href) => {
+            if (!cancelled) setUnsupportedSupportHref(href);
+        });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [currentLang, unsupportedFile]);
 
     React.useEffect(() => {
         const nextUploadToken =
@@ -265,40 +281,12 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
     );
 }
 
-function buildSupportRequestMailto(lang: string, file: File): string {
-    const extension = file.name.split('.').pop() || 'unknown';
-    const copy = {
-        en: {
-            subject: `Request Support for ${file.name}`,
-            body: `I would like to request support for the file type: ${extension}.\n\nPlease attach a sample file manually when sending this email.`,
-        },
-        ja: {
-            subject: `サポート対応の依頼: ${file.name}`,
-            body: `次のファイル形式に対応してほしいです: ${extension}\n\nこのメールを送る際に、サンプルファイルを手動で添付してください。`,
-        },
-        pt: {
-            subject: `Solicitação de suporte: ${file.name}`,
-            body: `Gostaria de solicitar suporte para o tipo de arquivo: ${extension}.\n\nAnexe manualmente um arquivo de exemplo ao enviar este email.`,
-        },
-        ko: {
-            subject: `지원 요청: ${file.name}`,
-            body: `다음 파일 형식 지원을 요청합니다: ${extension}\n\n이 이메일을 보낼 때 샘플 파일을 직접 첨부해 주세요.`,
-        },
-        'zh-cn': {
-            subject: `请求支持该格式: ${file.name}`,
-            body: `我想请求支持以下文件类型：${extension}\n\n发送此邮件时，请手动附上一个示例文件。`,
-        },
-        es: {
-            subject: `Solicitud de soporte: ${file.name}`,
-            body: `Quiero solicitar soporte para el tipo de archivo: ${extension}.\n\nAdjunta manualmente un archivo de ejemplo al enviar este correo.`,
-        },
-        ru: {
-            subject: `Запрос поддержки: ${file.name}`,
-            body: `Я хочу запросить поддержку для типа файла: ${extension}.\n\nПри отправке письма приложите образец файла вручную.`,
-        },
-    } as const;
-
-    const normalized = (lang in copy ? lang : 'en') as keyof typeof copy;
-    const { subject, body } = copy[normalized];
-    return `mailto:support@saveeditor.top?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+async function buildSupportRequestMailto(_lang: string, file: File): Promise<string> {
+    return supportPackMailto(await buildRejectedSupportPackFromFile({
+        file,
+        parserPath: 'upload-gate',
+        failureStage: 'unsupported_extension',
+        reasonCode: 'unsupported_extension',
+        format: file.name.split('.').pop()?.toLowerCase() || 'unknown',
+    }));
 }

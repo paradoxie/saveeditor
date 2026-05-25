@@ -137,9 +137,9 @@ Uses Python's `pickle` module to serialize entire game state. Very difficult to 
 
 Games include: Doki Doki Literature Club, Katawa Shoujo.
 
-**How to Edit**: Read-only viewing is safe. Modification requires careful repickling or use of in-game console.
+**How to Edit**: Use limited persistent-field editing for primitive values. Full game-state pickle editing remains guarded.
 
-**Tool**: [Ren'Py Viewer](/editor/renpy) (read-only)
+**Tool**: [Ren'Py Editor](/editor/renpy) (limited persistent editing)
 
 ---
 
@@ -243,7 +243,6 @@ Explore our detailed guides for each game engine:
 - [RPG Maker Editor](/editor/rpg-maker-mv)
 - [Unity Editor](/editor/unity)
 - [Unreal Engine Editor](/editor/unreal)
-- [Ren'Py Viewer](/editor/renpy)
+- [Ren'Py Editor](/editor/renpy)
 - [GameMaker Editor](/editor/gamemaker)
 - [NaniNovel Editor](/editor/naninovel)
-
