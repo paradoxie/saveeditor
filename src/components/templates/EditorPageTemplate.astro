@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import EditorApp from '../../components/EditorApp';
 import { localizePath, useTranslations, type SiteLang } from '../../i18n/utils';
 import { absoluteUrl, getSiteOrigin } from '../../lib/site';
+import { games as baseGames } from '../../data/games';
 
 interface EngineData {
   slug: string;
@@ -24,6 +25,37 @@ const { engine, lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 const siteOrigin = getSiteOrigin(Astro.site);
 const absUrl = (path: string) => absoluteUrl(path, siteOrigin);
+
+// Parse query params to detect specific game
+const gameSlug = Astro.url.searchParams.get('game');
+let activeGame = null;
+if (gameSlug) {
+  activeGame = baseGames.find((g) => g.slug === gameSlug);
+}
+
+// Safely generate localized SEO metadata based on activeGame
+const getGameSeoTitle = () => {
+  if (!activeGame) return engine.title;
+  const mappedLocale = (['en', 'zh-cn', 'ja'].includes(lang) ? lang : 'en') as 'en' | 'zh-cn' | 'ja';
+  return activeGame.seoTitleByLocale[mappedLocale] || activeGame.seoTitleByLocale['en'];
+};
+
+const getGameSeoDescription = () => {
+  if (!activeGame) return engine.description;
+  const mappedLocale = (['en', 'zh-cn', 'ja'].includes(lang) ? lang : 'en') as 'en' | 'zh-cn' | 'ja';
+  return activeGame.seoDescriptionByLocale[mappedLocale] || activeGame.seoDescriptionByLocale['en'];
+};
+
+const getGameSeoKeywords = () => {
+  if (!activeGame) return engine.keywords;
+  const mappedLocale = (['en', 'zh-cn', 'ja'].includes(lang) ? lang : 'en') as 'en' | 'zh-cn' | 'ja';
+  const terms = activeGame.longTailTermsByLocale[mappedLocale] || activeGame.longTailTermsByLocale['en'] || [];
+  return terms.join(', ') || engine.keywords;
+};
+
+const seoTitle = getGameSeoTitle();
+const seoDescription = getGameSeoDescription();
+const seoKeywords = getGameSeoKeywords();
 
 const STRINGS: Record<
   SiteLang,
@@ -81,7 +113,7 @@ const STRINGS: Record<
     howToUse: 'Cómo usarlo',
     features: 'Funciones',
     needHelp: '¿Necesitas ayuda?',
-    needHelpBody: 'Consulta la guía detallada de',
+    needHelpBody: 'Consulta la guía del juego',
     readTutorial: 'Leer guía completa',
   },
   ru: {
@@ -110,47 +142,106 @@ const tutorialMap = {
 const tutorialLink =
   tutorialMap[engine.slug as keyof typeof tutorialMap] ||
   localizePath('/blog/common-save-file-extensions-explained', lang);
+
+const softwareAppName = activeGame ? `${activeGame.name} Save Editor` : `${engine.name} Save Editor`;
+const softwareAppDesc = activeGame ? seoDescription : engine.description;
+const softwareAppFeatures = activeGame ? activeGame.editableItems.map((i: any) => i.name) : engine.features;
+const softwareAppUrl = activeGame
+  ? absUrl(localizePath(`/editor/${engine.slug}?game=${activeGame.slug}`, lang))
+  : absUrl(localizePath(`/editor/${engine.slug}`, lang));
+
+const breadcrumbItems = [
+  {
+    '@type': 'ListItem',
+    position: 1,
+    name: t('nav.home'),
+    item: absUrl(homeHref),
+  },
+  {
+    '@type': 'ListItem',
+    position: 2,
+    name: `${engine.name} Editor`,
+    item: absUrl(localizePath(`/editor/${engine.slug}`, lang)),
+  },
+];
+
+if (activeGame) {
+  breadcrumbItems.push({
+    '@type': 'ListItem',
+    position: 3,
+    name: activeGame.name,
+    item: absUrl(localizePath(`/editor/${engine.slug}?game=${activeGame.slug}`, lang)),
+  });
+}
 ---
 
-<BaseLayout title={engine.title} description={engine.description} keywords={engine.keywords}>
+<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords}>
   <section class="container mx-auto px-4 py-8">
     <div class="max-w-6xl mx-auto">
       <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
           <li class="inline-flex items-center">
-            <a href={homeHref} class="hover:text-gray-900">{t('nav.home')}</a>
+            <a href={homeHref} class="hover:text-gray-900 dark:hover:text-white transition-colors">{t('nav.home')}</a>
           </li>
           <li>
             <div class="flex items-center">
-              <svg
-                class="w-3 h-3 text-gray-400 mx-1"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 9 4-4-4-4"></path>
+              <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"></path>
               </svg>
-              <span class="ml-1 text-gray-700 font-medium">{engine.name}</span>
+              {activeGame ? (
+                <a href={localizePath(`/editor/${engine.slug}`, lang)} class="hover:text-gray-900 dark:hover:text-white transition-colors">{engine.name}</a>
+              ) : (
+                <span class="ml-1 text-gray-700 dark:text-gray-300 font-medium">{engine.name}</span>
+              )}
             </div>
           </li>
+          {activeGame && (
+            <li>
+              <div class="flex items-center">
+                <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"></path>
+                </svg>
+                <span class="ml-1 text-gray-700 dark:text-gray-300 font-medium">{activeGame.name}</span>
+              </div>
+            </li>
+          )}
         </ol>
       </nav>
 
-      <div class="text-center mb-10">
-        <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
-          {engine.name} Save Editor
-        </h1>
-        <p class="text-lg text-gray-600">
-          {strings.uploadPrompt}
-          <code class="bg-gray-100 px-2 py-1 rounded text-sm">{engine.fileType}</code>
-        </p>
-      </div>
+      {activeGame ? (
+        <div class="relative rounded-2xl overflow-hidden mb-10 bg-slate-900 text-white min-h-[160px] md:min-h-[220px] flex items-center shadow-lg border border-slate-800">
+          <div class="absolute inset-0 z-0">
+            <img
+              src={activeGame.image}
+              alt={activeGame.name}
+              class="w-full h-full object-cover opacity-25 blur-[2px]"
+            />
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent"></div>
+          </div>
+          <div class="relative z-10 px-6 py-8 md:px-12 max-w-3xl">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary-500/10 text-primary-400 border border-primary-500/20 mb-3 backdrop-blur-md">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse"></span>
+              {engine.name} Engine
+            </span>
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-white">
+              {activeGame.name} Save Editor
+            </h1>
+            <p class="text-slate-300 text-sm md:text-base">
+              {strings.uploadPrompt} <code class="bg-slate-800/80 text-primary-300 border border-slate-700/50 px-2 py-0.5 rounded text-xs md:text-sm font-mono font-bold select-all">{engine.fileType}</code> files.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div class="text-center mb-10">
+          <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4 dark:text-white">
+            {engine.name} Save Editor
+          </h1>
+          <p class="text-lg text-gray-600 dark:text-gray-400">
+            {strings.uploadPrompt}
+            <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm dark:text-gray-300">{engine.fileType}</code>
+          </p>
+        </div>
+      )}
 
       <!-- Interactive Editor App -->
       <div class="min-h-[400px]">
@@ -161,32 +252,88 @@ const tutorialLink =
         />
       </div>
 
-      <div class="mt-16 prose prose-blue max-w-none">
-        <h2>{strings.howToUse}</h2>
-        <ol>
-          {
-            engine.instructions.map((step) => (
-              <li>
-                <Fragment set:html={step.replace(/`([^`]+)`/g, '<code>$1</code>')} />
-              </li>
-            ))
-          }
-        </ol>
+      <div class="mt-16 prose prose-blue dark:prose-invert max-w-none">
+        {activeGame ? (
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              {lang === 'zh-cn' ? '存档文件位置' : lang === 'ja' ? 'セーブデータの場所' : 'Save File Location'}
+            </h2>
+            <div class="bg-gray-50 dark:bg-gray-800/40 rounded-xl p-6 border border-gray-200/50 dark:border-gray-800 mb-8 not-prose">
+              <div class="space-y-4 font-medium text-sm text-gray-700 dark:text-gray-300">
+                <p class="flex items-center flex-wrap gap-2">
+                  <span class="px-2 py-1 bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400 rounded text-xs font-bold uppercase min-w-[70px] text-center select-none">Windows</span>
+                  <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs select-all break-all border border-gray-200 dark:border-gray-700 font-mono text-gray-800 dark:text-gray-300">{activeGame.saveLocations.windows}</code>
+                </p>
+                {activeGame.saveLocations.mac && (
+                  <p class="flex items-center flex-wrap gap-2">
+                    <span class="px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded text-xs font-bold uppercase min-w-[70px] text-center select-none">macOS</span>
+                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs select-all break-all border border-gray-200 dark:border-gray-700 font-mono text-gray-800 dark:text-gray-300">{activeGame.saveLocations.mac}</code>
+                  </p>
+                )}
+                {activeGame.saveLocations.linux && (
+                  <p class="flex items-center flex-wrap gap-2">
+                    <span class="px-2 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 rounded text-xs font-bold uppercase min-w-[70px] text-center select-none">Linux</span>
+                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs select-all break-all border border-gray-200 dark:border-gray-700 font-mono text-gray-800 dark:text-gray-300">{activeGame.saveLocations.linux}</code>
+                  </p>
+                )}
+              </div>
+            </div>
 
-        <h2>{strings.features}</h2>
-        <ul>
-          {engine.features.map((feature) => <li>{feature}</li>)}
-        </ul>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{strings.howToUse}</h2>
+            <ol>
+              {
+                engine.instructions.map((step) => (
+                  <li>
+                    <Fragment set:html={step.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+                  </li>
+                ))
+              }
+            </ol>
+
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 mt-10">
+              {lang === 'zh-cn' ? '可修改的存档属性' : lang === 'ja' ? '編集可能なセーブデータ項目' : 'Editable Save Items'}
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6 not-prose">
+              {activeGame.editableItems.map((item) => (
+                <div class="flex items-start gap-3.5 p-4 bg-white dark:bg-gray-800/20 rounded-xl border border-gray-200/60 dark:border-gray-800/80 shadow-sm hover:shadow-md transition-shadow">
+                  <span class="text-2xl select-none" role="img" aria-label="item-icon">{item.icon}</span>
+                  <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">{item.name}</h4>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs mt-1 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div>
+            <h2>{strings.howToUse}</h2>
+            <ol>
+              {
+                engine.instructions.map((step) => (
+                  <li>
+                    <Fragment set:html={step.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+                  </li>
+                ))
+              }
+            </ol>
+
+            <h2>{strings.features}</h2>
+            <ul>
+              {engine.features.map((feature) => <li>{feature}</li>)}
+            </ul>
+          </div>
+        )}
       </div>
 
-      <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-12 not-prose">
-        <h3 class="text-lg font-bold text-blue-900 mb-2">{strings.needHelp}</h3>
-        <p class="text-blue-700 mb-4">
-          {strings.needHelpBody} {engine.name}.
+      <div class="bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 rounded-xl p-6 mt-12 not-prose">
+        <h3 class="text-lg font-bold text-blue-900 dark:text-blue-400 mb-2">{strings.needHelp}</h3>
+        <p class="text-blue-700 dark:text-blue-300 mb-4">
+          {strings.needHelpBody} {activeGame ? activeGame.name : engine.name}.
         </p>
         <a
           href={tutorialLink}
-          class="text-blue-600 font-medium hover:underline flex items-center gap-1"
+          class="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1"
         >
           {strings.readTutorial}
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -207,8 +354,8 @@ const tutorialLink =
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      name: `${engine.name} Save Editor`,
-      description: engine.description,
+      name: softwareAppName,
+      description: softwareAppDesc,
       applicationCategory: 'GameApplication',
       operatingSystem: 'Web Browser',
       offers: {
@@ -216,8 +363,8 @@ const tutorialLink =
         price: '0',
         priceCurrency: 'USD',
       },
-      featureList: engine.features,
-      url: absUrl(localizePath(`/editor/${engine.slug}`, lang)),
+      featureList: softwareAppFeatures,
+      url: softwareAppUrl,
       author: {
         '@type': 'Organization',
         name: 'SaveEditor.Online',
@@ -231,20 +378,7 @@ const tutorialLink =
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: t('nav.home'),
-          item: absUrl(homeHref),
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: `${engine.name} Editor`,
-          item: absUrl(localizePath(`/editor/${engine.slug}`, lang)),
-        },
-      ],
+      itemListElement: breadcrumbItems,
     })}
   />
 </BaseLayout>

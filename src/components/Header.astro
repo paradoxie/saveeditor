@@ -123,6 +123,12 @@ const getBlogUrl = (targetLang: string): string => {
         </div>
       </div>
       <a
+        href={localizePath('/games', lang)}
+        aria-current={isCurrentPath('/games/') ? 'page' : undefined}
+        class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
+        >{t('nav.games')}</a
+      >
+      <a
         href={localizePath('/blog', lang)}
         aria-current={isCurrentPath('/blog/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
@@ -133,12 +139,6 @@ const getBlogUrl = (targetLang: string): string => {
         aria-current={isCurrentPath('/saves/') ? 'page' : undefined}
         class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
         >{t('nav.saves')}</a
-      >
-      <a
-        href={localizePath('/compatibility', lang)}
-        aria-current={isCurrentPath('/compatibility/') ? 'page' : undefined}
-        class="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors dark:text-gray-300"
-        >{t('nav.compatibility')}</a
       >
     </nav>
 
@@ -295,6 +295,12 @@ const getBlogUrl = (targetLang: string): string => {
       </div>
 
       <a
+        href={localizePath('/games', lang)}
+        aria-current={isCurrentPath('/games/') ? 'page' : undefined}
+        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+        >{t('nav.games')}</a
+      >
+      <a
         href={localizePath('/blog', lang)}
         aria-current={isCurrentPath('/blog/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
@@ -305,12 +311,6 @@ const getBlogUrl = (targetLang: string): string => {
         aria-current={isCurrentPath('/saves/') ? 'page' : undefined}
         class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
         >{t('nav.saves')}</a
-      >
-      <a
-        href={localizePath('/compatibility', lang)}
-        aria-current={isCurrentPath('/compatibility/') ? 'page' : undefined}
-        class="block py-3 px-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
-        >{t('nav.compatibility')}</a
       >
 
       <!-- Language Picker (Mobile) -->

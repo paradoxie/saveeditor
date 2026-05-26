@@ -117,6 +117,7 @@ const { game } = Astro.props;
 const siteOrigin = getSiteOrigin(Astro.site);
 const absUrl = (path: string) => absoluteUrl(path, siteOrigin);
 const editorHref = game.editorPath.replace('/editor/', '/ja/editor/');
+const editorHrefWithGame = `${editorHref}?game=${game.slug}`;
 const gameHref = (slug: string) => `/ja/games/${slug}`;
 const gamesHref = '/ja/games';
 const coverageHref = '/ja/coverage-proof';
@@ -124,6 +125,35 @@ const confidenceLabel = localizePresetConfidence(game.presetConfidence, locale);
 const quickTargets = game.editorQuickEditTargets.length > 0 ? game.editorQuickEditTargets : game.quickEditTargets;
 const imageUrl = absUrl(game.image);
 const featureList = quickTargets.slice(0, 8);
+
+const engineTutorialsJa: Record<string, string> = {
+  'RPG Maker': '/ja/blog/how-to-edit-rpg-maker-save',
+  'Unity': '/ja/blog/how-to-edit-unity-saves',
+  'Unreal Engine': '/ja/blog/how-to-edit-unreal-engine-saves',
+  "Ren'Py": '/ja/blog/renpy-save-editing-guide',
+  'GameMaker': '/ja/blog/gamemaker-save-editing-guide',
+  'Naninovel': '/ja/blog/naninovel-save-editing-guide'
+};
+
+const getFallbackGuidesJa = (gameData: typeof game) => {
+  if (gameData.relatedGuides && gameData.relatedGuides.length > 0) {
+    return gameData.relatedGuides.map(g => ({
+      title: g.title,
+      url: g.url.startsWith('/ja') ? g.url : `/ja${g.url}`
+    }));
+  }
+  if (gameData.slug === 'palworld') {
+    return [{ title: 'パルワールドのセーブデータ変更・編集方法ガイド', url: '/ja/blog/palworld-save-editing-guide' }];
+  }
+  const tutorialUrl = engineTutorialsJa[gameData.engine];
+  if (tutorialUrl) {
+    const name = gameData.nameLocal || gameData.name;
+    return [{ title: `${name} (${gameData.engine}) セーブデータ変更ガイド`, url: tutorialUrl }];
+  }
+  return [];
+};
+
+const activeGuidesJa = getFallbackGuidesJa(game);
 ---
 
 <BaseLayout
@@ -153,7 +183,7 @@ const featureList = quickTargets.slice(0, 8);
           <span class="px-4 py-2 bg-white/10 rounded-full text-sm">{copy.format}: {game.format}</span>
           <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">{copy.free}</span>
         </div>
-        <a href={editorHref} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg">{copy.start}</a>
+        <a href={editorHrefWithGame} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg">{copy.start}</a>
       </div>
     </div>
   </section>
@@ -242,7 +272,7 @@ const featureList = quickTargets.slice(0, 8);
             <div class="text-center p-6"><div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-lg">{index + 1}</div><h3 class="font-bold text-lg mb-2">{title}</h3><p class="text-gray-600">{body}</p></div>
           ))}
         </div>
-        <div class="text-center mt-8"><a href={editorHref} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700">{copy.open}</a></div>
+        <div class="text-center mt-8"><a href={editorHrefWithGame} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700">{copy.open}</a></div>
       </section>
 
       <section class="mb-16">
@@ -250,8 +280,8 @@ const featureList = quickTargets.slice(0, 8);
         <div class="max-w-3xl mx-auto space-y-4">{game.faq.map((item: { question: string; answer: string }) => (<details class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"><summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">{item.question}</summary><div class="px-6 pb-6 text-gray-600">{item.answer}</div></details>))}</div>
       </section>
 
-      {game.relatedGuides.length > 0 && (
-        <section class="mb-16 bg-primary-50 rounded-2xl p-8"><h2 class="text-2xl font-bold mb-6 text-gray-900">{copy.guides}</h2><div class="space-y-4">{game.relatedGuides.map((guide: { title: string; url: string }) => (<a href={guide.url.replace(/^\/games/, `/ja/games`)} class="block p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300"><span class="font-medium text-gray-900">{guide.title}</span></a>))}</div></section>
+      {activeGuidesJa.length > 0 && (
+        <section class="mb-16 bg-primary-50 rounded-2xl p-8"><h2 class="text-2xl font-bold mb-6 text-gray-900">{copy.guides}</h2><div class="space-y-4">{activeGuidesJa.map((guide: { title: string; url: string }) => (<a href={guide.url} class="block p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300"><span class="font-medium text-gray-900">{guide.title}</span></a>))}</div></section>
       )}
 
       <section class="mb-16">
@@ -265,7 +295,7 @@ const featureList = quickTargets.slice(0, 8);
       <section class="bg-gray-900 text-white rounded-2xl p-12 text-center">
         <h2 class="text-3xl font-bold mb-4">{copy.ready}</h2>
         <p class="text-gray-300 mb-8 max-w-xl mx-auto">{copy.ctaBody}</p>
-        <a href={editorHref} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100">{copy.now}</a>
+        <a href={editorHrefWithGame} class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100">{copy.now}</a>
       </section>
 
       {game.seoContent && (

@@ -5,6 +5,9 @@ import FAQ from '../FAQ.astro';
 import { ui, defaultLang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import { getSiteOrigin } from '../../lib/site';
+import { games } from '../../data/games';
+import { editors } from '../../data/editors';
+import homeScriptUrl from '../../scripts/home.ts?url';
 
 interface Props {
   lang?: keyof typeof ui;
@@ -37,6 +40,14 @@ const blogPosts = (await getCollection('blog'))
   })
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 4); // Limit to 4 posts
+
+const compatibleFormatCount = new Set(
+  editors.flatMap((editor) => editor.fileType.split(',').map((item) => item.trim()).filter(Boolean))
+).size;
+const gamePageCount = games.length;
+const supportedEngineCount = new Set(
+  editors.filter((editor) => !['generic', 'palworld'].includes(editor.slug)).map((editor) => editor.slug)
+).size;
 ---
 
 <BaseLayout title={title} description={description} keywords={keywords}>
@@ -187,31 +198,39 @@ const blogPosts = (await getCollection('blog'))
   <section class="flex-grow container mx-auto px-4 py-16">
     <div class="max-w-6xl mx-auto">
       <!-- Social Proof Stats -->
-      <div class="mb-16 grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div class="text-center p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl">
-          <div class="text-3xl sm:text-4xl font-bold text-primary-600 counter" data-target="80">
-            0
+      <div class="mb-16 grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
+        <div class="text-center p-5 sm:p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-primary-600 counter" data-target={compatibleFormatCount} data-suffix="+">
+            {compatibleFormatCount}+
           </div>
           <div class="text-xs sm:text-sm text-primary-700 font-medium mt-1">
-            {t('stats.gamesSupported')}
+            {t('stats.compatibleFormats')}
           </div>
         </div>
-        <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
-          <div class="text-3xl sm:text-4xl font-bold text-green-600 counter" data-target="6">0</div>
+        <div class="text-center p-5 sm:p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-green-600 counter" data-target={supportedEngineCount} data-suffix="+">{supportedEngineCount}+</div>
           <div class="text-xs sm:text-sm text-green-700 font-medium mt-1">
-            {t('stats.gameEngines')}
+            {t('stats.supportedEngines')}
           </div>
         </div>
-        <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
-          <div class="text-3xl sm:text-4xl font-bold text-purple-600 counter" data-target="100">
-            0
+        <div class="text-center p-5 sm:p-6 bg-gradient-to-br from-sky-50 to-sky-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-sky-600 counter" data-target={gamePageCount} data-suffix="+">
+            {gamePageCount}+
+          </div>
+          <div class="text-xs sm:text-sm text-sky-700 font-medium mt-1">
+            {t('stats.gamePages')}
+          </div>
+        </div>
+        <div class="text-center p-5 sm:p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-purple-600 counter" data-target="100" data-suffix="%">
+            100%
           </div>
           <div class="text-xs sm:text-sm text-purple-700 font-medium mt-1">
-            {t('stats.clientSide')}
+            {t('stats.localProcessing')}
           </div>
         </div>
-        <div class="text-center p-6 bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl">
-          <div class="text-3xl sm:text-4xl font-bold text-amber-600">∞</div>
+        <div class="text-center p-5 sm:p-6 bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl">
+          <div class="text-3xl sm:text-4xl font-bold text-amber-600">50MB</div>
           <div class="text-xs sm:text-sm text-amber-700 font-medium mt-1">
             {t('stats.fileSizeLimit')}
           </div>
@@ -556,7 +575,7 @@ const blogPosts = (await getCollection('blog'))
           </a>
           <a
             href={getPath('games/ddlc')}
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-pink-300 hover:bg-pink-50 hover:text-pink-700 transition-all"
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-pink-300 hover:bg-pink-50 hover:text-pink-700 transition-all dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-pink-950/30"
           >
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
               ><path
@@ -567,6 +586,72 @@ const blogPosts = (await getCollection('blog'))
               ></path></svg
             >
             <span class="font-medium">{t('games.ddlc')}</span>
+          </a>
+          <a
+            href={getPath('games/palworld')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 transition-all dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-cyan-950/30"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              ></path></svg
+            >
+            <span class="font-medium">{t('games.palworld')}</span>
+          </a>
+          <a
+            href={getPath('games/fear-and-hunger')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-rose-400 hover:bg-rose-50 hover:text-rose-800 transition-all dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-rose-950/30"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.657 7.343A7.996 7.996 0 0120 13a7.98 7.98 0 01-2.343 5.657z"
+              ></path><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
+              ></path></svg
+            >
+            <span class="font-medium">{t('games.fearAndHunger')}</span>
+          </a>
+          <a
+            href={getPath('games/oneshot')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 transition-all dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-violet-950/30"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              ></path></svg
+            >
+            <span class="font-medium">{t('games.oneshot')}</span>
+          </a>
+          <a
+            href={getPath('games/omori')}
+            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:border-slate-400 hover:bg-slate-50 hover:text-slate-800 transition-all dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-slate-900"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              ></path></svg
+            >
+            <span class="font-medium">{t('games.omori')}</span>
           </a>
           <a
             href={getPath('games')}
@@ -725,7 +810,7 @@ const blogPosts = (await getCollection('blog'))
         // This replaces the inline script logic
         window.currentLang = lang;
       </script>
-      <script type="module" src="../../scripts/home.ts"></script>
+      <script type="module" src={homeScriptUrl}></script>
     </div>
   </section>
 </BaseLayout>

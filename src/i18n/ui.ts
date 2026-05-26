@@ -13,6 +13,7 @@ export const defaultLang = 'en';
 export const ui = {
     en: {
         'nav.home': 'Home',
+        'nav.games': 'Games',
         'nav.editors': 'Editors',
         'nav.blog': 'Blog',
         'nav.about': 'About',
@@ -51,9 +52,10 @@ export const ui = {
         'upload.orChoose': 'Or choose an editor directly',
 
         // Stats Section
-        'stats.gamesSupported': 'Games Supported',
-        'stats.gameEngines': 'Game Engines',
-        'stats.clientSide': '% Client-Side',
+        'stats.compatibleFormats': 'Compatible Formats',
+        'stats.supportedEngines': 'Supported Engines',
+        'stats.gamePages': 'Game Pages',
+        'stats.localProcessing': '% Local Processing',
         'stats.fileSizeLimit': 'Max 50MB',
 
         // How It Works Section
@@ -88,7 +90,11 @@ export const ui = {
         'games.rpgMaker': 'RPG Maker Games',
         'games.undertale': 'Undertale',
         'games.ddlc': 'Doki Doki Literature Club',
-        'games.viewAll': 'View All 80+ Games →',
+        'games.palworld': 'Palworld',
+        'games.fearAndHunger': 'Fear & Hunger',
+        'games.oneshot': 'OneShot',
+        'games.omori': 'OMORI',
+        'games.viewAll': 'View All Games →',
 
         // Home Blog Section
         'home.blog.title': 'Learn Save Editing',
@@ -247,7 +253,7 @@ export const ui = {
         'gamesPage.ctaTitle': "Don't See Your Game?",
         'gamesPage.ctaDesc': "Our generic JSON editor works with most save file formats. Try uploading your save file and we'll do our best to parse it!",
         'gamesPage.ctaButton': 'Try Universal Editor',
-        'gamesPage.seoTitle': 'Supported Games List - 80+ Games | SaveEditor.Online',
+        'gamesPage.seoTitle': 'Supported Games List | SaveEditor.Online',
         'gamesPage.seoDesc': "Browse all games supported by our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more. Find your game and start editing!",
 
         // Formats Page
@@ -285,6 +291,7 @@ export const ui = {
     },
     ja: {
         'nav.home': 'ホーム',
+        'nav.games': 'ゲーム',
         'nav.editors': 'エディタ',
         'nav.blog': 'ブログ',
         'nav.about': '私たちについて',
@@ -323,9 +330,10 @@ export const ui = {
         'upload.orChoose': 'またはエディタを直接選択',
 
         // Stats Section
-        'stats.gamesSupported': '対応ゲーム数',
-        'stats.gameEngines': 'エンジン対応',
-        'stats.clientSide': '% クライアント処理',
+        'stats.compatibleFormats': '対応フォーマット',
+        'stats.supportedEngines': '対応エンジン',
+        'stats.gamePages': 'ゲームページ',
+        'stats.localProcessing': '% ローカル処理',
         'stats.fileSizeLimit': '最大50MB',
 
         // How It Works Section
@@ -360,7 +368,11 @@ export const ui = {
         'games.rpgMaker': 'RPGツクールゲーム',
         'games.undertale': 'Undertale',
         'games.ddlc': 'ドキドキ文芸部',
-        'games.viewAll': 'すべてのゲームを見る 80+ →',
+        'games.palworld': 'パルワールド',
+        'games.fearAndHunger': 'Fear & Hunger',
+        'games.oneshot': 'OneShot',
+        'games.omori': 'OMORI',
+        'games.viewAll': 'すべてのゲームを見る →',
 
         // Home Blog Section
         'home.blog.title': 'セーブ編集ガイド',
@@ -557,6 +569,7 @@ export const ui = {
     },
     pt: {
         'nav.home': 'Início',
+        'nav.games': 'Jogos',
         'nav.editors': 'Editores',
         'nav.blog': 'Blog',
         'nav.about': 'Sobre',
@@ -595,9 +608,10 @@ export const ui = {
         'upload.orChoose': 'Ou escolha um editor diretamente',
 
         // Stats Section
-        'stats.gamesSupported': 'Jogos Suportados',
-        'stats.gameEngines': 'Engines',
-        'stats.clientSide': '% Local',
+        'stats.compatibleFormats': 'Formatos Compatíveis',
+        'stats.supportedEngines': 'Engines Compatíveis',
+        'stats.gamePages': 'Páginas de Jogos',
+        'stats.localProcessing': '% Processamento Local',
         'stats.fileSizeLimit': 'Máx. 50MB',
 
         // How It Works Section
@@ -632,7 +646,11 @@ export const ui = {
         'games.rpgMaker': 'Jogos RPG Maker',
         'games.undertale': 'Undertale',
         'games.ddlc': 'Doki Doki Literature Club',
-        'games.viewAll': 'Ver Todos os 80+ Jogos →',
+        'games.palworld': 'Palworld',
+        'games.fearAndHunger': 'Fear & Hunger',
+        'games.oneshot': 'OneShot',
+        'games.omori': 'OMORI',
+        'games.viewAll': 'Ver Todos os Jogos →',
 
         // Home Blog Section
         'home.blog.title': 'Aprenda Edição de Saves',
@@ -778,7 +796,7 @@ export const ui = {
         'gamesPage.ctaTitle': "Não Encontrou Seu Jogo?",
         'gamesPage.ctaDesc': "Nosso editor JSON genérico funciona com a maioria dos formatos. Tente enviar seu arquivo de save e faremos o possível para analisá-lo!",
         'gamesPage.ctaButton': 'Tentar Editor Universal',
-        'gamesPage.seoTitle': 'Lista de Jogos Suportados - 80+ Jogos | SaveEditor.Online',
+        'gamesPage.seoTitle': 'Lista de Jogos Suportados | SaveEditor.Online',
         'gamesPage.seoDesc': "Navegue por todos os jogos suportados pelo nosso editor. Inclui RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker e mais. Encontre seu jogo e comece a editar!",
 
         // Formats Page
@@ -816,6 +834,7 @@ export const ui = {
     },
     ko: {
         'nav.home': '홈',
+        'nav.games': '게임',
         'nav.editors': '에디터',
         'nav.blog': '블로그',
         'nav.about': '소개',
@@ -854,9 +873,10 @@ export const ui = {
         'upload.orChoose': '또는 에디터를 직접 선택하세요',
 
         // Stats Section
-        'stats.gamesSupported': '지원 게임',
-        'stats.gameEngines': '게임 엔진',
-        'stats.clientSide': '% 클라이언트 처리',
+        'stats.compatibleFormats': '호환 포맷',
+        'stats.supportedEngines': '지원 엔진',
+        'stats.gamePages': '게임 페이지',
+        'stats.localProcessing': '% 로컬 처리',
         'stats.fileSizeLimit': '최대 50MB',
 
         // How It Works Section
@@ -891,6 +911,10 @@ export const ui = {
         'games.rpgMaker': 'RPG 만들기 게임',
         'games.undertale': '언더테일',
         'games.ddlc': '두근두근 문예부',
+        'games.palworld': '팰월드',
+        'games.fearAndHunger': '피어 앤 헝거',
+        'games.oneshot': '원샷',
+        'games.omori': '오모리',
         'games.viewAll': '80개 이상의 게임 모두 보기 →',
 
         // Home Blog Section
@@ -1037,7 +1061,7 @@ export const ui = {
         'gamesPage.ctaTitle': "게임을 찾을 수 없나요?",
         'gamesPage.ctaDesc': "범용 JSON 에디터는 대부분의 형식과 작동합니다. 세이브 파일을 업로드하면 최선을 다해 분석해 드립니다!",
         'gamesPage.ctaButton': '범용 에디터 체험',
-        'gamesPage.seoTitle': '지원 게임 목록 - 80+ 게임 | SaveEditor.Online',
+        'gamesPage.seoTitle': '지원 게임 목록 | SaveEditor.Online',
         'gamesPage.seoDesc': "SaveEditor.Online에서 지원되는 모든 게임을 찾아보세요. RPG 만들기, Unity, Unreal Engine, Ren'Py, GameMaker 등을 포함합니다. Stardew Valley와 같은 인기 게임을 포함하여 80개 이상의 게임을 지원합니다. 지금 바로 게임을 찾아 편집을 시작하세요!",
 
         // Formats Page
@@ -1075,6 +1099,7 @@ export const ui = {
     },
     'zh-cn': {
         'nav.home': '首页',
+        'nav.games': '游戏',
         'nav.editors': '编辑器',
         'nav.blog': '博客',
         'nav.about': '关于我们',
@@ -1113,9 +1138,10 @@ export const ui = {
         'upload.orChoose': '或直接选择编辑器',
 
         // Stats Section
-        'stats.gamesSupported': '支持游戏',
-        'stats.gameEngines': '支持引擎',
-        'stats.clientSide': '% 客户端处理',
+        'stats.compatibleFormats': '兼容格式',
+        'stats.supportedEngines': '支持引擎',
+        'stats.gamePages': '游戏专题页',
+        'stats.localProcessing': '% 本地处理',
         'stats.fileSizeLimit': '最大 50MB',
 
         // How It Works Section
@@ -1150,7 +1176,11 @@ export const ui = {
         'games.rpgMaker': 'RPG Maker 游戏',
         'games.undertale': '传说之下',
         'games.ddlc': '心跳文学部',
-        'games.viewAll': '查看所有 80+ 款游戏 →',
+        'games.palworld': '幻兽帕鲁',
+        'games.fearAndHunger': '恐惧与饥饿',
+        'games.oneshot': '一次机会',
+        'games.omori': 'OMORI',
+        'games.viewAll': '查看所有游戏 →',
 
         // Home Blog Section
         'home.blog.title': '存档修改教程',
@@ -1310,7 +1340,7 @@ export const ui = {
         'gamesPage.ctaTitle': "没找到您的游戏？",
         'gamesPage.ctaDesc': "通用 JSON 编辑器适用于大多数存档格式。尝试上传存档文件，我们会尽力解析！",
         'gamesPage.ctaButton': '尝试通用编辑器',
-        'gamesPage.seoTitle': '支持游戏列表 - 80+ 款游戏 | SaveEditor.Online',
+        'gamesPage.seoTitle': '支持游戏列表 | SaveEditor.Online',
         'gamesPage.seoDesc': "浏览 SaveEditor.Online 支持的所有游戏列表。我们完美支持包括 RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker 在内的多种引擎。涵盖星露谷物语、传说之下等80多款热门游戏。立即查找您的游戏并开始免费在线修改存档！",
 
         // Formats Page
@@ -1348,6 +1378,7 @@ export const ui = {
     },
     es: {
         'nav.home': 'Inicio',
+        'nav.games': 'Juegos',
         'nav.editors': 'Editores',
         'nav.blog': 'Blog',
         'nav.about': 'Acerca de',
@@ -1386,9 +1417,10 @@ export const ui = {
         'upload.orChoose': 'O elige un editor directamente',
 
         // Stats Section
-        'stats.gamesSupported': 'Juegos Soportados',
-        'stats.gameEngines': 'Motores de Juego',
-        'stats.clientSide': '% Lado del Cliente',
+        'stats.compatibleFormats': 'Formatos Compatibles',
+        'stats.supportedEngines': 'Motores Compatibles',
+        'stats.gamePages': 'Páginas de Juegos',
+        'stats.localProcessing': '% Procesamiento Local',
         'stats.fileSizeLimit': 'Máx 50MB',
 
         // How It Works Section
@@ -1423,7 +1455,11 @@ export const ui = {
         'games.rpgMaker': 'Juegos RPG Maker',
         'games.undertale': 'Undertale',
         'games.ddlc': 'Doki Doki Literature Club',
-        'games.viewAll': 'Ver los 80+ Juegos →',
+        'games.palworld': 'Palworld',
+        'games.fearAndHunger': 'Fear & Hunger',
+        'games.oneshot': 'OneShot',
+        'games.omori': 'OMORI',
+        'games.viewAll': 'Ver todos los juegos →',
 
         // Home Blog Section
         'home.blog.title': 'Aprende a Editar Partidas',
@@ -1569,7 +1605,7 @@ export const ui = {
         'gamesPage.ctaTitle': "¿No ves tu juego?",
         'gamesPage.ctaDesc': "Nuestro editor JSON genérico funciona con la mayoría de formatos. ¡Pruébalo!",
         'gamesPage.ctaButton': 'Probar Editor Universal',
-        'gamesPage.seoTitle': 'Lista de Juegos Soportados - 80+ Juegos | SaveEditor.Online',
+        'gamesPage.seoTitle': 'Lista de Juegos Soportados | SaveEditor.Online',
         'gamesPage.seoDesc': "Explora todos los juegos soportados por nuestro editor de guardados. RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker y más. Incluye títulos populares como Stardew Valley y Undertale. ¡Encuentra tu juego y empieza a editar gratis!",
 
         // Formats Page
@@ -1607,6 +1643,7 @@ export const ui = {
     },
     ru: {
         'nav.home': 'Главная',
+        'nav.games': 'Игры',
         'nav.editors': 'Редакторы',
         'nav.blog': 'Блог',
         'nav.about': 'О нас',
@@ -1645,9 +1682,10 @@ export const ui = {
         'upload.orChoose': 'Или выберите редактор вручную',
 
         // Stats Section
-        'stats.gamesSupported': 'Поддерживаемые игры',
-        'stats.gameEngines': 'Игровые движки',
-        'stats.clientSide': '% Клиент-сайд',
+        'stats.compatibleFormats': 'Совместимые форматы',
+        'stats.supportedEngines': 'Поддерживаемые движки',
+        'stats.gamePages': 'Страницы игр',
+        'stats.localProcessing': '% Локальная обработка',
         'stats.fileSizeLimit': 'Макс 50MB',
 
         // How It Works Section
@@ -1682,7 +1720,11 @@ export const ui = {
         'games.rpgMaker': 'Игры RPG Maker',
         'games.undertale': 'Undertale',
         'games.ddlc': 'Doki Doki Literature Club',
-        'games.viewAll': 'Смотреть все 80+ игр →',
+        'games.palworld': 'Palworld',
+        'games.fearAndHunger': 'Fear & Hunger',
+        'games.oneshot': 'OneShot',
+        'games.omori': 'OMORI',
+        'games.viewAll': 'Смотреть все игры →',
 
         // Home Blog Section
         'home.blog.title': 'Уроки редактирования',

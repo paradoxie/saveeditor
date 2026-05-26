@@ -16,6 +16,30 @@ const siteOrigin = getSiteOrigin(Astro.site);
 const absUrl = (path: string) => absoluteUrl(path, siteOrigin);
 const imageUrl = absUrl(game.image);
 const featureList = (game.editorQuickEditTargets.length > 0 ? game.editorQuickEditTargets : game.quickEditTargets).slice(0, 8);
+const engineTutorials: Record<string, string> = {
+  'RPG Maker': '/blog/how-to-edit-rpg-maker-save',
+  'Unity': '/blog/how-to-edit-unity-saves',
+  'Unreal Engine': '/blog/how-to-edit-unreal-engine-saves',
+  "Ren'Py": '/blog/renpy-save-editing-guide',
+  'GameMaker': '/blog/gamemaker-save-editing-guide',
+  'Naninovel': '/blog/naninovel-save-editing-guide'
+};
+
+const getFallbackGuides = (gameData: typeof game) => {
+  if (gameData.relatedGuides && gameData.relatedGuides.length > 0) {
+    return gameData.relatedGuides;
+  }
+  if (gameData.slug === 'palworld') {
+    return [{ title: 'Palworld Save Editing Guide', url: '/blog/palworld-save-editing-guide' }];
+  }
+  const tutorialUrl = engineTutorials[gameData.engine];
+  if (tutorialUrl) {
+    return [{ title: `${gameData.name} (${gameData.engine}) Save Editing Guide`, url: tutorialUrl }];
+  }
+  return [];
+};
+
+const activeGuides = getFallbackGuides(game);
 const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 6);
 ---
 
@@ -80,10 +104,11 @@ const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 
           <span class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full text-sm">
             ✓ Free to Use
           </span>
+
         </div>
 
         <a
-          href={game.editorPath}
+          href={`${game.editorPath}?game=${game.slug}`}
           class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-xl hover:opacity-90 transition-opacity shadow-lg"
         >
           Start Editing {game.name} Saves →
@@ -296,7 +321,7 @@ const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 
         </div>
         <div class="text-center mt-8">
           <a
-            href={game.editorPath}
+            href={`${game.editorPath}?game=${game.slug}`}
             class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors"
           >
             Open {game.name} Editor
@@ -338,11 +363,11 @@ const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 
 
       <!-- Related Guides -->
       {
-        game.relatedGuides.length > 0 && (
+        activeGuides.length > 0 && (
           <section class="mb-16 bg-primary-50 rounded-2xl p-8">
             <h2 class="text-2xl font-bold mb-6 text-gray-900">📖 Related Guides</h2>
             <div class="space-y-4">
-              {game.relatedGuides.map((guide: { title: string; url: string }) => (
+              {activeGuides.map((guide: { title: string; url: string }) => (
                 <a
                   href={guide.url}
                   class="flex items-center justify-between p-4 bg-white rounded-lg border border-primary-100 hover:border-primary-300 transition-colors"
@@ -400,7 +425,7 @@ const otherGames = baseGames.filter((item) => item.slug !== game.slug).slice(0, 
           Free to use, no download required. Browser-side parsing with backup-first editing.
         </p>
         <a
-          href={game.editorPath}
+          href={`${game.editorPath}?game=${game.slug}`}
           class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-gray-100 transition-colors"
         >
           Start Editing Now →

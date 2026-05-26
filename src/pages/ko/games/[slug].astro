@@ -199,10 +199,38 @@ export async function getStaticPaths() {
     },
   };
 
+
+  const engineTutorialsKo: Record<string, string> = {
+    'RPG Maker': '/ko/blog/how-to-edit-rpg-maker-save',
+    'Unity': '/ko/blog/how-to-edit-unity-saves',
+    'Unreal Engine': '/ko/blog/how-to-edit-unreal-engine-saves',
+    "Ren'Py": '/ko/blog/renpy-save-editing-guide',
+    'GameMaker': '/ko/blog/gamemaker-save-editing-guide',
+    'Naninovel': '/ko/blog/naninovel-save-editing-guide'
+  };
+
   return baseGames.map((baseGame) => {
     const override = overrides[baseGame.slug] || {};
     const nameLocal = override.nameLocal || override.name || baseGame.name;
     const format = baseGame.format;
+
+    let activeGuides = [];
+    const rawGuides = override.relatedGuides || baseGame.relatedGuides || [];
+    if (rawGuides.length > 0) {
+      activeGuides = rawGuides.map((guide: any) => ({
+        title: guide.title,
+        url: guide.url.replace('/blog/', '/ko/blog/').replace('/games/', '/ko/games/')
+      }));
+    } else {
+      if (baseGame.slug === 'palworld') {
+        activeGuides = [{ title: '팰월드 세이브 파일 편집 및 위치 안내 가이드', url: '/ko/blog/palworld-save-editing-guide' }];
+      } else {
+        const tutorialUrl = engineTutorialsKo[baseGame.engine];
+        if (tutorialUrl) {
+          activeGuides = [{ title: `${nameLocal} (${baseGame.engine}) 세이브 파일 편집 가이드`, url: tutorialUrl }];
+        }
+      }
+    }
 
     const game = {
       ...baseGame,
@@ -220,7 +248,7 @@ export async function getStaticPaths() {
         </ul>
       `,
       description: override.description || `${nameLocal} 세이브 경로와 호환성 범위를 정리한 안내 페이지입니다.`,
-      editorPath: baseGame.editorPath.replace('/editor/', '/ko/editor/'),
+      editorPath: baseGame.editorPath.replace('/editor/', '/ko/editor/') + "?game=" + baseGame.slug,
       editableItems: override.editableItems || baseGame.editableItems.map(item => ({
         icon: item.icon,
         name: item.name,
@@ -236,10 +264,7 @@ export async function getStaticPaths() {
           answer: '호환되는 변형은 브라우저에서 처리되지만, 일부 구조는 조회 전용이거나 실패할 수 있습니다. 지원 한계를 먼저 확인하고 원본 백업을 유지하세요.'
         }
       ],
-      relatedGuides: (override.relatedGuides || baseGame.relatedGuides || []).map((guide: any) => ({
-        title: guide.title,
-        url: guide.url.replace('/blog/', '/ko/blog/').replace('/games/', '/ko/games/')
-      }))
+      relatedGuides: activeGuides
     };
 
     return {

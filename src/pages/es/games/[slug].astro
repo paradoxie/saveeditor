@@ -213,10 +213,38 @@ export async function getStaticPaths() {
     },
   };
 
+
+  const engineTutorialsEs: Record<string, string> = {
+    'RPG Maker': '/es/blog/how-to-edit-rpg-maker-save',
+    'Unity': '/es/blog/how-to-edit-unity-saves',
+    'Unreal Engine': '/es/blog/how-to-edit-unreal-engine-saves',
+    "Ren'Py": '/es/blog/renpy-save-editing-guide',
+    'GameMaker': '/es/blog/gamemaker-save-editing-guide',
+    'Naninovel': '/es/blog/naninovel-save-editing-guide'
+  };
+
   return baseGames.map((baseGame) => {
     const override = overrides[baseGame.slug] || {};
     const nameLocal = override.name || baseGame.name;
     const format = baseGame.format;
+
+    let activeGuides = [];
+    const rawGuides = override.relatedGuides || baseGame.relatedGuides || [];
+    if (rawGuides.length > 0) {
+      activeGuides = rawGuides.map((guide: any) => ({
+        title: guide.title,
+        url: guide.url.replace('/blog/', '/es/blog/').replace('/games/', '/es/games/')
+      }));
+    } else {
+      if (baseGame.slug === 'palworld') {
+        activeGuides = [{ title: 'Guía de edición de guardado de Palworld', url: '/es/blog/palworld-save-editing-guide' }];
+      } else {
+        const tutorialUrl = engineTutorialsEs[baseGame.engine];
+        if (tutorialUrl) {
+          activeGuides = [{ title: `Guía de edición de guardado de ${nameLocal} (${baseGame.engine})`, url: tutorialUrl }];
+        }
+      }
+    }
 
     const game = {
       ...baseGame,
@@ -234,7 +262,7 @@ export async function getStaticPaths() {
         </ul>
       `,
       description: override.description || `Guía breve de compatibilidad y ubicación del save para ${nameLocal}.`,
-      editorPath: baseGame.editorPath.replace('/editor/', '/es/editor/'),
+      editorPath: baseGame.editorPath.replace('/editor/', '/es/editor/') + "?game=" + baseGame.slug,
       editableItems: override.editableItems || baseGame.editableItems.map(item => ({
         icon: item.icon,
         name: item.name,
@@ -250,10 +278,7 @@ export async function getStaticPaths() {
           answer: 'El editor procesa variantes compatibles en el navegador. Algunas estructuras solo permiten inspección o pueden fallar, así que revisa los límites de soporte y conserva siempre una copia de seguridad.'
         }
       ],
-      relatedGuides: (override.relatedGuides || baseGame.relatedGuides || []).map((guide: any) => ({
-        title: guide.title,
-        url: guide.url.replace('/blog/', '/es/blog/').replace('/games/', '/es/games/')
-      }))
+      relatedGuides: activeGuides
     };
 
     return {

@@ -7,6 +7,7 @@ const initCounters = () => {
 
     const animateCounter = (counter: Element) => {
         const target = parseInt(counter.getAttribute('data-target') || '0');
+        const suffix = counter.getAttribute('data-suffix') || '';
         const startTime = performance.now();
 
         const updateCounter = (currentTime: number) => {
@@ -17,7 +18,7 @@ const initCounters = () => {
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
             const current = Math.round(target * easeOutQuart);
 
-            counter.textContent = current.toString() + (target === 100 ? '%' : '+');
+            counter.textContent = current.toString() + suffix;
 
             if (progress < 1) {
                 requestAnimationFrame(updateCounter);
@@ -40,7 +41,11 @@ const initCounters = () => {
         { threshold: 0.5 }
     );
 
-    counters.forEach((counter) => observer.observe(counter));
+    counters.forEach((counter) => {
+        const suffix = counter.getAttribute('data-suffix') || '';
+        counter.textContent = `0${suffix}`;
+        observer.observe(counter);
+    });
 };
 
 // Smart File Upload Detection

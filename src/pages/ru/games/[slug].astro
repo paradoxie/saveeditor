@@ -218,10 +218,38 @@ export async function getStaticPaths() {
     },
   };
 
+
+  const engineTutorialsRu: Record<string, string> = {
+    'RPG Maker': '/ru/blog/how-to-edit-rpg-maker-save',
+    'Unity': '/ru/blog/how-to-edit-unity-saves',
+    'Unreal Engine': '/ru/blog/how-to-edit-unreal-engine-saves',
+    "Ren'Py": '/ru/blog/renpy-save-editing-guide',
+    'GameMaker': '/ru/blog/gamemaker-save-editing-guide',
+    'Naninovel': '/ru/blog/naninovel-save-editing-guide'
+  };
+
   return baseGames.map((baseGame) => {
     const override = overrides[baseGame.slug] || {};
     const nameLocal = override.nameLocal || override.name || baseGame.name;
     const format = baseGame.format;
+
+    let activeGuides = [];
+    const rawGuides = override.relatedGuides || baseGame.relatedGuides || [];
+    if (rawGuides.length > 0) {
+      activeGuides = rawGuides.map((guide: any) => ({
+        title: guide.title,
+        url: guide.url.replace('/blog/', '/ru/blog/').replace('/games/', '/ru/games/')
+      }));
+    } else {
+      if (baseGame.slug === 'palworld') {
+        activeGuides = [{ title: 'Руководство по редактированию сохранений Palworld', url: '/ru/blog/palworld-save-editing-guide' }];
+      } else {
+        const tutorialUrl = engineTutorialsRu[baseGame.engine];
+        if (tutorialUrl) {
+          activeGuides = [{ title: `Руководство по редактированию сохранений ${nameLocal} (${baseGame.engine})`, url: tutorialUrl }];
+        }
+      }
+    }
 
     const game = {
       ...baseGame,
@@ -239,7 +267,7 @@ export async function getStaticPaths() {
         </ul>
       `,
       description: override.description || `Короткая страница по совместимости и расположению сохранений ${nameLocal}.`,
-      editorPath: baseGame.editorPath.replace('/editor/', '/ru/editor/'),
+      editorPath: baseGame.editorPath.replace('/editor/', '/ru/editor/') + "?game=" + baseGame.slug,
       editableItems: override.editableItems || baseGame.editableItems.map(item => ({
         icon: item.icon,
         name: item.name,
@@ -255,10 +283,7 @@ export async function getStaticPaths() {
           answer: 'Совместимые варианты обрабатываются в браузере, но некоторые структуры остаются только для просмотра или завершаются ошибкой. Сначала проверьте ограничения поддержки и сохраните резервную копию.'
         }
       ],
-      relatedGuides: (override.relatedGuides || baseGame.relatedGuides || []).map((guide: any) => ({
-        title: guide.title,
-        url: guide.url.replace('/blog/', '/ru/blog/').replace('/games/', '/ru/games/')
-      }))
+      relatedGuides: activeGuides
     };
 
     return {
