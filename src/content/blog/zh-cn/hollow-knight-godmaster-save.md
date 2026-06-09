@@ -1,6 +1,6 @@
 ---
-title: "空洞骑士 (Hollow Knight) 112% 完美存档 + 速通练习包 [神居/苦痛之路]"
-description: "下载最全的空洞骑士存档资源。包含：1. 112% 寻神者完美存档（神居全开）；2. 独家速通练习包（39个分段存档，从十字路口到愚人斗兽场，随时练习任意关卡）。无论你是想直接打Boss Rush还是练习速通，这里都有。"
+title: "空洞骑士 (Hollow Knight) 112% 参考存档 + 速通练习包 [Godhome/苦痛之路]"
+description: "下载空洞骑士参考存档资源。包含：1. 112% 寻神者参考存档（Godhome 进度）；2. 速通练习包（39个分段存档，从十字路口到愚人斗兽场，用于练习指定关卡）。"
 pubDate: 2026-02-06
 updatedDate: 2026-02-20
 author: "Paradox"
@@ -19,7 +19,7 @@ image: "/images/blog/hollow-knight-cover.webp"
 
 ## 📦 资源包含 (任选其一)
 
-### 選項 A：112% 寻神者完美存档 (推荐普通玩家)
+### 選項 A：112% 寻神者参考存档
 *   **文件名**: `user1.dat`
 *   **进度**: 112% 满进度
 *   **位置**: 位于神居 (Godhome) 长椅
@@ -42,7 +42,7 @@ image: "/images/blog/hollow-knight-cover.webp"
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
   <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-700">
-    <h3 class="text-xl font-bold mb-2">🏆 112% 完美存档</h3>
+    <h3 class="text-xl font-bold mb-2">112% 参考存档</h3>
     <p class="text-sm text-gray-500 mb-4">直接进神居打 Boss</p>
     <a href="/saves/hollow-knight/user1.dat" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
       下载单文件 (.dat)
@@ -82,13 +82,13 @@ image: "/images/blog/hollow-knight-cover.webp"
 ## 🔧 存档修改器
 
 卡在五门过不去了？
-使用我们的在线编辑器开启“官方外挂”：
+使用我们的在线编辑器检查兼容的 Unity 存档字段：
 
 **[启动空洞骑士存档编辑器](/zh-cn/editor/unity)**
 
-*   ❤️ **无限血量**：练习模式必备。
-*   💰 **无限吉欧**：买空斯莱的店。
-*   🐞 **护符过载**：装备所有护符且无惩罚。
+*   **生命字段**：检查可见的生命相关值。
+*   **吉欧字段**：检查可见的货币相关值。
+*   **护符字段**：检查可见的护符相关状态。
 
 ---
 

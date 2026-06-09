@@ -79,7 +79,7 @@ Unity PlayerPrefs는 일반적으로 설명적인 키 이름으로 단순한 값
 *   `UnlockedLevels` (문자열, 종종 쉼표로 구분)
 *   `SoundEnabled` (정수, 0 또는 1)
 
-값을 클릭하여 편집합니다. `Coins`를 `500`에서 `99999`로 변경하면 거의 무한한 화폐를 얻을 수 있습니다.
+값을 클릭하여 편집합니다. 예를 들어 `Coins`를 `500`에서 `9999`로 변경해 게임 안에서 결과를 확인합니다.
 
 ### 복잡한 데이터 작업
 일부 게임은 복잡한 데이터를 단일 PlayerPrefs 키 내에 직렬화된 JSON 문자열로 저장합니다. 이 경우:
@@ -155,4 +155,3 @@ Unity 세이브 편집은 매우 쉬운 것(간단한 XML 파일)부터 상당�
 
 - [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
 - [Unreal Engine 세이브 편집](/ko/blog/how-to-edit-unreal-engine-saves)
-

@@ -79,7 +79,7 @@ Unity PlayerPrefs 通常以描述性的键名存储简单值：
 *   `UnlockedLevels`（字符串，通常以逗号分隔）
 *   `SoundEnabled`（整数，0 或 1）
 
-点击一个值进行编辑。将 `Coins` 从 `500` 改为 `99999` 可以给自己几乎无限的货币。
+点击一个值进行编辑。先将 `Coins` 从 `500` 改为较小的测试值，并在游戏内确认结果。
 
 ### 处理复杂数据
 某些游戏将复杂数据作为序列化的 JSON 字符串存储在单个 PlayerPrefs 键中。在这种情况下：
@@ -155,4 +155,3 @@ Unity PlayerPrefs 通常以描述性的键名存储简单值：
 
 - [常见存档文件扩展名详解](/zh-cn/blog/common-save-file-extensions-explained)
 - [Unreal Engine 存档编辑](/zh-cn/blog/how-to-edit-unreal-engine-saves)
-

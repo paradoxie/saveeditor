@@ -16,7 +16,7 @@
 ## Evidence Status
 
 - **Game pages**: 26
-- **Sample records**: 8
+- **Sample records**: 9
 - **Verified presets**: 2
 - **Candidate presets**: 27
 - **Coverage proof**: https://saveeditor.top/coverage-proof/

@@ -14,7 +14,7 @@ image: "/images/blog/gamemaker-cover.webp"
 
 **GameMaker Studio**(GMS)는 2D 게임에서 가장 인기 있는 엔진 중 하나로, **Undertale**, **Deltarune**, **Hotline Miami**, **Hyper Light Drifter** 등 수많은 인디 히트작을 지원합니다.
 
-표준화된 세이브 시스템을 가진 엔진과 달리, GameMaker는 개발자에게 데이터 저장 방법에 대한 완전한 자유를 줍니다. 따라서 세이브 형식은 다양하지만, 대부분은 저희 에디터가 완전히 지원하는 몇 가지 일반적인 카테고리에 속합니다.
+표준화된 세이브 시스템을 가진 엔진과 달리, GameMaker는 개발자에게 데이터 저장 방법에 대한 높은 자유도를 줍니다. 따라서 세이브 형식은 다양하지만, 많은 파일은 저희 에디터가 안정적으로 처리하는 몇 가지 일반적인 카테고리에 속합니다.
 
 ## 일반적인 GameMaker 세이브 형식
 
@@ -162,4 +162,3 @@ GameMaker의 유연성은 세이브 편집에 만능 접근법이 없다는 것�
 - [일반 세이브 파일 확장자 설명](/ko/blog/common-save-file-extensions-explained)
 - [RPG Maker 세이브 편집](/ko/blog/how-to-edit-rpg-maker-save)
 - [Undertale 세이브 위치](/ko/games/undertale)
-

@@ -187,14 +187,14 @@ const popularGames = popularSlugs.map(slug => {
       <div class="mt-16 text-center bg-gray-900 text-white rounded-2xl p-12">
         <h2 class="text-3xl font-bold mb-4">Don't See Your Game?</h2>
         <p class="text-gray-300 mb-8 max-w-xl mx-auto">
-          Our generic JSON editor works with most save file formats. Try uploading your save file
-          and we'll do our best to parse it!
+          Open the generic editor when no dedicated editor exists. Some formats may be read-only
+          until safe export is proven.
         </p>
         <a
-          href="/"
+          href="/editor/generic"
           class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-gray-900 bg-white hover:bg-gray-100 transition-colors"
         >
-          Try Universal Editor
+          Open Generic Editor
         </a>
       </div>
     </div>
@@ -259,7 +259,7 @@ const popularGames = popularSlugs.map(slug => {
       '@type': 'ItemList',
       name: 'Supported Games List',
       description:
-        "Browse all games supported by our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more.",
+        "Browse supported game pages for our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more.",
       orderBy: 'name',
       itemListElement: baseGames.map((game, index) => ({
         '@type': 'ListItem',

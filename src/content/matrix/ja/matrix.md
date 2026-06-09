@@ -55,5 +55,6 @@ subtitle: '現在サポートされているエンジンと形式の概要。'
 
 | 形式 | 安定性 | 備考 |
 |---|---|---|
-| MessagePack / CBOR / Pickle / CFG | ⚪ 読み取り専用 | 構造をデコードまたは表示できますが、エクスポートは無効です。 |
-| Flash SOL / SQLite / ES3 / Binary 候補 | ⚪ 読み取り専用 | 形式を認識し、制限とサンプル依頼導線を表示します。 |
+| MessagePack / CBOR / BSON / Pickle / CFG | 🟡 限定安定 | デコード、編集、元コンテナでの再構築に対応。Pickle は単純な JSON 安全値に限定されます。 |
+| ZIP / Base64 / LZString / gzip/zlib/deflate/BZip2/LZ4/Zstd ラッパー | 🟡 限定安定 | 内部の JSON/YAML/TOML/properties/CSV/CFG/XML/text を展開、編集、再構築できます。 |
+| Flash SOL / SQLite / ES3 / Binary 候補 | 🟡 限定安定 | SOL、SQLite、ES3 は限定的な書き戻しに対応。未知のバイナリは透明な制限表示になります。 |

@@ -1,12 +1,18 @@
 import assert from 'node:assert/strict';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { serialize as serializeBson } from 'bson';
+import compressjs from 'compressjs';
+import * as fflate from 'fflate';
 import LZString from 'lz-string';
+import * as lz4 from 'lz4js';
 import pako from 'pako';
 import plist from 'plist';
+import { serializeBplist } from 'bplist-lossless';
+import { compress as compressZstd, init as initZstd } from '@bokuweb/zstd-wasm';
 import { pickleSerialize } from '../../../src/lib/parsers/pickle-serializer';
 import { buildGamemaker, parseGamemaker } from '../../../src/lib/parsers/gamemaker';
-import { parseGeneric } from '../../../src/lib/parsers/generic';
+import { buildGeneric, parseGeneric } from '../../../src/lib/parsers/generic';
 import { buildNaniNovel, parseNaniNovel, type NaniNovelFormat } from '../../../src/lib/parsers/naninovel';
 import { buildPalworld, parsePalworld } from '../../../src/lib/parsers/palworld';
 import { buildRenpy, parseRenpy } from '../../../src/lib/parsers/renpy';
@@ -72,8 +78,67 @@ function makeTextFile(name: string, text: string, type = 'text/plain'): File {
     return makeFile(name, new TextEncoder().encode(text), type);
 }
 
+let zstdReady: Promise<void> | null = null;
+
+async function zstdCompress(bytes: Uint8Array): Promise<Uint8Array> {
+    zstdReady ||= initZstd();
+    await zstdReady;
+    return Uint8Array.from(compressZstd(bytes, 3));
+}
+
 async function blobToFile(name: string, blob: Blob): Promise<File> {
     return makeFile(name, new Uint8Array(await blob.arrayBuffer()), blob.type || 'application/octet-stream');
+}
+
+async function makeSqliteFile(name = 'save.sqlite'): Promise<File> {
+    const initSqlJs = (await import('sql.js/dist/sql-wasm.js')).default;
+    const SQL = await initSqlJs({
+        locateFile: (file: string) => new URL(`../../../node_modules/sql.js/dist/${file}`, import.meta.url).pathname,
+    });
+    const db = new SQL.Database();
+    db.run('CREATE TABLE player (id INTEGER PRIMARY KEY, gold INTEGER, name TEXT)');
+    db.run('INSERT INTO player (gold, name) VALUES (?, ?)', [1234, 'Hero']);
+    const bytes = db.export();
+    db.close();
+    return makeFile(name, bytes);
+}
+
+function makeSolFile(name = 'save.sol', values: Record<string, unknown> = { gold: 1234, clear: true, hero: 'Ada' }): File {
+    const sharedName = new TextEncoder().encode('save');
+    const body = benchmarkConcat([
+        Uint8Array.from([0x54, 0x43, 0x53, 0x4f, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00]),
+        benchmarkU16(sharedName.length),
+        sharedName,
+        Uint8Array.from([0x00, 0x00, 0x00, 0x00]),
+        ...Object.entries(values).map(([key, value]) => benchmarkConcat([benchmarkSolUtf(key), benchmarkSolAmf(value)])),
+        Uint8Array.from([0x00, 0x00, 0x09]),
+    ]);
+    return makeFile(name, benchmarkConcat([Uint8Array.from([0x00, 0xbf]), benchmarkU32(body.length), body]));
+}
+
+function benchmarkSolUtf(value: string): Uint8Array {
+    const bytes = new TextEncoder().encode(value);
+    return benchmarkConcat([benchmarkU16(bytes.length), bytes]);
+}
+
+function benchmarkSolAmf(value: unknown): Uint8Array {
+    if (typeof value === 'number') {
+        const bytes = new Uint8Array(9);
+        bytes[0] = 0x00;
+        new DataView(bytes.buffer).setFloat64(1, value, false);
+        return bytes;
+    }
+    if (typeof value === 'boolean') return Uint8Array.from([0x01, value ? 1 : 0]);
+    const bytes = new TextEncoder().encode(String(value ?? ''));
+    return benchmarkConcat([Uint8Array.from([0x02]), benchmarkU16(bytes.length), bytes]);
+}
+
+function benchmarkU16(value: number): Uint8Array {
+    return Uint8Array.from([(value >> 8) & 0xff, value & 0xff]);
+}
+
+function benchmarkU32(value: number): Uint8Array {
+    return Uint8Array.from([(value >>> 24) & 0xff, (value >>> 16) & 0xff, (value >>> 8) & 0xff, value & 0xff]);
 }
 
 function ratio(passed: number, total: number): number {
@@ -334,6 +399,29 @@ async function runSupportedCases(cases: CasesFixture, iniFixture: IniFixture): P
         });
     }
 
+    {
+        const bplistFile = makeFile('playerprefs.plist', serializeBplist({ gold: 100, isPremium: true }));
+        const parsed = await parseUnity(bplistFile);
+        const parseOk = parsed.capabilities.canView && parsed.capabilities.canSave && parsed.reasonCode === 'ok';
+        let roundTripOk = false;
+
+        if (parseOk) {
+            const rebuilt = await buildUnity(bplistFile, { ...(parsed.data as any), gold: 889 });
+            const reparsed = await parseUnity(await blobToFile('playerprefs.plist', rebuilt));
+            roundTripOk = reparsed.capabilities.canView && (reparsed.data as any)?.gold === 889;
+        }
+
+        push({
+            id: 'unity-binary-plist',
+            engine: 'unity',
+            format: '.plist',
+            tier: 'tier2',
+            parseOk,
+            roundTripOk,
+            detail: parseOk ? 'ok' : String(parsed.reasonCode),
+        });
+    }
+
     // Unreal tier1 (standard + wrapped)
     const rawGvasBytes = new Uint8Array(new Gvas().serialize());
     for (const [id, bytes] of [
@@ -508,24 +596,76 @@ async function runSupportedCases(cases: CasesFixture, iniFixture: IniFixture): P
         });
     }
 
+    const sqliteFile = await makeSqliteFile();
     for (const [id, file] of [
         ['generic-msgpack', makeFile('save.msgpack', new Uint8Array([0x81, 0xa4, 0x67, 0x6f, 0x6c, 0x64, 0xcd, 0x04, 0xd2]))],
         ['generic-cbor', makeFile('save.cbor', new Uint8Array([0xa1, 0x64, 0x67, 0x6f, 0x6c, 0x64, 0x19, 0x04, 0xd2]))],
-        ['generic-sqlite', makeTextFile('save.sqlite', 'SQLite format 3\u0000demo')],
-        ['generic-sol', makeFile('save.sol', new Uint8Array([0x00, 0xbf, 0x54, 0x43, 0x53, 0x4f]))],
-        ['generic-es3', makeTextFile('save.es3', 'Easy Save 3 sample')],
+        ['generic-bson', makeFile('save.bson', serializeBson({ gold: 1234 }))],
+        ['generic-yaml', makeTextFile('save.yaml', 'gold: 1234\n')],
+        ['generic-toml', makeTextFile('save.toml', 'gold=1234\n')],
+        ['generic-properties', makeTextFile('save.properties', 'gold=1234\n')],
+        ['generic-csv', makeTextFile('save.csv', 'name,gold\nAda,1234\n')],
+        ['generic-gzip-json', makeFile('save.json.gz', pako.gzip(new TextEncoder().encode('{"gold":1234}')))],
+        ['generic-zip', makeFile('save.zip', fflate.zipSync({ 'save.json': new TextEncoder().encode('{"gold":1234}') }))],
+        ['generic-base64-json', makeTextFile('save.json.b64', Buffer.from('{"gold":1234}', 'utf8').toString('base64'))],
+        ['generic-lzstring-json', makeTextFile('save.json.lzstring', LZString.compressToBase64('{"gold":1234}'))],
+        ['generic-deflate-json', makeFile('save.json.deflate', pako.deflateRaw(new TextEncoder().encode('{"gold":1234}')))],
+        ['generic-zlib-yaml', makeFile('save.yaml.zlib', pako.deflate(new TextEncoder().encode('gold: 1234\n')))],
+        ['generic-bz2-json', makeFile('save.json.bz2', Uint8Array.from(compressjs.Bzip2.compressFile(Array.from(new TextEncoder().encode('{"gold":1234}')))))],
+        ['generic-lz4-json', makeFile('save.json.lz4', lz4.compress(new TextEncoder().encode('{"gold":1234}')))],
+        ['generic-zstd-json', makeFile('save.json.zst', await zstdCompress(new TextEncoder().encode('{"gold":1234}')))],
+        ['generic-xml', makeTextFile('save.xml', '<save><gold>1234</gold></save>')],
+        ['generic-sqlite', sqliteFile],
+        ['generic-sol', makeSolFile()],
+        ['generic-es3', makeTextFile('save.es3', '{"gold":1234,"clear":true}')],
         ['generic-godot-cfg', makeTextFile('project.cfg', '[player]\ngold=77\n')],
         ['generic-pickle', makeFile('save.pkl', pickleSerialize({ persistent: { coins: 9 } }))],
     ] as const) {
         const parsed = await parseGeneric(file);
-        const parseOk = parsed.capabilities.canView && !parsed.capabilities.canSave;
+        const writable = true;
+        const parseOk = parsed.capabilities.canView && (writable ? parsed.capabilities.canSave : !parsed.capabilities.canSave);
+        let roundTripOk: boolean | 'n/a' = 'n/a';
+        if (writable) {
+            const edited =
+                id === 'generic-godot-cfg'
+                    ? { player: { gold: 88 } }
+                    : id === 'generic-toml'
+                      ? { default: { gold: 88 } }
+                    : id === 'generic-csv'
+                      ? { columns: ['name', 'gold'], rows: [{ name: 'Ada', gold: '88' }] }
+                    : id === 'generic-zip'
+                      ? { entries: { 'save.json': { gold: 88 } } }
+                    : id === 'generic-xml'
+                      ? { text: '<save><gold>88</gold></save>' }
+                    : id === 'generic-sqlite'
+                      ? parsed.data
+                    : id === 'generic-sol'
+                        ? { gold: 88, clear: true, hero: 'Ada' }
+                        : id === 'generic-pickle'
+                          ? { persistent: { coins: 88 } }
+                          : { gold: 88 };
+            if (id === 'generic-sqlite') {
+                (edited as any).data.tables.player.rows[0].gold = 88;
+            }
+            const rebuilt = await buildGeneric(file, edited);
+            const reparsed = await parseGeneric(makeFile(file.name, new Uint8Array(await rebuilt.arrayBuffer())));
+            roundTripOk =
+                (reparsed.data as any)?.data?.gold === 88 ||
+                (reparsed.data as any)?.data?.default?.gold === 88 ||
+                (reparsed.data as any)?.data?.player?.gold === 88 ||
+                (reparsed.data as any)?.data?.rows?.[0]?.gold === '88' ||
+                (reparsed.data as any)?.data?.entries?.['save.json']?.gold === 88 ||
+                (reparsed.data as any)?.data?.text === '<save><gold>88</gold></save>' ||
+                (reparsed.data as any)?.data?.tables?.player?.rows?.[0]?.gold === 88 ||
+                (reparsed.data as any)?.data?.persistent?.coins === 88;
+        }
         push({
             id,
             engine: 'generic',
             format: file.name.split('.').pop() || 'generic',
             tier: 'tier2',
             parseOk,
-            roundTripOk: 'n/a',
+            roundTripOk,
             detail: parseOk ? String(parsed.reasonCode) : String(parsed.reasonCode),
         });
     }
@@ -548,7 +688,7 @@ async function runUnsupportedCases(): Promise<UnsupportedCaseResult[]> {
         makeFile('prefs.dat', new Uint8Array([98, 112, 108, 105, 115, 116, 48, 48, 0, 1, 2, 3]))
     );
     checks.push({
-        id: 'unity-binary-plist',
+        id: 'unity-invalid-binary-plist',
         reasonExpected: 'unsupported_binary_plist',
         reasonActual: String(unityBplist.reasonCode),
         ok: unityBplist.reasonCode === 'unsupported_binary_plist' && !unityBplist.capabilities.canSave,
@@ -568,6 +708,14 @@ async function runUnsupportedCases(): Promise<UnsupportedCaseResult[]> {
         reasonExpected: 'likely_encrypted_container',
         reasonActual: String(naninovelEncrypted.reasonCode),
         ok: naninovelEncrypted.reasonCode === 'likely_encrypted_container' && !naninovelEncrypted.capabilities.canView,
+    });
+
+    const es3Binary = await parseGeneric(makeTextFile('save.es3', 'Easy Save 3 binary sample'));
+    checks.push({
+        id: 'generic-es3-non-json-readonly',
+        reasonExpected: 'read_only_generic',
+        reasonActual: String(es3Binary.reasonCode),
+        ok: es3Binary.reasonCode === 'read_only_generic' && es3Binary.capabilities.canView && !es3Binary.capabilities.canSave,
     });
 
     const unrealNotGvas = await parseUnreal(makeFile('broken.sav', new Uint8Array([1, 2, 3])));

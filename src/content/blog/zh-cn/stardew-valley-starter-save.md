@@ -1,5 +1,5 @@
 ---
-title: "星露谷物语 (Stardew Valley) 完美存档包：3个神级进度 + 100% 全收集 [v1.6 最新]"
+title: "星露谷物语 (Stardew Valley) 高进度参考存档包：3个存档位 [v1.6]"
 description: "下载星露谷物语高进度参考存档包。内含3个满级存档位：3000万金币、全技能满级、社区中心/姜岛全解锁、配偶分别为 Leah/Haley/Abigail。支持 PC Steam 及手机版。"
 pubDate: 2026-02-06
 updatedDate: 2026-02-15
@@ -12,7 +12,7 @@ image: "/images/blog/stardew-valley-cover.webp"
 
 《星露谷物语》的后期内容（姜岛、齐先生的任务）非常精彩，但从零肝到那里需要几百个小时。如果你想直接体验游戏的终局内容，或者想看看什么是“完美农场”...
 
-这份 **“神级”存档合集** 是你的终极选择。它不仅仅是一个存档，它是一个包含 **3个究极进度** 的整合包，满足你对富豪生活的所有幻想。
+这份 **高进度参考存档合集** 包含 **3个不同后期进度**，适合体验后期内容或测试 Mod。
 
 > **⚠️ 预警**：此存档极度破坏前期体验，“开局即毕业”。建议用于体验后期内容或各种 Mod 测试。
 
@@ -58,10 +58,10 @@ image: "/images/blog/stardew-valley-cover.webp"
 ## 📥 下载地址
 
 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center my-8 border border-gray-200 dark:border-gray-700">
-  <h3 class="text-xl font-bold mb-4">Stardew Valley "God Mode" Save Pack</h3>
+  <h3 class="text-xl font-bold mb-4">Stardew Valley 高进度存档包</h3>
   <p class="text-sm text-gray-500 mb-6">文件大小: 600+ KB | 包含: 3个不同进度存档 | 格式: .zip</p>
   <a href="/saves/stardew-valley/Millionaire_123456789.zip" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-    下载全解锁存档包 (.zip)
+    下载进度存档包 (.zip)
   </a>
   <p class="text-xs text-gray-400 mt-4">内含3个存档 · 按需替换</p>
 </div>

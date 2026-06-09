@@ -1,5 +1,5 @@
 ---
-title: "Stardew Valley Pack Deus: 3 Saves com 30 Milhões de Ouro + 100% Completo"
+title: "Stardew Valley Pack de Saves Avancados: 3 Saves com 30 Milhoes de Ouro"
 description: "Baixe o pacote definitivo. Inclui 3 slots de save: até 30 milhões de ouro, todas as habilidades no máximo, Centro Comunitário completo e casamentos com Leah/Haley/Abigail. Perfeito para o endgame."
 pubDate: 2026-02-06
 updatedDate: 2026-02-15
@@ -53,12 +53,12 @@ Este **Pack de Saves Deus** é para você. Contém **3 saves diferentes** de ní
 ## 📥 Download
 
 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center my-8 border border-gray-200 dark:border-gray-700">
-  <h3 class="text-xl font-bold mb-4">Stardew Valley "God Mode" Pack</h3>
+  <h3 class="text-xl font-bold mb-4">Stardew Valley High-Progress Save Pack</h3>
   <p class="text-sm text-gray-500 mb-6">Tamanho: 600+ KB | 3 Saves | Formato: .zip</p>
   <a href="/saves/stardew-valley/Millionaire_123456789.zip" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     Baixar Pack (.zip)
   </a>
-  <p class="text-xs text-gray-400 mt-4">XML Seguro e Limpo</p>
+  <p class="text-xs text-gray-400 mt-4">Arquivo XML</p>
 </div>
 
 ---

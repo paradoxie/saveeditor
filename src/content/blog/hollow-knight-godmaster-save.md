@@ -83,11 +83,11 @@ Hollow Knight saves are named `userX.dat` (X is slot number 1-4).
 ## 🔧 Save Editor
 
 Stuck on Pantheon 5?
-Use our online editor to enable "god mode":
+Use our online editor to inspect compatible Unity save fields:
 
 **[Open Hollow Knight Save Editor](/blog/how-to-edit-unity-saves)**
 
-*   ❤️ **Infinite Health**: Essential for practicing.
+*   **Health fields**: Inspect visible health-related values where supported.
 *   💰 **Infinite Geo**: Buy everything.
 *   🐞 **Overcharm**: Equip all charms with no penalty.
 

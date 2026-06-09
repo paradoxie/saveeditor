@@ -4,6 +4,8 @@ import { ui } from '../../i18n/ui';
 interface GenericInspectorProps {
     data: any;
     supportHref: string;
+    canSave: boolean;
+    warnings?: string[];
 }
 
 interface Row {
@@ -12,7 +14,7 @@ interface Row {
     value: string;
 }
 
-export default function GenericInspector({ data, supportHref }: GenericInspectorProps) {
+export default function GenericInspector({ data, supportHref, canSave, warnings = [] }: GenericInspectorProps) {
     const lang = typeof document !== 'undefined'
         ? (document.documentElement.getAttribute('lang') as keyof typeof ui) || 'en'
         : 'en';
@@ -23,15 +25,27 @@ export default function GenericInspector({ data, supportHref }: GenericInspector
     const filtered = normalizedQuery
         ? rows.filter((row) => `${row.path} ${row.type} ${row.value}`.toLowerCase().includes(normalizedQuery))
         : rows;
+    const readOnly = data?._readOnly !== false || !canSave;
 
     return (
         <div className="space-y-5">
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-800">
-                <p className="font-semibold">{data?._format || t('editor.genericInspectorFallback')} · {t('editor.genericInspectorReadOnly')}</p>
-                <p className="mt-1 text-slate-600">{t('editor.genericInspectorBody')}</p>
-                <a href={supportHref} className="mt-3 inline-flex rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-800 ring-1 ring-slate-200 hover:bg-slate-100">
-                    {t('editor.genericInspectorSample')}
-                </a>
+                <p className="font-semibold">
+                    {data?._format || t('editor.genericInspectorFallback')} · {readOnly ? t('editor.genericInspectorReadOnly') : t('editor.genericInspectorEditable')}
+                </p>
+                <p className="mt-1 text-slate-600">{readOnly ? t('editor.genericInspectorBody') : t('editor.genericInspectorEditableBody')}</p>
+                {warnings.length > 0 && (
+                    <ul className="mt-3 list-disc space-y-1 pl-5 text-slate-600">
+                        {warnings.map((warning, index) => (
+                            <li key={index}>{warning}</li>
+                        ))}
+                    </ul>
+                )}
+                {readOnly && (
+                    <a href={supportHref} className="mt-3 inline-flex rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-800 ring-1 ring-slate-200 hover:bg-slate-100">
+                        {t('editor.genericInspectorSample')}
+                    </a>
+                )}
             </div>
 
             <input

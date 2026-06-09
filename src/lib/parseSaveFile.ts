@@ -1,4 +1,5 @@
 import { makeOutcome, type FormatFamily, type ParseOutcome } from './parsers/types';
+import { GENERIC_EXTENSION_SET } from './saveExtensions';
 import { attachSupportPack, buildSupportPack } from './supportPack';
 
 export interface ParsedSaveFileResult<TData = unknown> {
@@ -7,7 +8,6 @@ export interface ParsedSaveFileResult<TData = unknown> {
     uiFormat: string;
 }
 
-const GENERIC_EXTENSIONS = new Set(['sol', 'db', 'sqlite', 'msgpack', 'mpack', 'cbor', 'es3', 'dat', 'nrbf', 'bytes', 'pkl', 'pickle', 'cfg']);
 const TEXT_EDITABLE_EXTENSIONS = new Set(['json', 'ini', 'txt']);
 const RPG_MAKER_EXTENSIONS = new Set(['rpgsave', 'rmmzsave', 'rvdata2', 'rvdata', 'rxdata', 'lsd']);
 
@@ -27,7 +27,9 @@ export async function parseSaveFile(file: File, editorSlug = ''): Promise<Parsed
     let outcome: ParseOutcome<any>;
     let parserPath = inferParserPath(file, editorSlug);
 
-    if (ext === 'save') {
+    if (editorSlug === 'generic' && GENERIC_EXTENSION_SET.has(ext)) {
+        outcome = await (await loadParsers.generic())(file);
+    } else if (ext === 'save') {
         outcome = await (await loadParsers.renpy())(file);
     } else if (['xml', 'plist', 'prefs'].includes(ext)) {
         outcome = await (await loadParsers.unity())(file);
@@ -41,7 +43,7 @@ export async function parseSaveFile(file: File, editorSlug = ''): Promise<Parsed
         outcome = await (await loadParsers.naninovel())(file);
     } else if (RPG_MAKER_EXTENSIONS.has(ext)) {
         outcome = await (await loadParsers.rpgmaker())(file);
-    } else if (GENERIC_EXTENSIONS.has(ext) || editorSlug === 'generic') {
+    } else if (GENERIC_EXTENSION_SET.has(ext) || editorSlug === 'generic') {
         outcome = await (await loadParsers.generic())(file);
     } else if (TEXT_EDITABLE_EXTENSIONS.has(ext) || editorSlug === 'gamemaker') {
         outcome = await (await loadParsers.gamemaker())(file);
@@ -97,12 +99,13 @@ export async function parseSaveFileSafe(file: File, editorSlug = ''): Promise<Pa
 
 export function inferParserPath(file: Pick<File, 'name'>, editorSlug = ''): string {
     const ext = file.name.split('.').pop()?.toLowerCase() || '';
+    if (editorSlug === 'generic' && GENERIC_EXTENSION_SET.has(ext)) return 'generic';
     if (ext === 'save') return 'renpy';
     if (['xml', 'plist', 'prefs'].includes(ext)) return 'unity';
     if (ext === 'sav') return editorSlug === 'palworld' ? 'palworld' : 'unreal';
     if (ext === 'nson') return 'naninovel';
     if (RPG_MAKER_EXTENSIONS.has(ext)) return 'rpgmaker';
-    if (GENERIC_EXTENSIONS.has(ext) || editorSlug === 'generic') return 'generic';
+    if (GENERIC_EXTENSION_SET.has(ext) || editorSlug === 'generic') return 'generic';
     if (TEXT_EDITABLE_EXTENSIONS.has(ext) || editorSlug === 'gamemaker') return 'gamemaker';
     return 'generic-unsupported';
 }

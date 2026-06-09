@@ -15,7 +15,7 @@ image: "/images/blog/extensions-cover.webp"
 
 Arquivos de save de jogos vêm em dezenas de formatos diferentes, cada um com suas próprias peculiaridades e requisitos de edição. Entender com qual extensão de arquivo você está lidando é o primeiro passo para modificar com sucesso seus saves de jogo.
 
-Este guia abrangente cobre todos os principais formatos de arquivo de save que você encontrará, desde arquivos de texto simples legíveis por humanos até estruturas binárias complexas.
+Este guia cobre formatos comuns de arquivo de save, desde arquivos de texto simples legíveis por humanos até estruturas binárias complexas.
 
 ## Formatos Baseados em Texto (Fáceis de Editar)
 
@@ -247,4 +247,3 @@ Explore nossos guias detalhados para cada motor de jogo:
 - [Visualizador Ren'Py](/pt/editor/renpy)
 - [Editor GameMaker](/pt/editor/gamemaker)
 - [Editor NaniNovel](/pt/editor/naninovel)
-

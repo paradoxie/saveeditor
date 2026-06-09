@@ -67,7 +67,7 @@ export const editors: EditorData[] = [
     fileType: '.save',
     title: "Ren'Py SaveEditor.Online - Free .save File Editor & Viewer",
     description:
-      "Free Ren'Py save editor. Edit and view .save files online. Modify game variables, flags, and story progress. Works with DDLC, visual novels & more. The #1 renpy save editor.",
+      "Free Ren'Py save editor. Edit supported persistent fields and view .save files online. Works with DDLC, visual novels & more with guarded export boundaries.",
     keywords:
       "renpy save editor, ren'py save editor, .save editor, .save file editor, renpy save modifier, edit renpy save file, ddlc save editor, visual novel save editor",
     features: [
@@ -172,24 +172,24 @@ export const editors: EditorData[] = [
   },
   {
     slug: 'generic',
-    name: 'Generic Inspector',
-    fileType: '.sol, .db, .sqlite, .msgpack, .mpack, .cbor, .es3, .dat, .nrbf, .bytes, .pkl, .pickle, .cfg',
-    title: 'Generic Save Format Inspector | SQLite, SOL, MessagePack, CBOR',
+    name: 'Generic Save Editor',
+    fileType: '.sol, .db, .sqlite, .sqlite3, .msgpack, .mpack, .cbor, .bson, .yaml, .toml, .csv, .zip, .gz, .zlib, .deflate, .bz2, .bzip2, .lz4, .zst, .zstd, .b64, .base64, .lzstring, .xml, .es3, .dat, .nrbf, .bytes, .pkl, .pickle, .cfg',
+    title: 'Generic Save Format Editor | ZIP, Base64, Zstd, SQLite',
     description:
-      'Read-only browser inspector for competitor-covered save formats such as Flash SOL, SQLite, MessagePack, CBOR, ES3, BinaryFormatter candidates, Python pickle, and Godot CFG.',
+      'Browser editor for supported generic save formats such as ZIP-wrapped structured files, Base64, LZString, gzip/zlib/deflate/BZip2/LZ4/Zstd wrappers, Flash SOL, SQLite, MessagePack, CBOR, BSON, YAML, TOML, CSV, Easy Save 3 JSON, Godot CFG, XML text, and simple Python pickle, with read-only transparency for BinaryFormatter candidates.',
     keywords:
-      'save file inspector, sqlite save editor, sol save viewer, msgpack save viewer, cbor save viewer, es3 save editor',
+      'save file editor, zip save editor, base64 save editor, sqlite save editor, sol save editor, msgpack save editor, cbor save editor, bson save editor, yaml save editor, es3 save editor',
     features: [
-      'Recognize broad competitor formats',
-      'Show decoded structure when safe',
-      'Explain why export is disabled',
-      'Provide sample-request path for new write support',
+      'Edit supported structured formats',
+      'Export rebuilt files in the same container',
+      'Show decoded structure for read-only formats',
+      'Explain unsupported export cases clearly',
     ],
     instructions: [
       'Upload the save or database file',
-      'Review the detected format and read-only explanation',
-      'Use visible structure to identify values',
-      'Send a sample if you need safe write support for this format',
+      'Review the detected format and support status',
+      'Edit visible values when saving is enabled',
+      'Download the rebuilt file',
     ],
   },
 ];

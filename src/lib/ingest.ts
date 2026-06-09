@@ -1,4 +1,5 @@
 import { localizePath, normalizeLang, type SiteLang } from '../i18n/utils';
+import { GENERIC_DOTTED_EXTENSION_SET } from './saveExtensions';
 import { SITE_ORIGIN } from './site';
 import { createUploadTicket, type UploadTicket } from './upload-vault';
 
@@ -117,13 +118,13 @@ function getEditorLabel(engine: EditorSlug, lang: SiteLang): string {
             ru: 'Редактор NaniNovel',
         },
         generic: {
-            en: 'Generic format inspector',
-            ja: '汎用フォーマット解析',
-            pt: 'Inspetor genérico',
-            ko: '일반 형식 검사기',
-            'zh-cn': '通用格式检查器',
-            es: 'Inspector genérico',
-            ru: 'Универсальный анализатор',
+            en: 'Generic Save Editor',
+            ja: '汎用保存エディタ',
+            pt: 'Editor genérico de saves',
+            ko: '일반 세이브 에디터',
+            'zh-cn': '通用存档编辑器',
+            es: 'Editor genérico de partidas',
+            ru: 'Универсальный редактор сохранений',
         },
     };
 
@@ -194,7 +195,7 @@ export async function detectIngestRoute(
         return buildDetection(lang, 'gamemaker', 'medium', 'Structured text save extension matched.');
     }
 
-    if (['.sol', '.db', '.sqlite', '.msgpack', '.mpack', '.cbor', '.es3', '.dat', '.nrbf', '.bytes', '.pkl', '.pickle', '.cfg'].includes(ext)) {
+    if (GENERIC_DOTTED_EXTENSION_SET.has(ext)) {
         return buildDetection(lang, 'generic', 'medium', 'Generic competitor-format coverage matched.');
     }
 
@@ -217,7 +218,7 @@ export async function detectIngestRoute(
         lang,
         'generic',
         'low',
-        'No specific save signature matched; falling back to the generic format inspector.'
+        'No specific save signature matched; falling back to the Generic Save Editor.'
     );
 }
 

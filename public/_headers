@@ -9,6 +9,14 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Cache browser parser runtime
+/sql-wasm-browser.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/sql-wasm-browser.wasm
+  Content-Type: application/wasm
+  Cache-Control: public, max-age=31536000, immutable
+
 # Cache images
 /images/*
   Cache-Control: public, max-age=604800

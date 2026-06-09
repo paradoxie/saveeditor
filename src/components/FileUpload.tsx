@@ -84,6 +84,10 @@ export default function FileUpload({ onFileSelect, accept }: FileUploadProps) {
           <span className="bg-gray-100 px-2 py-1 rounded">.sav</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.sqlite</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.msgpack</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.zip</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.b64</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.lzstring</span>
+          <span className="bg-gray-100 px-2 py-1 rounded">.zstd</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.xml</span>
           <span className="bg-gray-100 px-2 py-1 rounded">.prefs</span>
           <span className="bg-gray-100 px-2 py-1 rounded">and more...</span>

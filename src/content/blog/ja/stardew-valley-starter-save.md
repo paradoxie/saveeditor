@@ -55,7 +55,7 @@ Stardew Valleyのエンドコンテンツ（ジンジャーアイランドやQi�
 ## 📥 ダウンロード
 
 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center my-8 border border-gray-200 dark:border-gray-700">
-  <h3 class="text-xl font-bold mb-4">Stardew Valley "God Mode" Pack</h3>
+  <h3 class="text-xl font-bold mb-4">Stardew Valley High-Progress Save Pack</h3>
   <p class="text-sm text-gray-500 mb-6">サイズ: 600KB+ | 3データ入り | 形式: .zip</p>
   <a href="/saves/stardew-valley/Millionaire_123456789.zip" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     データパックをダウンロード (.zip)

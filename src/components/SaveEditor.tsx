@@ -42,6 +42,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
     const [experimentalEnabled, setExperimentalEnabled] = useState(false);
     const [errorAdvice, setErrorAdvice] = useState<string[]>([]);
     const [supportPack, setSupportPack] = useState<SupportPackSummary | null>(null);
+    const [warnings, setWarnings] = useState<string[]>([]);
     const contactHref = localizePath('/contact', lang);
 
     React.useEffect(() => {
@@ -52,6 +53,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                 setErrorAdvice([]);
                 setCapabilities(null);
                 setSupportPack(null);
+                setWarnings([]);
 
                 // File size validation (50MB limit)
                 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
@@ -73,6 +75,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                 setFormat(uiFormat);
                 setSupportPack(outcome.diagnostics?.supportPack || null);
                 setCapabilities(outcome.capabilities);
+                setWarnings(outcome.warnings || []);
 
                 if (!outcome.capabilities.canView) {
                     const reasonMessage =
@@ -151,21 +154,14 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                 blob = await buildRPGMakerMV(file, data);
             } else if (format.startsWith('generic')) {
                 const { buildGeneric } = await import('../lib/parsers/generic');
-                blob = await buildGeneric();
+                blob = await buildGeneric(file, data);
             } else {
                 // Gamemaker / Raw
                 const { buildGamemaker } = await import('../lib/parsers/gamemaker');
                 blob = await buildGamemaker(file, { type: format, data });
             }
 
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = file.name;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            downloadBlob(await buildDownloadPackage(file, blob), `${file.name}.edited-with-backup.zip`);
         } catch (err: any) {
             alert('Failed to build save file: ' + err.message);
         }
@@ -176,6 +172,13 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
             setData((prev: any) => ({
                 ...prev,
                 jsonView: newData,
+            }));
+            return;
+        }
+        if (format.startsWith('generic') && data?._format) {
+            setData((prev: any) => ({
+                ...prev,
+                data: newData,
             }));
             return;
         }
@@ -288,16 +291,21 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
         !capabilities?.canSave ||
         (!!capabilities?.requiresExperimental && !experimentalEnabled);
     const isReadOnly = !capabilities?.canEdit;
-    const editorData = isUnrealFamily ? unrealData?.jsonView : data;
+    const editorData = isUnrealFamily
+        ? unrealData?.jsonView
+        : format.startsWith('generic') && data?._format
+          ? data.data
+          : data;
+    const genericCanEdit = format.startsWith('generic') ? buildGenericCanEdit(data) : undefined;
     const showQuickEdit =
         isPalworld ||
         format === 'rpgmaker' ||
         format === 'rpgmaker-ruby-marshal' ||
         format === 'rpgmaker-2000-2003-lsd' ||
         format === 'renpy' ||
+        format.startsWith('generic') ||
         format === 'unity' ||
         format === 'json' ||
-        format.startsWith('generic') ||
         format === 'raw' ||
         format === 'naninovel-nson' ||
         format === 'naninovel-json' ||
@@ -596,7 +604,12 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                     )}
                                 </div>
                             ) : format.startsWith('generic') ? (
-                                <GenericInspector data={data} supportHref={supportPack ? supportPackMailto(supportPack) : contactHref} />
+                                <GenericInspector
+                                    data={data}
+                                    supportHref={supportPack ? supportPackMailto(supportPack) : contactHref}
+                                    canSave={!!capabilities?.canSave}
+                                    warnings={warnings}
+                                />
                             ) : (
                                 <QuickFieldEditor
                                     data={editorData}
@@ -642,7 +655,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                             data={editorData}
                                             onChange={handleDataChange}
                                             readOnly={isReadOnly}
-                                            canEdit={isRenpy ? canEditRenpy : undefined}
+                                            canEdit={isRenpy ? canEditRenpy : genericCanEdit}
                                         />
                                     )
                                 ) : (
@@ -697,6 +710,28 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
     );
 }
 
+function downloadBlob(blob: Blob, filename: string) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+async function buildDownloadPackage(originalFile: File, editedBlob: Blob): Promise<Blob> {
+    const { zipSync } = await import('fflate');
+    const archive = zipSync({
+        [`${originalFile.name}.backup`]: new Uint8Array(await originalFile.arrayBuffer()),
+        [originalFile.name]: new Uint8Array(await editedBlob.arrayBuffer()),
+    });
+    const archiveBuffer = new ArrayBuffer(archive.byteLength);
+    new Uint8Array(archiveBuffer).set(archive);
+    return new Blob([archiveBuffer], { type: 'application/zip' });
+}
+
 function canEditRenpy(path: Array<string | number>, value: any, action: 'edit' | 'add' | 'delete'): boolean {
     if (action === 'delete') return false;
     if (path.length === 0) return false;
@@ -711,6 +746,42 @@ function canEditRenpy(path: Array<string | number>, value: any, action: 'edit' |
         typeof value === 'boolean';
 
     return isPrimitive;
+}
+
+function buildGenericCanEdit(data: any) {
+    if (!data?._format) return undefined;
+    if (data._format === 'SQLite database') return canEditGenericSqlite;
+    if (data._format === 'ZIP container') return canEditGenericZip;
+    if (String(data._format).includes('XML text') || String(data._format).includes('Plain text')) return canEditGenericText;
+    if (['Godot / INI-style CFG', 'TOML', 'Properties / CONF'].includes(data._format)) {
+        return (_path: Array<string | number>, _value: any, action: 'edit' | 'add' | 'delete') => action !== 'delete';
+    }
+    return undefined;
+}
+
+function canEditGenericZip(path: Array<string | number>, _value: any, action: 'edit' | 'add' | 'delete'): boolean {
+    if (path[0] !== 'entries' || typeof path[1] !== 'string') return false;
+    if (path.length <= 2 && action !== 'edit') return false;
+    return true;
+}
+
+function canEditGenericText(path: Array<string | number>, _value: any, action: 'edit' | 'add' | 'delete'): boolean {
+    return action === 'edit' && path.length === 1 && path[0] === 'text';
+}
+
+function canEditGenericSqlite(path: Array<string | number>, _value: any, action: 'edit' | 'add' | 'delete'): boolean {
+    if (action !== 'edit') return false;
+    if (path.includes('__rowid') || path.includes('columns') || path.includes('rowLimit') || path.includes('hasRowId')) {
+        return false;
+    }
+    return (
+        path.length === 5 &&
+        path[0] === 'tables' &&
+        typeof path[1] === 'string' &&
+        path[2] === 'rows' &&
+        typeof path[3] === 'number' &&
+        typeof path[4] === 'string'
+    );
 }
 
 function getSavWorkflowCopy(lang: string) {

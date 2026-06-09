@@ -1,5 +1,5 @@
 ---
-title: "스타듀 밸리(Stardew Valley) 신계(God-Tier) 세이브 팩: 3000만 골드 + 올스킬 만렙 [v1.6]"
+title: "스타듀 밸리(Stardew Valley) 고진행 세이브 팩: 3000만 골드 + 올스킬 만렙 [v1.6]"
 description: "궁극의 스타듀 밸리 세이브 파일을 다운로드하세요. 3개의 세이브 슬롯 포함: 3000만 골드, 모든 스킬 레벨 10, 마을 회관/진저 섬 100% 완료, Leah/Haley/Abigail과 결혼. 엔드게임 콘텐츠용."
 pubDate: 2026-02-06
 updatedDate: 2026-02-15
@@ -12,7 +12,7 @@ image: "/images/blog/stardew-valley-cover.webp"
 
 스타듀 밸리의 엔드 콘텐츠(진저 섬, 치 퀘스트)는 훌륭하지만, 거기까지 가려면 너무 오래 걸립니다. "완벽한 농장"을 바로 체험하고 싶다면...
 
-이 **신계(God-Tier) 세이브 팩**이 정답입니다. 단순한 세이브 1개가 아니라, **3개의 서로 다른 종결급 세이브**가 들어있습니다.
+이 **고진행 세이브 팩**에는 **3개의 서로 다른 후반 진행 세이브**가 들어있습니다.
 
 > **⚠️ 경고**: 엄청난 스포일러와 모든 콘텐츠 해금을 포함합니다. 2회차 플레이어에게 권장합니다.
 
@@ -55,12 +55,12 @@ image: "/images/blog/stardew-valley-cover.webp"
 ## 📥 다운로드
 
 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center my-8 border border-gray-200 dark:border-gray-700">
-  <h3 class="text-xl font-bold mb-4">Stardew Valley "God Mode" Pack</h3>
+  <h3 class="text-xl font-bold mb-4">Stardew Valley High-Progress Save Pack</h3>
   <p class="text-sm text-gray-500 mb-6">크기: 600KB+ | 3개 세이브 | 형식: .zip</p>
   <a href="/saves/stardew-valley/Millionaire_123456789.zip" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     세이브 팩 다운로드 (.zip)
   </a>
-  <p class="text-xs text-gray-400 mt-4">안전한 XML 파일</p>
+  <p class="text-xs text-gray-400 mt-4">XML 파일</p>
 </div>
 
 ---

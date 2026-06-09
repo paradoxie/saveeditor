@@ -1,5 +1,5 @@
 ---
-title: "Stardew Valley Pack de Partidas Dios: 3 Slots con 30M Oro + 100% Completado"
+title: "Stardew Valley Pack de Partidas Avanzadas: 3 Slots con 30M Oro"
 description: "Descarga el pack definitivo. Incluye 3 partidas guardadas: hasta 30 millones de oro, habilidades al máximo, Centro Comunitario completo y matrimonios con Leah/Haley/Abigail. Ideal para explorar el endgame"
 pubDate: 2026-02-06
 updatedDate: 2026-02-15
@@ -12,7 +12,7 @@ image: "/images/blog/stardew-valley-cover.webp"
 
 El contenido final de Stardew Valley (Isla Jengibre, Qi) es increíble, pero llegar allí lleva una eternidad. Si quieres ver cómo es una "Granja Perfecta" o probar cosas nuevas...
 
-Este **Pack de Partidas Dios** es para ti. Contiene **3 partidas diferentes** de alto nivel.
+Este **pack de partidas avanzadas** contiene **3 partidas diferentes** de alto nivel.
 
 > **⚠️ Advertencia**: Contiene spoilers masivos y todo desbloqueado.
 
@@ -53,12 +53,12 @@ Este **Pack de Partidas Dios** es para ti. Contiene **3 partidas diferentes** de
 ## 📥 Descargar
 
 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center my-8 border border-gray-200 dark:border-gray-700">
-  <h3 class="text-xl font-bold mb-4">Stardew Valley "God Mode" Pack</h3>
+  <h3 class="text-xl font-bold mb-4">Stardew Valley High-Progress Save Pack</h3>
   <p class="text-sm text-gray-500 mb-6">Tamaño: 600+ KB | 3 Partidas | Formato: .zip</p>
   <a href="/saves/stardew-valley/Millionaire_123456789.zip" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     Descargar Pack (.zip)
   </a>
-  <p class="text-xs text-gray-400 mt-4">XML Seguro y Limpio</p>
+  <p class="text-xs text-gray-400 mt-4">Archivo XML</p>
 </div>
 
 ---

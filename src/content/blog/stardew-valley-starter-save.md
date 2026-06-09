@@ -1,6 +1,6 @@
 ---
-title: "Stardew Valley God-Tier Save Pack: 3 Slots with 30M Gold & 100% Completion"
-description: "Download the ultimate Stardew Valley save pack. Includes 3 save slots: up to 30 million gold, all skills maxed (Level 10), Community Center complete, and spouses Leah/Haley/Abigail. Perfect for exploring endgame content immediately."
+title: "Stardew Valley High-Progress Save Pack: 3 Slots with 30M Gold"
+description: "Download a high-progress Stardew Valley save pack. Includes 3 save slots: up to 30 million gold, all skills maxed (Level 10), Community Center complete, and spouses Leah/Haley/Abigail. Useful for exploring endgame content."
 pubDate: 2026-02-06
 updatedDate: 2026-02-15
 author: "Paradox"
@@ -12,7 +12,7 @@ image: "/images/blog/stardew-valley-cover.webp"
 
 Stardew Valley's endgame content (Ginger Island, Qi's Walnut Room) is amazing, but getting there takes forever. If you want to experience the endgame immediately or see what a "Perfect Farm" looks like...
 
-This **God-Tier Save Pack** is your ultimate choice. It's not just one save; it's a bundle containing **3 distinct high-level saves**, fulfilling all your millionaire fantasies.
+This **high-progress save pack** includes **3 distinct high-level saves** for endgame exploration and mod testing.
 
 > **⚠️ Warning**: This save contains massive spoilers and unlocks everything. Recommended for second playthroughs or testing mods.
 
@@ -58,7 +58,7 @@ Upon loading, you will see 3 wealthy farmers ready to go:
 ## 📥 Download
 
 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center my-8 border border-gray-200 dark:border-gray-700">
-  <h3 class="text-xl font-bold mb-4">Stardew Valley "God Mode" Save Pack</h3>
+  <h3 class="text-xl font-bold mb-4">Stardew Valley High-Progress Save Pack</h3>
   <p class="text-sm text-gray-500 mb-6">Size: 600+ KB | Includes: 3 Saves | Format: .zip</p>
   <a href="/saves/stardew-valley/Millionaire_123456789.zip" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
     Download Save Pack (.zip)

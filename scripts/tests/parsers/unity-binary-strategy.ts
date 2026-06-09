@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import { parseUnity } from '../../../src/lib/parsers/unity';
+import { serializeBplist } from 'bplist-lossless';
+import { buildUnity, parseUnity } from '../../../src/lib/parsers/unity';
 
 interface FixtureCase {
     id: string;
@@ -37,8 +38,21 @@ async function main() {
     assert.ok(Array.isArray(fixture.cases) && fixture.cases.length >= 3, 'Expected at least 3 Unity binary strategy cases.');
 
     for (const testCase of fixture.cases) {
-        const bytes = new Uint8Array(testCase.bytes);
+        const bytes = testCase.expectedVariant === 'bplist'
+            ? serializeBplist({ gold: 12, clear: true })
+            : new Uint8Array(testCase.bytes);
         const parsed = await parseUnity(makeFile(testCase.fileName, bytes));
+
+        if (testCase.expectedVariant === 'bplist') {
+            assert.equal(parsed.reasonCode, 'ok', `Case ${testCase.id}: expected ok reasonCode.`);
+            assert.equal(parsed.capabilities.canView, true, `Case ${testCase.id}: canView must be true.`);
+            assert.equal(parsed.capabilities.canSave, true, `Case ${testCase.id}: canSave must be true.`);
+            assert.equal((parsed.data as any).gold, 12, `Case ${testCase.id}: bplist payload mismatch.`);
+            const rebuilt = await buildUnity(makeFile(testCase.fileName, bytes), { ...(parsed.data as any), gold: 34 });
+            const reparsed = await parseUnity(makeFile(testCase.fileName, new Uint8Array(await rebuilt.arrayBuffer())));
+            assert.equal((reparsed.data as any).gold, 34, `Case ${testCase.id}: bplist round-trip mismatch.`);
+            continue;
+        }
 
         assert.equal(parsed.mode, 'unsupported', `Case ${testCase.id}: expected unsupported mode.`);
         assert.equal(parsed.reasonCode, testCase.expectedReason, `Case ${testCase.id}: unexpected reasonCode.`);

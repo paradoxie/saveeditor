@@ -14,7 +14,7 @@ image: "/images/blog/palworld-guide-cover-v2.webp"
 
 **Palworld** has taken the gaming world by storm with its unique blend of creature collection, survival mechanics, and base building. Whether you are recovering from a bug or adjusting progression, this guide shows a compatibility-first workflow for safely inspecting and cautiously editing Palworld saves.
 
-Our free online **Palworld save editor** helps you inspect save data and make cautious edits on compatible variants without downloading suspicious software. The selected save file is parsed in your browser and is not uploaded to our parser server.
+Our free online **Palworld save editor** helps you inspect save data and make cautious edits on compatible variants without downloading suspicious software. The main editor parses compatible files in your browser.
 
 ![Palworld Save Editor Interface showing player stats and inventory](/images/blog/palworld-content.webp)
 

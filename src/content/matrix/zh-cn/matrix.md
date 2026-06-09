@@ -55,5 +55,6 @@ subtitle: '目前支持的引擎和格式的概述。'
 
 | 格式 | 稳定性 | 备注 |
 |---|---|---|
-| MessagePack / CBOR / Pickle / CFG | ⚪ 只读 | 可解码或结构化查看，暂不导出。 |
-| Flash SOL / SQLite / ES3 / Binary 候选 | ⚪ 只读 | 可识别并解释限制，提供样本反馈入口。 |
+| MessagePack / CBOR / BSON / Pickle / CFG | 🟡 有限稳定 | 可解码、编辑并按原容器重建；Pickle 仅限简单 JSON 安全值。 |
+| ZIP / Base64 / LZString / gzip/zlib/deflate/BZip2/LZ4/Zstd 包装 | 🟡 有限稳定 | 支持内层 JSON/YAML/TOML/properties/CSV/CFG/XML/text 的解包、编辑与重建。 |
+| Flash SOL / SQLite / ES3 / Binary 候选 | 🟡 有限稳定 | SOL、SQLite、ES3 支持有限写回；未知二进制仍显示透明限制。 |

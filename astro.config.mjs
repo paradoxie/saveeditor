@@ -14,11 +14,20 @@ export default defineConfig({
   site: siteOrigin,
   trailingSlash: 'always',
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      exclude: ['@bokuweb/zstd-wasm'],
+      esbuildOptions: {
+        target: 'es2020',
+      },
+    },
   },
 
   integrations: [react(), sitemap()],
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: 'compile' }),
+  session: {
+    driver: 'memory',
+  },
   i18n: {
     defaultLocale: "en",
     locales: ["en", "ja", "pt", "ko", "zh-cn", "es", "ru"],

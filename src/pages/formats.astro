@@ -52,7 +52,7 @@ const formats = [
     name: 'JSON Data',
     engines: ['Unity', 'GameMaker', 'Custom'],
     description:
-      'Universal JavaScript Object Notation format. Human-readable structured data used by many modern games.',
+      'Structured JavaScript Object Notation format. Human-readable data used by many modern games.',
     editor: '/editor/unity',
     games: ['Among Us', 'Various indie games'],
   },
@@ -84,11 +84,11 @@ const formats = [
     games: ['iOS/macOS Unity games'],
   },
   {
-    extension: '.sol / .sqlite / .msgpack / .cbor / .es3',
-    name: 'Generic Inspector',
+    extension: '.zip / .b64 / .lzstring / .zlib / .deflate / .bz2 / .lz4 / .zstd / .sol / .sqlite / .bson / .yaml / .toml / .csv / .msgpack / .cbor / .es3',
+    name: 'Generic Save Editor',
     engines: ['Flash', 'SQLite', 'Unity', 'Custom'],
     description:
-      'Read-only inspection for broad competitor formats. Decodes structure where safe and explains why export is disabled.',
+      'Edits supported generic structured formats and keeps read-only transparency for unsupported binary containers.',
     editor: '/editor/generic',
     games: ['Legacy Flash games', 'Custom indie games'],
   },
@@ -182,9 +182,9 @@ const formats = [
           GVAS and Ruby Marshal require specialized tools to decode.
         </p>
         <p>
-          Our <a href="/">SaveEditor.Online</a> supports all major formats and can automatically detect
-          which parser to use based on file content. Whether you're modifying an RPG Maker game, a Unity
-          title, or an Unreal Engine masterpiece, we have you covered.
+          Our <a href="/">SaveEditor.Online</a> uses compatibility-first parsers for selected formats and
+          separates stable write support, limited write support, read-only inspection, and blocked exports.
+          Uploading a file shows the detected parser and the current save capability before export.
         </p>
         <h3>How to Find Your Save Files</h3>
         <ul>

@@ -54,14 +54,14 @@ Se algo der errado durante a edição, você sempre pode restaurar a partir dest
 2.  Arraste e solte seu arquivo `.rpgsave` na área de upload, ou clique para navegar.
 3.  Aguarde alguns segundos para o arquivo ser analisado.
 
-Todo o processamento acontece **localmente no seu navegador**. Seu arquivo de save nunca é enviado para nenhum servidor.
+O fluxo principal analisa arquivos compatíveis **no seu navegador**.
 
 ## Passo 4: Edite Valores Comuns
 
 Uma vez que o arquivo é carregado, você verá um painel de "Edição Rápida" para valores comuns:
 
 ### Ouro
-Altere o campo `Gold / Money` para qualquer valor que desejar. Definir como `999999` dará a você fundos quase ilimitados.
+Altere o campo `Gold / Money` para um valor de teste razoável e confirme o resultado no jogo.
 
 ### Nível do Personagem
 Para RPG Maker MV/MZ, os níveis dos personagens são armazenados dentro do array `actors`. Usando o painel de Edição Rápida, você pode modificar o nível do líder do grupo diretamente. Para alterar outros personagens, mude para o modo "Avançado (JSON)" e navegue até `actors._data.[character_id].level`.
@@ -99,7 +99,7 @@ Para descobrir qual switch ou variável controla o quê, você pode precisar con
 ## Perguntas Frequentes
 
 **P: Isso é seguro?**
-R: Sim. Todo o processamento acontece no seu navegador. Seu arquivo nunca é enviado para nenhum servidor.
+R: O fluxo principal analisa arquivos compatíveis no navegador.
 
 **P: Isso funcionará para RPG Maker MZ?**
 R: Sim! MZ usa o mesmo formato `.rpgsave` que MV.
@@ -133,5 +133,4 @@ Expanda seu conhecimento de RPG Maker com estes guias relacionados:
 - [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained)
 - [Estrutura de Arquivos de Save RPG Maker](/pt/blog/rpg-maker-save-file-structure)
 - [Guia de Edição de Save GameMaker](/pt/blog/gamemaker-save-editing-guide)
-
 

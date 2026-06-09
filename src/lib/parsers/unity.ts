@@ -1,7 +1,7 @@
 import plist from 'plist';
 import { makeOutcome, type ParseOutcome } from './types';
 
-type UnityInputFormat = 'unity-plist' | 'unity-xml';
+type UnityInputFormat = 'unity-plist' | 'unity-xml' | 'unity-bplist';
 type UnityValueType = 'int' | 'long' | 'float' | 'string' | 'boolean';
 type UnityBinaryVariant = 'bplist' | 'unknown-playerprefs';
 
@@ -56,7 +56,26 @@ function escapeXmlEntities(value: string): string {
 function inferUnityType(value: unknown): UnityValueType {
     if (typeof value === 'boolean') return 'boolean';
     if (typeof value === 'number') return Number.isInteger(value) ? 'int' : 'float';
+    if (typeof value === 'bigint') return 'long';
     return 'string';
+}
+
+function normalizeBplistValue(value: unknown): unknown {
+    if (typeof value === 'bigint') {
+        return value <= BigInt(Number.MAX_SAFE_INTEGER) && value >= BigInt(Number.MIN_SAFE_INTEGER)
+            ? Number(value)
+            : value.toString();
+    }
+    if (value instanceof Uint8Array) return Array.from(value);
+    if (Array.isArray(value)) return value.map(normalizeBplistValue);
+    if (value && typeof value === 'object') {
+        const normalized: Record<string, unknown> = {};
+        for (const [key, item] of Object.entries(value as Record<string, unknown>)) {
+            normalized[key] = normalizeBplistValue(item);
+        }
+        return normalized;
+    }
+    return value;
 }
 
 function attachUnityMeta(fileName: string, payload: Record<string, unknown>, meta: UnityParseMeta) {
@@ -226,25 +245,61 @@ export async function parseUnity(file: File): Promise<ParseOutcome<any>> {
     if (hasBinary) {
         const detection = detectUnityBinaryVariant(bytes);
         if (detection.variant === 'bplist') {
-            return makeOutcome({
-                engine: 'unity',
-                format: 'unity',
-                mode: 'unsupported',
-                reasonCode: 'unsupported_binary_plist',
-                reason: 'Unsupported Unity format: binary plist PlayerPrefs is not supported.',
-                capabilities: {
-                    canView: false,
-                    canEdit: false,
-                    canSave: false,
-                    roundTripSupport: 'none',
-                },
-                data: null,
-                diagnostics: {
-                    binaryVariant: detection.variant,
-                    byteLength: bytes.byteLength,
-                    nullByteRatio: Number(detection.nullByteRatio.toFixed(4)),
-                },
-            });
+            try {
+                const { parseBplist } = await import('bplist-lossless');
+                const parsed = normalizeBplistValue(parseBplist(bytes));
+                const payload = (parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+                    ? parsed
+                    : {}) as Record<string, unknown>;
+                const meta: UnityParseMeta = {
+                    inputFormat: 'unity-bplist',
+                    keyOrder: Object.keys(payload),
+                    valueTypes: Object.fromEntries(
+                        Object.entries(payload).map(([key, value]) => [key, inferUnityType(value)])
+                    ),
+                };
+                attachUnityMeta(file.name, payload, meta);
+                return makeOutcome({
+                    engine: 'unity',
+                    format: 'unity',
+                    mode: 'limited',
+                    reasonCode: 'ok',
+                    reason: 'Binary plist PlayerPrefs parsed successfully. Export rebuilds a binary plist payload.',
+                    capabilities: {
+                        canView: true,
+                        canEdit: true,
+                        canSave: true,
+                        roundTripSupport: 'stable-limited',
+                    },
+                    data: payload,
+                    diagnostics: {
+                        inputFormat: 'unity-bplist' satisfies UnityInputFormat,
+                        binaryVariant: detection.variant,
+                        byteLength: bytes.byteLength,
+                        keys: meta.keyOrder.length,
+                    },
+                });
+            } catch (error: any) {
+                return makeOutcome({
+                    engine: 'unity',
+                    format: 'unity',
+                    mode: 'unsupported',
+                    reasonCode: 'unsupported_binary_plist',
+                    reason: `Unsupported Unity binary plist: ${error?.message || 'parse failed'}`,
+                    capabilities: {
+                        canView: false,
+                        canEdit: false,
+                        canSave: false,
+                        roundTripSupport: 'none',
+                    },
+                    data: null,
+                    diagnostics: {
+                        binaryVariant: detection.variant,
+                        byteLength: bytes.byteLength,
+                        nullByteRatio: Number(detection.nullByteRatio.toFixed(4)),
+                    },
+                });
+            }
         }
 
         return makeOutcome({
@@ -293,8 +348,21 @@ export async function buildUnity(originalFile: File, input: any): Promise<Blob> 
         unityMetaByFile.get(originalFile.name) || ((structuredPayload as any).__unityMeta as UnityParseMeta | undefined);
     const inputFormat: UnityInputFormat =
         persistedMeta?.inputFormat ||
-        (text.trim().startsWith('<?xml') && text.includes('<!DOCTYPE plist') ? 'unity-plist' : 'unity-xml');
+        (text.startsWith('bplist00')
+            ? 'unity-bplist'
+            : text.trim().startsWith('<?xml') && text.includes('<!DOCTYPE plist')
+              ? 'unity-plist'
+              : 'unity-xml');
     const orderedEntries = toOrderedEntries(structuredPayload, persistedMeta);
+
+    if (inputFormat === 'unity-bplist') {
+        const orderedPayload: Record<string, unknown> = {};
+        orderedEntries.forEach(([key, value]) => {
+            orderedPayload[key] = value;
+        });
+        const { serializeBplist } = await import('bplist-lossless');
+        return blobFromBytes(serializeBplist(orderedPayload), 'application/x-plist');
+    }
 
     if (inputFormat === 'unity-plist') {
         const orderedPayload: Record<string, unknown> = {};
@@ -336,4 +404,10 @@ export async function buildUnity(originalFile: File, input: any): Promise<Blob> 
 
     xml += '</map>';
     return new Blob([xml], { type: 'application/xml' });
+}
+
+function blobFromBytes(bytes: Uint8Array, type: string): Blob {
+    const buffer = new ArrayBuffer(bytes.byteLength);
+    new Uint8Array(buffer).set(bytes);
+    return new Blob([buffer], { type });
 }

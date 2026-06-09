@@ -7,6 +7,7 @@ import { useTranslations } from '../../i18n/utils';
 import { getSiteOrigin } from '../../lib/site';
 import { games } from '../../data/games';
 import { editors } from '../../data/editors';
+import { SMART_UPLOAD_ACCEPT } from '../../lib/saveExtensions';
 import homeScriptUrl from '../../scripts/home.ts?url';
 
 interface Props {
@@ -46,7 +47,7 @@ const compatibleFormatCount = new Set(
 ).size;
 const gamePageCount = games.length;
 const supportedEngineCount = new Set(
-  editors.filter((editor) => !['generic', 'palworld'].includes(editor.slug)).map((editor) => editor.slug)
+  editors.filter((editor) => editor.slug !== 'generic').map((editor) => editor.slug)
 ).size;
 ---
 
@@ -96,7 +97,7 @@ const supportedEngineCount = new Set(
               type="file"
               id="smart-file-input"
               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-              accept=".rpgsave,.rmmzsave,.sav,.save,.xml,.plist,.ini,.json,.nson"
+              accept={SMART_UPLOAD_ACCEPT}
             />
             <div class="text-center">
               <div
@@ -128,6 +129,9 @@ const supportedEngineCount = new Set(
                 <span class="px-2 py-1 bg-white/10 rounded text-xs">.xml</span>
                 <span class="px-2 py-1 bg-white/10 rounded text-xs">.json</span>
                 <span class="px-2 py-1 bg-white/10 rounded text-xs">.nson</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.zip</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.b64</span>
+                <span class="px-2 py-1 bg-white/10 rounded text-xs">.sqlite</span>
               </div>
             </div>
           </div>
@@ -135,7 +139,7 @@ const supportedEngineCount = new Set(
 
         <!-- Or Choose Engine -->
         <p class="text-gray-400 text-sm mb-6">{t('upload.orChoose')}</p>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 max-w-6xl mx-auto">
           <a
             href={getPath('editor/rpg-maker-mv')}
             class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
@@ -173,6 +177,15 @@ const supportedEngineCount = new Set(
             <div class="text-xs text-gray-500 mt-1">.sav</div>
           </a>
           <a
+            href={getPath('editor/palworld')}
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Palworld
+            </div>
+            <div class="text-xs text-gray-500 mt-1">.sav</div>
+          </a>
+          <a
             href={getPath('editor/gamemaker')}
             class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
           >
@@ -189,6 +202,15 @@ const supportedEngineCount = new Set(
               NaniNovel
             </div>
             <div class="text-xs text-gray-500 mt-1">.nson</div>
+          </a>
+          <a
+            href={getPath('editor/generic')}
+            class="group p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-400/50 rounded-xl transition-all text-center backdrop-blur-sm"
+          >
+            <div class="font-semibold text-sm group-hover:text-primary-400 transition-colors">
+              Generic
+            </div>
+            <div class="text-xs text-gray-500 mt-1">inspect</div>
           </a>
         </div>
       </div>
@@ -222,8 +244,8 @@ const supportedEngineCount = new Set(
           </div>
         </div>
         <div class="text-center p-5 sm:p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
-          <div class="text-3xl sm:text-4xl font-bold text-purple-600 counter" data-target="100" data-suffix="%">
-            100%
+          <div class="text-3xl sm:text-4xl font-bold text-purple-600">
+            Browser
           </div>
           <div class="text-xs sm:text-sm text-purple-700 font-medium mt-1">
             {t('stats.localProcessing')}
@@ -379,7 +401,7 @@ const supportedEngineCount = new Set(
         </div>
 
         {/* Engine Cards */}
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-16">
           <a
             href={getPath('editor/rpg-maker-mv')}
             class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-blue-300 hover:shadow-md transition-all group text-center"
@@ -457,6 +479,25 @@ const supportedEngineCount = new Set(
             <h3 class="font-bold text-gray-900 text-sm">Unreal</h3>
             <p class="text-xs text-gray-400 mt-1">.sav</p>
           </a>
+          <a
+            href={getPath('editor/palworld')}
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-cyan-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-cyan-50 text-cyan-700 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6l4 2M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">Palworld</h3>
+            <p class="text-xs text-gray-400 mt-1">GVAS</p>
+          </a>
 
           <a
             href={getPath('editor/gamemaker')}
@@ -501,6 +542,25 @@ const supportedEngineCount = new Set(
             </div>
             <h3 class="font-bold text-gray-900 text-sm">NaniNovel</h3>
             <p class="text-xs text-gray-400 mt-1">.nson</p>
+          </a>
+          <a
+            href={getPath('editor/generic')}
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-amber-300 hover:shadow-md transition-all group text-center"
+          >
+            <div
+              class="w-12 h-12 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform text-2xl"
+            >
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 17v-6h13M9 5v6m0 0H3m6 0l-3-3m3 3l-3 3"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-gray-900 text-sm">Generic</h3>
+            <p class="text-xs text-gray-400 mt-1">inspect</p>
           </a>
         </div>
 

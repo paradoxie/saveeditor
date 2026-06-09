@@ -80,6 +80,11 @@ for (const game of games) {
 const saveEditorSource = readFileSync(new URL('../../../src/components/SaveEditor.tsx', import.meta.url), 'utf8');
 assert.match(saveEditorSource, /format === 'rpgmaker' \|\| format === 'rpgmaker-ruby-marshal'/);
 assert.match(saveEditorSource, /GenericInspector/);
+assert.match(saveEditorSource, /buildGenericCanEdit/);
+assert.match(saveEditorSource, /canEditGenericSqlite/);
+assert.match(saveEditorSource, /format\.startsWith\('generic'\) && data\?\._format/);
+assert.match(saveEditorSource, /\.\.\.prev,\s*data: newData/s);
+assert.match(saveEditorSource, /format\.startsWith\('generic'\) \|\|/);
 assert.match(saveEditorSource, /editor\.palworldDedicatedBoundary/);
 assert.match(saveEditorSource, /parseSaveFileSafe/);
 assert.doesNotMatch(saveEditorSource, /Read-only Ruby Marshal preview/);
@@ -119,10 +124,26 @@ assert.doesNotMatch(llmsFullSource, /Editing is experimental/);
 
 const genericInspectorSource = readFileSync(new URL('../../../src/components/editors/GenericInspector.tsx', import.meta.url), 'utf8');
 assert.match(genericInspectorSource, /editor\.genericInspectorBody/);
+assert.match(genericInspectorSource, /editor\.genericInspectorEditableBody/);
+assert.match(genericInspectorSource, /canSave/);
 assert.doesNotMatch(genericInspectorSource, /This format is decoded for inspection/);
 
 const benchmarkSource = readFileSync(new URL('../../../scripts/tests/parsers/benchmark-report.ts', import.meta.url), 'utf8');
-assert.match(benchmarkSource, /roundTripOk: 'n\/a'/);
+assert.match(benchmarkSource, /let roundTripOk: boolean \| 'n\/a' = 'n\/a'/);
+assert.match(benchmarkSource, /generic-sol/);
+assert.match(benchmarkSource, /generic-es3/);
+assert.match(benchmarkSource, /generic-pickle/);
+assert.match(benchmarkSource, /generic-bson/);
+assert.match(benchmarkSource, /generic-yaml/);
+assert.match(benchmarkSource, /generic-csv/);
+assert.match(benchmarkSource, /generic-zip/);
+assert.match(benchmarkSource, /generic-base64-json/);
+assert.match(benchmarkSource, /generic-lzstring-json/);
+assert.match(benchmarkSource, /generic-deflate-json/);
+assert.match(benchmarkSource, /generic-zlib-yaml/);
+assert.match(benchmarkSource, /generic-bz2-json/);
+assert.match(benchmarkSource, /generic-lz4-json/);
+assert.match(benchmarkSource, /generic-zstd-json/);
 assert.doesNotMatch(benchmarkSource, /roundTripOk: true,[\s\S]{0,120}detail: parseOk \? String\(parsed\.reasonCode\)/);
 
 for (const matrixPath of [

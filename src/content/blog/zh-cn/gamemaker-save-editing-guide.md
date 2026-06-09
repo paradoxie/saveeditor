@@ -247,7 +247,7 @@ item1="ReviveMint"
 
 ## 总结
 
-GameMaker 的灵活性意味着存档编辑没有万能方法，但最常见的格式（INI 和 JSON）得到我们编辑器的良好支持。无论您是想解锁 Undertale 的秘密结局还是只是尝试 Deltarune，关键步骤是：
+GameMaker 的灵活性意味着存档编辑没有单一通用方法，但最常见的格式（INI 和 JSON）得到我们编辑器的良好支持。无论您是想解锁 Undertale 的秘密结局还是只是尝试 Deltarune，关键步骤是：
 
 1. **找到**您的存档文件
 2. 编辑前**备份**

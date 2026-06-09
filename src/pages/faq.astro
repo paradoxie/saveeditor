@@ -16,7 +16,7 @@ const faqCategories = [
       {
         question: 'Is this safe to use?',
         answer:
-          'SaveEditor.Online parses the selected save file in your web browser. The selected save file is not uploaded to our parser server. We do use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie policies for details.',
+          'The main editor parses selected save files in your web browser. We use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie policies for details.',
       },
       {
         question: 'Do I need to create an account?',
@@ -37,12 +37,12 @@ const faqCategories = [
       {
         question: 'What games can I edit?',
         answer:
-          "We support thousands of games across multiple engines. Popular supported games include Stardew Valley, Undertale, Hollow Knight, Doki Doki Literature Club, Celeste, Omori, OneShot, To The Moon, and virtually any game made with RPG Maker, Ren'Py, Unity, or GameMaker.",
+          "We support selected workflows across multiple engines. Game pages list the current editor path, support limits, and backup steps for each title.",
       },
       {
         question: 'What file formats are supported?',
         answer:
-          "We support: RPG Maker MV/MZ (.rpgsave, .rmmzsave), Ren'Py (.save, persistent), Unity (PlayerPrefs .xml/.plist, JSON), Unreal Engine (.sav; standard unencrypted GVAS first, containerized/compressed variants may be read-only), GameMaker (.ini, .json), NaniNovel (.nson), and generic JSON/XML formats.",
+          "We support: RPG Maker MV/MZ (.rpgsave, .rmmzsave), Ren'Py (.save, persistent), Unity PlayerPrefs (.xml/.plist), Unreal Engine (.sav; standard unencrypted GVAS first, containerized/compressed variants may be read-only), GameMaker (.ini, .json), NaniNovel (.nson), and limited-write generic formats such as ZIP, Base64, LZString, gzip/zlib/deflate/BZip2/LZ4/Zstd, SQLite, SOL, MessagePack, CBOR, BSON, YAML, TOML, CSV, XML, CFG, ES3, and Pickle.",
       },
       {
         question: 'Can I edit console game saves (PlayStation, Xbox, Switch)?',
@@ -52,7 +52,7 @@ const faqCategories = [
       {
         question: "My game isn't listed. Can I still use the editor?",
         answer:
-          "Maybe! If your game uses standard JSON, XML, or INI formats, our generic editors can work. Try uploading your save file and see if it can be parsed. If not, contact us and we may add support for your game's format.",
+          "Maybe. If your game uses standard JSON, XML, INI, SQLite, YAML, TOML, CSV, MessagePack, CBOR, BSON, or common ZIP/Base64/compressed wrappers, the parser may detect it. Unknown binary formats remain inspection-first until safe export is proven.",
       },
     ],
   },

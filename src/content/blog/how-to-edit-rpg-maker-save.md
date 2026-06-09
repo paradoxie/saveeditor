@@ -53,14 +53,14 @@ If something goes wrong during editing, you can always restore from this backup.
 2.  Drag and drop your `.rpgsave` file into the upload area, or click to browse.
 3.  Wait a few seconds for the file to be parsed.
 
-The selected save file is parsed **in your browser** and is not uploaded to our parser server.
+The main editor parses compatible save files **in your browser**.
 
 ## Step 4: Edit Common Values
 
 Once the file is loaded, you'll see a "Quick Edit" panel for common values:
 
 ### Gold
-Change the `Gold / Money` field to any value you want. Setting it to `999999` will give you nearly unlimited funds.
+Change the `Gold / Money` field to a reasonable test value, then verify the result in-game.
 
 ### Character Level
 For RPG Maker MV/MZ, character levels are stored within the `actors` array. Using the Quick Edit panel, you can modify the party leader's level directly. To change other characters, switch to "Advanced (JSON)" mode and navigate to `actors._data.[character_id].level`.
@@ -98,7 +98,7 @@ To find out which switch or variable controls what, you may need to consult the 
 ## Frequently Asked Questions
 
 **Q: Is this safe?**
-A: The selected file is parsed in your browser and is not uploaded to our parser server.
+A: The main editor parses compatible files in your browser.
 
 **Q: Will this work for RPG Maker MZ?**
 A: Yes! MZ uses the same `.rpgsave` format as MV.

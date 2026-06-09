@@ -844,7 +844,7 @@ const gameInputs: GameDataInput[] = [
           <li><strong>Relationship Modification:</strong> Max out hearts with any villager or bachelor/bachelorette.</li>
       </ul>
       <h3>Safe & Local Processing</h3>
-      <p>Your save files are processed in your browser using JavaScript. <strong>The selected save file is not uploaded to our parser server</strong>. We do use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie policies.</p>
+      <p>The main editor processes compatible save files in your browser using JavaScript. We do use Google Analytics and AdSense for site performance and ads; see our Privacy and Cookie policies.</p>
       <h3>Supported Platforms</h3>
       <p>Fully compatible with PC (Steam/GOG), Mac, Linux, and Mobile (Android/iOS) save files. For Switch/Console saves, you must first export them using a homebrew tool to get the raw file.</p>
     `,
@@ -1197,7 +1197,7 @@ const gameInputs: GameDataInput[] = [
           <li><strong>Inventory:</strong> Add or remove items, weapons, and armor by editing the items/weapons/armors arrays.</li>
       </ul>
       <h3>Browser-Side Parsing</h3>
-      <p>Your selected save file is parsed in your browser. <strong>The selected save file is not uploaded to our parser server</strong>. We use Google Analytics and AdSense for site analytics and ads; see our Privacy and Cookie policies.</p>
+      <p>The main editor parses compatible save files in your browser. We use Google Analytics and AdSense for site analytics and ads; see our Privacy and Cookie policies.</p>
     `,
     engine: 'RPG Maker (MV/MZ)',
     format: '.rpgsave, .rmmzsave, .rvdata2, .rvdata, .rxdata, .lsd',

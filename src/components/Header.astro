@@ -88,7 +88,7 @@ const getBlogUrl = (targetLang: string): string => {
           >
         </button>
         <div
-          class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-lg border border-gray-100 py-2 hidden group-hover:block dark:bg-gray-800 dark:border-gray-700"
+          class="absolute top-full left-0 w-56 bg-white shadow-lg rounded-lg border border-gray-100 py-2 hidden group-hover:block dark:bg-gray-800 dark:border-gray-700"
         >
           <a
             href={localizePath('/editor/rpg-maker-mv', lang)}
@@ -111,6 +111,11 @@ const getBlogUrl = (targetLang: string): string => {
             >Unreal Engine</a
           >
           <a
+            href={localizePath('/editor/palworld', lang)}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >Palworld</a
+          >
+          <a
             href={localizePath('/editor/gamemaker', lang)}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >GameMaker</a
@@ -119,6 +124,11 @@ const getBlogUrl = (targetLang: string): string => {
             href={localizePath('/editor/naninovel', lang)}
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
             >NaniNovel</a
+          >
+          <a
+            href={localizePath('/editor/generic', lang)}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >Generic Editor</a
           >
         </div>
       </div>
@@ -283,6 +293,11 @@ const getBlogUrl = (targetLang: string): string => {
           >Unreal Engine</a
         >
         <a
+          href={localizePath('/editor/palworld', lang)}
+          class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
+          >Palworld</a
+        >
+        <a
           href={localizePath('/editor/gamemaker', lang)}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >GameMaker</a
@@ -291,6 +306,11 @@ const getBlogUrl = (targetLang: string): string => {
           href={localizePath('/editor/naninovel', lang)}
           class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
           >NaniNovel</a
+        >
+        <a
+          href={localizePath('/editor/generic', lang)}
+          class="block py-2 px-6 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400"
+          >Generic Editor</a
         >
       </div>
 

@@ -2,6 +2,8 @@ import type { APIRoute } from 'astro';
 import { parseSaveFileSafe } from '../../lib/parseSaveFile';
 import { buildRejectedSupportPack } from '../../lib/supportPack';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
     try {
         const formData = await request.formData();

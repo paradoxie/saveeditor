@@ -85,7 +85,7 @@ const COPY: Record<
     },
     es: {
         loadingTitle: 'Comprobando el formato del guardado',
-        loadingBody: 'Estamos restaurando tu archivo y recomendando el mejor editor.',
+        loadingBody: 'Estamos restaurando tu archivo y recomendando el flujo compatible.',
         readyTitle: 'Mejor editor detectado',
         readyBody: 'Abriremos automáticamente el flujo recomendado. También puedes elegir otro editor compatible.',
         openNow: 'Abrir ahora',

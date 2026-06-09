@@ -124,7 +124,7 @@ If the online editor doesn't support your specific game, consider these alternat
 ## Frequently Asked Questions
 
 **Q: Is this safe to use?**
-A: The selected file is parsed in your browser and is not uploaded to our parser server.
+A: The main editor parses compatible files in your browser.
 
 **Q: Will this work for multiplayer saves?**
 A: For co-op saves where you're the host, often yes. For dedicated server games, saves are usually server-side and inaccessible.

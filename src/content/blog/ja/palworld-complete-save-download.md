@@ -1,5 +1,5 @@
 ---
-title: "パルワールド (Palworld) 100% 完璧セーブデータ配布：Lv50 + 全パル + 伝説4種 [2026年検証済]"
+title: "パルワールド (Palworld) 高進行参考セーブデータ配布：Lv50 + 図鑑進行"
 description: "検証済みのパルワールド参考セーブデータを無料ダウンロード。レベル50、パル図鑑、伝説パル、拠点レベル20、大量資源。Steam版とGame Pass版の確認済みビルド向け。GUID修正と導入ガイド付き。"
 pubDate: 2026-02-06
 updatedDate: 2026-03-30
@@ -61,7 +61,7 @@ SaveEditor.Online チームは、公開前に徹底的なテストを行って�
 ## 📥 ダウンロード
 
 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center my-8 border border-gray-200 dark:border-gray-700">
-  <h3 class="text-xl font-bold mb-4">Palworld Perfect Save (v0.3.x)</h3>
+  <h3 class="text-xl font-bold mb-4">Palworld High-Progress Save (v0.3.x)</h3>
   <p class="text-sm text-gray-500 mb-6">ファイルサイズ: 45 KB | 形式: .sav</p>
   <a href="/saves/palworld/Level-50-Legendary.sav" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     セーブデータをダウンロード (.sav)

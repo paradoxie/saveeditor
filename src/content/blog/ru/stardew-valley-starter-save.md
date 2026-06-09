@@ -1,5 +1,5 @@
 ---
-title: "Пак сохранений Stardew Valley: 3 Слота по 30 млн + 100% Прохождение"
+title: "Пак сохранений Stardew Valley: 3 слота с высоким прогрессом"
 description: "Скачайте ультимативный пак сохранений. Включает 3 слота: до 30 миллионов золота, все навыки 10 уровня, Клуб восстановлен, браки с Лией/Хейли/Абигейл. Идеально для эндгейма."
 pubDate: 2026-02-06
 updatedDate: 2026-02-15
@@ -12,7 +12,7 @@ image: "/images/blog/stardew-valley-cover.webp"
 
 Эндгейм-контент Stardew Valley (Имбирный остров, Мистер Ки) великолепен, но путь к нему долог. Хотите сразу увидеть "Идеальную ферму" и пропустить рутину?
 
-Этот **Божественный Пак Сохранений (God-Tier Save Pack)** — ваш выбор. Это не один, а сразу **3 прокачанных сохранения**.
+Этот **пак сохранений с высоким прогрессом** содержит **3 прокачанных сохранения**.
 
 > **⚠️ Внимание**: Содержит спойлеры и полный анлок. Рекомендуется для повторного прохождения.
 
@@ -55,7 +55,7 @@ image: "/images/blog/stardew-valley-cover.webp"
 ## 📥 Скачать
 
 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg text-center my-8 border border-gray-200 dark:border-gray-700">
-  <h3 class="text-xl font-bold mb-4">Stardew Valley "God Mode" Pack</h3>
+  <h3 class="text-xl font-bold mb-4">Stardew Valley High-Progress Save Pack</h3>
   <p class="text-sm text-gray-500 mb-6">Размер: 600+ KB | 3 Сейва | Формат: .zip</p>
   <a href="/saves/stardew-valley/Millionaire_123456789.zip" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     Скачать Пак (.zip)

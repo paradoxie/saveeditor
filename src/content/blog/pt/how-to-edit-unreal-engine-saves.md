@@ -115,7 +115,7 @@ Se o editor online não suportar seu jogo específico, considere estas alternati
 ## Perguntas Frequentes
 
 **P: Isso é seguro de usar?**
-R: Sim. Toda a análise acontece no seu navegador. Arquivos nunca são enviados para nenhum servidor.
+R: O fluxo principal analisa arquivos compatíveis no navegador.
 
 **P: Isso funcionará para saves multiplayer?**
 R: Para saves co-op onde você é o host, frequentemente sim. Para jogos de servidor dedicado, saves geralmente são server-side e inacessíveis.
@@ -152,4 +152,3 @@ Expanda seu conhecimento de edição de saves Unreal Engine:
 - [Guia de Edição de Save Palworld](/pt/blog/palworld-save-editing-guide)
 - [Extensões Comuns de Arquivos de Save](/pt/blog/common-save-file-extensions-explained)
 - [Edição de Save Unity](/pt/blog/how-to-edit-unity-saves)
-
