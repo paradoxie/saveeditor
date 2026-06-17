@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FileUpload from './FileUpload';
+import LocalHistoryPanel from './LocalHistoryPanel';
 import SaveEditor from './SaveEditor';
 import { localizePath } from '../i18n/utils';
 import { readUploadToken } from '../lib/ingest';
@@ -194,6 +195,8 @@ export default function EditorApp({ acceptedFileTypes, editorSlug }: EditorAppPr
                         </a>
                     </div>
                 )}
+
+                {!isRestoringUpload && <LocalHistoryPanel onFileSelect={handleFileSelect} />}
 
                 {/* No accept attribute - allow all files for manual validation */}
                 {!isRestoringUpload && <FileUpload onFileSelect={handleFileSelect} accept={acceptedFileTypes} />}

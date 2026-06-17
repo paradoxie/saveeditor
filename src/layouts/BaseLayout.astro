@@ -140,6 +140,37 @@ const structuredData = [
       })();
     </script>
 
+    <script is:inline>
+      (function () {
+        var payload = JSON.stringify({
+          event: 'pageview',
+          path: location.pathname,
+          referrer: document.referrer || '',
+          lang: document.documentElement.lang || 'en',
+          ts: Date.now(),
+        });
+        try {
+          var body = new Blob([payload], { type: 'application/json' });
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon('/api/observe', body);
+          } else {
+            fetch('/api/observe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: payload,
+              keepalive: true,
+            }).catch(function () {});
+          }
+        } catch (_) {}
+
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function () {
+            navigator.serviceWorker.register('/sw.js').catch(function () {});
+          });
+        }
+      })();
+    </script>
+
     <!-- SEO Meta -->
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -177,6 +208,8 @@ const structuredData = [
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#2563eb" />
 
     <!-- Performance: Preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

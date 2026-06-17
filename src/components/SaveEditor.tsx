@@ -7,6 +7,8 @@ import BeforeAfterDiffWizard from './editors/BeforeAfterDiffWizard';
 import RpgMakerEditor from './editors/RpgMakerEditor';
 import GenericInspector from './editors/GenericInspector';
 import QuickFieldEditor from './editors/QuickFieldEditor';
+import { getLocalRetentionEnabled, saveLocalHistoryRecord, setLocalRetentionEnabled } from '../lib/local-retention';
+import LocalTemplatePanel from './LocalTemplatePanel';
 import { parseSaveFileSafe } from '../lib/parseSaveFile';
 import { buildRejectedSupportPackFromFile, supportPackMailto } from '../lib/supportPack';
 import type {
@@ -43,7 +45,11 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
     const [errorAdvice, setErrorAdvice] = useState<string[]>([]);
     const [supportPack, setSupportPack] = useState<SupportPackSummary | null>(null);
     const [warnings, setWarnings] = useState<string[]>([]);
+    const [downloadNotice, setDownloadNotice] = useState<'bookmark' | 'historyPrompt' | null>(null);
+    const [pendingHistoryBlob, setPendingHistoryBlob] = useState<Blob | null>(null);
+    const [showSponsorPrompt, setShowSponsorPrompt] = useState(false);
     const contactHref = localizePath('/contact', lang);
+    const sponsorHref = import.meta.env.PUBLIC_SPONSOR_URL || '';
 
     React.useEffect(() => {
         const parseFile = async () => {
@@ -133,7 +139,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
         }
 
         try {
-            let blob;
+            let blob: Blob;
             if (format === 'unity') {
                 const { buildUnity } = await import('../lib/parsers/unity');
                 blob = await buildUnity(file, data);
@@ -162,8 +168,54 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
             }
 
             downloadBlob(await buildDownloadPackage(file, blob), `${file.name}.edited-with-backup.zip`);
+            recordFirstPartyEvent('download', { format, editorSlug });
+            if (sponsorHref && typeof localStorage !== 'undefined' && localStorage.getItem('saveeditor-sponsor-dismissed') !== '1') {
+                setShowSponsorPrompt(true);
+            }
+            setPendingHistoryBlob(blob);
+            setDownloadNotice('bookmark');
+
+            void (async () => {
+                try {
+                    const historyEnabled = await getLocalRetentionEnabled();
+                    if (!historyEnabled) {
+                        setDownloadNotice('historyPrompt');
+                        return;
+                    }
+
+                    await saveLocalHistoryRecord({
+                        fileName: file.name,
+                        format,
+                        editorSlug,
+                        originalFile: file,
+                        editedBlob: blob,
+                    });
+                    setPendingHistoryBlob(null);
+                } catch {
+                    // Local history is optional; download must remain the reliable path.
+                }
+            })();
         } catch (err: any) {
             alert('Failed to build save file: ' + err.message);
+        }
+    };
+
+    const enableLocalHistory = async () => {
+        try {
+            await setLocalRetentionEnabled(true);
+            recordFirstPartyEvent('local_history_enable', { format, editorSlug });
+            if (pendingHistoryBlob) {
+                await saveLocalHistoryRecord({
+                    fileName: file.name,
+                    format,
+                    editorSlug,
+                    originalFile: file,
+                    editedBlob: pendingHistoryBlob,
+                });
+                setPendingHistoryBlob(null);
+            }
+        } finally {
+            setDownloadNotice('bookmark');
         }
     };
 
@@ -383,7 +435,74 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                 </div>
             </div>
 
+            {downloadNotice && (
+                <div className="border-b border-blue-100 bg-blue-50 px-6 py-4 text-sm text-blue-900">
+                    <div className="mx-auto flex max-w-4xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <p>
+                            {downloadNotice === 'historyPrompt'
+                                ? t('localHistory.downloadPrompt')
+                                : t('localHistory.bookmarkPrompt')}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {downloadNotice === 'historyPrompt' && (
+                                <button
+                                    type="button"
+                                    onClick={enableLocalHistory}
+                                    className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700"
+                                >
+                                    {t('localHistory.enable')}
+                                </button>
+                            )}
+                            <button
+                                type="button"
+                                onClick={() => setDownloadNotice(null)}
+                                className="rounded-lg border border-blue-200 bg-white px-3 py-1.5 text-xs font-semibold text-blue-800 hover:bg-blue-100"
+                            >
+                                {t('localHistory.dismiss')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showSponsorPrompt && (
+                <div className="border-b border-emerald-100 bg-emerald-50 px-6 py-4 text-sm text-emerald-950">
+                    <div className="mx-auto flex max-w-4xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <p>{t('sponsor.prompt')}</p>
+                        <div className="flex flex-wrap gap-2">
+                            <a
+                                href={sponsorHref}
+                                target={sponsorHref.startsWith('http') ? '_blank' : undefined}
+                                rel={sponsorHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                className="rounded-lg bg-emerald-700 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-800"
+                                onClick={() => recordFirstPartyEvent('sponsor_click', { format, editorSlug })}
+                            >
+                                {t('sponsor.action')}
+                            </a>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    localStorage.setItem('saveeditor-sponsor-dismissed', '1');
+                                    setShowSponsorPrompt(false);
+                                }}
+                                className="rounded-lg border border-emerald-200 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-900 hover:bg-emerald-100"
+                            >
+                                {t('sponsor.dismiss')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="p-6 space-y-6">
+                <LocalTemplatePanel
+                    data={editorData}
+                    format={format}
+                    editorSlug={editorSlug}
+                    readOnly={isReadOnly}
+                    onApply={handleDataChange}
+                />
+
                 {/* Format-specific warnings */}
                 {format === 'renpy' && (
                     <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg text-sm flex items-start gap-3">
@@ -719,6 +838,27 @@ function downloadBlob(blob: Blob, filename: string) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+}
+
+function recordFirstPartyEvent(event: string, detail: Record<string, unknown> = {}) {
+    if (typeof navigator === 'undefined') return;
+    const payload = JSON.stringify({
+        event,
+        path: typeof location !== 'undefined' ? location.pathname : '',
+        detail,
+        ts: Date.now(),
+    });
+    const body = new Blob([payload], { type: 'application/json' });
+    if (typeof navigator.sendBeacon === 'function') {
+        navigator.sendBeacon('/api/observe', body);
+        return;
+    }
+    void fetch('/api/observe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+        keepalive: true,
+    }).catch(() => {});
 }
 
 async function buildDownloadPackage(originalFile: File, editedBlob: Blob): Promise<Blob> {

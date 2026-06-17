@@ -39,6 +39,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             These files are loaded into your browser's memory in the main editing flow.
           </li>
           <li>
+            <strong>Optional Local History:</strong> If you explicitly enable local edit history, recent
+            original and edited save files are stored only in your browser's IndexedDB. They are not
+            uploaded to our servers, and you can turn off and clear this history from the editor.
+          </li>
+          <li>
+            <strong>Optional Edit Templates:</strong> If you save an edit template, the selected editable
+            values are stored in your browser's IndexedDB for reuse on the same editor.
+          </li>
+          <li>
             <strong>Communication:</strong> If you contact us via email or our contact form, we collect
             your email address and the content of your message to respond to your inquiry.
           </li>
@@ -56,6 +65,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </li>
           <li>
             <strong>Usage Data:</strong> Pages visited, time spent on pages, and other interaction data.
+            We also record minimal first-party events such as page views and completed downloads to
+            improve traffic measurement when third-party analytics is unavailable.
           </li>
           <li>
             <strong>Cookies:</strong> Small text files stored on your device (see our Cookie Policy).
@@ -69,7 +80,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <ul class="list-disc pl-6">
           <li>To operate and maintain the website.</li>
           <li>To improve user experience and website performance.</li>
-          <li>To analyze usage trends and traffic (via Google Analytics).</li>
+          <li>To provide optional local-only edit history when you enable it.</li>
+          <li>To provide optional local edit templates when you save them.</li>
+          <li>To analyze usage trends and traffic through Google Analytics and first-party event logs.</li>
           <li>To display personalized advertisements (via Google AdSense).</li>
           <li>To protect against malicious activity and abuse.</li>
         </ul>

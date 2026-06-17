@@ -23,9 +23,10 @@
     "test:app:capability-flywheel": "tsx scripts/tests/app/capability-flywheel.ts",
     "test:app:productization": "tsx scripts/tests/app/productization-gates.ts",
     "test:app:seo-geo": "tsx scripts/tests/app/seo-geo.ts",
+    "test:app:local-retention": "tsx scripts/tests/app/local-retention.ts",
     "test:i18n:forbidden-claims": "tsx scripts/tests/i18n/forbidden-claims.ts",
     "index:urls": "node scripts/search-console-urls.js",
-    "test:app": "npm run test:app:ingest && npm run test:app:game-pages && npm run test:app:capability-flywheel && npm run test:app:productization && npm run test:app:seo-geo && npm run test:i18n:routes && npm run test:i18n:forbidden-claims",
+    "test:app": "npm run test:app:ingest && npm run test:app:game-pages && npm run test:app:capability-flywheel && npm run test:app:productization && npm run test:app:seo-geo && npm run test:app:local-retention && npm run test:i18n:routes && npm run test:i18n:forbidden-claims",
     "test:parsers": "npm run test:parsers:smoke && npm run test:parsers:fidelity && npm run test:parsers:quickfields && npm run test:parsers:unity-binary && npm run test:parsers:gamemaker-ini && npm run test:parsers:naninovel && npm run test:parsers:benchmark && npm run test:i18n:parser-keys"
   },
   "dependencies": {

@@ -17,6 +17,14 @@
   Content-Type: application/wasm
   Cache-Control: public, max-age=31536000, immutable
 
+/sw.js
+  Content-Type: application/javascript
+  Cache-Control: no-cache
+
+/site.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=3600
+
 # Cache images
 /images/*
   Cache-Control: public, max-age=604800

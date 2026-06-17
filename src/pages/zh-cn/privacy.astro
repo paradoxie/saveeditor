@@ -36,6 +36,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             <strong>游戏存档文件：</strong> 当您使用我们的编辑器时，您从设备中选择文件。这些文件被加载到您的浏览器内存中进行编辑。它们不会传输给我们。
           </li>
           <li>
+            <strong>可选本地历史：</strong> 如果您明确开启本地编辑历史，最近的原始存档和修改后存档只会保存在您浏览器的 IndexedDB 中。它们不会上传到我们的服务器，您也可以在编辑器中关闭并清空这些历史。
+          </li>
+          <li>
+            <strong>可选编辑模板：</strong> 如果您保存编辑模板，所选可编辑数值会保存在浏览器 IndexedDB 中，用于同一编辑器后续复用。
+          </li>
+          <li>
             <strong>通信：</strong> 如果您通过电子邮件或我们的联系表单联系我们，我们会收集您的电子邮件地址和消息内容以回复您的询问。
           </li>
         </ul>
@@ -46,7 +52,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <li>
             <strong>日志数据：</strong> IP 地址、浏览器类型、操作系统、引用/退出页面和时间戳。
           </li>
-          <li><strong>使用数据：</strong> 访问的页面、页面停留时间和其他交互数据。</li>
+          <li><strong>使用数据：</strong> 访问的页面、页面停留时间和其他交互数据。我们也记录最小化的一方事件，例如页面访问和下载完成，用于补充第三方统计不可用时的流量观测。</li>
           <li>
             <strong>Cookie：</strong> 存储在您设备上的小文本文件（请参阅我们的 Cookie 政策）。
           </li>
@@ -59,7 +65,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <ul class="list-disc pl-6">
           <li>运营和维护网站。</li>
           <li>改善用户体验和网站性能。</li>
-          <li>分析使用趋势和流量（通过 Google Analytics）。</li>
+          <li>在您开启时提供仅本地保存的编辑历史。</li>
+          <li>在您保存时提供仅本地保存的编辑模板。</li>
+          <li>通过 Google Analytics 和一方事件日志分析使用趋势和流量。</li>
           <li>显示个性化广告（通过 Google AdSense）。</li>
           <li>防止恶意活动和滥用。</li>
         </ul>
