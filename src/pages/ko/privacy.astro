@@ -41,6 +41,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             주 편집 흐름에서 파일 내용을 저장하지 않습니다.
           </li>
           <li>
+            <strong>선택적 로컬 기록:</strong> 로컬 편집 기록을 명시적으로 활성화하는 경우, 최근의 원본 파일 및 편집된 세이브 파일은 브라우저의 IndexedDB에만 저장됩니다. 이러한 파일은 당사 서버로 업로드되지 않으며, 에디터 내에서 언제든지 이 기록을 비활성화하고 삭제할 수 있습니다.
+          </li>
+          <li>
+            <strong>선택적 편집 템플릿:</strong> 편집 템플릿을 저장하면 선택한 편집 가능 값이 동일한 에디터에서 재사용할 수 있도록 브라우저의 IndexedDB에 저장됩니다.
+          </li>
+          <li>
             <strong>통신:</strong> 이메일이나 문의 양식을 통해 당사에 연락하는 경우, 문의에 응답하기 위해
             이메일 주소와 메시지 내용을 수집합니다.
           </li>
@@ -56,7 +62,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             <strong>로그 데이터:</strong> IP 주소, 브라우저 유형, 운영 체제, 참조/종료 페이지 및 타임스탬프.
           </li>
           <li>
-            <strong>사용 데이터:</strong> 방문한 페이지, 페이지 체류 시간 및 기타 상호 작용 데이터.
+            <strong>사용 데이터:</strong> 방문한 페이지, 페이지 체류 시간 및 기타 상호 작용 데이터. 또한 서비스 개선을 위한 기본 방문 트렌드 분석을 위해 페이지 뷰 및 다운로드 완료와 같은 최소한의 퍼스트 파티 이벤트도 기록합니다.
           </li>
           <li><strong>쿠키:</strong> 기기에 저장되는 작은 텍스트 파일(쿠키 정책 참조).</li>
         </ul>
@@ -68,7 +74,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <ul class="list-disc pl-6">
           <li>웹사이트 운영 및 유지 관리.</li>
           <li>사용자 경험 및 웹사이트 성능 향상.</li>
-          <li>사용 추세 및 트래픽 분석(Google Analytics를 통해).</li>
+          <li>활성화 시 로컬 전용 선택적 편집 기록을 제공하기 위해.</li>
+          <li>저장 시 로컬 선택적 편집 템플릿을 제공하기 위해.</li>
+          <li>Google Analytics 및 기본 이용 로그를 통해 이용 트렌드와 트래픽을 분석하기 위해.</li>
           <li>개인화된 광고 표시(Google AdSense를 통해).</li>
           <li>악의적인 활동 및 남용으로부터 보호.</li>
         </ul>

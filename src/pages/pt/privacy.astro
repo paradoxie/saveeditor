@@ -42,6 +42,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             Eles NÃO são transmitidos para nós.
           </li>
           <li>
+            <strong>Histórico local opcional:</strong> Se ativar explicitamente o histórico de edição local, os ficheiros de gravação recentes (tanto originais como editados) serão guardados apenas no IndexedDB do seu navegador. Estes ficheiros não serão enviados para os nossos servidores e pode desativar e limpar este histórico a qualquer momento a partir do editor.
+          </li>
+          <li>
+            <strong>Modelos de edição opcionais:</strong> Se guardar um modelo de edição, os valores editáveis selecionados serão armazenados no IndexedDB do seu navegador para reutilização no mesmo editor.
+          </li>
+          <li>
             <strong>Comunicação:</strong> Se você entrar em contato conosco por e-mail ou nosso formulário
             de contato, coletamos seu endereço de e-mail e o conteúdo da sua mensagem para responder à
             sua consulta.
@@ -59,8 +65,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             de referência/saída e carimbos de data/hora.
           </li>
           <li>
-            <strong>Dados de Uso:</strong> Páginas visitadas, tempo gasto nas páginas e outros dados de
-            interação.
+            <strong>Dados de Uso:</strong> Páginas visitadas, tempo gasto nas páginas e outros dados de interação. Também registamos eventos básicos de primeira parte, tais como visualizações de páginas e transferências concluídas, apenas para analisar tendências de acesso básico e melhorar o nosso serviço.
           </li>
           <li>
             <strong>Cookies:</strong> Pequenos arquivos de texto armazenados no seu dispositivo (veja
@@ -75,7 +80,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <ul class="list-disc pl-6">
           <li>Para operar e manter o site.</li>
           <li>Para melhorar a experiência do usuário e o desempenho do site.</li>
-          <li>Para analisar tendências de uso e tráfego (via Google Analytics).</li>
+          <li>Para fornecer um histórico de edição opcional e apenas local quando o ativar.</li>
+          <li>Para fornecer modelos de edição opcionais e locais quando os guardar.</li>
+          <li>Para analisar tendências de utilização e tráfego através do Google Analytics e registos de utilização básica.</li>
           <li>Para exibir anúncios personalizados (via Google AdSense).</li>
           <li>Para proteger contra atividades maliciosas e abusos.</li>
         </ul>

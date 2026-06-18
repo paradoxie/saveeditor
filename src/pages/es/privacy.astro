@@ -42,6 +42,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             NO se nos transmiten a nosotros.
           </li>
           <li>
+            <strong>Historial local opcional:</strong> Si activa explícitamente el historial de edición local, los archivos de guardado recientes (tanto originales como editados) se guardarán únicamente en el IndexedDB de su navegador. Estos archivos no se subirán a nuestros servidores y puede desactivar y borrar este historial en cualquier momento desde el editor.
+          </li>
+          <li>
+            <strong>Plantillas de edición opcionales:</strong> Si guarda una plantilla de edición, los valores editables seleccionados se almacenarán en el IndexedDB de su navegador para su reutilización en el mismo editor.
+          </li>
+          <li>
             <strong>Comunicación:</strong> Si nos contactas por correo electrónico o nuestro formulario
             de contacto, recopilamos tu dirección de correo electrónico y el contenido de tu mensaje para
             responder a tu consulta.
@@ -59,8 +65,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             de referencia/salida, y marcas de tiempo.
           </li>
           <li>
-            <strong>Datos de Uso:</strong> Páginas visitadas, tiempo dedicado a las páginas y otros datos
-            de interacción.
+            <strong>Datos de Uso:</strong> Páginas visitadas, tiempo dedicado a las páginas y otros datos de interacción. También registramos eventos básicos de primera parte, como vistas de página y descargas completadas, únicamente para analizar las tendencias de acceso básico y mejorar nuestro servicio.
           </li>
           <li>
             <strong>Cookies:</strong> Pequeños archivos de texto almacenados en tu dispositivo (ver nuestra
@@ -75,7 +80,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <ul class="list-disc pl-6">
           <li>Para operar y mantener el sitio web.</li>
           <li>Para mejorar la experiencia del usuario y el rendimiento del sitio web.</li>
-          <li>Para analizar tendencias de uso y tráfico (vía Google Analytics).</li>
+          <li>Para proporcionar un historial de edición opcional y solo local cuando lo active.</li>
+          <li>Para proporcionar plantillas de edición opcionales y locales cuando las guarde.</li>
+          <li>Para analizar las tendencias de uso y el tráfico a través de Google Analytics y registros de uso básico.</li>
           <li>Para mostrar anuncios personalizados (vía Google AdSense).</li>
           <li>Para proteger contra actividades maliciosas y abusos.</li>
         </ul>
