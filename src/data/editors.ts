@@ -21,9 +21,9 @@ export const editors: EditorData[] = [
     slug: 'rpg-maker-mv',
     name: 'RPG Maker MV/MZ',
     fileType: '.rpgsave, .rmmzsave, .rvdata2, .rvdata, .rxdata, .lsd',
-    title: 'RPG Maker SaveEditor.Online - Free .rpgsave & .rmmzsave Editor',
+    title: 'RPG Maker Save Editor Online | Edit .rpgsave & .rmmzsave',
     description:
-      'Free RPG Maker save editor. Edit .rpgsave (MV), .rmmzsave (MZ), and common fields in older .rvdata2, .rvdata, and .rxdata Ruby Marshal files. No download, browser-based rpg save editor.',
+      'Free RPG Maker save editor online. Edit compatible .rpgsave and .rmmzsave files, inspect older .rvdata2/.rvdata/.rxdata saves, change gold, items, variables, and switches in your browser.',
     keywords:
       'rpg maker save editor, rpg save editor, rpgsave editor, .rpgsave editor online, rpg maker mv save editor, rpg maker mz save editor, rmmzsave editor, edit rpgsave file',
     features: [

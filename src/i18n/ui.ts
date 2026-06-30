@@ -1471,8 +1471,8 @@ export const ui = {
         'gamesPage.ctaTitle': "没找到您的游戏？",
         'gamesPage.ctaDesc': "没有专用编辑器时可使用通用编辑器。未证明安全导出的变体保持只读。",
         'gamesPage.ctaButton': '打开通用编辑器',
-        'gamesPage.seoTitle': '支持游戏列表 | SaveEditor.Online',
-        'gamesPage.seoDesc': "浏览 SaveEditor.Online 的游戏页面，查看 RPG Maker、Unity、Unreal Engine、Ren'Py、GameMaker 等引擎的兼容路径、支持限制和上传入口。",
+        'gamesPage.seoTitle': '在线存档修改器游戏入口 | RPG Maker、Unity、Unreal 存档编辑',
+        'gamesPage.seoDesc': "中文游戏存档修改器入口。按 RPG Maker、Unity、Unreal Engine、Ren'Py、GameMaker 查看存档位置、可改字段、支持限制、备份步骤和上传入口。",
 
         // Formats Page
         'formatsPage.title': '存档文件格式',
@@ -1492,7 +1492,7 @@ export const ui = {
         'formatsPage.howToFind.mac': '<strong>macOS：</strong>查看 <code>~/Library/Application Support</code> 或 <code>~/Library/Preferences</code>',
         'formatsPage.howToFind.linux': '<strong>Linux：</strong>检查 <code>~/.local/share</code> 或 <code>~/.config</code>',
         'formatsPage.seoKeywords': '游戏存档格式, rpgsave, playerprefs, gvas, 存档文件扩展名, 游戏数据格式',
-        'gamesPage.seoKeywords': '存档修改器 游戏, rpg制作大师 游戏, unity 游戏, 虚幻引擎 游戏, 支持游戏列表',
+        'gamesPage.seoKeywords': '在线存档修改器, 存档编辑器 游戏, rpg制作大师 存档修改, RPG Maker 存档修改, Unity 存档修改, Unreal 存档编辑, 支持游戏列表',
 
         // Format Descriptions
         'formats.desc.rpgsave': '支持现代 RPG Maker JSON 存档、旧版 Ruby Marshal 存档，以及 RPG Maker 2000/2003 .lsd 稳定受限编辑。',
