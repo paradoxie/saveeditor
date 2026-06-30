@@ -1,6 +1,6 @@
 ---
 title: "NaniNovel 存档编辑指南：.nson 文件完全解析"
-description: "学习如何编辑 NaniNovel 视觉小说存档文件（.nson）。全面指南涵盖 NSON 格式结构、压缩算法、变量修改和故障排除技巧。"
+description: "NaniNovel 视觉小说 .nson 存档编辑指南。讲解 NSON 结构、压缩算法、变量定位、可修改字段、常见解析失败原因、安全备份流程、替换步骤和验证方法。"
 pubDate: 2026-01-06
 updatedDate: 2026-03-05
 tags: ["naninovel", "visual-novel", "guide", "tutorial", "nson"]

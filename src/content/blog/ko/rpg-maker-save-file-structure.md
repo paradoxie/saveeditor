@@ -1,6 +1,6 @@
 ---
 title: "RPG 만들기 세이브 파일 구조 해설 - MV, MZ, VX Ace 가이드"
-description: "RPG 만들기 세이브 파일 구조를 완전 해설. .rpgsave, .rmmzsave, .rvdata2 포맷과 데이터 저장 방식을 배웁니다. 세이브 편집과 게임 개발에 최적."
+description: "RPG Maker 세이브 파일 구조 해설입니다. .rpgsave, .rmmzsave, .rvdata2 형식의 저장 방식, 편집 가능한 필드, 손상 방지를 위한 백업 절차를 정리합니다."
 pubDate: 2026-01-05
 updatedDate: 2026-03-28
 tags: ["rpg-maker", "rpgsave", "guide", "technical"]

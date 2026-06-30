@@ -1,6 +1,6 @@
 ---
 title: "Ren'Pyセーブ編集：完全技術ガイド"
-description: "Ren'Pyのセーブファイルがどのように機能するか、なぜ編集が難しいのか、そして安全にゲーム進行を変更する回避策について学びます。"
+description: "Ren'Py セーブ編集の技術ガイド。.save と persistent の仕組み、pickle のリスク、安全に扱える primitive 値、進行度を変更する前のバックアップ手順を解説します。"
 pubDate: 2026-01-08
 updatedDate: 2026-03-08
 tags: ["Ren'Py", "ビジュアルノベル", "技術解説", "ガイド"]

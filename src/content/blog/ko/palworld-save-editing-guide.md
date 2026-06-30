@@ -1,6 +1,6 @@
 ---
 title: "Palworld 세이브 파일 편집 방법 - 완전 가이드 (2026)"
-description: "호환성 우선 Palworld 세이브 가이드. PC/Steam Deck 저장 위치, 표준 GVAS 안전 확인 절차, 전용 도구로 전환해야 할 시점을 안내합니다."
+description: "Palworld 세이브 편집 가이드입니다. PC/Steam Deck 저장 위치, Players 세이브와 Level.sav 차이, 표준 GVAS 확인 절차와 전용 도구 전환 기준을 안내합니다."
 pubDate: 2026-01-07
 updatedDate: 2026-04-02
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]

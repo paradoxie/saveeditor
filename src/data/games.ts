@@ -350,7 +350,7 @@ export function localizePresetConfidence(confidence: GameData['presetConfidence'
 const localeText = {
   'zh-cn': {
     genericDescription: (name: string, engine: string) => `${name} 的 ${engine} 存档编辑工作流，优先说明真实可编辑字段、限制和失败原因。`,
-    genericSeo: (name: string, format: string) => `${name} 在线存档编辑器。查看 ${format} 存档位置、可编辑字段、支持限制、失败原因和上传入口。`,
+    genericSeo: (name: string, format: string) => `${name} 在线存档编辑器。查看 ${format} 存档位置、可编辑字段、支持限制、失败原因、备份步骤、替换注意事项和上传入口，按浏览器端流程安全修改。`,
     seoHeading: (name: string) => `${name} 存档编辑指南`,
     seoBody: (name: string, format: string, engine: string) =>
       `${name} 页面面向真实玩家的存档修改流程：先找到 ${format} 存档，备份原文件，再用浏览器本地解析。编辑器会按 ${engine} 的已验证能力显示 Quick Edit 字段；没有证据的字段会保持候选或只读说明。`,
@@ -388,7 +388,7 @@ const localeText = {
   },
   ja: {
     genericDescription: (name: string, engine: string) => `${name} の ${engine} セーブ編集ワークフロー。編集可能な項目、制限、失敗理由を明確に表示します。`,
-    genericSeo: (name: string, format: string) => `${name} オンラインセーブエディタ。${format} の保存場所、編集候補、制限、失敗理由、アップロード入口を確認できます。`,
+    genericSeo: (name: string, format: string) => `${name} オンラインセーブエディタ。${format} の保存場所、編集候補、制限、失敗理由、バックアップ手順、置き換え時の注意点、アップロード入口を確認できます。`,
     seoHeading: (name: string) => `${name} セーブ編集ガイド`,
     seoBody: (name: string, format: string, engine: string) =>
       `${name} ページでは、${format} セーブを見つけてバックアップし、ブラウザ内で解析する流れをまとめています。Quick Edit は ${engine} の検証済み能力に基づいて表示され、証拠が足りない項目は候補または読み取り専用として扱います。`,
@@ -430,7 +430,7 @@ const localeSeoOverlays: Record<Exclude<GamePageLocale, 'en'>, Record<string, Pa
   'zh-cn': {
     'stardew-valley': {
       description: 'ConcernedApe 开发的农场模拟 RPG。',
-      seoDescription: '星露谷物语在线存档编辑器。查看金币、背包、技能和友谊相关字段，先备份再在浏览器本地修改。',
+      seoDescription: '星露谷物语在线存档编辑器。查看农场存档位置，修改金币、背包、技能、友谊和任务字段，先复制原档再在浏览器中小步验证。',
       seoContent: `
         <h2>星露谷物语存档编辑指南</h2>
         <p>星露谷物语存档是 XML 结构，适合先用 Quick Edit 定位金币、物品、技能、友谊等常见字段，再进入高级视图核对上下文。</p>
@@ -444,7 +444,7 @@ const localeSeoOverlays: Record<Exclude<GamePageLocale, 'en'>, Record<string, Pa
     },
     palworld: {
       description: 'Pocketpair 开发的生存驯宠游戏。',
-      seoDescription: 'Palworld .sav 在线检查与编辑入口。Player 存档优先显示高置信 Quick Panel，Level.sav/world 文件保持只读说明。',
+      seoDescription: 'Palworld .sav 在线检查与编辑入口。Player 存档优先显示高置信 Quick Panel，Level.sav/world 文件保持只读说明，并提示备份、替换和失败原因。',
       seoContent: `
         <h2>Palworld 存档编辑边界</h2>
         <p>Palworld 的 Player 存档和 world/Level.sav 风险不同。本页优先引导玩家上传 Players 目录下的个人存档；世界文件只做结构检查和失败原因说明。</p>
@@ -466,7 +466,7 @@ const localeSeoOverlays: Record<Exclude<GamePageLocale, 'en'>, Record<string, Pa
     },
     'hollow-knight': {
       description: 'Team Cherry 的银河恶魔城动作冒险游戏。',
-      seoDescription: 'Hollow Knight 在线存档编辑器。查看 user#.dat 位置，检查 Geo、面具、灵魂、护符和地图进度字段。',
+      seoDescription: 'Hollow Knight 在线存档编辑器。查看 user#.dat 存档位置，检查 Geo、面具、灵魂、护符、地图进度和 Godhome 相关字段，替换前保留备份。',
     },
     'rpg-maker': {
       description: '覆盖 MV/MZ、XP/VX/VX Ace 与 2000/2003 的 RPG Maker 存档编辑入口。',
@@ -482,11 +482,51 @@ const localeSeoOverlays: Record<Exclude<GamePageLocale, 'en'>, Record<string, Pa
         </ul>
       `,
     },
+    omori: {
+      description: 'OMOCAT 制作的心理恐怖 RPG。',
+      seoDescription: 'OMORI 在线存档编辑器。定位 .rpgsave 存档文件，检查金钱、队伍、物品、变量、开关和剧情进度字段，按 RPG Maker MV 结构备份后再修改并进游戏验证。',
+    },
+    'lisa-the-painful': {
+      description: 'Dingaling Productions 制作的末世叙事 RPG。',
+      seoDescription: 'LISA: The Painful 在线存档编辑器。查看 .rvdata2 存档路径，检查金钱、队伍、物品、角色状态和变量字段，按 VX Ace 结构谨慎修改。',
+    },
+    oneshot: {
+      description: 'Future Cat 制作的解谜冒险 RPG。',
+      seoDescription: 'OneShot 在线存档编辑器。查看 .rpgsave 与 .rvdata2 存档位置，检查背包、地图、变量和剧情开关字段，替换前保留原始备份。',
+    },
+    'fear-and-hunger': {
+      description: 'Miro Haverinen 制作的黑暗地牢 RPG。',
+      seoDescription: 'Fear & Hunger 在线存档编辑器。定位 RPG Maker 存档文件，检查队伍状态、物品、银币、地图变量和事件开关，先复制备份再修改。',
+    },
+    ib: {
+      description: 'kouri 制作的美术馆恐怖冒险游戏。',
+      seoDescription: 'Ib 在线存档编辑器。查看 RPG Maker 存档位置，检查物品、角色状态、剧情变量、开关和结局相关字段，适合先备份后做小范围修改。',
+    },
+    'yume-nikki': {
+      description: 'Kikiyama 制作的梦境探索 RPG。',
+      seoDescription: '梦日记在线存档编辑器。定位 RPG Maker 存档文件，查看效果收集、地图位置、变量和开关状态，保留原档后再替换测试。',
+    },
+    'the-witchs-house': {
+      description: 'Fummy 制作的日式恐怖解谜 RPG。',
+      seoDescription: '魔女之家在线存档编辑器。查看 RPG Maker 存档路径，检查物品、位置、剧情变量和机关开关，修改前复制备份并进游戏验证。',
+    },
+    'ao-oni': {
+      description: 'noprops 制作的经典日式恐怖 RPG。',
+      seoDescription: '青鬼在线存档编辑器。定位 RPG Maker 存档文件，检查钥匙道具、地图位置、逃脱进度、变量和开关字段，先备份再替换。',
+    },
+    'mogeko-castle': {
+      description: 'Deep-Sea Prisoner 制作的 RPG Maker 冒险游戏。',
+      seoDescription: 'Mogeko Castle 在线存档编辑器。查看 RPG Maker 存档位置，检查物品、角色状态、剧情变量和开关字段，使用备份文件测试修改结果。',
+    },
+    misao: {
+      description: 'Sen 制作的校园恐怖 RPG Maker 游戏。',
+      seoDescription: '操 Misao 在线存档编辑器。定位 .rpgsave、.rvdata2 或旧版 RPG Maker 存档，检查物品、角色状态、地图变量和剧情开关。',
+    },
   },
   ja: {
     'stardew-valley': {
       description: 'ConcernedApe による農場シミュレーション RPG。',
-      seoDescription: 'スターデューバレーのオンラインセーブエディタ。ゴールド、インベントリ、スキル、友好度をバックアップ前提で編集します。',
+      seoDescription: 'スターデューバレーのオンラインセーブエディタ。農場セーブの場所を確認し、ゴールド、インベントリ、スキル、友好度をバックアップ前提で少しずつ編集できます。',
       seoContent: `
         <h2>スターデューバレー セーブ編集ガイド</h2>
         <p>スターデューバレーのセーブは XML 形式です。Quick Edit でゴールド、アイテム、スキル、友好度などを見つけ、必要に応じて詳細表示で確認できます。</p>
@@ -522,7 +562,7 @@ const localeSeoOverlays: Record<Exclude<GamePageLocale, 'en'>, Record<string, Pa
     },
     'hollow-knight': {
       description: 'Team Cherry によるメトロイドヴァニア。',
-      seoDescription: 'Hollow Knight オンラインセーブエディタ。user#.dat の場所、Geo、仮面、ソウル、チャーム、マップ進行を確認できます。',
+      seoDescription: 'Hollow Knight オンラインセーブエディタ。user#.dat の保存場所、Geo、仮面、ソウル、チャーム、マップ進行、Godhome 関連データ、バックアップ手順を確認できます。',
     },
     'rpg-maker': {
       description: 'MV/MZ、XP/VX/VX Ace、2000/2003 を対象にした RPGツクール セーブ編集入口。',

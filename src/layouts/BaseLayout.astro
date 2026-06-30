@@ -15,19 +15,6 @@ interface Props {
 
 const { title, description, keywords, ogImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const descriptionSuffixByLang: Record<string, string> = {
-  en: ' Edit compatible game save files in your browser with local processing, clear format support, and backup-first guidance.',
-  ja: ' 対応するゲームセーブをブラウザ内で処理し、形式ごとの対応範囲、バックアップ前提の編集手順、安全な置き換え方法を確認できます。',
-  pt: ' Edite saves de jogos compatíveis no navegador, com processamento local, suporte por formato e orientação para backup.',
-  ko: ' 호환되는 게임 세이브를 브라우저에서 로컬로 처리하고, 형식별 지원 범위와 백업 우선 편집 안내를 확인하세요.',
-  'zh-cn': ' 在浏览器本地处理兼容游戏存档，查看格式支持范围、备份优先的编辑流程、安全替换提示、常见问题说明和下载入口列表。',
-  es: ' Edita partidas compatibles en el navegador con procesamiento local, soporte por formato y recomendaciones de copia de seguridad.',
-  ru: ' Редактируйте совместимые сохранения в браузере с локальной обработкой, поддержкой форматов и советами по резервным копиям.',
-};
-const seoDescription =
-  description.length >= 80
-    ? description
-    : `${description}${descriptionSuffixByLang[lang] || descriptionSuffixByLang.en}`;
 const siteOrigin = getSiteOrigin(Astro.site);
 const canonicalURL = new URL(getCanonicalPath(Astro.url.pathname), siteOrigin);
 const siteUrl = `${siteOrigin}/`;
@@ -186,7 +173,7 @@ const structuredData = [
 
     <!-- SEO Meta -->
     <title>{title}</title>
-    <meta name="description" content={seoDescription} />
+    <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
     <link rel="canonical" href={canonicalURL} />
 
@@ -207,7 +194,7 @@ const structuredData = [
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={seoDescription} />
+    <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="SaveEditor.Online" />
     <meta property="og:image" content={ogImageUrl} />
@@ -216,7 +203,7 @@ const structuredData = [
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@SaveEditorTop" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={seoDescription} />
+    <meta name="twitter:description" content={description} />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 
     <!-- Favicon -->

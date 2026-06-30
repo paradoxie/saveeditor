@@ -1,6 +1,6 @@
 ---
 title: "RPGツクールMVのセーブファイル(.rpgsave)を編集する方法 - 完全ガイド"
-description: "RPGツクールMVのセーブデータを無料のオンラインツールで編集する完全ガイド。所持金、ステータス、アイテム、変数を簡単に変更できます。MVとMZに対応。"
+description: "RPGツクールMV/MZのセーブ編集ガイド。.rpgsave/.rmmzsave の場所、所持金、ステータス、アイテム、変数、スイッチの変更手順とバックアップ方法を説明します。"
 pubDate: 2026-01-03
 updatedDate: 2026-04-05
 author: "Paradox"

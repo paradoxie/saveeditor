@@ -1,6 +1,6 @@
 ---
 title: "游戏存档文件扩展名详解 - 完整参考指南"
-description: "全面了解 .json、.xml、.sav、.rpgsave、.save、.dat 等常见游戏存档文件格式及其编辑方法。"
+description: "游戏存档文件扩展名参考。解释 .json、.xml、.sav、.rpgsave、.save、.dat 等格式的常见用途、编辑难度、风险边界、备份方法和适配入口。"
 pubDate: 2026-01-01
 updatedDate: 2026-03-22
 tags: ["guide", "file-formats", "education", "reference"]

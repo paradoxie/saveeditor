@@ -14,11 +14,19 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const descriptions: Record<string, string> = {
+  ja: 'アップロード済みセーブを復元し、推奨エディタを開く中継ページです。対応形式の判定、保存済みアップロードの再読込、編集画面への安全な引き継ぎ、バックアップ確認まで扱います。',
+  pt: 'Restaure um save enviado anteriormente e abra o editor recomendado. Esta página valida o formato salvo, recupera o upload temporário e encaminha o arquivo para o fluxo de edição seguro.',
+  ko: '이전에 업로드한 세이브를 복원하고 추천 에디터를 여는 중계 페이지입니다. 저장된 업로드를 다시 읽고 형식을 확인한 뒤 안전한 편집 흐름으로 연결합니다.',
+  'zh-cn': '恢复已上传的游戏存档并打开推荐编辑器。此页面用于读取短期上传缓存、识别文件格式、连接对应编辑流程，并在重新编辑前保留备份提示、失败恢复说明、安全替换入口和重新下载路径。',
+  ru: 'Восстановление ранее загруженного сохранения и переход к рекомендованному редактору. Страница проверяет временный файл, определяет формат и передает его в безопасный поток редактирования.',
+  es: 'Restaura una partida subida anteriormente y abre el editor recomendado. La página recupera el archivo temporal, detecta el formato y lo envía al flujo de edición seguro.',
+};
 ---
 
 <BaseLayout
   title="Restoring Upload | SaveEditor.Online"
-  description="Restoring your uploaded save and opening the recommended editor."
+  description={descriptions[lang] || 'Restore an uploaded game save and open the recommended editor. This page recovers the temporary upload, checks the format, and routes it into the safe editing workflow.'}
 >
   <section class="container mx-auto px-4 py-12">
     <IngestClient client:only="react" lang={lang} />

@@ -1,6 +1,6 @@
 ---
 title: "Unity PlayerPrefs 和 XML 存档编辑指南 - 完整教程"
-description: "完整的 Unity 游戏存档修改指南，适用于 Android、iOS 和 PC。学习如何编辑任何 Unity 游戏的 PlayerPrefs、XML、JSON 和 Plist 文件。"
+description: "Unity 游戏存档修改指南，覆盖 Android、iOS 与 PC。讲解 PlayerPrefs、XML、JSON、Plist 的存放位置、可编辑字段、备份方法和浏览器端安全检查。"
 pubDate: 2026-01-04
 updatedDate: 2026-03-15
 tags: ["unity", "guide", "tutorial", "playerprefs"]

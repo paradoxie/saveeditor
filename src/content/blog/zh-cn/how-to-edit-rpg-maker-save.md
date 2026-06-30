@@ -1,6 +1,6 @@
 ---
 title: "如何编辑 RPG Maker MV 存档文件 (.rpgsave) - 完整指南"
-description: "完整的 RPG Maker MV 存档编辑教程。使用我们的免费在线工具轻松修改金币、属性、物品和变量。适用于 MV 和 MZ。"
+description: "RPG Maker MV/MZ 存档编辑教程。说明 .rpgsave/.rmmzsave 的位置、金币、属性、物品、变量和开关修改方法，以及替换前的备份验证步骤。"
 pubDate: 2026-01-03
 updatedDate: 2026-04-05
 author: "Paradox"

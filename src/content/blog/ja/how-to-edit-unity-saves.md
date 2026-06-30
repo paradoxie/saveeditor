@@ -1,6 +1,6 @@
 ---
 title: "Unity PlayerPrefsとXMLセーブの編集方法 - 完全ガイド"
-description: "Android、iOS、PCのUnityゲームのセーブファイルを編集する完全ガイド。PlayerPrefs、XML、JSON、Plistファイルの編集方法を詳しく解説。"
+description: "Unity ゲームのセーブ編集ガイド。PlayerPrefs、XML、JSON、Plist の保存場所、Android/iOS/PCでの取り出し方、編集前後のバックアップ確認を説明します。"
 pubDate: 2026-01-04
 updatedDate: 2026-03-15
 tags: ["Unity", "ガイド", "チュートリアル", "PlayerPrefs"]

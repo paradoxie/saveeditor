@@ -1,6 +1,6 @@
 ---
 title: "Palworld セーブデータの編集方法 - 完全ガイド (2026)"
-description: "互換性優先のPalworldセーブ編集ガイド。PC/Steam Deckの保存場所、標準GVASの安全な確認手順、専用ツールへ切り替える判断を解説。"
+description: "Palworld セーブ編集ガイド。PC/Steam Deck の保存場所、Players セーブと Level.sav の違い、標準GVASの確認手順、読み取り専用になる条件を説明します。"
 pubDate: 2026-01-07
 updatedDate: 2026-04-02
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]

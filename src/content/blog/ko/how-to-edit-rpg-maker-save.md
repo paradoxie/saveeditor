@@ -1,6 +1,6 @@
 ---
 title: "RPG Maker MV 세이브 파일 (.rpgsave) 편집 방법 - 완벽 가이드"
-description: "RPG Maker MV 세이브 파일 편집에 대한 완벽한 가이드입니다. 무료 온라인 도구를 사용하여 골드, 스탯, 아이템, 변수를 쉽게 수정하세요. MV와 MZ 모두 지원합니다."
+description: "RPG Maker MV/MZ 세이브 편집 가이드입니다. .rpgsave/.rmmzsave 위치, 골드, 스탯, 아이템, 변수와 스위치 수정 방법, 백업 후 검증 절차를 설명합니다."
 pubDate: 2026-01-03
 updatedDate: 2026-04-05
 author: "Paradox"

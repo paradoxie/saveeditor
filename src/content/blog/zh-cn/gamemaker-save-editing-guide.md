@@ -1,6 +1,6 @@
 ---
 title: "GameMaker 存档编辑指南：INI 和 JSON 文件完全解析"
-description: "掌握 GameMaker Studio 存档文件编辑。学习修改 Undertale、Deltarune 等游戏的 INI 配置和 JSON 存档。"
+description: "GameMaker Studio 存档编辑指南。讲解 Undertale、Deltarune 等游戏常见 INI 与 JSON 存档结构、字段定位、备份流程和修改后的验证步骤。"
 pubDate: 2026-01-02
 updatedDate: 2026-03-18
 tags: ["gamemaker", "undertale", "guide", "tutorial", "ini", "json"]

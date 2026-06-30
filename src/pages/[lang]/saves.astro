@@ -19,6 +19,14 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: string };
 const t = useTranslations(lang as keyof typeof languages);
+const descriptions: Record<string, string> = {
+  ja: 'ゲーム別の参考セーブ、スターターセーブ、練習用セーブを一覧できます。対応ゲーム、保存場所、置き換え手順、バージョン条件、バックアップ前提の使い方を確認してください。',
+  pt: 'Baixe saves de referência, saves iniciais e arquivos de treino para jogos compatíveis. Veja o jogo, o objetivo do arquivo, o caminho de instalação e os cuidados de backup.',
+  ko: '지원 게임용 참고 세이브, 스타터 세이브, 연습용 세이브 파일을 모아 둔 목록입니다. 적용 게임, 저장 위치, 교체 절차와 백업 주의사항을 확인하세요.',
+  'zh-cn': '下载兼容游戏的参考存档、开局存档和练习存档。查看适用游戏、存档用途、替换路径、备份步骤、版本限制、风险提示、适配状态、文件来源说明、校验建议和重新导入编辑器的入口。',
+  ru: 'Скачивайте эталонные, стартовые и тренировочные сохранения для поддерживаемых игр. Проверяйте назначение файла, путь замены и рекомендации по резервной копии.',
+  es: 'Descarga saves de referencia, partidas iniciales y archivos de práctica para juegos compatibles. Revisa el juego, el uso del archivo, la ruta de reemplazo y las copias de seguridad.',
+};
 
 // Get posts for this language OR fallback to English posts but localized URL?
 // For now, let's show English posts if no localized posts exist, or just show English posts always since I haven't translated them.
@@ -50,7 +58,7 @@ const posts = allPosts
 // So links should be fine.
 ---
 
-<BaseLayout title={`${t('nav.saves')} | SaveEditor.Online`} description={`${t('nav.saves')} - SaveEditor.Online`}>
+<BaseLayout title={`${t('nav.saves')} | SaveEditor.Online`} description={descriptions[lang] || 'Download curated save files, starter saves, and practice saves for supported games. Review the target game, replacement path, backup steps, and editor import options.'}>
   <section class="container mx-auto px-4 py-12">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold text-gray-900 mb-4 dark:text-white">{t('nav.saves')}</h1>

@@ -1,6 +1,6 @@
 ---
 title: "Ren'Py 存档编辑：完整技术指南"
-description: "了解 Ren'Py 存档文件的工作原理，为什么它们难以编辑，以及学习安全修改视觉小说游戏进度的变通方法。"
+description: "Ren'Py 存档编辑技术指南。解释 .save 与 persistent 的结构、Python pickle 风险、可安全修改的 primitive 字段，以及视觉小说进度调整的备份流程。"
 pubDate: 2026-01-08
 updatedDate: 2026-03-08
 tags: ["renpy", "visual-novel", "technical", "guide"]

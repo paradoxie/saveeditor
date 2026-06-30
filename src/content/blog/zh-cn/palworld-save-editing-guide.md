@@ -1,6 +1,6 @@
 ---
 title: "Palworld 存档修改完全指南 - PC和Steam Deck适用 (2026)"
-description: "面向兼容性优先的 Palworld 存档指南。包含 PC/Steam Deck 存档位置、标准 GVAS 安全查看流程，以及何时应切换到专用工具。"
+description: "Palworld 存档修改指南，适用于 PC 与 Steam Deck。说明 Players 存档位置、标准 GVAS 检查流程、Level.sav 只读边界和专用工具切换时机。"
 pubDate: 2026-01-07
 updatedDate: 2026-04-02
 tags: ["palworld", "unreal-engine", "guide", "sav-editor"]

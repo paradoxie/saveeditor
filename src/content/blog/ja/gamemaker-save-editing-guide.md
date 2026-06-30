@@ -1,6 +1,6 @@
 ---
 title: "GameMaker セーブ編集ガイド：INI・JSONファイル完全解説"
-description: "GameMaker Studioのセーブファイル編集をマスター。Undertale、Deltaruneなどのゲームで、INI設定やJSONセーブの変更方法を詳しく解説。"
+description: "GameMaker Studio のセーブ編集ガイド。Undertale や Deltarune で使われる INI/JSON の場所、主要フィールド、変更手順、破損を避ける確認方法を説明します。"
 pubDate: 2026-01-02
 updatedDate: 2026-03-18
 tags: ["gamemaker", "undertale", "guide", "tutorial", "ini", "json"]
