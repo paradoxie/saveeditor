@@ -1,0 +1,219 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { absoluteUrl, getSiteOrigin } from '../../../lib/site';
+
+const siteOrigin = getSiteOrigin(Astro.site);
+const absUrl = (path: string) => absoluteUrl(path, siteOrigin);
+const pageUrl = '/zh-cn/games/crimson-moon-immortal/';
+const editorUrl = '/zh-cn/editor/rpg-maker-mv/';
+
+const editableItems = [
+  { title: '银两与灵石', body: '常见教程会通过搜索当前数值来定位货币字段。建议一次只改一个数值，改完进游戏确认。' },
+  { title: '物品与装备', body: 'RPG Maker 存档通常会保存背包、装备、数量和 ID。修改前先确认物品已经在背包中出现。' },
+  { title: '变量与开关', body: '剧情进度、回忆录、任务状态可能落在变量或开关中。不了解含义的字段不要批量修改。' },
+  { title: 'config 存档', body: '部分版本的配置或回忆录状态可能在 config.rmmzsave 中。编辑前先复制原文件。' },
+];
+
+const steps = [
+  '关闭游戏，进入游戏目录或用户数据目录，找到 save 文件夹。',
+  '复制整个 save 文件夹，或至少复制要修改的 file*.rmmzsave / config.rmmzsave。',
+  '打开 RPG Maker 存档编辑器，上传 .rmmzsave 或 .rpgsave 文件。',
+  '先搜索一个你知道的当前数值，例如银两、灵石或背包物品数量。',
+  '只修改一个小范围字段，下载新文件后替换回 save 文件夹。',
+  '重新进入游戏验证；如果读档失败，立刻恢复备份。'
+];
+
+const faq = [
+  {
+    q: '绯月仙行录存档大概是什么格式？',
+    a: '公开教程和同类 RPG Maker 页面显示，常见修改对象包括 .rmmzsave、.rpgsave、config.rmmzsave 或 file*.rmmzsave。不同版本可能有差异，以上传后的识别结果为准。',
+  },
+  {
+    q: '可以直接解锁全部内容吗？',
+    a: '不建议做批量解锁。更稳妥的方式是先定位已存在的相邻字段，小范围修改变量、开关或配置项，并在游戏内验证。',
+  },
+  {
+    q: '为什么修改后读档失败？',
+    a: '常见原因是改错文件、改到结构字段、数值超出游戏上限，或版本存档结构不同。恢复备份后重新从单个字段开始测试。',
+  },
+];
+
+const sources = [
+  { title: 'B站：绯月仙行录修改教程', url: 'https://www.bilibili.com/video/BV1Ud4y1p7AV/' },
+  { title: '九游：灵石修改教程', url: 'https://www.9game.cn/news/6905100.html' },
+  { title: '逗游：RPG Maker 道具修改思路', url: 'https://www.doyo.cn/article/470215' },
+  { title: '逗游：config.rmmzsave 修改思路', url: 'https://www.doyo.cn/article/479588' },
+];
+---
+
+<BaseLayout
+  title="绯月仙行录存档修改器 | .rmmzsave 在线编辑教程"
+  description="绯月仙行录存档修改器教程。使用 RPG Maker 在线编辑器修改 .rmmzsave、.rpgsave、config.rmmzsave 或 file*.rmmzsave，查看银两、灵石、物品、装备、变量和开关的备份优先修改流程。"
+  keywords="绯月仙行录存档修改器, 绯月仙行录存档修改, 绯月仙行录灵石修改, 绯月仙行录rmmzsave, RPG Maker 存档修改"
+>
+  <section class="bg-slate-950 text-white">
+    <div class="container mx-auto px-4 py-16 lg:py-20">
+      <div class="max-w-4xl">
+        <p class="mb-4 text-sm font-semibold text-primary-300">RPG Maker 存档修改教程</p>
+        <h1 class="mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
+          绯月仙行录存档修改器
+        </h1>
+        <p class="max-w-3xl text-lg leading-8 text-slate-300">
+          这是一个面向绯月仙行录玩家的中文存档修改入口。页面只讨论本地存档备份、RPG Maker 文件识别、数值搜索和安全替换，不提供游戏资源下载。
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={editorUrl}
+            class="rounded-xl bg-primary-500 px-6 py-3 font-semibold text-white hover:bg-primary-600"
+          >
+            打开 RPG Maker 编辑器
+          </a>
+          <a
+            href="/zh-cn/blog/how-to-edit-rpg-maker-save/"
+            class="rounded-xl border border-white/20 px-6 py-3 font-semibold text-white hover:bg-white/10"
+          >
+            查看 RPG Maker 教程
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-14">
+    <div class="mx-auto max-w-5xl">
+      <section class="mb-12 grid gap-4 md:grid-cols-4">
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+          <div class="text-sm text-gray-500">常见格式</div>
+          <div class="mt-2 font-bold text-gray-900">.rmmzsave / .rpgsave</div>
+        </div>
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+          <div class="text-sm text-gray-500">可能文件</div>
+          <div class="mt-2 font-bold text-gray-900">config / file*</div>
+        </div>
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+          <div class="text-sm text-gray-500">推荐方式</div>
+          <div class="mt-2 font-bold text-gray-900">搜索现有数值</div>
+        </div>
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+          <div class="text-sm text-gray-500">安全边界</div>
+          <div class="mt-2 font-bold text-gray-900">先备份再替换</div>
+        </div>
+      </section>
+
+      <section class="mb-12 rounded-2xl border border-amber-200 bg-amber-50 p-6">
+        <h2 class="mb-3 text-2xl font-bold text-amber-950">修改前先确认</h2>
+        <p class="leading-7 text-amber-900">
+          不同版本、汉化版或整合版的存档结构可能不完全一致。最稳的方法不是批量改所有字段，而是先用游戏内已知数值定位，再只改一个字段并回到游戏里验证。
+        </p>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="mb-6 text-3xl font-bold text-gray-900">可以尝试修改的内容</h2>
+        <div class="grid gap-5 md:grid-cols-2">
+          {editableItems.map((item) => (
+            <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 text-xl font-bold text-gray-900">{item.title}</h3>
+              <p class="leading-7 text-gray-600">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-12 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+        <h2 class="mb-6 text-3xl font-bold text-gray-900">备份优先修改流程</h2>
+        <ol class="space-y-4">
+          {steps.map((step, index) => (
+            <li class="flex gap-4">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">
+                {index + 1}
+              </span>
+              <span class="pt-1 leading-7 text-gray-700">{step}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="mb-12 rounded-2xl border border-gray-200 bg-gray-50 p-8">
+        <h2 class="mb-4 text-3xl font-bold text-gray-900">常见存档位置</h2>
+        <p class="mb-5 leading-7 text-gray-700">
+          公开教程通常会提到游戏目录下的 <code>save</code> 文件夹。PC 版优先检查游戏根目录；如果没有，先进入游戏保存一次，再重新查看目录。
+        </p>
+        <div class="rounded-lg bg-white p-4 font-mono text-sm text-gray-700">
+          游戏目录 / save / config.rmmzsave<br />
+          游戏目录 / save / file1.rmmzsave<br />
+          游戏目录 / save / file*.rpgsave
+        </div>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="mb-6 text-3xl font-bold text-gray-900">常见问题</h2>
+        <div class="space-y-4">
+          {faq.map((item) => (
+            <details class="rounded-xl border border-gray-200 bg-white p-6">
+              <summary class="cursor-pointer text-lg font-semibold text-gray-900">{item.q}</summary>
+              <p class="mt-3 leading-7 text-gray-600">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-12 rounded-2xl border border-indigo-100 bg-indigo-50 p-8">
+        <h2 class="mb-4 text-2xl font-bold text-gray-900">参考教程</h2>
+        <ul class="space-y-3">
+          {sources.map((source) => (
+            <li>
+              <a
+                href={source.url}
+                rel="nofollow noopener noreferrer"
+                target="_blank"
+                class="font-medium text-primary-700 hover:underline"
+              >
+                {source.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-gray-200 bg-white p-8">
+        <h2 class="mb-3 text-2xl font-bold text-gray-900">相关站点</h2>
+        <p class="mb-4 leading-7 text-gray-600">
+          以下链接仅作为相关站点入口，不影响本页的存档编辑流程。
+        </p>
+        <a
+          href="https://tantuk.top/"
+          rel="nofollow noopener noreferrer"
+          target="_blank"
+          class="font-semibold text-primary-700 hover:underline"
+        >
+          Tantuk
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '首页', item: absUrl('/zh-cn/') },
+        { '@type': 'ListItem', position: 2, name: '游戏', item: absUrl('/zh-cn/games/') },
+        { '@type': 'ListItem', position: 3, name: '绯月仙行录存档修改器', item: absUrl(pageUrl) },
+      ],
+    })}
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    })}
+  />
+</BaseLayout>
