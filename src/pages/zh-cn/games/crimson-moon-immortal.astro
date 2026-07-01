@@ -6,6 +6,7 @@ const siteOrigin = getSiteOrigin(Astro.site);
 const absUrl = (path: string) => absoluteUrl(path, siteOrigin);
 const pageUrl = '/zh-cn/games/crimson-moon-immortal/';
 const editorUrl = '/zh-cn/editor/rpg-maker-mv/';
+const gameImage = '/images/games/crimson-moon-immortal.webp';
 
 const editableItems = [
   { title: '银两与灵石', body: '常见教程会通过搜索当前数值来定位货币字段。建议一次只改一个数值，改完进游戏确认。' },
@@ -50,30 +51,43 @@ const sources = [
   title="绯月仙行录存档修改器 | .rmmzsave 在线编辑教程"
   description="绯月仙行录存档修改器教程。使用 RPG Maker 在线编辑器修改 .rmmzsave、.rpgsave、config.rmmzsave 或 file*.rmmzsave，查看银两、灵石、物品、装备、变量和开关的备份优先修改流程。"
   keywords="绯月仙行录存档修改器, 绯月仙行录存档修改, 绯月仙行录灵石修改, 绯月仙行录rmmzsave, RPG Maker 存档修改"
+  ogImage={gameImage}
 >
   <section class="bg-slate-950 text-white">
     <div class="container mx-auto px-4 py-16 lg:py-20">
-      <div class="max-w-4xl">
-        <p class="mb-4 text-sm font-semibold text-primary-300">RPG Maker 存档修改教程</p>
-        <h1 class="mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
-          绯月仙行录存档修改器
-        </h1>
-        <p class="max-w-3xl text-lg leading-8 text-slate-300">
-          这是一个面向绯月仙行录玩家的中文存档修改入口。页面只讨论本地存档备份、RPG Maker 文件识别、数值搜索和安全替换，不提供游戏资源下载。
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a
-            href={editorUrl}
-            class="rounded-xl bg-primary-500 px-6 py-3 font-semibold text-white hover:bg-primary-600"
-          >
-            打开 RPG Maker 编辑器
-          </a>
-          <a
-            href="/zh-cn/blog/how-to-edit-rpg-maker-save/"
-            class="rounded-xl border border-white/20 px-6 py-3 font-semibold text-white hover:bg-white/10"
-          >
-            查看 RPG Maker 教程
-          </a>
+      <div class="grid items-center gap-10 lg:grid-cols-[1fr_440px]">
+        <div class="max-w-4xl">
+          <p class="mb-4 text-sm font-semibold text-primary-300">RPG Maker 存档修改教程</p>
+          <h1 class="mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
+            绯月仙行录存档修改器
+          </h1>
+          <p class="max-w-3xl text-lg leading-8 text-slate-300">
+            这是一个面向绯月仙行录玩家的中文存档修改入口。页面只讨论本地存档备份、RPG Maker 文件识别、数值搜索和安全替换，不提供游戏资源下载。
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={editorUrl}
+              class="rounded-xl bg-primary-500 px-6 py-3 font-semibold text-white hover:bg-primary-600"
+            >
+              打开 RPG Maker 编辑器
+            </a>
+            <a
+              href="/zh-cn/blog/how-to-edit-rpg-maker-save/"
+              class="rounded-xl border border-white/20 px-6 py-3 font-semibold text-white hover:bg-white/10"
+            >
+              查看 RPG Maker 教程
+            </a>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl">
+          <img
+            src={gameImage}
+            alt="绯月仙行录游戏存档界面"
+            class="h-full w-full object-cover"
+            width="1928"
+            height="1204"
+            loading="eager"
+          />
         </div>
       </div>
     </div>
@@ -203,6 +217,16 @@ const sources = [
         { '@type': 'ListItem', position: 2, name: '游戏', item: absUrl('/zh-cn/games/') },
         { '@type': 'ListItem', position: 3, name: '绯月仙行录存档修改器', item: absUrl(pageUrl) },
       ],
+    })}
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'VideoGame',
+      name: '绯月仙行录',
+      image: absUrl(gameImage),
+      url: absUrl(pageUrl),
     })}
   />
   <script
