@@ -287,6 +287,12 @@ const activeGuidesZh = getFallbackGuidesZh(game);
       <section class="mb-16">
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-900">{copy.other}</h2>
         <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+          {game.slug === 'rpg-maker' && (
+            <a href="/zh-cn/games/crimson-moon-immortal/" class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md text-center">
+              <span class="text-2xl block mb-2">🌙</span>
+              <span class="font-medium text-gray-900 text-sm">绯月仙行录存档修改</span>
+            </a>
+          )}
           {baseGames.filter((item) => item.slug !== game.slug).slice(0, 6).map((item) => (<a href={gameHref(item.slug)} class="p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-300 hover:shadow-md text-center"><span class="text-2xl block mb-2">{item.emoji}</span><span class="font-medium text-gray-900 text-sm">{localizedNames[item.slug] ?? item.name}</span></a>))}
         </div>
         <div class="text-center mt-6"><a href={gamesHref} class="text-primary-600 hover:text-primary-700 font-medium">{copy.browse}</a></div>
