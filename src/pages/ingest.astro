@@ -8,6 +8,6 @@ import IngestClient from '../components/IngestClient';
   description="Restore an uploaded game save and open the recommended editor. This page recovers the temporary upload, checks the save format, and routes it into the safe browser editing workflow."
 >
   <section class="container mx-auto px-4 py-12">
-    <IngestClient client:only="react" lang="en" />
+    <IngestClient client:load lang="en" />
   </section>
 </BaseLayout>

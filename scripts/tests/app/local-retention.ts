@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { File } from 'node:buffer';
+import { File as NodeFile } from 'node:buffer';
 import { readFileSync } from 'node:fs';
 
 type RequestLike<T = unknown> = {
@@ -146,6 +146,10 @@ function read(path: string): string {
     return readFileSync(new URL(path, import.meta.url), 'utf8');
 }
 
+function makeFile(parts: string[], name: string, options?: FilePropertyBag): File {
+    return new NodeFile(parts, name, options) as unknown as File;
+}
+
 (globalThis as any).window = { dispatchEvent() {} };
 (globalThis as any).CustomEvent = class CustomEvent {
     constructor(public type: string) {}
@@ -157,7 +161,7 @@ const retention = await import('../../../src/lib/local-retention.ts');
 assert.equal(await retention.isLocalRetentionAvailable(), true);
 assert.equal(await retention.getLocalRetentionEnabled(), false);
 
-const original = new File(['original'], 'slot01.sav', { type: 'application/octet-stream' });
+const original = makeFile(['original'], 'slot01.sav', { type: 'application/octet-stream' });
 const edited = new Blob(['edited'], { type: 'application/octet-stream' });
 
 assert.equal(await retention.saveLocalHistoryRecord({
@@ -189,7 +193,7 @@ for (let i = 0; i < 12; i += 1) {
     await retention.saveLocalHistoryRecord({
         fileName: `slot-${i}.sav`,
         format: 'unreal',
-        originalFile: new File([String(i)], `slot-${i}.sav`),
+        originalFile: makeFile([String(i)], `slot-${i}.sav`),
         editedBlob: new Blob([`edited-${i}`]),
     });
 }
