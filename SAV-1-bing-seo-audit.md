@@ -96,3 +96,12 @@ Bing 的 07-24–08-22 对比 06-24–07-23：
 - [Why won’t Bing use my meta description?](https://blogs.bing.com/webmaster/May-2020/Why-won%E2%80%99t-Bing-use-my-meta-description)
 - [Duplicate content: Why it matters and how to fix it](https://blogs.bing.com/webmaster/december-2025/Duplicate-Content-Why-It-Matters-and-How-to-Fix-It)
 - [Cloudflare Pages：重定向 www 到 apex](https://developers.cloudflare.com/pages/how-to/www-redirect/)
+
+## 监测日志
+
+### Day 0｜2026-08-23 17:01（Asia/Shanghai）
+
+- 整改已上线：英文/中文首页、7 个 ingest 页面和 compatibility 均为 HTTP 200、单一 H1、canonical 自洽；首页 title 与 description 已更新。
+- sitemap index 为 HTTP 200。
+- 异常仍存在：`www.saveeditor.top` 及带路径/查询参数的 www URL 仍返回 HTTP 200，没有跳转到 apex。
+- Bing Webmaster 当日数据沿用本报告的整改前基线；下一次查询级里程碑复核为 Day 3。
