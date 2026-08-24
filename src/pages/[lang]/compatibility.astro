@@ -24,15 +24,15 @@ if (!entry) {
 const { Content } = await entry.render();
 const copy = {
   'zh-cn': {
-    title: '兼容性矩阵 | SaveEditor.Online',
-    description: 'SaveEditor.Online 兼容性矩阵。查看 RPG Maker、Unity、Ren’Py、Unreal、GameMaker、NaniNovel 的格式、写回等级和限制。',
+    title: '兼容性矩阵 | SaveEditor.top',
+    description: 'SaveEditor.top 兼容性矩阵。查看 RPG Maker、Unity、Ren’Py、Unreal、GameMaker、NaniNovel 的格式、写回等级和限制。',
     heading: '兼容性矩阵',
     body: '以下矩阵按真实解析器能力展示支持状态、保存边界和常见限制。',
     cta: '查看证据覆盖页',
   },
   ja: {
-    title: '互換性マトリックス | SaveEditor.Online',
-    description: 'SaveEditor.Online の互換性マトリックス。RPG Maker、Unity、Ren’Py、Unreal、GameMaker、NaniNovel の形式、保存レベル、制限を確認できます。',
+    title: '互換性マトリックス | SaveEditor.top',
+    description: 'SaveEditor.top の互換性マトリックス。RPG Maker、Unity、Ren’Py、Unreal、GameMaker、NaniNovel の形式、保存レベル、制限を確認できます。',
     heading: '互換性マトリックス',
     body: '以下の表は、実際のパーサー能力、保存境界、既知の制限に基づいています。',
     cta: '証拠ベースの対応状況を見る',
@@ -41,8 +41,8 @@ const copy = {
 const currentCopy = lang === 'zh-cn' || lang === 'ja'
   ? copy[lang]
   : {
-      title: 'Compatibility Matrix | SaveEditor.Online',
-      description: 'Short compatibility summary for SaveEditor.Online. Core support status is shared to avoid unsupported claims in short-form locales.',
+      title: 'Compatibility Matrix | SaveEditor.top',
+      description: 'Short compatibility summary for SaveEditor.top. Core support status is shared to avoid unsupported claims in short-form locales.',
       heading: 'Compatibility Matrix',
       body: `Locale: ${lang}. This short-form locale shares the canonical matrix to keep support status consistent.`,
       cta: 'View evidence-backed coverage proof',

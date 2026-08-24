@@ -19,8 +19,8 @@ const verifiedRows = rows.filter((row) => row.confidence === 'verified' && row.s
 
 const copy = {
   'zh-cn': {
-    title: '证据覆盖页 | SaveEditor.Online',
-    description: 'SaveEditor.Online 的证据覆盖页。区分真实匿名样本、合成 fixture、结构只读样本，以及 verified / candidate / read-only / blocked 状态。',
+    title: '证据覆盖页 | SaveEditor.top',
+    description: 'SaveEditor.top 的证据覆盖页。区分真实匿名样本、合成 fixture、结构只读样本，以及 verified / candidate / read-only / blocked 状态。',
     heading: '证据覆盖页',
     body: '本页把真实匿名样本、工程 fixture 和结构只读样本拆开显示。real sample 为 0 时，说明它只是工程证据，不代表真实市场覆盖率。',
     status: {
@@ -57,8 +57,8 @@ const copy = {
     },
   },
   ja: {
-    title: '証拠ベース対応状況 | SaveEditor.Online',
-    description: 'SaveEditor.Online の証拠ベース対応状況。実サンプル、合成 fixture、構造確認専用サンプルと、verified / candidate / read-only / blocked を区別します。',
+    title: '証拠ベース対応状況 | SaveEditor.top',
+    description: 'SaveEditor.top の証拠ベース対応状況。実サンプル、合成 fixture、構造確認専用サンプルと、verified / candidate / read-only / blocked を区別します。',
     heading: '証拠ベース対応状況',
     body: 'このページでは、実サンプル、エンジニアリング用 fixture、構造確認専用サンプルを分けて表示します。real sample が 0 の行は、市場実績ではなく工学的証拠です。',
     status: {
@@ -99,8 +99,8 @@ const copy = {
 const currentCopy = lang === 'zh-cn' || lang === 'ja'
   ? copy[lang]
   : {
-      title: 'Coverage Proof | SaveEditor.Online',
-      description: 'Short coverage proof summary for SaveEditor.Online. Full release-grade localization is limited to English, Simplified Chinese, and Japanese.',
+      title: 'Coverage Proof | SaveEditor.top',
+      description: 'Short coverage proof summary for SaveEditor.top. Full release-grade localization is limited to English, Simplified Chinese, and Japanese.',
       heading: 'Coverage Proof',
       body: `Locale: ${lang}. This short-form locale reuses the canonical evidence model to avoid unsupported claims.`,
       status: {

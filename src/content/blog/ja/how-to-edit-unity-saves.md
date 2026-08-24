@@ -22,7 +22,7 @@ Unityは世界で最も人気のあるゲームエンジンで、全モバイル
 *   **JSONファイル**: 人間が読めるデータ形式。
 *   **バイナリファイル**: カスタムシリアライズされたデータ（編集が難しい）。
 
-私たちの**SaveEditor.Online**は、PlayerPrefs（XML/Plist）、XML、JSON形式をブラウザ内で直接サポートしています。
+私たちの**SaveEditor.top**は、PlayerPrefs（XML/Plist）、XML、JSON形式をブラウザ内で直接サポートしています。
 
 ## Unityセーブの保存場所を理解する
 

@@ -14,7 +14,7 @@ image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 
 RPG Maker MV 和 MZ 是创建 JRPG 和冒险游戏最流行的两款游戏引擎。它们为 Steam、itch.io 和其他平台上的数千款独立游戏提供支持。如果您想修改存档文件来跳过困难的 Boss、给自己更多金币，或者尝试不同的角色加点方案，本指南将向您展示如何操作。
 
-RPG Maker MV 游戏使用 `.rpgsave` 扩展名的存档文件，而 MZ 游戏通常使用相同的格式。这些文件通常使用 LZString 压缩，无法在标准文本编辑器中直接阅读。这就是我们的 **SaveEditor.Online** 发挥作用的地方——它能在您的浏览器中完成所有解压和解析工作。
+RPG Maker MV 游戏使用 `.rpgsave` 扩展名的存档文件，而 MZ 游戏通常使用相同的格式。这些文件通常使用 LZString 压缩，无法在标准文本编辑器中直接阅读。这就是我们的 **SaveEditor.top** 发挥作用的地方——它能在您的浏览器中完成所有解压和解析工作。
 
 ## 理解 RPG Maker 存档格式
 

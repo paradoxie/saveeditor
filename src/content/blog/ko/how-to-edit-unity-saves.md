@@ -21,7 +21,7 @@ Unity는 세계에서 가장 인기 있는 게임 엔진으로, 모든 모바일
 *   **JSON 파일**: 사람이 읽을 수 있는 데이터 형식.
 *   **바이너리 파일**: 커스텀 직렬화된 데이터 (편집하기 어려움).
 
-우리의 **SaveEditor.Online**은 브라우저에서 직접 PlayerPrefs (XML/Plist), XML, JSON 형식을 지원합니다.
+우리의 **SaveEditor.top**은 브라우저에서 직접 PlayerPrefs (XML/Plist), XML, JSON 형식을 지원합니다.
 
 ## Unity 세이브 위치 이해하기
 

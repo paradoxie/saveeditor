@@ -1225,7 +1225,7 @@ const gameInputs: GameDataInput[] = [
     slug: 'rpg-maker',
     name: 'RPG Maker Games',
     seoDescription:
-      'Free RPG Maker MV/MZ SaveEditor.Online. Edit .rpgsave and .rmmzsave files. Modify gold, items, stats, switches & variables in any RPG Maker game.',
+      'Free RPG Maker MV/MZ SaveEditor.top. Edit .rpgsave and .rmmzsave files. Modify gold, items, stats, switches & variables in any RPG Maker game.',
     seoContent: `
       <h2>RPG Maker MV/MZ Save Editor</h2>
       <p>RPG Maker MV and MZ games store save data in <code>.rpgsave</code> and <code>.rmmzsave</code> files, which are Base64-encoded JSON. Our editor automatically decodes these files, providing a clean tree view of all game data.</p>

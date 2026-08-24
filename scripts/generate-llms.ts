@@ -8,7 +8,7 @@ const rows = getCoverageRows();
 const verified = rows.filter((row) => row.confidence === 'verified').length;
 const candidate = rows.filter((row) => row.confidence === 'candidate').length;
 
-const llms = `# SaveEditor.Online
+const llms = `# SaveEditor.top
 
 > Free, browser-based save file editor for compatible local game saves.
 
@@ -66,14 +66,14 @@ const coverageRows = rows
   .map((row) => `| ${row.slug} | ${row.engine} | ${row.capability} | ${row.confidence} | ${row.sampleCount} | ${row.latest} |`)
   .join('\n');
 
-const llmsFull = `# SaveEditor.Online — Full Documentation for LLMs
+const llmsFull = `# SaveEditor.top — Full Documentation for LLMs
 
 > Free, browser-based save file editor for compatible local game saves.
 > Selected save files are parsed in the user's browser.
 
 ## Site Identity
 
-- **Name**: SaveEditor.Online
+- **Name**: SaveEditor.top
 - **URL**: ${origin}
 - **Type**: Free web application
 - **Category**: UtilitiesApplication
@@ -141,7 +141,7 @@ ${coverageRows}
 
 Ren'Py uses Limited stable write for primitive values under persistent. Complex Python objects and non-persistent game state remain guarded.
 
-SaveEditor.Online does not claim universal write support. Stable write, stable-limited write, read-only inspection, and blocked scopes are separated in the compatibility matrix and coverage proof page.
+SaveEditor.top does not claim universal write support. Stable write, stable-limited write, read-only inspection, and blocked scopes are separated in the compatibility matrix and coverage proof page.
 `;
 
 writeFileSync('public/llms.txt', llms);

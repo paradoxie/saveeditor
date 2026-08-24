@@ -20,7 +20,7 @@ image: "/images/blog/palworld-cover.webp"
 
 ## 🛡️ 安全性と検証レポート
 
-SaveEditor.Online チームは、公開前に徹底的なテストを行っています：
+SaveEditor.top チームは、公開前に徹底的なテストを行っています：
 
 *   **動作確認バージョン**：Palworld v0.3.x (Steam) & v0.1.x (Game Pass)
 *   **ウイルススキャン**：クリア (VirusTotal 0/60)
@@ -66,7 +66,7 @@ SaveEditor.Online チームは、公開前に徹底的なテストを行って�
   <a href="/saves/palworld/Level-50-Legendary.sav" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     セーブデータをダウンロード (.sav)
   </a>
-  <p class="text-xs text-gray-400 mt-4">SaveEditor.Online セキュリティスキャン済</p>
+  <p class="text-xs text-gray-400 mt-4">SaveEditor.top セキュリティスキャン済</p>
 </div>
 
 ---

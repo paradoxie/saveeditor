@@ -238,7 +238,7 @@ R: No todos los archivos `.sav` son de Unreal Engine. Muchos desarrolladores usa
 
 Entender el formato de tu archivo de guardado es la mitad de la batalla para convertirte en un experto en edición de partidas. Una vez que sepas si estás tratando con JSON simple, datos comprimidos de RPG Maker o archivos complejos GVAS de Unreal, puedes elegir la herramienta y el enfoque correctos.
 
-Nuestro SaveEditor.Online soporta la mayoría de los formatos comunes automáticamente: ¡simplemente sube tu archivo y déjanos encargarnos de la detección y análisis por ti!
+Nuestro SaveEditor.top soporta la mayoría de los formatos comunes automáticamente: ¡simplemente sube tu archivo y déjanos encargarnos de la detección y análisis por ti!
 
 ## Lectura Adicional
 

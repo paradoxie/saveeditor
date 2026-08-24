@@ -222,7 +222,7 @@ R: Para jogos single-player em arquivos que você possui, sim. Modificar jogos o
 
 Entender seu formato de arquivo de save é metade da batalha. Uma vez que você sabe se está lidando com JSON simples, dados RPG Maker comprimidos ou arquivos GVAS complexos do Unreal, você pode escolher a ferramenta e abordagem certas.
 
-Nosso SaveEditor.Online suporta a maioria dos formatos comuns automaticamente - apenas faça upload do seu arquivo e deixe-nos cuidar do resto!
+Nosso SaveEditor.top suporta a maioria dos formatos comuns automaticamente - apenas faça upload do seu arquivo e deixe-nos cuidar do resto!
 
 ## Leitura Adicional
 

@@ -1,6 +1,6 @@
 {
-  "name": "SaveEditor.Online",
-  "short_name": "SaveEditor",
+  "name": "SaveEditor.top",
+  "short_name": "SaveEditor.top",
   "description": "Browser-side save editor for compatible local game saves.",
   "start_url": "/",
   "scope": "/",

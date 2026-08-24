@@ -20,7 +20,7 @@ Trazemos um **arquivo de save de Palworld de referência com alto progresso**. E
 
 ## 🛡️ Relatório de Segurança
 
-A equipe SaveEditor.Online testou exaustivamente este arquivo:
+A equipe SaveEditor.top testou exaustivamente este arquivo:
 
 *   **Versão**: Palworld v0.3.x (Steam) & v0.1.x (Game Pass)
 *   **Vírus**: Limpo (VirusTotal 0/60)

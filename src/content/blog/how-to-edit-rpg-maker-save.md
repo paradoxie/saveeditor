@@ -14,7 +14,7 @@ image: "/images/blog/rpg-maker-guide-cover-v2.webp"
 
 RPG Maker MV and MZ are two of the most popular game engines for creating JRPGs and adventure games. They power thousands of indie games on Steam, itch.io, and other platforms. If you've ever wanted to modify your save file to bypass a difficult boss, give yourself more gold, or experiment with different builds, this guide will show you exactly how to do it.
 
-RPG Maker MV games use the `.rpgsave` file extension, while MZ games typically use the same format. These files are often compressed using LZString and are not human-readable in a standard text editor. That's where our **SaveEditor.Online** comes in – it handles all the decompression and parsing for you, entirely in your browser.
+RPG Maker MV games use the `.rpgsave` file extension, while MZ games typically use the same format. These files are often compressed using LZString and are not human-readable in a standard text editor. That's where our **SaveEditor.top** comes in – it handles all the decompression and parsing for you, entirely in your browser.
 
 ## Understanding the RPG Maker Save Format
 

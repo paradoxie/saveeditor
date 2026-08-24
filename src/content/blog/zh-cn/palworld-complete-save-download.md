@@ -20,7 +20,7 @@ image: "/images/blog/palworld-cover.webp"
 
 ## 存档验证记录
 
-SaveEditor.Online 团队对该存档进行了基础兼容测试：
+SaveEditor.top 团队对该存档进行了基础兼容测试：
 
 *   **测试版本**：Palworld v0.3.x (Steam版) & v0.1.x (Game Pass版)
 *   **文件扫描**：VirusTotal 0/60

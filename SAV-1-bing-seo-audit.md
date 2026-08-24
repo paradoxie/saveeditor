@@ -105,3 +105,11 @@ Bing 的 07-24–08-22 对比 06-24–07-23：
 - sitemap index 为 HTTP 200。
 - 异常仍存在：`www.saveeditor.top` 及带路径/查询参数的 www URL 仍返回 HTTP 200，没有跳转到 apex。
 - Bing Webmaster 当日数据沿用本报告的整改前基线；下一次查询级里程碑复核为 Day 3。
+
+### Day 1｜2026-08-24 17:01（Asia/Shanghai）
+
+- 英文/中文首页、`/ingest/`、六个本地化 ingest 和 `/compatibility/` 均为 HTTP 200；title、description、单一 H1 和自洽 canonical 未见回归。
+- sitemap index 与子 sitemap 均为 HTTP 200；Bing sitemap 保持成功，已发现 428 个 URL，0 错误、0 警告。
+- Bing 抓取状态无变化：564 个已索引、0 错误、0 警告、33 个排除 URL；Recommendations 仍为 140 页、142 项。
+- Cloudflare Bulk Redirect 已启用；`www.saveeditor.top` 根路径、任意子路径及查询参数均以 HTTP 301 跳转至 apex，并完整保留路径和查询参数。除此之外未见新增异常。Day 1 不做趋势判断，下一次查询级里程碑复核为 Day 3。
+- 用户明确授权不再等待 Day 30：全站品牌标识由 `SaveEditor.Online` 统一为 `SaveEditor.top`；保留 `save editor`、`save editor online`、`online save editor` 等通用查询词。Bing 30 天对比中，与 `saveeditor.online` 精确相关的 605 个查询仅有 11 次曝光、0 点击，因此该品牌替换单独记录为低直接流量风险变更。

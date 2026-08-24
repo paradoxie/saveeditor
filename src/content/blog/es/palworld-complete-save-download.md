@@ -20,7 +20,7 @@ Te traemos un **archivo de guardado de Palworld de referencia y alto progreso**.
 
 ## 🛡️ Reporte de Seguridad y Verificación
 
-El equipo de SaveEditor.Online ha probado exhaustivamente este archivo:
+El equipo de SaveEditor.top ha probado exhaustivamente este archivo:
 
 *   **Versión**: Palworld v0.3.x (Steam) & v0.1.x (Game Pass)
 *   **Antivirus**: Limpio (VirusTotal 0/60)
@@ -66,7 +66,7 @@ Este guardado "Endgame" incluye:
   <a href="/saves/palworld/Level-50-Legendary.sav" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     Descargar Archivo (.sav)
   </a>
-  <p class="text-xs text-gray-400 mt-4">Escaneado por SaveEditor.Online</p>
+  <p class="text-xs text-gray-400 mt-4">Escaneado por SaveEditor.top</p>
 </div>
 
 ---

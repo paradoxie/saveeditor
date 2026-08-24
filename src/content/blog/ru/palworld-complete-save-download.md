@@ -20,7 +20,7 @@ image: "/images/blog/palworld-cover.webp"
 
 ## 🛡️ Отчет о безопасности
 
-Команда SaveEditor.Online проверила этот файл:
+Команда SaveEditor.top проверила этот файл:
 
 *   **Версия**: Palworld v0.3.x (Steam) & v0.1.x (Game Pass)
 *   **Вирусы**: Чисто (VirusTotal 0/60)

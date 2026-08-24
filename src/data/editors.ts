@@ -21,7 +21,7 @@ export const editors: EditorData[] = [
     slug: 'rpg-maker-mv',
     name: 'RPG Maker MV/MZ',
     fileType: '.rpgsave, .rmmzsave, .rvdata2, .rvdata, .rxdata, .lsd',
-    title: 'RPG Maker SaveEditor.Online - Free .rpgsave & .rmmzsave Editor',
+    title: 'RPG Maker SaveEditor.top - Free .rpgsave & .rmmzsave Editor',
     description:
       'Free RPG Maker save editor. Edit .rpgsave (MV), .rmmzsave (MZ), and common fields in older .rvdata2, .rvdata, and .rxdata Ruby Marshal files. No download, browser-based rpg save editor.',
     keywords:
@@ -65,7 +65,7 @@ export const editors: EditorData[] = [
     slug: 'renpy',
     name: "Ren'Py",
     fileType: '.save',
-    title: "Ren'Py SaveEditor.Online - Free .save File Editor & Viewer",
+    title: "Ren'Py SaveEditor.top - Free .save File Editor & Viewer",
     description:
       "Free Ren'Py save editor. Edit supported persistent fields and view .save files online. Works with DDLC, visual novels & more with guarded export boundaries.",
     keywords:

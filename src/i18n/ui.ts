@@ -72,7 +72,7 @@ export const ui = {
         'how.step3.note': '⚡ Instant Results',
 
         // Benefits Section
-        'benefits.title': 'Why Choose SaveEditor.Online?',
+        'benefits.title': 'Why Choose SaveEditor.top?',
         'benefits.secure.title': 'Private by Design',
         'benefits.secure.desc': 'Save parsing runs in your browser. Analytics and ads are disclosed in our policies.',
         'benefits.universal.title': 'Format-Aware Support',
@@ -136,7 +136,7 @@ export const ui = {
         'localHistory.more': 'More',
         'localHistory.dismiss': 'Dismiss',
         'localHistory.downloadPrompt': 'Your download is ready. Enable local history to keep recent backups in this browser only.',
-        'localHistory.bookmarkPrompt': 'Download ready. Press Ctrl+D / Cmd+D to bookmark SaveEditor.Online.',
+        'localHistory.bookmarkPrompt': 'Download ready. Press Ctrl+D / Cmd+D to bookmark SaveEditor.top.',
         'localTemplates.title': 'Edit templates',
         'localTemplates.desc': 'Save the current editable values as a local template and reuse them on the same editor.',
         'localTemplates.save': 'Save template',
@@ -267,7 +267,7 @@ export const ui = {
         'faq.q10': "Why can't I open my save file?",
         'faq.a10': "Some games use encrypted or proprietary formats. Try selecting a different editor type, or the file may be compressed. If you see 'Invalid file' error, the game might use a format we don't yet support.",
         'faq.q11': 'Is this free? Are there any limits?',
-        'faq.a11': 'SaveEditor.Online is free to use with up to 50MB per file. We support ourselves through optional donations and non-intrusive ads.',
+        'faq.a11': 'SaveEditor.top is free to use with up to 50MB per file. We support ourselves through optional donations and non-intrusive ads.',
         'faq.q12': 'Can I edit multiplayer or online game saves?',
         'faq.a12': 'Single-player and local multiplayer saves can be edited. Online/MMO games typically store data on servers, which cannot be modified. Editing online game saves may violate terms of service.',
 
@@ -280,7 +280,7 @@ export const ui = {
         'gamesPage.ctaTitle': "Don't See Your Game?",
         'gamesPage.ctaDesc': "Upload a sample to the generic editor when no dedicated editor exists. Some formats may be read-only until safe export is proven.",
         'gamesPage.ctaButton': 'Open Generic Editor',
-        'gamesPage.seoTitle': 'Supported Games List | SaveEditor.Online',
+        'gamesPage.seoTitle': 'Supported Games List | SaveEditor.top',
         'gamesPage.seoDesc': "Browse supported game pages for our save editor. Includes RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker and more. Check compatibility before editing.",
 
         // Formats Page
@@ -291,11 +291,11 @@ export const ui = {
         'formatsPage.ctaTitle': 'Not Sure Which Format?',
         'formatsPage.ctaDesc': 'Upload your save file and our tool will automatically detect the format and choose the right parser. No technical knowledge required!',
         'formatsPage.ctaButton': 'Upload & Auto-Detect',
-        'formatsPage.seoTitle': 'Game Save File Formats Explained | SaveEditor.Online',
+        'formatsPage.seoTitle': 'Game Save File Formats Explained | SaveEditor.top',
         'formatsPage.seoDesc': 'Comprehensive guide to game save file formats including .rpgsave, .sav, PlayerPrefs, and more. Learn which format your game uses and how to edit it.',
         'formatsPage.contentTitle': 'Understanding Game Save Formats',
         'formatsPage.contentP1': 'Game developers choose save file formats based on security needs, platform requirements, and data complexity. While some formats like JSON and INI are human-readable, others like GVAS and Ruby Marshal require specialized tools to decode.',
-        'formatsPage.contentP2': "SaveEditor.Online uses compatibility-first parsers for selected formats and separates stable write support, limited write support, read-only inspection, and blocked exports.",
+        'formatsPage.contentP2': "SaveEditor.top uses compatibility-first parsers for selected formats and separates stable write support, limited write support, read-only inspection, and blocked exports.",
         'formatsPage.howToFind': 'How to find save files',
         'formatsPage.howToFind.windows': '<strong>Windows:</strong> Check <code>%APPDATA%</code>, <code>Documents/My Games</code>, or the game\'s installation folder',
         'formatsPage.howToFind.mac': '<strong>macOS:</strong> Look in <code>~/Library/Application Support</code> or <code>~/Library/Preferences</code>',
@@ -377,7 +377,7 @@ export const ui = {
         'how.step3.note': '⚡ 即座に反映',
 
         // Benefits Section
-        'benefits.title': 'SaveEditor.Onlineを選ぶ理由',
+        'benefits.title': 'SaveEditor.topを選ぶ理由',
         'benefits.secure.title': 'プライバシー重視',
         'benefits.secure.desc': 'セーブ解析はブラウザ内で行われます。分析と広告の利用はポリシーで明示しています。',
         'benefits.universal.title': '形式別の対応',
@@ -441,7 +441,7 @@ export const ui = {
         'localHistory.more': 'その他',
         'localHistory.dismiss': '閉じる',
         'localHistory.downloadPrompt': 'ダウンロードの準備ができました。ローカル履歴を有効にすると、最近のバックアップをこのブラウザにのみ保存できます。',
-        'localHistory.bookmarkPrompt': 'ダウンロード完了。Ctrl+D / Cmd+D を押して SaveEditor.Online をブックマークします。',
+        'localHistory.bookmarkPrompt': 'ダウンロード完了。Ctrl+D / Cmd+D を押して SaveEditor.top をブックマークします。',
         'localTemplates.title': '編集テンプレート',
         'localTemplates.desc': '現在の編集可能な値をローカルテンプレートとして保存し、同じエディタで再利用できます。',
         'localTemplates.save': 'テンプレートを保存',
@@ -552,7 +552,7 @@ export const ui = {
         // FAQ Section
         'faq.title': 'よくある質問',
         'faq.q1': 'このオンラインセーブエディタは安全ですか？',
-        'faq.a1': 'はい。SaveEditor.Onlineのメイン編集フローはブラウザ内で実行されます。サイト改善と広告表示のためにGoogle AnalyticsとAdSenseを使用しています。詳細はプライバシー/クッキーポリシーをご覧ください。',
+        'faq.a1': 'はい。SaveEditor.topのメイン編集フローはブラウザ内で実行されます。サイト改善と広告表示のためにGoogle AnalyticsとAdSenseを使用しています。詳細はプライバシー/クッキーポリシーをご覧ください。',
         'faq.q2': 'どのゲームがサポートされていますか？',
         'faq.a2': 'RPGツクール（MV/MZ/VX Ace/XP）、Unity、Ren\'Py、Unreal Engine、GameMaker、NaniNovelなど主要エンジンの互換ファイルを優先して対応します。ゲームページで具体的な互換性の詳細と制限を確認できます。',
         'faq.q3': 'ソフトウェアをインストールする必要がありますか？',
@@ -572,7 +572,7 @@ export const ui = {
         'faq.q10': 'セーブファイルを開けないのはなぜですか？',
         'faq.a10': '一部のゲームは暗号化または独自形式を使用しています。別のエディタタイプを選択するか、ファイルが圧縮されている可能性があります。「無効なファイル」エラーが表示される場合、まだサポートされていない形式の可能性があります。',
         'faq.q11': 'これは無料ですか？制限はありますか？',
-        'faq.a11': 'SaveEditor.Onlineは無料で利用できます。運営は任意の寄付と控えめな広告で支えています。',
+        'faq.a11': 'SaveEditor.topは無料で利用できます。運営は任意の寄付と控えめな広告で支えています。',
         'faq.q12': 'マルチプレイヤーやオンラインゲームのセーブを編集できますか？',
         'faq.a12': 'シングルプレイヤーとローカルマルチプレイヤーのセーブは編集可能です。オンライン/MMOゲームは通常サーバーにデータを保存しており、変更できません。オンラインゲームのセーブを編集すると利用規約に違反する可能性があります。',
 
@@ -585,8 +585,8 @@ export const ui = {
         'gamesPage.ctaTitle': "ゲームが見つかりませんか？",
         'gamesPage.ctaDesc': "専用エディタがない場合は汎用エディタを使用してください。安全なエクスポートが証明されていない形式は読み取り専用になります。",
         'gamesPage.ctaButton': '汎用エディタを開く',
-        'gamesPage.seoTitle': '対応ゲームページ一覧 | SaveEditor.Online',
-        'gamesPage.seoDesc': "SaveEditor.Onlineのゲーム別ページで、RPGツクール、Unity、Unreal Engine、Ren'Py、GameMakerなどの互換ルート、制限、アップロード入口を確認できます。",
+        'gamesPage.seoTitle': '対応ゲームページ一覧 | SaveEditor.top',
+        'gamesPage.seoDesc': "SaveEditor.topのゲーム別ページで、RPGツクール、Unity、Unreal Engine、Ren'Py、GameMakerなどの互換ルート、制限、アップロード入口を確認できます。",
 
         // Formats Page
         'formatsPage.title': 'セーブファイル形式',
@@ -596,11 +596,11 @@ export const ui = {
         'formatsPage.ctaTitle': '形式がわかりませんか？',
         'formatsPage.ctaDesc': 'セーブファイルをアップロードすれば、ツールが自動的に形式を検出し、適切なパーサーを選択します。専門知識は不要です！',
         'formatsPage.ctaButton': 'アップロード＆自動検出',
-        'formatsPage.seoTitle': 'ゲームセーブファイル形式の解説 | SaveEditor.Online',
+        'formatsPage.seoTitle': 'ゲームセーブファイル形式の解説 | SaveEditor.top',
         'formatsPage.seoDesc': ".rpgsave、.sav、PlayerPrefsなどのゲームセーブファイル形式に関する包括的なガイドです。ゲームが使用している形式、その仕組み、そして私たちのツールを使ってブラウザで安全に編集する方法を学びましょう。",
         'formatsPage.contentTitle': 'ゲームセーブ形式を理解する',
         'formatsPage.contentP1': 'ゲーム開発者は、セキュリティ、プラットフォーム要件、データの複雑さに基づいてセーブファイル形式を選択します。JSONやINIのように人間が読める形式もあれば、GVASやRuby Marshalのように解読に専用ツールが必要な形式もあります。',
-        'formatsPage.contentP2': "SaveEditor.Onlineは選択された形式に互換性優先のパーサーを使い、安定書き戻し、限定書き戻し、読み取り専用、エクスポート停止を分けて表示します。",
+        'formatsPage.contentP2': "SaveEditor.topは選択された形式に互換性優先のパーサーを使い、安定書き戻し、限定書き戻し、読み取り専用、エクスポート停止を分けて表示します。",
         'formatsPage.howToFind': 'セーブファイルの場所',
         'formatsPage.howToFind.windows': '<strong>Windows:</strong> <code>%APPDATA%</code>、<code>Documents/My Games</code>、またはゲームのインストールフォルダを確認してください',
         'formatsPage.howToFind.mac': '<strong>macOS:</strong> <code>~/Library/Application Support</code> または <code>~/Library/Preferences</code> を確認してください',
@@ -682,7 +682,7 @@ export const ui = {
         'how.step3.note': '⚡ Resultados Instantâneos',
 
         // Benefits Section
-        'benefits.title': 'Por que escolher SaveEditor.Online?',
+        'benefits.title': 'Por que escolher SaveEditor.top?',
         'benefits.secure.title': 'Privacidade por design',
         'benefits.secure.desc': 'A análise do save roda no navegador. Analytics e anúncios são descritos nas políticas.',
         'benefits.universal.title': 'Suporte por formato',
@@ -746,7 +746,7 @@ export const ui = {
         'localHistory.more': 'Mais',
         'localHistory.dismiss': 'Fechar',
         'localHistory.downloadPrompt': 'A sua transferência está pronta. Ative o histórico local para manter backups recentes apenas neste navegador.',
-        'localHistory.bookmarkPrompt': 'Transferência concluída. Pressione Ctrl+D / Cmd+D para adicionar o SaveEditor.Online aos favoritos.',
+        'localHistory.bookmarkPrompt': 'Transferência concluída. Pressione Ctrl+D / Cmd+D para adicionar o SaveEditor.top aos favoritos.',
         'localTemplates.title': 'Modelos de edição',
         'localTemplates.desc': 'Guarde os valores editáveis atuais como um modelo local e reutilize-os no mesmo editor.',
         'localTemplates.save': 'Guardar modelo',
@@ -842,7 +842,7 @@ export const ui = {
         // FAQ Section
         'faq.title': 'Perguntas Frequentes',
         'faq.q1': 'Este editor de save online é seguro?',
-        'faq.a1': 'Sim. O fluxo principal do SaveEditor.Online roda no navegador. Também usamos Google Analytics e AdSense para desempenho do site e anúncios; veja as políticas de Privacidade e Cookies.',
+        'faq.a1': 'Sim. O fluxo principal do SaveEditor.top roda no navegador. Também usamos Google Analytics e AdSense para desempenho do site e anúncios; veja as políticas de Privacidade e Cookies.',
         'faq.q2': 'Quais jogos são suportados?',
         'faq.a2': 'Suportamos arquivos compatíveis de engines como RPG Maker (MV/MZ/VX Ace/XP), Unity, Ren\'Py, Unreal Engine, GameMaker e NaniNovel. As páginas de jogos mostram detalhes de compatibilidade e limites específicos.',
         'faq.q3': 'Preciso instalar algum software?',
@@ -862,7 +862,7 @@ export const ui = {
         'faq.q10': 'Por que não consigo abrir meu arquivo de save?',
         'faq.a10': 'Alguns jogos usam formatos criptografados ou proprietários. Tente selecionar um tipo de editor diferente, ou o arquivo pode estar comprimido. Se você vir erro \'Arquivo inválido\', o jogo pode usar um formato que ainda não suportamos.',
         'faq.q11': 'Isso é gratuito? Há algum limite?',
-        'faq.a11': 'SaveEditor.Online é gratuito para usar. Nos mantemos através de doações opcionais e anúncios discretos.',
+        'faq.a11': 'SaveEditor.top é gratuito para usar. Nos mantemos através de doações opcionais e anúncios discretos.',
         'faq.q12': 'Posso editar saves de jogos multiplayer ou online?',
         'faq.a12': 'Saves de single-player e multiplayer local podem ser editados. Jogos online/MMO geralmente armazenam dados em servidores, que não podem ser modificados. Editar saves de jogos online pode violar os termos de serviço.',
 
@@ -875,8 +875,8 @@ export const ui = {
         'gamesPage.ctaTitle': "Não Encontrou Seu Jogo?",
         'gamesPage.ctaDesc': "Use o editor genérico quando não houver editor dedicado. Variantes sem exportação segura comprovada ficam somente leitura.",
         'gamesPage.ctaButton': 'Abrir editor genérico',
-        'gamesPage.seoTitle': 'Lista de Jogos Suportados | SaveEditor.Online',
-        'gamesPage.seoDesc': "Veja páginas de jogos do SaveEditor.Online com rotas de compatibilidade, limites e entrada de upload para RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker e mais.",
+        'gamesPage.seoTitle': 'Lista de Jogos Suportados | SaveEditor.top',
+        'gamesPage.seoDesc': "Veja páginas de jogos do SaveEditor.top com rotas de compatibilidade, limites e entrada de upload para RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker e mais.",
 
         // Formats Page
         'formatsPage.title': 'Formatos de Arquivo de Save',
@@ -886,7 +886,7 @@ export const ui = {
         'formatsPage.ctaTitle': 'Não Tem Certeza do Formato?',
         'formatsPage.ctaDesc': 'Envie seu arquivo de save e nossa ferramenta detectará automaticamente o formato e escolherá o analisador correto. Sem conhecimento técnico necessário!',
         'formatsPage.ctaButton': 'Enviar e Detectar',
-        'formatsPage.seoTitle': 'Formatos de Save Explicados | SaveEditor.Online',
+        'formatsPage.seoTitle': 'Formatos de Save Explicados | SaveEditor.top',
         'formatsPage.seoDesc': 'Guia completo sobre formatos de save de jogos incluindo .rpgsave, .sav, PlayerPrefs e mais. Aprenda qual formato seu jogo usa e como editá-lo.',
         'formatsPage.contentTitle': 'Entendendo Formatos de Save',
         'formatsPage.contentP1': 'Desenvolvedores escolhem formatos baseados em segurança e complexidade. Enquanto alguns como JSON e INI são legíveis, outros como GVAS e Ruby Marshal requerem ferramentas especiais.',
@@ -972,7 +972,7 @@ export const ui = {
         'how.step3.note': '⚡ 즉시 반영',
 
         // Benefits Section
-        'benefits.title': 'SaveEditor.Online을 선택하는 이유',
+        'benefits.title': 'SaveEditor.top을 선택하는 이유',
         'benefits.secure.title': '개인정보 보호 중심',
         'benefits.secure.desc': '세이브 분석은 브라우저에서 실행됩니다. 분석과 광고 사용은 정책에 명시되어 있습니다.',
         'benefits.universal.title': '포맷별 지원',
@@ -1036,7 +1036,7 @@ export const ui = {
         'localHistory.more': '더 보기',
         'localHistory.dismiss': '닫기',
         'localHistory.downloadPrompt': '다운로드 준비가 완료되었습니다. 로컬 기록을 활성화하면 최근 백업을 이 브라우저에만 저장할 수 있습니다.',
-        'localHistory.bookmarkPrompt': '다운로드 완료. Ctrl+D / Cmd+D를 눌러 SaveEditor.Online을 북마크하세요.',
+        'localHistory.bookmarkPrompt': '다운로드 완료. Ctrl+D / Cmd+D를 눌러 SaveEditor.top을 북마크하세요.',
         'localTemplates.title': '편집 템플릿',
         'localTemplates.desc': '현재 수정 가능한 값을 로컬 템플릿으로 저장하고 동일한 에디터에서 재사용할 수 있습니다.',
         'localTemplates.save': '템플릿 저장',
@@ -1132,7 +1132,7 @@ export const ui = {
         // FAQ Section
         'faq.title': '자주 묻는 질문',
         'faq.q1': '이 온라인 세이브 에디터는 안전한가요?',
-        'faq.a1': '네. SaveEditor.Online의 주요 편집 흐름은 브라우저에서 실행됩니다. 사이트 개선과 광고 제공을 위해 Google Analytics와 AdSense를 사용합니다. 자세한 내용은 개인정보/쿠키 정책을 확인하세요.',
+        'faq.a1': '네. SaveEditor.top의 주요 편집 흐름은 브라우저에서 실행됩니다. 사이트 개선과 광고 제공을 위해 Google Analytics와 AdSense를 사용합니다. 자세한 내용은 개인정보/쿠키 정책을 확인하세요.',
         'faq.q2': '어떤 게임이 지원되나요?',
         'faq.a2': 'RPG 만들기(MV/MZ/VX Ace/XP), Unity, Ren\'Py, Unreal Engine, GameMaker, NaniNovel 등 주요 엔진의 호환 파일을 우선 지원합니다. 게임별 페이지에서 구체적인 호환성 세부 정보와 지원 제한을 확인할 수 있습니다.',
         'faq.q3': '소프트웨어를 설치해야 하나요?',
@@ -1152,7 +1152,7 @@ export const ui = {
         'faq.q10': '왜 세이브 파일을 열 수 없나요?',
         'faq.a10': '일부 게임은 암호화되거나 독점 형식을 사용합니다. 다른 에디터 유형을 선택하거나 파일이 압축되어 있을 수 있습니다. \'잘못된 파일\' 오류가 표시되면 아직 지원하지 않는 형식일 수 있습니다.',
         'faq.q11': '이것은 무료인가요? 제한이 있나요?',
-        'faq.a11': 'SaveEditor.Online은 무료로 사용할 수 있습니다. 선택적 기부와 방해가 적은 광고로 운영됩니다.',
+        'faq.a11': 'SaveEditor.top은 무료로 사용할 수 있습니다. 선택적 기부와 방해가 적은 광고로 운영됩니다.',
         'faq.q12': '멀티플레이어나 온라인 게임 세이브를 편집할 수 있나요?',
         'faq.a12': '싱글 플레이어와 로컬 멀티플레이어 세이브는 편집할 수 있습니다. 온라인/MMO 게임은 일반적으로 데이터를 서버에 저장하며 수정할 수 없습니다. 온라인 게임 세이브를 편집하면 서비스 약관을 위반할 수 있습니다.',
 
@@ -1165,8 +1165,8 @@ export const ui = {
         'gamesPage.ctaTitle': "게임을 찾을 수 없나요?",
         'gamesPage.ctaDesc': "전용 에디터가 없으면 일반 에디터를 사용하세요. 안전한 내보내기가 증명되지 않은 변형은 읽기 전용입니다.",
         'gamesPage.ctaButton': '일반 에디터 열기',
-        'gamesPage.seoTitle': '지원 게임 목록 | SaveEditor.Online',
-        'gamesPage.seoDesc': "SaveEditor.Online의 게임별 편집 경로와 지원 제한을 확인하세요. RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker 등을 포함합니다.",
+        'gamesPage.seoTitle': '지원 게임 목록 | SaveEditor.top',
+        'gamesPage.seoDesc': "SaveEditor.top의 게임별 편집 경로와 지원 제한을 확인하세요. RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker 등을 포함합니다.",
 
         // Formats Page
         'formatsPage.title': '세이브 파일 형식',
@@ -1176,7 +1176,7 @@ export const ui = {
         'formatsPage.ctaTitle': '형식을 모르시겠나요?',
         'formatsPage.ctaDesc': '세이브 파일을 업로드하면 도구가 자동으로 형식을 감지하고 올바른 파서를 선택합니다. 기술적 지식이 필요 없습니다!',
         'formatsPage.ctaButton': '업로드 및 자동 감지',
-        'formatsPage.seoTitle': '게임 세이브 파일 형식 설명 | SaveEditor.Online',
+        'formatsPage.seoTitle': '게임 세이브 파일 형식 설명 | SaveEditor.top',
         'formatsPage.seoDesc': '.rpgsave, .sav, PlayerPrefs 및 다양한 게임 세이브 파일 형식에 대한 포괄적인 가이드입니다. 여러분의 게임이 어떤 형식을 사용하는지 확인하고, 무료 온라인 도구를 사용하여 안전하게 편집하는 방법을 알아보세요.',
         'formatsPage.contentTitle': '세이브 형식 이해하기',
         'formatsPage.contentP1': '개발자는 보안 및 복잡성에 따라 형식을 선택합니다. JSON이나 INI처럼 읽기 쉬운 것도 있고, GVAS나 Ruby Marshal처럼 전용 도구가 필요한 것도 있습니다.',
@@ -1262,7 +1262,7 @@ export const ui = {
         'how.step3.note': '⚡ 即刻生效',
 
         // Benefits Section
-        'benefits.title': '为什么选择 SaveEditor.Online？',
+        'benefits.title': '为什么选择 SaveEditor.top？',
         'benefits.secure.title': '隐私优先设计',
         'benefits.secure.desc': '存档解析在浏览器内运行。统计与广告使用会在政策中披露。',
         'benefits.universal.title': '按格式支持',
@@ -1326,7 +1326,7 @@ export const ui = {
         'localHistory.more': '更多',
         'localHistory.dismiss': '关闭提示',
         'localHistory.downloadPrompt': '存档已下载。开启本地历史后，可把最近备份只保存在当前浏览器中。',
-        'localHistory.bookmarkPrompt': '存档已下载。按 Ctrl+D / Cmd+D 收藏 SaveEditor.Online。',
+        'localHistory.bookmarkPrompt': '存档已下载。按 Ctrl+D / Cmd+D 收藏 SaveEditor.top。',
         'localTemplates.title': '编辑模板',
         'localTemplates.desc': '把当前可编辑数值保存为本地模板，下次在同一编辑器中复用。',
         'localTemplates.save': '保存模板',
@@ -1438,7 +1438,7 @@ export const ui = {
         // FAQ Section
         'faq.title': '常见问题',
         'faq.q1': '这个在线存档编辑器安全吗？',
-        'faq.a1': '是的。SaveEditor.Online 的主编辑流程会在浏览器内处理所选存档文件。我们会使用 Google Analytics 和 AdSense 进行站点分析与广告展示，详情请查看隐私与 Cookie 政策。',
+        'faq.a1': '是的。SaveEditor.top 的主编辑流程会在浏览器内处理所选存档文件。我们会使用 Google Analytics 和 AdSense 进行站点分析与广告展示，详情请查看隐私与 Cookie 政策。',
         'faq.q2': '支持哪些游戏？',
         'faq.a2': '我们优先支持 RPG Maker（MV/MZ/VX Ace/XP）、Unity、Ren\'Py、Unreal Engine、GameMaker 和 NaniNovel 等主要引擎的兼容文件。游戏页会展示当前证据和限制。',
         'faq.q3': '需要安装任何软件吗？',
@@ -1458,7 +1458,7 @@ export const ui = {
         'faq.q10': '为什么我无法打开存档文件？',
         'faq.a10': '某些游戏使用加密或专有格式。尝试选择不同的编辑器类型，或者文件可能被压缩。如果您看到"无效文件"错误，该游戏可能使用了我们尚未支持的格式。',
         'faq.q11': '这是免费的吗？有限制吗？',
-        'faq.a11': 'SaveEditor.Online 可免费使用，单文件上限为 50MB。我们通过可选捐赠和非侵入性广告来支持运营。',
+        'faq.a11': 'SaveEditor.top 可免费使用，单文件上限为 50MB。我们通过可选捐赠和非侵入性广告来支持运营。',
         'faq.q12': '可以编辑多人或在线游戏存档吗？',
         'faq.a12': '单人和本地多人存档可以编辑。在线/MMO 游戏通常将数据存储在服务器上，无法修改。编辑在线游戏存档可能违反服务条款。',
 
@@ -1482,11 +1482,11 @@ export const ui = {
         'formatsPage.ctaTitle': '不确定什么格式？',
         'formatsPage.ctaDesc': '上传您的存档文件，工具会自动检测格式并选择正确的解析器。无需技术知识！',
         'formatsPage.ctaButton': '上传并自动检测',
-        'formatsPage.seoTitle': '游戏存档格式详解 | SaveEditor.Online',
+        'formatsPage.seoTitle': '游戏存档格式详解 | SaveEditor.top',
         'formatsPage.seoDesc': '关于 .rpgsave, .sav, PlayerPrefs 等常见游戏存档格式的综合指南。深入了解您的游戏使用哪种数据格式，以及如何通过我们的安全在线工具在浏览器中直接编辑它们，无需下载任何软件。',
         'formatsPage.contentTitle': '了解游戏存档格式',
         'formatsPage.contentP1': '开发人员根据安全性、平台要求和数据复杂性选择存档格式。虽然 JSON 和 INI 等格式易于阅读，但 GVAS 和 Ruby Marshal 等格式需要专用工具解码。',
-        'formatsPage.contentP2': "SaveEditor.Online 对选定格式使用兼容性优先的解析器，并区分稳定写回、有限写回、只读检查和禁止导出。",
+        'formatsPage.contentP2': "SaveEditor.top 对选定格式使用兼容性优先的解析器，并区分稳定写回、有限写回、只读检查和禁止导出。",
         'formatsPage.howToFind': '如何找到您的存档文件',
         'formatsPage.howToFind.windows': '<strong>Windows：</strong>检查 <code>%APPDATA%</code>、<code>Documents/My Games</code> 或游戏安装文件夹',
         'formatsPage.howToFind.mac': '<strong>macOS：</strong>查看 <code>~/Library/Application Support</code> 或 <code>~/Library/Preferences</code>',
@@ -1568,7 +1568,7 @@ export const ui = {
         'how.step3.note': '⚡ Resultados Instantáneos',
 
         // Benefits Section
-        'benefits.title': '¿Por qué elegir SaveEditor.Online?',
+        'benefits.title': '¿Por qué elegir SaveEditor.top?',
         'benefits.secure.title': 'Privacidad por diseño',
         'benefits.secure.desc': 'El análisis del guardado se ejecuta en el navegador. Analítica y anuncios se explican en las políticas.',
         'benefits.universal.title': 'Soporte por formato',
@@ -1632,7 +1632,7 @@ export const ui = {
         'localHistory.more': 'Más',
         'localHistory.dismiss': 'Descartar',
         'localHistory.downloadPrompt': 'Su descarga está lista. Active el historial local para mantener copias de seguridad recientes solo en este navegador.',
-        'localHistory.bookmarkPrompt': 'Descarga completada. Presione Ctrl+D / Cmd+D para guardar SaveEditor.Online en marcadores.',
+        'localHistory.bookmarkPrompt': 'Descarga completada. Presione Ctrl+D / Cmd+D para guardar SaveEditor.top en marcadores.',
         'localTemplates.title': 'Plantillas de edición',
         'localTemplates.desc': 'Guarde los valores editables actuales como una plantilla local y reutilícelos en el mismo editor.',
         'localTemplates.save': 'Guardar plantilla',
@@ -1728,7 +1728,7 @@ export const ui = {
         // FAQ Section
         'faq.title': 'Preguntas Frecuentes',
         'faq.q1': '¿Es seguro usar este editor online?',
-        'faq.a1': 'Sí. El flujo principal de SaveEditor.Online se ejecuta en el navegador. Consulta las políticas de Privacidad y Cookies para analítica y anuncios.',
+        'faq.a1': 'Sí. El flujo principal de SaveEditor.top se ejecuta en el navegador. Consulta las políticas de Privacidad y Cookies para analítica y anuncios.',
         'faq.q2': '¿Qué juegos son compatibles?',
         'faq.a2': "Soportamos archivos compatibles de RPG Maker, Unity, Ren'Py, Unreal Engine, GameMaker y NaniNovel. Las páginas de juegos muestran detalles específicos de compatibilidad y límites.",
         'faq.q3': '¿Necesito instalar algún software?',
@@ -1748,7 +1748,7 @@ export const ui = {
         'faq.q10': '¿Por qué no puedo abrir mi archivo?',
         'faq.a10': "Algunos juegos usan formatos encriptados o propietarios. Si ves 'Archivo inválido', es posible que no esté soportado.",
         'faq.q11': '¿Es gratis?',
-        'faq.a11': 'Sí, SaveEditor.Online es gratuito para usar.',
+        'faq.a11': 'Sí, SaveEditor.top es gratuito para usar.',
         'faq.q12': '¿Puedo editar juegos online?',
         'faq.a12': 'No. Los juegos online guardan datos en sus servidores. Solo funciona para un jugador o multijugador local.',
 
@@ -1761,8 +1761,8 @@ export const ui = {
         'gamesPage.ctaTitle': "¿No ves tu juego?",
         'gamesPage.ctaDesc': "Usa el editor genérico cuando no exista editor dedicado. Las variantes sin exportación segura probada quedan en solo lectura.",
         'gamesPage.ctaButton': 'Abrir editor genérico',
-        'gamesPage.seoTitle': 'Lista de Juegos Soportados | SaveEditor.Online',
-        'gamesPage.seoDesc': "Explora páginas de juegos de SaveEditor.Online con rutas de compatibilidad, límites y carga para RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker y más.",
+        'gamesPage.seoTitle': 'Lista de Juegos Soportados | SaveEditor.top',
+        'gamesPage.seoDesc': "Explora páginas de juegos de SaveEditor.top con rutas de compatibilidad, límites y carga para RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker y más.",
 
         // Formats Page
         'formatsPage.title': 'Formatos de Archivo',
@@ -1772,7 +1772,7 @@ export const ui = {
         'formatsPage.ctaTitle': '¿No estás seguro del formato?',
         'formatsPage.ctaDesc': 'Sube tu archivo y detectaremos el formato automáticamente.',
         'formatsPage.ctaButton': 'Subir y Detectar',
-        'formatsPage.seoTitle': 'Formatos de Partidas Explicados | SaveEditor.Online',
+        'formatsPage.seoTitle': 'Formatos de Partidas Explicados | SaveEditor.top',
         'formatsPage.seoDesc': 'Guía completa sobre formatos de guardado de juegos como .rpgsave, .sav, PlayerPrefs, GVAS y más. Aprende qué formato usa tu juego, cómo funciona y cómo editarlo de forma segura en tu navegador.',
         'formatsPage.contentTitle': 'Entendiendo los Formatos',
         'formatsPage.contentP1': 'Los desarrolladores eligen formatos según seguridad y complejidad. Algunos como JSON son legibles, otros binarios.',
@@ -1858,7 +1858,7 @@ export const ui = {
         'how.step3.note': '⚡ Мгновенно',
 
         // Benefits Section
-        'benefits.title': 'Почему SaveEditor.Online?',
+        'benefits.title': 'Почему SaveEditor.top?',
         'benefits.secure.title': 'Конфиденциальность по умолчанию',
         'benefits.secure.desc': 'Разбор сохранения выполняется в браузере. Аналитика и реклама описаны в политиках.',
         'benefits.universal.title': 'Поддержка по форматам',
@@ -1922,7 +1922,7 @@ export const ui = {
         'localHistory.more': 'Еще',
         'localHistory.dismiss': 'Закрыть',
         'localHistory.downloadPrompt': 'Файл готов к скачиванию. Включите локальную историю, чтобы хранить недавние резервные копии только в этом браузере.',
-        'localHistory.bookmarkPrompt': 'Скачивание завершено. Нажмите Ctrl+D / Cmd+D, чтобы добавить SaveEditor.Online в закладки.',
+        'localHistory.bookmarkPrompt': 'Скачивание завершено. Нажмите Ctrl+D / Cmd+D, чтобы добавить SaveEditor.top в закладки.',
         'localTemplates.title': 'Шаблоны изменений',
         'localTemplates.desc': 'Сохраните текущие изменяемые значения в качестве локального шаблона и используйте их повторно в этом же редакторе.',
         'localTemplates.save': 'Сохранить шаблон',
@@ -2018,7 +2018,7 @@ export const ui = {
         // FAQ Section
         'faq.title': 'Частые вопросы (FAQ)',
         'faq.q1': 'Это безопасно?',
-        'faq.a1': 'Да. Основной сценарий SaveEditor.Online работает в браузере. Аналитика и реклама описаны в политиках конфиденциальности и Cookie.',
+        'faq.a1': 'Да. Основной сценарий SaveEditor.top работает в браузере. Аналитика и реклама описаны в политиках конфиденциальности и Cookie.',
         'faq.q2': 'Какие игры поддерживаются?',
         'faq.a2': 'Поддерживаются совместимые файлы RPG Maker, Unity, Ren\'Py, Unreal Engine, GameMaker и других движков. Страницы игр показывают подробную информацию о совместимости и ограничениях.',
         'faq.q3': 'Нужно что-то устанавливать?',
@@ -2051,8 +2051,8 @@ export const ui = {
         'gamesPage.ctaTitle': "Не нашли игру?",
         'gamesPage.ctaDesc': "Используйте универсальный редактор, если нет отдельного редактора. Непроверенные варианты остаются только для чтения.",
         'gamesPage.ctaButton': 'Открыть универсальный редактор',
-        'gamesPage.seoTitle': 'Список поддерживаемых игр | SaveEditor.Online',
-        'gamesPage.seoDesc': "Страницы игр SaveEditor.Online показывают совместимые пути, ограничения и загрузку для RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker и других движков.",
+        'gamesPage.seoTitle': 'Список поддерживаемых игр | SaveEditor.top',
+        'gamesPage.seoDesc': "Страницы игр SaveEditor.top показывают совместимые пути, ограничения и загрузку для RPG Maker, Unity, Unreal Engine, Ren'Py, GameMaker и других движков.",
 
         // Formats Page
         'formatsPage.title': 'Форматы файлов',
@@ -2062,7 +2062,7 @@ export const ui = {
         'formatsPage.ctaTitle': 'Не знаете формат?',
         'formatsPage.ctaDesc': 'Загрузите файл, и мы определим его автоматически.',
         'formatsPage.ctaButton': 'Загрузить и определить',
-        'formatsPage.seoTitle': 'Форматы сохранений | SaveEditor.Online',
+        'formatsPage.seoTitle': 'Форматы сохранений | SaveEditor.top',
         'formatsPage.seoDesc': 'Полный гайд по форматам сохранений: .rpgsave, .sav, PlayerPrefs, GVAS и другие. Узнайте, какой формат использует ваша игра и как безопасно его редактировать в браузере.',
         'formatsPage.contentTitle': 'О форматах сохранений',
         'formatsPage.contentP1': 'Разработчики выбирают форматы исходя из защиты и сложности. JSON и INI читаемы, другие - нет.',

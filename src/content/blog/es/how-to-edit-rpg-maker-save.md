@@ -48,7 +48,7 @@ Estos son usados por versiones antiguas.
 
 ### Paso 2: Sube al Editor
 
-1.  Ve a [SaveEditor.Online](/es/).
+1.  Ve a [SaveEditor.top](/es/).
 2.  Arrastra y suelta tu archivo `file1.rpgsave` (o similar).
 3.  La herramienta detectará automáticamente el motor.
 

@@ -20,7 +20,7 @@ image: "/images/blog/palworld-cover.webp"
 
 ## 🛡️ 안전성 및 검증 리포트
 
-SaveEditor.Online 팀은 이 파일을 철저히 테스트했습니다:
+SaveEditor.top 팀은 이 파일을 철저히 테스트했습니다:
 
 *   **버전**: Palworld v0.3.x (Steam) & v0.1.x (Game Pass)
 *   **파일 검사**: VirusTotal 0/60
@@ -61,7 +61,7 @@ SaveEditor.Online 팀은 이 파일을 철저히 테스트했습니다:
   <a href="/saves/palworld/Level-50-Legendary.sav" download class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg">
     세이브 파일 다운로드 (.sav)
   </a>
-  <p class="text-xs text-gray-400 mt-4">SaveEditor.Online 보안 검사 완료</p>
+  <p class="text-xs text-gray-400 mt-4">SaveEditor.top 보안 검사 완료</p>
 </div>
 
 ---
