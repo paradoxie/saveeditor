@@ -21,7 +21,8 @@ Edit your game saves directly in your browser. Save files stay local; site analy
     *   **Unreal Engine** (`.sav` - GVAS format)
     *   **GameMaker** (`.ini`, `.json`)
     *   **NaniNovel** (`.nson`)
-    *   And many more generic formats (JSON, XML, Base64)!
+    *   **NRBF / BinaryFormatter** (`.nrbf`, `.bin`, `.gd`, `.dat`, `.sav`) with schema-preserving scalar editing
+    *   And many more generic formats (JSON, XML, Base64, ZIP, SQLite, MessagePack, CBOR, BSON, YAML, TOML)!
 *   **⚡ Instant Editing**: Visual tree editor for modifying gold, stats, items, and variables without coding knowledge.
 *   **🌐 Multi-language**: English, Japanese (日本語), Korean (한국어), Portuguese (Português), Simplified Chinese (简体中文).
 
@@ -49,7 +50,7 @@ This project is built with [Astro](https://astro.build) and [React](https://reac
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/save-editor-online.git
+git clone https://github.com/paradoxie/saveeditor.git
 
 # Install dependencies
 npm install
