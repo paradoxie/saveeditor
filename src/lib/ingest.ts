@@ -1,5 +1,6 @@
 import { localizePath, normalizeLang, type SiteLang } from '../i18n/utils';
 import { GENERIC_DOTTED_EXTENSION_SET } from './saveExtensions';
+import { isNrbfBytes } from './parsers/nrbf';
 import { SITE_ORIGIN } from './site';
 import { createUploadTicket, type UploadTicket } from './upload-vault';
 
@@ -172,6 +173,11 @@ export async function detectIngestRoute(
 ): Promise<IngestDetectionResult> {
     const lang = normalizeLang(locale);
     const ext = getExtension(file.name);
+    const header = await readFileHeader(file, 17);
+
+    if (isNrbfBytes(header)) {
+        return buildDetection(lang, 'generic', 'high', 'NRBF / BinaryFormatter signature matched.');
+    }
 
     if (ext === '.rpgsave' || ext === '.rmmzsave' || ext === '.rvdata2' || ext === '.rvdata' || ext === '.rxdata' || ext === '.lsd') {
         return buildDetection(lang, 'rpg-maker-mv', 'high', 'RPG Maker save extension matched.');
@@ -200,7 +206,6 @@ export async function detectIngestRoute(
     }
 
     if (ext === '.sav') {
-        const header = await readFileHeader(file, 16);
         const fileNameLooksLikePalworld = looksLikePalworldFileName(file.name);
         const preferredEngine = fileNameLooksLikePalworld ? 'palworld' : 'unreal';
         const reason = fileNameLooksLikePalworld

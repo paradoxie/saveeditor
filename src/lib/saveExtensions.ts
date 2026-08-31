@@ -15,6 +15,8 @@ export const GENERIC_SAVE_EXTENSIONS = [
     'dat',
     'nrbf',
     'bytes',
+    'bin',
+    'gd',
     'pkl',
     'pickle',
     'cfg',

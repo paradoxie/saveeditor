@@ -5,6 +5,7 @@ import pako from 'pako';
 import pickleparser from 'pickleparser';
 import YAML from 'yaml';
 import { pickleSerialize } from './pickle-serializer';
+import { decodeNrbf, isNrbfBytes, rebuildNrbf } from './nrbf';
 import { makeOutcome, type ParseOutcome } from './types';
 
 type GenericPayload = {
@@ -869,17 +870,7 @@ function readSqliteValue(bytes: Uint8Array, offset: number, serial: number): { v
 }
 
 function looksLikeNrbf(bytes: Uint8Array, text: string): boolean {
-    const binaryFormatterHeader =
-        bytes.length >= 8 &&
-        bytes[0] === 0x00 &&
-        bytes[1] === 0x01 &&
-        bytes[2] === 0x00 &&
-        bytes[3] === 0x00 &&
-        bytes[4] === 0x00 &&
-        bytes[5] === 0xff &&
-        bytes[6] === 0xff &&
-        bytes[7] === 0xff;
-    return binaryFormatterHeader || text.includes('System.') || text.includes('BinaryFormatter');
+    return isNrbfBytes(bytes) || text.includes('System.') || text.includes('BinaryFormatter');
 }
 
 function readonlyOutcome(format: string, payload: GenericPayload, reason: string): ParseOutcome<GenericPayload> {
@@ -1172,11 +1163,21 @@ export async function parseGeneric(file: File): Promise<ParseOutcome<GenericPayl
         }
 
         if (ext === 'nrbf' || ext === 'bytes' || looksLikeNrbf(bytes, text)) {
-            return readonlyOutcome('generic-nrbf', {
-                _format: '.NET BinaryFormatter / NRBF candidate',
-                _readOnly: true,
-                _summary: { ...summary, recognizedHeader: 'nrbf-candidate' },
-            }, 'NRBF/BinaryFormatter data is recognized for inspection only. Safe write support requires game-specific fixtures.');
+            try {
+                const decoded = await decodeNrbf(bytes);
+                return writableOutcome('generic-nrbf', {
+                    _format: '.NET BinaryFormatter / NRBF',
+                    _readOnly: false,
+                    _summary: { ...summary, recognizedHeader: 'nrbf', ...decoded.summary },
+                    data: decoded.data,
+                }, 'NRBF data was decoded as an editable object graph. Export preserves the original CLR schema and verifies the rebuilt stream before download.');
+            } catch (error: any) {
+                return readonlyOutcome('generic-nrbf', {
+                    _format: '.NET BinaryFormatter / NRBF candidate',
+                    _readOnly: true,
+                    _summary: { ...summary, recognizedHeader: 'nrbf-candidate' },
+                }, `This NRBF variant is inspection-only: ${error?.message || 'the object graph could not be decoded safely.'}`);
+            }
         }
 
         if (ext === 'dat') {
@@ -1214,6 +1215,9 @@ export async function parseGeneric(file: File): Promise<ParseOutcome<GenericPayl
 export async function buildGeneric(originalFile: File, input: unknown): Promise<Blob> {
     const ext = extOf(originalFile.name);
     const payload = extractGenericPayload(input);
+    const originalBytes = new Uint8Array(await originalFile.arrayBuffer());
+
+    if (isNrbfBytes(originalBytes)) return blobFromBytes(await rebuildNrbf(originalBytes, payload), 'application/octet-stream');
 
     if (ext === 'msgpack' || ext === 'mpack') {
         const msgpack = await getMsgpack();
@@ -1263,8 +1267,7 @@ export async function buildGeneric(originalFile: File, input: unknown): Promise<
     }
 
     if (ext === 'zip') {
-        const source = new Uint8Array(await originalFile.arrayBuffer());
-        return blobFromBytes(buildZip(source, payload), 'application/zip');
+        return blobFromBytes(buildZip(originalBytes, payload), 'application/zip');
     }
 
     if (ext === 'b64' || ext === 'base64') {
@@ -1285,8 +1288,7 @@ export async function buildGeneric(originalFile: File, input: unknown): Promise<
     }
 
     if (ext === 'zlib' || ext === 'deflate') {
-        const source = new Uint8Array(await originalFile.arrayBuffer());
-        const inflated = ext === 'deflate' ? pako.inflateRaw(source) : pako.inflate(source);
+        const inflated = ext === 'deflate' ? pako.inflateRaw(originalBytes) : pako.inflate(originalBytes);
         const innerExt = innerExtOfWrapper(originalFile.name, ['zlib', 'deflate']) || parseWrappedStructured(inflated, '').innerExt;
         const rebuilt = buildWrappedStructured(payload, innerExt, textDecoder.decode(inflated));
         return blobFromBytes(ext === 'deflate' ? pako.deflateRaw(rebuilt) : pako.deflate(rebuilt), 'application/octet-stream');
@@ -1294,8 +1296,7 @@ export async function buildGeneric(originalFile: File, input: unknown): Promise<
 
     if (ext === 'bz2' || ext === 'bzip2' || ext === 'lz4' || ext === 'zst' || ext === 'zstd') {
         const kind: GenericCompressionKind = ext === 'lz4' ? 'lz4' : ext === 'zst' || ext === 'zstd' ? 'zstd' : 'bz2';
-        const source = new Uint8Array(await originalFile.arrayBuffer());
-        const inflated = await decompressGenericWrapper(kind, source);
+        const inflated = await decompressGenericWrapper(kind, originalBytes);
         const innerExt = innerExtOfWrapper(originalFile.name, ['bz2', 'bzip2', 'lz4', 'zst', 'zstd']) || parseWrappedStructured(inflated, '').innerExt;
         const rebuilt = buildWrappedStructured(payload, innerExt, textDecoder.decode(inflated));
         return blobFromBytes(await compressGenericWrapper(kind, rebuilt), 'application/octet-stream');
@@ -1313,24 +1314,20 @@ export async function buildGeneric(originalFile: File, input: unknown): Promise<
     }
 
     if (isSqliteExtension(ext)) {
-        const source = new Uint8Array(await originalFile.arrayBuffer());
-        return blobFromBytes(await buildSqlite(source, payload), 'application/vnd.sqlite3');
+        return blobFromBytes(await buildSqlite(originalBytes, payload), 'application/vnd.sqlite3');
     }
 
     if (ext === 'sol') {
-        const source = new Uint8Array(await originalFile.arrayBuffer());
-        return blobFromBytes(buildSolFile(source, payload), 'application/octet-stream');
+        return blobFromBytes(buildSolFile(originalBytes, payload), 'application/octet-stream');
     }
 
     if (ext === 'es3') {
-        const source = new Uint8Array(await originalFile.arrayBuffer());
         const bytes = textEncoder.encode(JSON.stringify(payload, null, 2));
-        return blobFromBytes(isGzip(source) ? pako.gzip(bytes) : bytes, 'application/octet-stream');
+        return blobFromBytes(isGzip(originalBytes) ? pako.gzip(bytes) : bytes, 'application/octet-stream');
     }
 
-    const source = new Uint8Array(await originalFile.arrayBuffer());
-    if (isSqliteBytes(source)) {
-        return blobFromBytes(await buildSqlite(source, payload), 'application/vnd.sqlite3');
+    if (isSqliteBytes(originalBytes)) {
+        return blobFromBytes(await buildSqlite(originalBytes, payload), 'application/vnd.sqlite3');
     }
 
     throw new Error('Generic read-only formats cannot be rebuilt safely yet.');

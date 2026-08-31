@@ -728,6 +728,7 @@ export default function SaveEditor({ file, onBack, editorSlug, uploadToken }: Sa
                                     supportHref={supportPack ? supportPackMailto(supportPack) : contactHref}
                                     canSave={!!capabilities?.canSave}
                                     warnings={warnings}
+                                    onChange={format === 'generic-nrbf' ? handleDataChange : undefined}
                                 />
                             ) : (
                                 <QuickFieldEditor
@@ -890,6 +891,7 @@ function canEditRenpy(path: Array<string | number>, value: any, action: 'edit' |
 
 function buildGenericCanEdit(data: any) {
     if (!data?._format) return undefined;
+    if (data._format === '.NET BinaryFormatter / NRBF') return canEditGenericNrbf(data.data);
     if (data._format === 'SQLite database') return canEditGenericSqlite;
     if (data._format === 'ZIP container') return canEditGenericZip;
     if (String(data._format).includes('XML text') || String(data._format).includes('Plain text')) return canEditGenericText;
@@ -897,6 +899,18 @@ function buildGenericCanEdit(data: any) {
         return (_path: Array<string | number>, _value: any, action: 'edit' | 'add' | 'delete') => action !== 'delete';
     }
     return undefined;
+}
+
+function canEditGenericNrbf(root: unknown) {
+    return (path: Array<string | number>, _value: any, action: 'edit' | 'add' | 'delete') => {
+        if (action !== 'edit' || path.length === 0) return false;
+        let current: any = root;
+        for (const segment of path) {
+            if (!current || typeof current !== 'object' || !(segment in current)) return false;
+            current = current[segment];
+        }
+        return current !== null && typeof current !== 'object';
+    };
 }
 
 function canEditGenericZip(path: Array<string | number>, _value: any, action: 'edit' | 'add' | 'delete'): boolean {

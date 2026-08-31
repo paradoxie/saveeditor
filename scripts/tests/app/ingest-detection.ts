@@ -4,6 +4,7 @@ import pako from 'pako';
 import { appendUploadToken, buildIngestUrl, detectIngestRoute, readUploadToken } from '../../../src/lib/ingest';
 import { editors } from '../../../src/data/editors';
 import { localizePath } from '../../../src/i18n/utils';
+import { serialize, type NrbfObject } from 'ms-nrbf-js';
 
 function makeFile(name: string, bytes: Uint8Array, type = 'application/octet-stream'): File {
     return new File([bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer], name, { type });
@@ -59,10 +60,16 @@ async function main() {
     assert.equal(generic.engine, 'generic');
     const nrbf = await detectIngestRoute(makeFile('save.nrbf', new Uint8Array([0, 1, 0, 0, 0, 255, 255, 255, 255])));
     assert.equal(nrbf.engine, 'generic');
+    const nrbfObject: NrbfObject = { typeName: 'SaveData', members: { money: 10 } };
+    const nrbfBin = await detectIngestRoute(makeFile('dredge-save0.bin', new Uint8Array(serialize(nrbfObject))));
+    assert.equal(nrbfBin.engine, 'generic');
+    assert.equal(nrbfBin.confidence, 'high');
     const genericEditor = editors.find((editor) => editor.slug === 'generic');
     assert.ok(genericEditor);
     assert.match(genericEditor.fileType, /\.msgpack/);
     assert.match(genericEditor.fileType, /\.nrbf/);
+    assert.match(genericEditor.fileType, /\.bin/);
+    assert.match(genericEditor.fileType, /\.gd/);
 
     for (const result of [rpgmaker, renpy, palworld, genericSav, unityPrefs, rvdata2, generic]) {
         const editor = editors.find((item) => item.slug === result.engine);

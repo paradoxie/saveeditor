@@ -6,15 +6,18 @@ interface GenericInspectorProps {
     supportHref: string;
     canSave: boolean;
     warnings?: string[];
+    onChange?: (data: unknown) => void;
 }
 
 interface Row {
     path: string;
+    segments: Array<string | number>;
     type: string;
     value: string;
+    rawValue: unknown;
 }
 
-export default function GenericInspector({ data, supportHref, canSave, warnings = [] }: GenericInspectorProps) {
+export default function GenericInspector({ data, supportHref, canSave, warnings = [], onChange }: GenericInspectorProps) {
     const lang = typeof document !== 'undefined'
         ? (document.documentElement.getAttribute('lang') as keyof typeof ui) || 'en'
         : 'en';
@@ -26,6 +29,7 @@ export default function GenericInspector({ data, supportHref, canSave, warnings 
         ? rows.filter((row) => `${row.path} ${row.type} ${row.value}`.toLowerCase().includes(normalizedQuery))
         : rows;
     const readOnly = data?._readOnly !== false || !canSave;
+    const inlineEditable = !readOnly && data?._format === '.NET BinaryFormatter / NRBF' && Boolean(onChange);
 
     return (
         <div className="space-y-5">
@@ -70,7 +74,14 @@ export default function GenericInspector({ data, supportHref, canSave, warnings 
                             <tr key={row.path}>
                                 <td className="max-w-xs break-all px-3 py-2 font-mono text-xs text-slate-700">{row.path}</td>
                                 <td className="px-3 py-2 text-slate-600">{row.type}</td>
-                                <td className="max-w-md break-all px-3 py-2 text-slate-700">{row.value}</td>
+                                <td className="max-w-md break-all px-3 py-2 text-slate-700">
+                                    {inlineEditable && isEditableScalar(row.rawValue) ? (
+                                        <ScalarInput
+                                            value={row.rawValue as string | number | boolean}
+                                            onCommit={(value) => onChange?.(setValueAtPath(data.data, row.segments, value))}
+                                        />
+                                    ) : row.value}
+                                </td>
                                 <td className="px-3 py-2">
                                     <button
                                         type="button"
@@ -91,16 +102,16 @@ export default function GenericInspector({ data, supportHref, canSave, warnings 
 
 function flattenRows(input: unknown): Row[] {
     const rows: Row[] = [];
-    const stack: Array<{ value: unknown; path: string }> = [{ value: input, path: '$' }];
+    const stack: Array<{ value: unknown; path: string; segments: Array<string | number> }> = [{ value: input, path: '$', segments: [] }];
     const visited = new WeakSet<object>();
 
     while (stack.length > 0 && rows.length < 2000) {
         const current = stack.pop();
         if (!current) break;
-        const { value, path } = current;
+        const { value, path, segments } = current;
 
         if (!value || typeof value !== 'object') {
-            rows.push({ path, type: value === null ? 'null' : typeof value, value: String(value) });
+            rows.push({ path, segments, type: value === null ? 'null' : typeof value, value: String(value), rawValue: value });
             continue;
         }
 
@@ -111,12 +122,70 @@ function flattenRows(input: unknown): Row[] {
             ? value.map((item, index) => [String(index), item] as const)
             : Object.entries(value as Record<string, unknown>);
 
-        rows.push({ path, type: Array.isArray(value) ? `array(${value.length})` : 'object', value: `${entries.length} children` });
+        rows.push({ path, segments, type: Array.isArray(value) ? `array(${value.length})` : 'object', value: `${entries.length} children`, rawValue: value });
         for (let index = entries.length - 1; index >= 0; index -= 1) {
             const [key, child] = entries[index];
-            stack.push({ value: child, path: Array.isArray(value) ? `${path}[${key}]` : `${path}.${key}` });
+            const segment = Array.isArray(value) ? Number(key) : key;
+            stack.push({ value: child, path: Array.isArray(value) ? `${path}[${key}]` : `${path}.${key}`, segments: [...segments, segment] });
         }
     }
 
     return rows;
+}
+
+function isEditableScalar(value: unknown): value is string | number | boolean {
+    return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean';
+}
+
+function ScalarInput({ value, onCommit }: { value: string | number | boolean; onCommit: (value: string | number | boolean) => void }) {
+    const [draft, setDraft] = React.useState(String(value));
+    React.useEffect(() => setDraft(String(value)), [value]);
+
+    if (typeof value === 'boolean') {
+        return (
+            <input
+                type="checkbox"
+                checked={value}
+                onChange={(event) => onCommit(event.target.checked)}
+                className="h-4 w-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500"
+                aria-label="Edit boolean value"
+            />
+        );
+    }
+
+    const commit = () => {
+        if (typeof value === 'number') {
+            const number = Number(draft);
+            if (Number.isFinite(number)) onCommit(number);
+            else setDraft(String(value));
+            return;
+        }
+        onCommit(draft);
+    };
+
+    return (
+        <input
+            type={typeof value === 'number' ? 'number' : 'text'}
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+            onBlur={commit}
+            onKeyDown={(event) => {
+                if (event.key === 'Enter') event.currentTarget.blur();
+                if (event.key === 'Escape') {
+                    setDraft(String(value));
+                    event.currentTarget.blur();
+                }
+            }}
+            className="w-full min-w-32 rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-800 focus:border-primary-500 focus:ring-primary-500"
+            aria-label="Edit NRBF value"
+        />
+    );
+}
+
+function setValueAtPath(root: unknown, path: Array<string | number>, value: string | number | boolean): unknown {
+    const next = structuredClone(root);
+    let cursor: any = next;
+    for (let index = 0; index < path.length - 1; index += 1) cursor = cursor[path[index]];
+    cursor[path[path.length - 1]] = value;
+    return next;
 }

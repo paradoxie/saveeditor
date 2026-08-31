@@ -1,4 +1,5 @@
 import { makeOutcome, type FormatFamily, type ParseOutcome } from './parsers/types';
+import { isNrbfBytes } from './parsers/nrbf';
 import { GENERIC_EXTENSION_SET } from './saveExtensions';
 import { attachSupportPack, buildSupportPack } from './supportPack';
 
@@ -26,8 +27,12 @@ export async function parseSaveFile(file: File, editorSlug = ''): Promise<Parsed
     const ext = file.name.split('.').pop()?.toLowerCase() || '';
     let outcome: ParseOutcome<any>;
     let parserPath = inferParserPath(file, editorSlug);
+    const header = new Uint8Array(await file.slice(0, 17).arrayBuffer());
 
-    if (editorSlug === 'generic' && GENERIC_EXTENSION_SET.has(ext)) {
+    if (isNrbfBytes(header)) {
+        parserPath = 'generic';
+        outcome = await (await loadParsers.generic())(file);
+    } else if (editorSlug === 'generic' && GENERIC_EXTENSION_SET.has(ext)) {
         outcome = await (await loadParsers.generic())(file);
     } else if (ext === 'save') {
         outcome = await (await loadParsers.renpy())(file);

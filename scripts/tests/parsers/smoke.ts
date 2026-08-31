@@ -696,9 +696,9 @@ async function testGenericFormats() {
     const reparsedPickle = await parseGeneric(await blobToFile('save.pkl', rebuiltPickle));
     assert.equal((reparsedPickle.data as any).data.persistent.coins, 77);
 
-    const nrbf = await parseGeneric(makeFile('save.nrbf', new Uint8Array([0, 1, 0, 0, 0, 255, 255, 255, 255])));
-    assert.equal(nrbf.format, 'generic-nrbf');
-    assert.equal(nrbf.capabilities.canSave, false);
+    const nrbfCandidate = await parseGeneric(makeFile('save.nrbf', new Uint8Array([0, 1, 0, 0, 0, 255, 255, 255, 255])));
+    assert.equal(nrbfCandidate.format, 'generic-nrbf');
+    assert.equal(nrbfCandidate.capabilities.canSave, false);
 }
 
 function makeLcfSaveFixture(): Uint8Array {

@@ -173,16 +173,16 @@ export const editors: EditorData[] = [
   {
     slug: 'generic',
     name: 'Generic Save Editor',
-    fileType: '.sol, .db, .sqlite, .sqlite3, .msgpack, .mpack, .cbor, .bson, .yaml, .toml, .csv, .zip, .gz, .zlib, .deflate, .bz2, .bzip2, .lz4, .zst, .zstd, .b64, .base64, .lzstring, .xml, .es3, .dat, .nrbf, .bytes, .pkl, .pickle, .cfg',
+    fileType: '.sol, .db, .sqlite, .sqlite3, .msgpack, .mpack, .cbor, .bson, .yaml, .toml, .csv, .zip, .gz, .zlib, .deflate, .bz2, .bzip2, .lz4, .zst, .zstd, .b64, .base64, .lzstring, .xml, .es3, .dat, .nrbf, .bytes, .bin, .gd, .pkl, .pickle, .cfg',
     title: 'Generic Save Format Editor | ZIP, Base64, Zstd, SQLite',
     description:
-      'Browser editor for supported generic save formats such as ZIP-wrapped structured files, Base64, LZString, gzip/zlib/deflate/BZip2/LZ4/Zstd wrappers, Flash SOL, SQLite, MessagePack, CBOR, BSON, YAML, TOML, CSV, Easy Save 3 JSON, Godot CFG, XML text, and simple Python pickle, with read-only transparency for BinaryFormatter candidates.',
+      'Browser editor for supported generic save formats such as NRBF/BinaryFormatter object graphs, ZIP-wrapped structured files, Base64, LZString, gzip/zlib/deflate/BZip2/LZ4/Zstd wrappers, Flash SOL, SQLite, MessagePack, CBOR, BSON, YAML, TOML, CSV, Easy Save 3 JSON, Godot CFG, XML text, and simple Python pickle.',
     keywords:
       'save file editor, zip save editor, base64 save editor, sqlite save editor, sol save editor, msgpack save editor, cbor save editor, bson save editor, yaml save editor, es3 save editor',
     features: [
       'Edit supported structured formats',
       'Export rebuilt files in the same container',
-      'Show decoded structure for read-only formats',
+      'Edit existing NRBF scalar values without changing the CLR schema',
       'Explain unsupported export cases clearly',
     ],
     instructions: [
